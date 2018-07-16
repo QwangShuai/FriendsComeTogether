@@ -1,7 +1,7 @@
 package com.yiwo.friendscometogether;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -19,10 +19,8 @@ import com.yiwo.friendscometogether.fragment.MyFragment;
 
 import butterknife.BindView;
 
-public class MainActivity extends AppCompatActivity {
-
-  @BindView(R.id.tabhost)
-  FragmentTabHost tabhost;
+public class MainActivity extends FragmentActivity {
+  public static FragmentTabHost tabHost;
   // Tab选项卡的文字
   private String mTextviewArray[] = {"首页", "友聚","友记", "聊天","我的"};
   // 定义一个布局
@@ -43,18 +41,19 @@ public class MainActivity extends AppCompatActivity {
 
   private void initView(){
     layoutInflater = LayoutInflater.from(this);
-    tabhost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
-    tabhost.getTabWidget().setDividerDrawable(null);
+    tabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+    tabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+    tabHost.getTabWidget().setDividerDrawable(null);
 
     // 得到fragment的个数
     int count = fragmentArray.length;
 
     for (int i = 0; i < count; i++) {
       // 为每一个Tab按钮设置图标、文字和内容
-      TabHost.TabSpec tabSpec = tabhost.newTabSpec(mTextviewArray[i])
+      TabHost.TabSpec tabSpec = tabHost.newTabSpec(mTextviewArray[i])
               .setIndicator(getTabItemView(i));
       // 将Tab按钮添加进Tab选项卡中
-      tabhost.addTab(tabSpec, fragmentArray[i], null);
+      tabHost.addTab(tabSpec, fragmentArray[i], null);
     }
   }
   /**
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
    */
   private View getTabItemView(int index) {
     View view = layoutInflater.inflate(R.layout.item_tableview, null);
-
+    tabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
     ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
     imageView.setImageResource(mImageViewArray[index]);
 
@@ -72,6 +71,6 @@ public class MainActivity extends AppCompatActivity {
     return view;
   }
   public void setmTabHost(int i){
-    tabhost.setCurrentTab(i);
+    tabHost.setCurrentTab(i);
   }
 }
