@@ -2,8 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="友记"
+
+    <com.youth.banner.Banner
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fragment_friend_remember_banner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="186dp" />
+
 </LinearLayout>
