@@ -52,7 +52,7 @@
     <style name="v_split">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/gray_c4ced3</item>
+        <item name="android:background">@color/black_f8f8f8</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

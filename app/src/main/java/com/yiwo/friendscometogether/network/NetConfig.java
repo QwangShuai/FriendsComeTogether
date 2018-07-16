@@ -15,4 +15,6 @@ public class NetConfig {
     public static String registerUrl = BaseUrl + "action/ac_login/UseRregister";
     //找回密码
     public static String forgetPwUrl = BaseUrl +"action/ac_login/Retrievethepassword";
+    //城市列表
+    public static String cityUrl = BaseUrl +"action/ac_login/get_all_city";
 }

@@ -64,14 +64,14 @@ public class CityAdapter extends BaseAdapter {
             String id = cityBean.getId();
             if (id == null || id.equals("null") || StringUtils.isEmpty(id)) {
                 holder.rl.setBackgroundColor(context.getResources().getColor(R.color.white_ffffff));
-                holder.tv.setTextColor(context.getResources().getColor(R.color.black_252323));
+                holder.tv.setTextColor(context.getResources().getColor(R.color.black_333333));
             } else {
                 if (cityBean.getId().equals("-1")) {
-                    holder.rl.setBackgroundColor(context.getResources().getColor(R.color.gray_c4ced3));
-                    holder.tv.setTextColor(context.getResources().getColor(R.color.gray_a0a0a0));
+                    holder.rl.setBackgroundColor(context.getResources().getColor(R.color.black_f8f8f8));
+                    holder.tv.setTextColor(context.getResources().getColor(R.color.black_333333));
                 } else {
                     holder.rl.setBackgroundColor(context.getResources().getColor(R.color.white_ffffff));
-                    holder.tv.setTextColor(context.getResources().getColor(R.color.black_252323));
+                    holder.tv.setTextColor(context.getResources().getColor(R.color.black_333333));
                 }
             }
         }
