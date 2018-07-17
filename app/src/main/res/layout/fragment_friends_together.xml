@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout style="@style/rl_top_bar">
+
         <TextView
             style="@style/tv_top_title"
             android:text="友聚" />
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,21 +25,82 @@
                 android:id="@+id/fragment_friend_together_banner"
                 android:layout_width="match_parent"
                 android:layout_height="372px" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40px">
+                android:layout_height="40px"
+                android:layout_marginTop="26px">
+
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:id="@+id/select_city"
+                    android:layout_width="136px"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="80px"
-                    android:layout_width="128px"
-                    android:layout_height="match_parent">
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:gravity="center_vertical"
-                        android:textSize="28px"
-                        android:textColor="@color/black_333333"
                         android:layout_width="112px"
                         android:layout_height="match_parent"
-                        android:text="选择城市"/>
+                        android:gravity="center_vertical"
+                        android:text="选择城市"
+                        android:textColor="@color/black_333333"
+                        android:textSize="28px" />
+
+                    <ImageView
+                        android:layout_width="20px"
+                        android:layout_height="20px"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="4px"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/city" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/select_lable"
+                    android:layout_width="136px"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="112px"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="选择标签"
+                        android:textColor="@color/black_333333"
+                        android:textSize="28px" />
+
+                    <ImageView
+                        android:layout_width="20px"
+                        android:layout_height="20px"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="4px"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/label" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/search_leader"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="136px"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="80px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="112px"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="搜索领队"
+                        android:textColor="@color/black_333333"
+                        android:textSize="28px" />
+
+                    <ImageView
+                        android:layout_width="20px"
+                        android:layout_height="20px"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="4px"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/serach" />
                 </LinearLayout>
 
             </RelativeLayout>

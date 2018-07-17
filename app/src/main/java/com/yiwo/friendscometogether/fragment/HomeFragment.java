@@ -44,6 +44,6 @@ public class HomeFragment extends BaseFragment {
         return rootView;
     }
     public void initList(){
-    
+
     }
 }
