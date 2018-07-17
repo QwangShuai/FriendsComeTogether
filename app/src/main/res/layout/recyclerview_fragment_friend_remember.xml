@@ -7,25 +7,25 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="20px"
         android:background="#f8f8f8" />
 
     <ImageView
         android:scaleType="fitXY"
         android:id="@+id/fragment_friend_remember_rv_iv_title"
         android:layout_width="match_parent"
-        android:layout_height="186dp" />
+        android:layout_height="372px" />
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/fragment_friend_remember_rv_tv_title"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20px"
             android:textColor="#333333"
-            android:textSize="18sp"
+            android:textSize="36px"
             android:textStyle="bold"
             android:text="标题标题"
             android:layout_width="wrap_content"
@@ -34,8 +34,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/fragment_friend_remember_rv_ll_avatar"
-            android:layout_marginTop="9dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="18px"
+            android:layout_marginRight="32px"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -44,21 +44,24 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@mipmap/ic_launcher"
                 android:id="@+id/fragment_friend_remember_rv_iv_avatar"
-                android:layout_width="70dp"
-                android:layout_height="70dp" />
+                android:layout_width="140px"
+                android:layout_height="140px" />
 
             <TextView
-                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/fragment_friend_remember_rv_tv_nickname"
+                android:layout_marginTop="6px"
                 android:textColor="#333333"
-                android:textSize="12sp"
+                android:textSize="24px"
                 android:text="昵称昵称昵称"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/fragment_friend_remember_rv_tv_usergrade"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:textSize="9sp"
+                android:layout_marginTop="10px"
+                android:textSize="18px"
                 android:text="LV1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -66,13 +69,13 @@
         </LinearLayout>
 
         <TextView
+            android:layout_alignLeft="@+id/fragment_friend_remember_rv_tv_title"
             android:textColor="#333333"
-            android:textSize="14sp"
-            android:layout_marginRight="4dp"
+            android:textSize="28px"
+            android:layout_marginRight="8px"
             android:layout_toLeftOf="@+id/fragment_friend_remember_rv_ll_avatar"
             android:layout_below="@+id/fragment_friend_remember_rv_tv_title"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10px"
             android:id="@+id/fragment_friend_remember_rv_tv_content"
             android:text="开头讲个段子。在决定下笔写游记之前，我在朋友圈征集和酒有关旅行故事，很多人问我，要和酒有关的故事，还是要旅行故事？我说两者兼..."
             android:layout_width="wrap_content"
@@ -81,89 +84,94 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20px"
+        android:layout_marginTop="10px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/fragment_friend_remember_rv_tv_c_time"
             android:gravity="center"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20px"
             android:textColor="#333333"
-            android:textSize="12sp"
+            android:textSize="24px"
             android:text="2018-04-04"
             android:layout_width="wrap_content"
-            android:layout_height="17dp" />
+            android:layout_height="34px" />
         
         <LinearLayout
             android:id="@+id/fragment_friend_remember_rv_ll_look_num"
             android:layout_toRightOf="@+id/fragment_friend_remember_rv_tv_c_time"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20px"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="17dp">
+            android:layout_height="34px">
 
             <ImageView
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_launcher"
-                android:layout_width="14dp"
-                android:layout_height="10dp" />
+                android:layout_width="28px"
+                android:layout_height="20px" />
 
             <TextView
+                android:layout_marginLeft="6px"
+                android:id="@+id/fragment_friend_remember_rv_tv_look_num"
                 android:gravity="center"
                 android:textColor="#FF9D00"
-                android:textSize="12sp"
+                android:textSize="24px"
                 android:text="1234"
                 android:layout_width="wrap_content"
-                android:layout_height="17dp" />
+                android:layout_height="34px" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/fragment_friend_remember_rv_ll_comment_num"
             android:layout_toRightOf="@+id/fragment_friend_remember_rv_ll_look_num"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20px"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="17dp">
+            android:layout_height="34px">
 
             <ImageView
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/ic_launcher"
-                android:layout_width="13dp"
-                android:layout_height="12dp" />
+                android:src="@mipmap/index_message"
+                android:layout_width="26px"
+                android:layout_height="24px" />
 
             <TextView
+                android:layout_marginLeft="6px"
+                android:id="@+id/fragment_friend_remember_rv_tv_comment_num"
                 android:gravity="center"
                 android:textColor="#FF9D00"
-                android:textSize="12sp"
+                android:textSize="24px"
                 android:text="1234"
                 android:layout_width="wrap_content"
-                android:layout_height="17dp" />
+                android:layout_height="34px" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginRight="31dp"
+            android:layout_marginRight="62px"
             android:layout_alignParentRight="true"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="17dp">
+            android:layout_height="34px">
 
             <ImageView
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_launcher"
-                android:layout_width="13dp"
-                android:layout_height="12dp" />
+                android:layout_width="26px"
+                android:layout_height="24px" />
 
             <TextView
+                android:layout_marginLeft="4px"
                 android:gravity="center"
                 android:textColor="#FF9D00"
-                android:textSize="12sp"
+                android:textSize="24px"
                 android:text="关注"
                 android:layout_width="wrap_content"
-                android:layout_height="17dp" />
+                android:layout_height="34px" />
 
         </LinearLayout>
 

@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.FriendsRememberModel;
 
 import java.util.List;
 
@@ -18,23 +21,33 @@ import java.util.List;
 
 public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendRememberUpDataAdapter.ViewHolder> {
 
-    private List<String> data;
+    private List<FriendsRememberModel.ObjBean> data;
     private Context context;
 
-    public FriendRememberUpDataAdapter(List<String> data) {
+    public FriendRememberUpDataAdapter(List<FriendsRememberModel.ObjBean> data) {
         this.data = data;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        ViewHolder holder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_fragment_friend_remember, parent, false));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_fragment_friend_remember, parent, false);
+        ScreenAdapterTools.getInstance().loadView(view);
+        ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Picasso.with(context).load(data.get(position)).into(holder.ivTitle);
+        Picasso.with(context).load(data.get(position).getFmpic()).into(holder.ivTitle);
+        holder.tvTitle.setText(data.get(position).getFmtitle());
+        holder.tvContent.setText(data.get(position).getFmcontent());
+        Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.ivAvatar);
+        holder.tvNickname.setText(data.get(position).getUsername());
+        holder.tvUsergrade.setText(data.get(position).getUsergrade());
+        holder.tvCreateTime.setText(data.get(position).getFmtime());
+        holder.tvLookNum.setText(data.get(position).getFmlook());
+        holder.tvCommentNum.setText(data.get(position).getFmcomment());
     }
 
     @Override
@@ -45,10 +58,26 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivTitle;
+        private TextView tvTitle;
+        private TextView tvContent;
+        private ImageView ivAvatar;
+        private TextView tvNickname;
+        private TextView tvUsergrade;
+        private TextView tvCreateTime;
+        private TextView tvLookNum;
+        private TextView tvCommentNum;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivTitle = itemView.findViewById(R.id.fragment_friend_remember_rv_iv_title);
+            tvTitle = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_title);
+            tvContent = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_content);
+            ivAvatar = itemView.findViewById(R.id.fragment_friend_remember_rv_iv_avatar);
+            tvNickname = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_nickname);
+            tvUsergrade = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_usergrade);
+            tvCreateTime = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_c_time);
+            tvLookNum = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_look_num);
+            tvCommentNum = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_comment_num);
         }
     }
 

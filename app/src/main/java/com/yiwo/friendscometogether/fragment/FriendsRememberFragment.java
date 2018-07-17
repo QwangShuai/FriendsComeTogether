@@ -5,19 +5,34 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.squareup.okhttp.Request;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
+import com.yiwo.friendscometogether.model.CityModel;
+import com.yiwo.friendscometogether.model.FriendsRememberModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,16 +58,52 @@ public class FriendsRememberFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_friends_remember,null);
+        ScreenAdapterTools.getInstance().loadView(rootView);
 
         ButterKnife.bind(this, rootView);
 
         init(banner,DetailsOfFriendsActivity.class);
-        initList();
+        initData();
 
         return rootView;
     }
 
-    private void initList() {
+    private void initData() {
+
+        OkHttpUtils.post()
+                .tag(this)
+                .url(NetConfig.friendsRememberUrl)
+                .addParams("page",1+"")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        String result = new String(Base64.decode(response.getBytes(),Base64.DEFAULT));
+                        try {
+                            JSONObject jsonObject =new JSONObject(result);
+                            int code = jsonObject.optInt("code");
+                            if(code==200){
+                                Gson gson = new Gson();
+                                FriendsRememberModel friendsRememberModel = gson.fromJson(result, FriendsRememberModel.class);
+                                initList(friendsRememberModel.getObj());
+                            } else {
+                                toToast(getContext(),jsonObject.optString("message").toString());
+                            }
+                            adapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+    }
+
+    private void initList(List<FriendsRememberModel.ObjBean> data) {
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext()){
             @Override
@@ -62,10 +113,6 @@ public class FriendsRememberFragment extends BaseFragment {
         };
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        List<String> data = new ArrayList<>();
-        data.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg");
-        data.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739807163&di=f3875854f37cf9d8f5261998f229bd03&imgtype=0&src=http%3A%2F%2Fattachments.gfan.com%2Fforum%2Fattachments2%2Fday_100825%2F10082513558ebc5978899bb24c.jpg");
-        data.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739807163&di=3be9c2032fcb53a8764c5d5a1409c58a&imgtype=0&src=http%3A%2F%2Fattachments.gfan.com%2Fforum%2F201612%2F12%2F22290422z010jrivvoloid.jpg");
         adapter = new FriendRememberUpDataAdapter(data);
         recyclerView.setAdapter(adapter);
 

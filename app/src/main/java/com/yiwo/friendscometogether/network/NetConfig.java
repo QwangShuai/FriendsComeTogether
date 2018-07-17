@@ -17,4 +17,8 @@ public class NetConfig {
     public static String forgetPwUrl = BaseUrl +"action/ac_login/Retrievethepassword";
     //城市列表
     public static String cityUrl = BaseUrl +"action/ac_login/get_all_city";
+    //文章列表
+    public static String friendsRememberUrl = BaseUrl +"action/ac_article/article_list";
+    //文章列表幻灯片
+    public static String friendsRememberBannerUrl = BaseUrl +"action/ac_article/article_slide";
 }

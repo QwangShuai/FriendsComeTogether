@@ -16,7 +16,7 @@
             <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/fragment_friend_remember_banner"
                 android:layout_width="match_parent"
-                android:layout_height="186dp" />
+                android:layout_height="372px" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             <RelativeLayout
                 android:background="#F8F8F8"
                 android:layout_width="match_parent"
-                android:layout_height="65dp">
+                android:layout_height="130px">
 
                 <LinearLayout
                     android:layout_centerInParent="true"
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:textSize="15sp"
+                        android:textSize="30px"
                         android:textColor="#6A6A6A"
                         android:text="查看更多"
                         android:layout_width="wrap_content"
@@ -50,8 +50,8 @@
                     <ImageView
                         android:layout_gravity="center_vertical"
                         android:src="@mipmap/ic_launcher"
-                        android:layout_width="12dp"
-                        android:layout_height="7dp" />
+                        android:layout_width="24px"
+                        android:layout_height="14px" />
 
                 </LinearLayout>
 
@@ -60,13 +60,13 @@
             <RelativeLayout
                 android:background="#F8F8F8"
                 android:layout_width="match_parent"
-                android:layout_height="65dp">
+                android:layout_height="130px">
 
                 <View
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20px"
                     android:background="#E5E5E5"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp" />
+                    android:layout_height="2px" />
 
                 <LinearLayout
                     android:layout_centerInParent="true"
@@ -77,14 +77,14 @@
                     <View
                         android:layout_gravity="center_vertical"
                         android:background="#979797"
-                        android:layout_width="40dp"
-                        android:layout_height="1dp"
+                        android:layout_width="80px"
+                        android:layout_height="2px"
                         />
 
                     <TextView
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:textSize="15sp"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="20px"
+                        android:textSize="30px"
                         android:textColor="#6A6A6A"
                         android:text="已经到底了"
                         android:layout_width="wrap_content"
@@ -93,8 +93,8 @@
                     <View
                         android:layout_gravity="center_vertical"
                         android:background="#979797"
-                        android:layout_width="40dp"
-                        android:layout_height="1dp"
+                        android:layout_width="80px"
+                        android:layout_height="2px"
                         />
 
                 </LinearLayout>

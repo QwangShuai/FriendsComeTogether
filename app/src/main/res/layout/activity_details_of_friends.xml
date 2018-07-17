@@ -413,13 +413,149 @@
                 android:layout_width="match_parent"
                 android:layout_height="98px">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
                     android:layout_height="wrap_content">
 
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/details_intercalation"
+                        android:layout_width="36px"
+                        android:layout_height="36px" />
 
+                    <TextView
+                        android:layout_marginTop="6px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#404040"
+                        android:textSize="20px"
+                        android:text="插文"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/details_comments"
+                        android:layout_width="36px"
+                        android:layout_height="36px" />
+
+                    <TextView
+                        android:layout_marginTop="6px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#404040"
+                        android:textSize="20px"
+                        android:text="评论"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/details_share"
+                        android:layout_width="36px"
+                        android:layout_height="36px" />
+
+                    <TextView
+                        android:layout_marginTop="6px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#404040"
+                        android:textSize="20px"
+                        android:text="分享"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/details_focus_on_b"
+                        android:layout_width="36px"
+                        android:layout_height="36px" />
+
+                    <TextView
+                        android:layout_marginTop="6px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#404040"
+                        android:textSize="20px"
+                        android:text="关注"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/details_praise_b"
+                        android:layout_width="36px"
+                        android:layout_height="36px" />
+
+                    <TextView
+                        android:layout_marginTop="6px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#404040"
+                        android:textSize="20px"
+                        android:text="点赞"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/details_star_b"
+                        android:layout_width="36px"
+                        android:layout_height="36px" />
+
+                    <TextView
+                        android:layout_marginTop="6px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#404040"
+                        android:textSize="20px"
+                        android:text="收藏"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
