@@ -109,7 +109,7 @@
 
             <ImageView
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/views"
                 android:layout_width="28px"
                 android:layout_height="20px" />
 

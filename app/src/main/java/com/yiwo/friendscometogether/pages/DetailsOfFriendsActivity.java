@@ -3,7 +3,11 @@ package com.yiwo.friendscometogether.pages;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -16,13 +20,40 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailsOfFriendsActivity extends BaseActivity {
 
+    @BindView(R.id.activity_details_of_friends_rl_back)
+    RelativeLayout rlBack;
     @BindView(R.id.activity_details_of_friends_iv_title)
     ImageView ivTitle;
     @BindView(R.id.activity_details_of_friends_rv)
     RecyclerView recyclerView;
+    @BindView(R.id.activity_details_of_friends_ll_intercalation)
+    LinearLayout llIntercalation;
+    @BindView(R.id.activity_details_of_friends_ll_comment)
+    LinearLayout llComment;
+    @BindView(R.id.activity_details_of_friends_ll_share)
+    LinearLayout llShare;
+    @BindView(R.id.activity_details_of_friends_ll_focus)
+    LinearLayout llFocus;
+    @BindView(R.id.activity_details_of_friends_iv_focus)
+    ImageView ivFocus;
+    @BindView(R.id.activity_details_of_friends_tv_focus)
+    TextView tvFocus;
+    @BindView(R.id.activity_details_of_friends_ll_praise)
+    LinearLayout llPraise;
+    @BindView(R.id.activity_details_of_friends_iv_praise)
+    ImageView ivPraise;
+    @BindView(R.id.activity_details_of_friends_tv_praise)
+    TextView tvPraise;
+    @BindView(R.id.activity_details_of_friends_ll_star)
+    LinearLayout llStar;
+    @BindView(R.id.activity_details_of_friends_iv_star)
+    ImageView ivStar;
+    @BindView(R.id.activity_details_of_friends_tv_star)
+    TextView tvStar;
 
     private DetailsOfFriendsUpDataAdapter adapter;
 
@@ -42,7 +73,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
         Picasso.with(DetailsOfFriendsActivity.this).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg").into(ivTitle);
 
-        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendsActivity.this){
+        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendsActivity.this) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -57,5 +88,20 @@ public class DetailsOfFriendsActivity extends BaseActivity {
         adapter = new DetailsOfFriendsUpDataAdapter(data);
         recyclerView.setAdapter(adapter);
 
+    }
+
+    @OnClick({R.id.activity_details_of_friends_rl_back})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.activity_details_of_friends_rl_back:
+                onBackPressed();
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        DetailsOfFriendsActivity.this.finish();
     }
 }

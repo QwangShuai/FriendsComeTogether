@@ -2,8 +2,234 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="我的"
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <TextView
+            android:text="我的"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="258px">
+
+                <ImageView
+                    android:id="@+id/fragment_my_head_bg"
+                    android:background="@mipmap/head_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="238px" />
+
+                <View
+                    android:layout_below="@+id/fragment_my_head_bg"
+                    android:background="#F8F8F8"
+                    android:layout_width="match_parent"
+                    android:layout_height="20px"/>
+
+                <com.yiwo.friendscometogether.custom.CImageView
+                    android:layout_marginTop="20px"
+                    android:layout_marginLeft="20px"
+                    android:src="@mipmap/my_head"
+                    android:layout_width="200px"
+                    android:layout_height="200px" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"
+                    android:textSize="36px"
+                    android:textColor="#333333"
+                    android:text="未登录"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="84px">
+
+                <TextView
+                    android:layout_marginLeft="42px"
+                    android:layout_centerVertical="true"
+                    android:textColor="#333333"
+                    android:textSize="30px"
+                    android:text="我的订单"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_marginRight="40px"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textSize="24px"
+                        android:textColor="#333333"
+                        android:text="查看更多订单"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_marginLeft="10px"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/right"
+                        android:layout_width="10px"
+                        android:layout_height="17px" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+            
+            <View
+                android:background="#E5E5E5"
+                android:layout_width="match_parent"
+                android:layout_height="2px"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="152px">
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/unpay"
+                        android:layout_width="50px"
+                        android:layout_height="50px" />
+
+                    <TextView
+                        android:layout_marginTop="5px"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="30px"
+                        android:textColor="#333333"
+                        android:text="待支付"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/travl"
+                        android:layout_width="50px"
+                        android:layout_height="50px" />
+
+                    <TextView
+                        android:layout_marginTop="5px"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="30px"
+                        android:textColor="#333333"
+                        android:text="待行程"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/evaluation"
+                        android:layout_width="50px"
+                        android:layout_height="50px" />
+
+                    <TextView
+                        android:layout_marginTop="5px"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="30px"
+                        android:textColor="#333333"
+                        android:text="待评价"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/refund"
+                        android:layout_width="50px"
+                        android:layout_height="50px" />
+
+                    <TextView
+                        android:layout_marginTop="5px"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="30px"
+                        android:textColor="#333333"
+                        android:text="退款"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            
+            <View
+                android:background="#F8F8F8"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80px">
+
+                <TextView
+                    android:layout_marginLeft="42px"
+                    android:layout_centerVertical="true"
+                    android:textSize="30px"
+                    android:textColor="#333333"
+                    android:text="我的友记"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+            
+            <View
+                android:background="#E5E5E5"
+                android:layout_width="match_parent"
+                android:layout_height="2px"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>
