@@ -33,4 +33,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.chengzipi:Searchbox:v1.0.0'
 }
