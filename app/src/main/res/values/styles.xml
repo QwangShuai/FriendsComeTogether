@@ -11,7 +11,7 @@
     <style name="tv_top_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">32px</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:textStyle">bold</item>
@@ -20,18 +20,18 @@
     <RelativeLayout-->
     <style name="rl_top_bar">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_height">88px</item>
         <item name="android:background">@android:color/black</item>
     </style>
     <!--返回图片样式-->
     <style name="iv_return">
-        <item name="android:layout_width">8dp</item>
-        <item name="android:layout_height">13dp</item>
+        <item name="android:layout_width">16px</item>
+        <item name="android:layout_height">26px</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:scaleType">fitXY</item>
         <item name="android:src">@mipmap/back_w</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">20px</item>
+        <item name="android:layout_marginRight">20px</item>
     </style>
     <!--返回RelativeLayout样式-->
     <style name="rl_return">
@@ -51,7 +51,7 @@
     <!--分割线样式-->
     <style name="v_split">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_height">2px</item>
         <item name="android:background">@color/black_f8f8f8</item>
     </style>
     <style name="AppTheme.NoActionBar">
