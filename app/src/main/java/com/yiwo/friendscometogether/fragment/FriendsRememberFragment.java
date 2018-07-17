@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +13,11 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +99,15 @@ public class FriendsRememberFragment extends BaseFragment {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), DetailsOfFriendsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
