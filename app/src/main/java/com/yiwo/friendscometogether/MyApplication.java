@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.utils.FTPTimeCount;
 import com.yiwo.friendscometogether.utils.TimeCount;
 
@@ -38,6 +39,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ScreenAdapterTools.init(this);
         //oncreate方法中写
         timecount =  new TimeCount(60000, 1000);
         ftptimecount =  new FTPTimeCount(60000, 1000);
