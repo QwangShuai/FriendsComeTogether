@@ -2,8 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="友聚"
+    <RelativeLayout style="@style/rl_top_bar">
+        <TextView
+            style="@style/tv_top_title"
+            android:text="友聚" />
+    </RelativeLayout>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/fragment_friend_together_banner"
+                android:layout_width="match_parent"
+                android:layout_height="372px" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40px">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginLeft="80px"
+                    android:layout_width="128px"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:textSize="28px"
+                        android:textColor="@color/black_333333"
+                        android:layout_width="112px"
+                        android:layout_height="match_parent"
+                        android:text="选择城市"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

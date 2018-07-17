@@ -39,11 +39,11 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home,null);
         ButterKnife.bind(this, rootView);
-        ScreenAdapterTools.getInstance().loadView(getActivity().getWindow().getDecorView());
+        ScreenAdapterTools.getInstance().loadView(rootView);
         init(banner,DetailsOfFriendsActivity.class);
         return rootView;
     }
     public void initList(){
-
+    
     }
 }
