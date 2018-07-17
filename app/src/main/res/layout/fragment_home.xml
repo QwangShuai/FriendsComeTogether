@@ -16,20 +16,22 @@
                 android:id="@+id/fragment_home_banner"
                 android:layout_width="match_parent"
                 android:layout_height="186dp" />
-            <LinearLayout
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
                     android:id="@+id/locationLv"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
                     android:src="@mipmap/index_location" />
 
                 <TextView
+                    android:layout_toRightOf="@+id/locationLv"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:layout_marginLeft="5dp"
@@ -40,11 +42,11 @@
                     android:text="哈尔滨" />
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/locationTv"
                     android:gravity="center"
                     android:background="@drawable/bg_search1"
                     android:layout_marginLeft="15dp"
-                    android:layout_width="237dp"
+                    android:layout_width="234dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
                     android:orientation="horizontal">
@@ -63,13 +65,14 @@
                         android:text="搜索景点/领队" />
                 </LinearLayout>
                 <ImageView
+                    android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
-                    android:layout_gravity="right|center_vertical"
+                    android:layout_centerVertical="true"
                     android:id="@+id/messageLv"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:src="@mipmap/index_message" />
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
