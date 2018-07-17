@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.yiwo.friendscometogether.R;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Picasso.with(context).load(data.get(position)).into(holder.ivTitle);
     }
 
     @Override
