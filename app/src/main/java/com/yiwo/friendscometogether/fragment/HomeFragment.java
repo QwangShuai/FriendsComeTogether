@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
+import com.yiwo.friendscometogether.adapter.HomeHotAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
@@ -31,12 +33,13 @@ public class HomeFragment extends BaseFragment {
     View rootView;
     @BindView(R.id.fragment_home_banner)
     Banner banner;
-    private FriendRememberUpDataAdapter adapter;
+    private HomeHotAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home,null);
         ButterKnife.bind(this, rootView);
+        ScreenAdapterTools.getInstance().loadView(getActivity().getWindow().getDecorView());
         init(banner,DetailsOfFriendsActivity.class);
         return rootView;
     }
