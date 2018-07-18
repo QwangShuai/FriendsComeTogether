@@ -23,4 +23,8 @@ public class NetConfig {
     public static String friendsRememberBannerUrl = "action/ac_article/article_slide";
     //文章详情
     public static String articleContentUrl = "action/ac_article/article_slide";
+    //友聚列表
+    public static String friendsTogetherUrl = "action/ac_activity/activity_all_list";
+    //友聚详情
+    public static String friendsTogetherDetaUrl = "action/ac_activity/activity_info";
 }

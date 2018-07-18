@@ -17,14 +17,17 @@
         android:layout_marginTop="16px"
         android:layout_width="match_parent"
         android:layout_height="281px">
+
         <TextView
             android:id="@+id/titleTv"
-            android:layout_marginLeft="20px"
-            android:textSize="36px"
-            android:textColor="@color/black_333333"
             android:layout_width="520px"
             android:layout_height="50px"
-            android:text="标题标题"/>
+            android:layout_alignLeft="@+id/contentTv"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/contentTv"
+            android:text="标题标题"
+            android:textColor="@color/black_333333"
+            android:textSize="36px" />
         <TextView
             android:id="@+id/contentTv"
             android:text="开头讲个段子。在决定下笔写游记之前，我在朋友圈征集和酒有关旅行故事，很多人问我，要和酒有关的故事，还是要旅行故事？我说两者兼..."
@@ -35,37 +38,44 @@
             android:textColor="@color/black_333333"
             android:layout_width="520px"
             android:layout_height="161px" />
-        <android.support.v7.app.AlertController.RecycleListView
+        <LinearLayout
+            android:layout_marginTop="10px"
+            android:layout_marginLeft="10px"
+            android:orientation="horizontal"
             android:layout_below="@+id/contentTv"
             android:id="@+id/vessel"
             android:layout_width="520px"
             android:layout_height="50px">
-        </android.support.v7.app.AlertController.RecycleListView>
+        </LinearLayout>
         <LinearLayout
             android:layout_marginRight="21px"
             android:orientation="vertical"
             android:layout_alignParentRight="true"
             android:layout_width="176px"
             android:layout_height="match_parent">
+
             <com.yiwo.friendscometogether.custom.CImageView
-                android:layout_marginTop="26px"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/headIv"
                 android:layout_width="140px"
                 android:layout_height="140px"
-                android:src="@mipmap/ic_launcher"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="26px"
+                android:src="@mipmap/ic_launcher" />
             <RelativeLayout
                 android:id="@+id/item_levelBg"
                 android:background="@mipmap/level_red"
                 android:layout_width="match_parent"
                 android:layout_height="62px">
+
                 <TextView
-                    android:layout_marginTop="16px"
-                    android:layout_marginLeft="46px"
-                    android:textSize="30px"
-                    android:textColor="@color/white_ffffff"
-                    android:text="签约领队"
+                    android:id="@+id/levelTv"
                     android:layout_width="wrap_content"
-                    android:layout_height="42px" />
+                    android:layout_height="42px"
+                    android:layout_marginLeft="46px"
+                    android:layout_marginTop="16px"
+                    android:text="签约领队"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="30px" />
             </RelativeLayout>
             <TextView
                 android:textColor="@color/black_333333"
