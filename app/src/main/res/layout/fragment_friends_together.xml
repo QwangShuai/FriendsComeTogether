@@ -113,6 +113,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
+            <RelativeLayout
+                android:background="#F8F8F8"
+                android:layout_width="match_parent"
+                android:layout_height="130px">
+
+                <View
+                    android:layout_marginTop="20px"
+                    android:background="#E5E5E5"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px" />
+
+                <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_gravity="center_vertical"
+                        android:background="#979797"
+                        android:layout_width="80px"
+                        android:layout_height="2px"
+                        />
+
+                    <TextView
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="20px"
+                        android:textSize="30px"
+                        android:textColor="#6A6A6A"
+                        android:text="已经到底了"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <View
+                        android:layout_gravity="center_vertical"
+                        android:background="#979797"
+                        android:layout_width="80px"
+                        android:layout_height="2px"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
