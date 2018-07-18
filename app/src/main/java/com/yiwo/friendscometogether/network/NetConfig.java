@@ -26,5 +26,5 @@ public class NetConfig {
     //友聚列表
     public static String friendsTogetherUrl = "action/ac_activity/activity_all_list";
     //友聚详情
-    public static String friendsTogetherDetaUrl = "action/ac_activity/activity_info";
+    public static String friendsTogetherDetailsUrl = "action/ac_activity/activity_info";
 }

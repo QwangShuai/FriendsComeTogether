@@ -102,7 +102,16 @@
                         android:scaleType="fitXY"
                         android:src="@mipmap/serach" />
                 </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_friend_together_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

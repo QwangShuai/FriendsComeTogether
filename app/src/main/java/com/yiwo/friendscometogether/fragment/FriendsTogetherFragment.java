@@ -35,7 +35,7 @@ public class FriendsTogetherFragment extends BaseFragment{
     View rootView;
     @BindView(R.id.fragment_friend_together_banner)
     Banner banner;
-    @BindView(R.id.fragment_friend_together_banner)
+    @BindView(R.id.fragment_friend_together_rv)
     RecyclerView recyclerView;
 
     private FriendTogetherUpDataAdapter adapter;
@@ -53,7 +53,7 @@ public class FriendsTogetherFragment extends BaseFragment{
 
     private void initData() {
 
-        ViseHttp.POST(NetConfig.friendsRememberUrl)
+        ViseHttp.POST(NetConfig.friendsTogetherUrl)
                 .addParam("page", "1")
                 .request(new ACallback<String>() {
                     @Override
