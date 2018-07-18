@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <View
@@ -82,12 +83,68 @@
         android:background="@color/gray_e5e5e5"
         android:layout_margin="20px"></View>
     <RelativeLayout
+        android:layout_marginBottom="21px"
+        android:layout_marginTop="5px"
         android:layout_width="match_parent"
         android:layout_height="42px">
         <LinearLayout
+            android:layout_marginLeft="31px"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:id="@+id/look_overLl">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="38px"
+                android:layout_height="38px"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/look_over" />
+            <TextView
+                android:layout_marginLeft="7px"
+                android:text="查看评价"
+                android:textColor="@color/black_333333"
+                android:textSize="28px"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/consult_leaderLl">
+            <ImageView
+                android:layout_width="42px"
+                android:layout_height="42px"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/consult" />
+            <TextView
+                android:layout_marginLeft="7px"
+                android:text="咨询队长"
+                android:textColor="@color/black_333333"
+                android:textSize="28px"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30px"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/focus_on_activitiesLl">
+            <ImageView
+                android:layout_width="38px"
+                android:layout_height="38px"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/focus_on_empty_y" />
+            <TextView
+                android:layout_marginLeft="7px"
+                android:text="关注活动"
+                android:textColor="@color/black_333333"
+                android:textSize="28px"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

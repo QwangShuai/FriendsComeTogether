@@ -58,7 +58,7 @@ public class LoginActivity extends BaseActivity {
         unbinder = ButterKnife.bind(this);
         c = LoginActivity.this;
         spImp = new SpImp(c);
-   }
+    }
     @OnClick({R.id.rl_set_return,R.id.login_btn,R.id.login_registerTv,R.id.login_forgetPwTv,R.id.login_wechatIv})
     public void onClick(View v){
         switch (v.getId()){
