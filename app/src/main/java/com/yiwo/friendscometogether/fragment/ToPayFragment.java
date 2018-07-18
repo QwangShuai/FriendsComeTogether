@@ -13,6 +13,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FragmentToPayAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.base.OrderBaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,27 +25,29 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/7/18.
  */
 
-public class ToPayFragment extends BaseFragment {
+public class ToPayFragment extends OrderBaseFragment {
 
     @BindView(R.id.fragment_to_pay_rv)
     RecyclerView recyclerView;
 
     private FragmentToPayAdapter adapter;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_to_pay, null);
+    public View initView() {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_to_pay, null);
         ScreenAdapterTools.getInstance().loadView(view);
 
         ButterKnife.bind(this, view);
 
-        initData();
-
         return view;
     }
 
-    private void initData() {
+    @Override
+    public void initData() {
+        initData1();
+    }
+
+    private void initData1() {
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
