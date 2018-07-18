@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.pages.MyFocusActivity;
 import com.yiwo.friendscometogether.pages.MyOrderActivity;
 
 import butterknife.BindView;
@@ -34,6 +36,8 @@ public class MyFragment extends BaseFragment {
     LinearLayout llComment;
     @BindView(R.id.fragment_my_ll_return_price)
     LinearLayout llReturnPrice;
+    @BindView(R.id.fragment_my_rl_focus)
+    RelativeLayout rlFocus;
 
     @Nullable
     @Override
@@ -46,7 +50,8 @@ public class MyFragment extends BaseFragment {
         return rootView;
     }
 
-    @OnClick({R.id.fragment_my_ll_look_more, R.id.fragment_my_ll_to_pay, R.id.fragment_my_ll_to_trip, R.id.fragment_my_ll_to_comment, R.id.fragment_my_ll_return_price})
+    @OnClick({R.id.fragment_my_ll_look_more, R.id.fragment_my_ll_to_pay, R.id.fragment_my_ll_to_trip, R.id.fragment_my_ll_to_comment, R.id.fragment_my_ll_return_price,
+    R.id.fragment_my_rl_focus})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -73,6 +78,10 @@ public class MyFragment extends BaseFragment {
             case R.id.fragment_my_ll_return_price:
                 intent.setClass(getContext(), MyOrderActivity.class);
                 intent.putExtra("position", 4);
+                startActivity(intent);
+                break;
+            case R.id.fragment_my_rl_focus:
+                intent.setClass(getContext(), MyFocusActivity.class);
                 startActivity(intent);
                 break;
         }
