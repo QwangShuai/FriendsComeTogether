@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_friend_remember_rv_ll"
     android:orientation="vertical"
     android:background="#FFFFFF"
     android:layout_width="match_parent"
@@ -57,14 +58,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/fragment_friend_remember_rv_tv_usergrade"
+            <RelativeLayout
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10px"
-                android:textSize="18px"
-                android:text="LV1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="102px"
+                android:layout_height="30px">
+
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/level_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/fragment_friend_remember_rv_tv_usergrade"
+                    android:layout_marginRight="19px"
+                    android:layout_centerVertical="true"
+                    android:textSize="18px"
+                    android:textColor="#FFFFFF"
+                    android:layout_alignParentRight="true"
+                    android:text="LV1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

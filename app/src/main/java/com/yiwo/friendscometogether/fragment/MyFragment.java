@@ -52,22 +52,27 @@ public class MyFragment extends BaseFragment {
         switch (view.getId()){
             case R.id.fragment_my_ll_look_more:
                 intent.setClass(getContext(), MyOrderActivity.class);
+                intent.putExtra("position", 0);
                 startActivity(intent);
                 break;
             case R.id.fragment_my_ll_to_pay:
                 intent.setClass(getContext(), MyOrderActivity.class);
+                intent.putExtra("position", 1);
                 startActivity(intent);
                 break;
             case R.id.fragment_my_ll_to_trip:
                 intent.setClass(getContext(), MyOrderActivity.class);
+                intent.putExtra("position", 2);
                 startActivity(intent);
                 break;
             case R.id.fragment_my_ll_to_comment:
                 intent.setClass(getContext(), MyOrderActivity.class);
+                intent.putExtra("position", 3);
                 startActivity(intent);
                 break;
             case R.id.fragment_my_ll_return_price:
                 intent.setClass(getContext(), MyOrderActivity.class);
+                intent.putExtra("position", 4);
                 startActivity(intent);
                 break;
         }

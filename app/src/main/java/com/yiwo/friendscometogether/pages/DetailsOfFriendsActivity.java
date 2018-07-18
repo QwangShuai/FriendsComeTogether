@@ -1,8 +1,10 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,10 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.network.NetConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,11 +70,29 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        init();
+        initData();
 
     }
 
-    private void init() {
+    private void initData() {
+
+        Intent intent = getIntent();
+        String fmid = intent.getStringExtra("fmid");
+
+        ViseHttp.POST(NetConfig.articleContentUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleContentUrl))
+                .addParam("id", fmid)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.e("222", data);
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
         Picasso.with(DetailsOfFriendsActivity.this).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg").into(ivTitle);
 

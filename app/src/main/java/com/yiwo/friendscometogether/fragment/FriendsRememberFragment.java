@@ -73,11 +73,24 @@ public class FriendsRememberFragment extends BaseFragment {
     private void initData() {
 
         ViseHttp.POST(NetConfig.friendsRememberUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.friendsRememberUrl))
                 .addParam("page", "1")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        Log.e("222", data);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            int code = jsonObject.getInt("code");
+                            if(code == 200){
+                                Gson gson = new Gson();
+                                FriendsRememberModel friendsRememberModel = gson.fromJson(data, FriendsRememberModel.class);
+                                initList(friendsRememberModel.getObj());
+                            }else {
+                                toToast(getContext(), jsonObject.getString("message"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

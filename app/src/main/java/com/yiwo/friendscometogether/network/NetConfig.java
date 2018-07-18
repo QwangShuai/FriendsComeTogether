@@ -21,4 +21,6 @@ public class NetConfig {
     public static String friendsRememberUrl = "action/ac_article/article_list";
     //文章列表幻灯片
     public static String friendsRememberBannerUrl = "action/ac_article/article_slide";
+    //文章详情
+    public static String articleContentUrl = "action/ac_article/article_slide";
 }

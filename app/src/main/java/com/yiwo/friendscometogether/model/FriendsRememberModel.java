@@ -11,7 +11,7 @@ public class FriendsRememberModel {
     /**
      * code : 200
      * message : 获取成功
-     * obj : [{"accesspassword":"0","userID":"1","fmtitle":"QQ群","fmcontent":"安达市大所大所大所大","fmpic":"http://47.92.136.19/http://47.92.136.19/uploads/activity/20180529/ee77b295487906af3700b1d6b7ab6c38.jpg","fmcomment":"0","fmlook":"0","fmtime":"1974-12-22","userphone":"15244615472","username":"zp","upicurl":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","usergrade":"0","look":0}]
+     * obj : [{"fmID":"1","accesspassword":"0","userID":"1","fmtitle":"QQ群","fmcontent":"安达市大所大所大所大","fmpic":"http://47.92.136.19/uploads/activity/20180529/ee77b295487906af3700b1d6b7ab6c38.jpg","fmcomment":"0","fmlook":"0","fmtime":"1974-12-22","userphone":"15244615472","username":"zp","upicurl":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","usergrade":"0","look":0}]
      */
 
     private int code;
@@ -44,6 +44,7 @@ public class FriendsRememberModel {
 
     public static class ObjBean {
         /**
+         * fmID : 1
          * accesspassword : 0
          * userID : 1
          * fmtitle : QQ群
@@ -59,6 +60,7 @@ public class FriendsRememberModel {
          * look : 0
          */
 
+        private String fmID;
         private String accesspassword;
         private String userID;
         private String fmtitle;
@@ -72,6 +74,14 @@ public class FriendsRememberModel {
         private String upicurl;
         private String usergrade;
         private int look;
+
+        public String getFmID() {
+            return fmID;
+        }
+
+        public void setFmID(String fmID) {
+            this.fmID = fmID;
+        }
 
         public String getAccesspassword() {
             return accesspassword;
