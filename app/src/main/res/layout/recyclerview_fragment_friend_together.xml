@@ -78,6 +78,7 @@
                     android:textSize="30px" />
             </RelativeLayout>
             <TextView
+                android:layout_gravity="center"
                 android:textColor="@color/black_333333"
                 android:layout_marginTop="12px"
                 android:textSize="24px"

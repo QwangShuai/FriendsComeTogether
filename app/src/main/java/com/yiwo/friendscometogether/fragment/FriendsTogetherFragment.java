@@ -65,16 +65,8 @@ public class FriendsTogetherFragment extends BaseFragment{
                     @Override
                     public void onSuccess(String data) {
                         Log.e("222", data);
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optInt("code")==200){
-                                Gson gson = new Gson();
-                                FriendsTogethermodel model = gson.fromJson(jsonObject.optString("obj"),FriendsTogethermodel.class);
-                                Log.i("我的model",model.toString());
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        FriendsTogethermodel model = new Gson().fromJson(data,FriendsTogethermodel.class);
+                        initList(model.getObj());
                     }
 
                     @Override

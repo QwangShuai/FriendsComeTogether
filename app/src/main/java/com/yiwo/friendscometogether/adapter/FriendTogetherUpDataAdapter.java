@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
+import com.yiwo.friendscometogether.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +50,20 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         Picasso.with(context).load(data.get(position).getPfpic()).into(holder.picIv);
         holder.titleTv.setText(data.get(position).getPftitle());
         holder.contentTv.setText(data.get(position).getPfcontent());
-        Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
-        holder.levelTv.setText(data.get(position).getUsergrade().equals("1")?"签约领队":"普通领队");
-        holder.levelBg.setBackgroundResource(data.get(position).getUsergrade().equals("1")?R.mipmap.level_golden_yellow:R.mipmap.level_red);
+        if(!StringUtils.isEmpty(data.get(position).getUpicurl())){
+            Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
+        }
+        holder.levelTv.setText(data.get(position).getUsergrade()==1?"签约领队":"普通领队");
+        holder.levelBg.setBackgroundResource(data.get(position).getUsergrade()==1?R.mipmap.level_golden_yellow:R.mipmap.level_red);
         holder.personTv.setText(data.get(position).getHave_num()+"/"+data.get(position).getPfpeople());
         if(data.get(position).getAll_u_pic().size()<8){
             for(int i=0;i<data.get(position).getAll_u_pic().size();i++){
                 Picasso.with(context).load(data.get(position).getAll_u_pic().get(i)).into(iv);
-                holder.vessel.addView(iv);
+                if(iv.getParent()!=null){
+                    ((ViewGroup)iv.getParent()).removeView(iv);
+                    holder.vessel.addView(iv);
+                }
+
             }
         } else {
             for(int i=0;i<8;i++){
