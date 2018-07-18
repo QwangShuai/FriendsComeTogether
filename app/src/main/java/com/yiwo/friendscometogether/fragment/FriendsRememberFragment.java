@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.Request;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
@@ -70,34 +72,17 @@ public class FriendsRememberFragment extends BaseFragment {
 
     private void initData() {
 
-        OkHttpUtils.post()
-                .tag(this)
-                .url(NetConfig.friendsRememberUrl)
-                .addParams("page",1+"")
-                .build()
-                .execute(new StringCallback() {
+        ViseHttp.POST(NetConfig.friendsRememberUrl)
+                .addParam("page", "1")
+                .request(new ACallback<String>() {
                     @Override
-                    public void onError(Request request, Exception e) {
-
+                    public void onSuccess(String data) {
+                        Log.e("222", data);
                     }
 
                     @Override
-                    public void onResponse(String response) {
-                        String result = new String(Base64.decode(response.getBytes(),Base64.DEFAULT));
-                        try {
-                            JSONObject jsonObject =new JSONObject(result);
-                            int code = jsonObject.optInt("code");
-                            if(code==200){
-                                Gson gson = new Gson();
-                                FriendsRememberModel friendsRememberModel = gson.fromJson(result, FriendsRememberModel.class);
-                                initList(friendsRememberModel.getObj());
-                            } else {
-                                toToast(getContext(),jsonObject.optString("message").toString());
-                            }
-                            adapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    public void onFail(int errCode, String errMsg) {
+
                     }
                 });
 
