@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -21,6 +22,9 @@ import com.yiwo.friendscometogether.model.FriendsTogethermodel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.youth.banner.Banner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -48,17 +52,29 @@ public class FriendsTogetherFragment extends BaseFragment{
         ButterKnife.bind(this, rootView);
 
         init(banner,DetailsOfFriendsActivity.class);
+        initData();
         return rootView;
     }
 
     private void initData() {
-
+        String token = getToken(NetConfig.BaseUrl+NetConfig.friendsTogetherUrl);
         ViseHttp.POST(NetConfig.friendsTogetherUrl)
+                .addParam("app_key",token)
                 .addParam("page", "1")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         Log.e("222", data);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optInt("code")==200){
+                                Gson gson = new Gson();
+                                FriendsTogethermodel model = gson.fromJson(jsonObject.optString("obj"),FriendsTogethermodel.class);
+                                Log.i("我的model",model.toString());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
