@@ -228,6 +228,444 @@
                 android:layout_width="match_parent"
                 android:layout_height="2px"/>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="154px">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/draft"
+                        android:layout_width="64px"
+                        android:layout_height="64px" />
+
+                    <TextView
+                        android:layout_marginTop="2px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#333333"
+                        android:textSize="30px"
+                        android:text="草稿"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/my_intercalation"
+                        android:layout_width="64px"
+                        android:layout_height="64px" />
+
+                    <TextView
+                        android:layout_marginTop="2px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#333333"
+                        android:textSize="30px"
+                        android:text="插文"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/publish"
+                        android:layout_width="64px"
+                        android:layout_height="64px" />
+
+                    <TextView
+                        android:layout_marginTop="2px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#333333"
+                        android:textSize="30px"
+                        android:text="发表"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/youji"
+                        android:layout_width="64px"
+                        android:layout_height="64px" />
+
+                    <TextView
+                        android:layout_marginTop="2px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#333333"
+                        android:textSize="30px"
+                        android:text="友记"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:background="#F8F8F8"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/fragment_my_iv_focus"
+                    android:layout_marginLeft="34px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_focus"
+                    android:layout_width="40px"
+                    android:layout_height="36px" />
+
+                <TextView
+                    android:layout_marginLeft="17px"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/fragment_my_iv_focus"
+                    android:textColor="#333333"
+                    android:textSize="28px"
+                    android:text="我的关注"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                
+                <ImageView
+                    android:layout_marginRight="44px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/right"
+                    android:layout_width="10px"
+                    android:layout_height="17px" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="#F8F8F8"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                
+                <ImageView
+                    android:id="@+id/fragment_my_iv_camera"
+                    android:layout_marginLeft="34px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_camera"
+                    android:layout_width="40px"
+                    android:layout_height="40px" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/fragment_my_iv_camera"
+                    android:layout_marginLeft="17px"
+                    android:layout_centerVertical="true"
+                    android:textColor="#333333"
+                    android:textSize="28px"
+                    android:text="我的相册"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginRight="44px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/right"
+                    android:layout_width="10px"
+                    android:layout_height="17px" />
+                
+            </RelativeLayout>
+
+            <View
+                android:background="#F8F8F8"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/fragment_my_iv_friends"
+                    android:layout_marginLeft="34px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_friends"
+                    android:layout_width="40px"
+                    android:layout_height="40px" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/fragment_my_iv_friends"
+                    android:layout_marginLeft="17px"
+                    android:layout_centerVertical="true"
+                    android:textColor="#333333"
+                    android:textSize="28px"
+                    android:text="我的好友"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginRight="44px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/right"
+                    android:layout_width="10px"
+                    android:layout_height="17px" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="#F1F1F1"
+                android:layout_width="match_parent"
+                android:layout_height="20px"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/fragment_my_iv_collection"
+                    android:layout_marginLeft="34px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_collection"
+                    android:layout_width="40px"
+                    android:layout_height="40px" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/fragment_my_iv_collection"
+                    android:layout_marginLeft="17px"
+                    android:layout_centerVertical="true"
+                    android:textColor="#333333"
+                    android:textSize="28px"
+                    android:text="我的收藏"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginRight="44px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/right"
+                    android:layout_width="10px"
+                    android:layout_height="17px" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="#F8F8F8"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/fragment_my_iv_comment"
+                    android:layout_marginLeft="34px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_comment"
+                    android:layout_width="40px"
+                    android:layout_height="40px" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/fragment_my_iv_comment"
+                    android:layout_marginLeft="17px"
+                    android:layout_centerVertical="true"
+                    android:textColor="#333333"
+                    android:textSize="28px"
+                    android:text="我的评论"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginRight="44px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/right"
+                    android:layout_width="10px"
+                    android:layout_height="17px" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="#F8F8F8"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="100px">
+
+                <ImageView
+                    android:layout_marginTop="24px"
+                    android:id="@+id/fragment_my_iv_initiating_activities"
+                    android:layout_marginLeft="34px"
+                    android:src="@mipmap/my_initiating_activities"
+                    android:layout_width="40px"
+                    android:layout_height="40px" />
+
+                <TextView
+                    android:layout_marginTop="24px"
+                    android:layout_toRightOf="@+id/fragment_my_iv_initiating_activities"
+                    android:layout_marginLeft="17px"
+                    android:textColor="#333333"
+                    android:textSize="28px"
+                    android:text="发起活动"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginTop="36px"
+                    android:layout_marginRight="44px"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/right"
+                    android:layout_width="10px"
+                    android:layout_height="17px" />
+
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:background="#F8F8F8"
+                    android:layout_width="match_parent"
+                    android:layout_height="12px"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/fragment_my_iv_join_activitys"
+                    android:layout_marginLeft="34px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_join_activitys"
+                    android:layout_width="40px"
+                    android:layout_height="40px" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/fragment_my_iv_join_activitys"
+                    android:layout_marginLeft="17px"
+                    android:layout_centerVertical="true"
+                    android:textColor="#333333"
+                    android:textSize="28px"
+                    android:text="参加活动"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginRight="44px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/right"
+                    android:layout_width="10px"
+                    android:layout_height="17px" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="#F1F1F1"
+                android:layout_width="match_parent"
+                android:layout_height="20px"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/fragment_my_iv_make_activity"
+                    android:layout_marginLeft="34px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_make_activity"
+                    android:layout_width="40px"
+                    android:layout_height="40px" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/fragment_my_iv_make_activity"
+                    android:layout_marginLeft="17px"
+                    android:layout_centerVertical="true"
+                    android:textColor="#333333"
+                    android:textSize="28px"
+                    android:text="创建活动"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginRight="44px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/right"
+                    android:layout_width="10px"
+                    android:layout_height="17px" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="#F8F8F8"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/fragment_my_iv_history"
+                    android:layout_marginLeft="34px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/my_history"
+                    android:layout_width="40px"
+                    android:layout_height="40px" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/fragment_my_iv_history"
+                    android:layout_marginLeft="17px"
+                    android:layout_centerVertical="true"
+                    android:textColor="#333333"
+                    android:textSize="28px"
+                    android:text="浏览历史"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginRight="44px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/right"
+                    android:layout_width="10px"
+                    android:layout_height="17px" />
+
+            </RelativeLayout>
+
         </LinearLayout>
 
     </ScrollView>
