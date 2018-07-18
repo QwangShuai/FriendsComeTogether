@@ -44,6 +44,7 @@
                 android:layout_height="372px" />
 
             <TextView
+                android:id="@+id/activity_details_of_friends_tv_title"
                 android:layout_marginTop="30px"
                 android:layout_marginRight="40px"
                 android:layout_marginLeft="40px"
@@ -68,11 +69,12 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@mipmap/views"
                         android:layout_width="35px"
                         android:layout_height="24px" />
 
                     <TextView
+                        android:id="@+id/activity_details_of_friends_tv_look_num"
                         android:layout_marginLeft="5px"
                         android:textColor="#333333"
                         android:textSize="28px"
@@ -90,11 +92,12 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@mipmap/focus_on_empty_y"
                         android:layout_width="30px"
                         android:layout_height="26px" />
 
                     <TextView
+                        android:id="@+id/activity_details_of_friends_tv_focus_num"
                         android:layout_marginLeft="6px"
                         android:textColor="#333333"
                         android:textSize="28px"
@@ -132,11 +135,12 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@mipmap/time_start"
                             android:layout_width="40px"
                             android:layout_height="40px" />
 
                         <TextView
+                            android:id="@+id/activity_details_of_friends_tv_start_time"
                             android:layout_marginLeft="6px"
                             android:gravity="center"
                             android:textSize="28px"
@@ -154,11 +158,12 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@mipmap/time_end"
                             android:layout_width="40px"
                             android:layout_height="40px" />
 
                         <TextView
+                            android:id="@+id/activity_details_of_friends_tv_end_time"
                             android:layout_marginLeft="6px"
                             android:gravity="center"
                             android:textSize="28px"
@@ -176,11 +181,12 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@mipmap/price"
                             android:layout_width="40px"
                             android:layout_height="40px" />
 
                         <TextView
+                            android:id="@+id/activity_details_of_friends_tv_price"
                             android:layout_marginLeft="6px"
                             android:gravity="center"
                             android:textSize="28px"
@@ -198,11 +204,12 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@mipmap/activity_place"
                             android:layout_width="40px"
                             android:layout_height="40px" />
 
                         <TextView
+                            android:id="@+id/activity_details_of_friends_tv_city"
                             android:layout_marginLeft="6px"
                             android:gravity="center"
                             android:textSize="28px"
@@ -216,6 +223,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/activity_details_of_friends_ll_person_content"
                     android:layout_marginRight="32px"
                     android:layout_alignParentRight="true"
                     android:orientation="vertical"
@@ -223,12 +231,14 @@
                     android:layout_height="wrap_content">
 
                     <com.yiwo.friendscometogether.custom.CImageView
+                        android:id="@+id/activity_details_of_friends_iv_avatar"
                         android:layout_gravity="center_horizontal"
                         android:src="@mipmap/ic_launcher"
                         android:layout_width="140px"
                         android:layout_height="140px" />
 
                     <TextView
+                        android:id="@+id/activity_details_of_friends_tv_nickname"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10px"
                         android:textColor="#333333"
@@ -238,6 +248,7 @@
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
+                        android:id="@+id/activity_details_of_friends_ll_top_focus"
                         android:layout_marginTop="10px"
                         android:layout_gravity="center_horizontal"
                         android:orientation="horizontal"
@@ -246,7 +257,7 @@
 
                         <ImageView
                             android:layout_gravity="center_vertical"
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@mipmap/focus_on_empty_y"
                             android:layout_width="26px"
                             android:layout_height="24px" />
 
@@ -260,6 +271,31 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="6px"
+                    android:layout_marginRight="70px"
+                    android:layout_alignRight="@+id/activity_details_of_friends_ll_person_content"
+                    android:layout_width="102px"
+                    android:layout_height="30px">
+
+                    <ImageView
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/level_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:layout_marginRight="19px"
+                        android:layout_centerVertical="true"
+                        android:textSize="18px"
+                        android:textColor="#FFFFFF"
+                        android:layout_alignParentRight="true"
+                        android:text="LV1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -275,7 +311,8 @@
                     android:layout_toLeftOf="@+id/activity_details_of_friends_iv_activity_title"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearLayout">
 
                     <TextView
                         android:textSize="28px"
@@ -285,6 +322,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/activity_details_of_friends_tv_related_activity"
                         android:layout_marginTop="10px"
                         android:textSize="24px"
                         android:textColor="#747474"
@@ -301,6 +339,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/activity_details_of_friends_tv_related_c_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2018-04-04"
@@ -316,11 +355,13 @@
 
                             <ImageView
                                 android:layout_gravity="center_vertical"
-                                android:src="@mipmap/ic_launcher"
+                                android:src="@mipmap/views"
                                 android:layout_width="28px"
                                 android:layout_height="20px" />
 
                             <TextView
+                                android:layout_marginLeft="6px"
+                                android:id="@+id/activity_details_of_friends_tv_related_look_num"
                                 android:textColor="#FF9D00"
                                 android:textSize="24px"
                                 android:text="1234"
@@ -337,16 +378,18 @@
 
                             <ImageView
                                 android:layout_gravity="center_vertical"
-                                android:src="@mipmap/ic_launcher"
+                                android:src="@mipmap/message_hot"
                                 android:layout_width="26px"
                                 android:layout_height="24px" />
 
                             <TextView
-                                android:textColor="#FF9D00"
-                                android:textSize="24px"
-                                android:text="1234"
+                                android:layout_marginLeft="6px"
+                                android:id="@+id/activity_details_of_friends_tv_related_comment_num"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:text="1234"
+                                android:textColor="#FF9D00"
+                                android:textSize="24px" />
 
                         </LinearLayout>
 
@@ -382,6 +425,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/activity_details_of_friends_tv_trip_title"
                     android:layout_marginLeft="40px"
                     android:layout_marginTop="20px"
                     android:textSize="30px"
@@ -391,6 +435,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/activity_details_of_friends_tv_trip_content"
                     android:layout_marginRight="40px"
                     android:layout_marginBottom="30px"
                     android:layout_marginLeft="40px"

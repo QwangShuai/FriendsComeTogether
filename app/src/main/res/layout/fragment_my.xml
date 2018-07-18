@@ -69,6 +69,7 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_look_more"
                     android:layout_marginRight="40px"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
@@ -106,6 +107,7 @@
                 android:layout_height="152px">
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_to_pay"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -130,6 +132,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_to_trip"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -154,6 +157,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_to_comment"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="vertical"
@@ -178,6 +182,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_return_price"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="vertical"

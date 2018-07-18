@@ -35,4 +35,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.chengzipi:Searchbox:v1.0.0'
     implementation 'me.yatoooon:screenadaptation:1.1.1'
+    compile 'com.vise.xiaoyaoyou:xsnow:2.1.9'
 }

@@ -14,7 +14,9 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 
+import com.vise.xsnow.http.ViseHttp;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.utils.FTPTimeCount;
 import com.yiwo.friendscometogether.utils.TimeCount;
 
@@ -40,6 +42,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ScreenAdapterTools.init(this);
+
+        ViseHttp.init(this);
+        ViseHttp.CONFIG()
+                //配置请求主机地址
+                .baseUrl(NetConfig.BaseUrl);
+
         //oncreate方法中写
         timecount =  new TimeCount(60000, 1000);
         ftptimecount =  new FTPTimeCount(60000, 1000);
