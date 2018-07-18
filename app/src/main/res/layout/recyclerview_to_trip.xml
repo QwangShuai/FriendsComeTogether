@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <View
         android:background="#F1F1F1"
         android:layout_width="match_parent"
         android:layout_height="20px"/>
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="78px">
@@ -28,12 +28,12 @@
             android:layout_alignParentRight="true"
             android:textColor="#333333"
             android:textSize="28px"
-            android:text="待付款"
+            android:text="待行程"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
-    
+
     <RelativeLayout
         android:background="#F1F1F1"
         android:layout_width="match_parent"
@@ -136,7 +136,7 @@
             android:text="付款"
             android:layout_width="120px"
             android:layout_height="44px" />
-        
+
         <TextView
             android:id="@+id/fragment_to_pay_rv_tv_cancle_trip"
             android:background="@drawable/fragment_to_pay_cancle"

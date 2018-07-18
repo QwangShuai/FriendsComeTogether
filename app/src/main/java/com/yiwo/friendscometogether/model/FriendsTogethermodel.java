@@ -11,7 +11,7 @@ public class FriendsTogethermodel {
     /**
      * code : 200
      * message : 操作成功!
-     * obj : [{"usergrade":"1","username":"小微","pfID":"8","captain":"0","pftitle":"飞","pfcontent":"123123","pfpic":"http://localhost/www/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","upicurl":"","all_u_pic":[]},{"pfID":"1","captain":"1","pftitle":"飘","pfcontent":"123123","pfpeople":"10","have_num":"2","focusOn":"0","pfpic":"http://localhost/www/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","upicurl":"http://localhost/www/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","all_u_pic":["http://localhost/www/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","http://localhost/www/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg"]}]
+     * obj : [{"usergrade":0,"username":"","pfID":"44","pfpeople":"0","captain":"0","pftitle":"泰山三日游","pfcontent":"12额2","pfpic":"http://47.92.136.19/uploads/activity/20180708/20180708/c5b4c5d45e30a3471a9056c02cc22b44.jpg","upicurl":"","have_num":"1","all_u_pic":["http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg"],"focusOn":0},{"usergrade":0,"username":"","pfID":"18","pfpeople":"22","captain":"0","pftitle":"","pfcontent":"","pfpic":"http://47.92.136.19/uploads/xingcheng/20180709/20180709/01eae6bec86d65c445f32e73b31051c3.jpg","upicurl":"","have_num":"0","all_u_pic":[],"focusOn":0},{"usergrade":0,"username":"","pfID":"8","pfpeople":"100","captain":"0","pftitle":"飞","pfcontent":"飞翔","pfpic":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","upicurl":"","have_num":"1","all_u_pic":["http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg"],"focusOn":0},{"usergrade":0,"username":"zp","pfID":"1","pfpeople":"100","captain":"1","pftitle":"飘","pfcontent":"飘摇","pfpic":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","upicurl":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","have_num":"3","all_u_pic":["http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg"],"focusOn":0}]
      */
 
     private int code;
@@ -44,38 +44,38 @@ public class FriendsTogethermodel {
 
     public static class ObjBean {
         /**
-         * usergrade : 1
-         * username : 小微
-         * pfID : 8
+         * usergrade : 0
+         * username :
+         * pfID : 44
+         * pfpeople : 0
          * captain : 0
-         * pftitle : 飞
-         * pfcontent : 123123
-         * pfpic : http://localhost/www/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg
+         * pftitle : 泰山三日游
+         * pfcontent : 12额2
+         * pfpic : http://47.92.136.19/uploads/activity/20180708/20180708/c5b4c5d45e30a3471a9056c02cc22b44.jpg
          * upicurl :
-         * all_u_pic : []
-         * pfpeople : 10
-         * have_num : 2
+         * have_num : 1
+         * all_u_pic : ["http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg"]
          * focusOn : 0
          */
 
-        private String usergrade;
+        private int usergrade;
         private String username;
         private String pfID;
+        private String pfpeople;
         private String captain;
         private String pftitle;
         private String pfcontent;
         private String pfpic;
         private String upicurl;
-        private String pfpeople;
         private String have_num;
-        private String focusOn;
+        private int focusOn;
         private List<String> all_u_pic;
 
-        public String getUsergrade() {
+        public int getUsergrade() {
             return usergrade;
         }
 
-        public void setUsergrade(String usergrade) {
+        public void setUsergrade(int usergrade) {
             this.usergrade = usergrade;
         }
 
@@ -93,6 +93,14 @@ public class FriendsTogethermodel {
 
         public void setPfID(String pfID) {
             this.pfID = pfID;
+        }
+
+        public String getPfpeople() {
+            return pfpeople;
+        }
+
+        public void setPfpeople(String pfpeople) {
+            this.pfpeople = pfpeople;
         }
 
         public String getCaptain() {
@@ -135,14 +143,6 @@ public class FriendsTogethermodel {
             this.upicurl = upicurl;
         }
 
-        public String getPfpeople() {
-            return pfpeople;
-        }
-
-        public void setPfpeople(String pfpeople) {
-            this.pfpeople = pfpeople;
-        }
-
         public String getHave_num() {
             return have_num;
         }
@@ -151,11 +151,11 @@ public class FriendsTogethermodel {
             this.have_num = have_num;
         }
 
-        public String getFocusOn() {
+        public int getFocusOn() {
             return focusOn;
         }
 
-        public void setFocusOn(String focusOn) {
+        public void setFocusOn(int focusOn) {
             this.focusOn = focusOn;
         }
 
