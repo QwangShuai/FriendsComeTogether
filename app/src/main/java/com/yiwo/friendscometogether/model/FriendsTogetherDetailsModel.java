@@ -11,7 +11,7 @@ public class FriendsTogetherDetailsModel {
     /**
      * code : 200
      * message : 操作成功!
-     * obj : {"captain":"0","capttain_name":0,"capttain_pic":0,"level":0,"if_sign":0,"title":"泰山三日游","look":"0","pffavorite":"0","begin_time":"1970-01-01","end_time":"1970-01-01","city":"北京","price":"123.00","woman":"0","man":"0","person_num":"0","have_num":1,"show_pic":"","text_info":"12额2","info_list":[{"title":"新添加的哈哈","content":"<p>来吧 新添加的 &nbsp;<strong><em><span style=\"color: rgb(112, 48, 160);\">炒鸡好玩<\/span><\/em><\/strong><\/p>","pfpID":"275","image_list":[{"pic":"","text_info":null},{"pic":"","text_info":null}]},{"title":"探讨探讨","content":"<p>萨达阿萨德<\/p>","pfpID":"278","image_list":[{"pic":"","text_info":null}]},{"title":"去旅游啦","content":"<p><span style=\"color: rgb(0, 176, 240);\">去旅游啦去旅游啦去旅游啦啊<\/span><\/p>","pfpID":"162","image_list":[{"pic":"","text_info":"去旅游啦去旅游啦去旅游啦啊"},{"pic":"","text_info":"去旅游啦去旅游啦去旅游啦啊a"}]},{"title":"去哪网","content":"去哪网去哪网去哪网","pfpID":"203","image_list":[{"pic":"","text_info":null},{"pic":"","text_info":null},{"pic":"","text_info":null}]},{"title":"驱蚊器","content":"<p>生栋覆屋<\/p>","pfpID":"207","image_list":[{"pic":"","text_info":null}]},{"title":"给对方嘎辅导费","content":"<p><span style=\"color: rgb(0, 112, 192);\"><em><strong>胜多负少的<\/strong><\/em><\/span><\/p>","pfpID":"209","image_list":[{"pic":"","text_info":null}]}],"user_list":[{"username":"zp","userpic":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","num":"1"}]}
+     * obj : {"captain":"","capttain_name":"","capttain_pic":"","level":"0","if_sign":"0","title":"泰山三日游","look":"0","pffavorite":"0","begin_time":"1970-01-01","end_time":"1970-01-01","city":"北京","price":"123.00","woman":"0","man":"0","person_num":"0","have_num":"1","show_pic":"","text_info":"12额2","info_list":[{"title":"新添加的哈哈","content":"<p>来吧 新添加的 &nbsp;<strong><em><span style=\"color: rgb(112, 48, 160);\">炒鸡好玩<\/span><\/em><\/strong><\/p>","pfpID":"275","image_list":[{"pic":"","text_info":null},{"pic":"","text_info":null}]},{"title":"探讨探讨","content":"<p>萨达阿萨德<\/p>","pfpID":"278","image_list":[{"pic":"","text_info":null}]},{"title":"去旅游啦","content":"<p><span style=\"color: rgb(0, 176, 240);\">去旅游啦去旅游啦去旅游啦啊<\/span><\/p>","pfpID":"162","image_list":[{"pic":"","text_info":"去旅游啦去旅游啦去旅游啦啊"},{"pic":"","text_info":"去旅游啦去旅游啦去旅游啦啊a"}]},{"title":"去哪网","content":"去哪网去哪网去哪网","pfpID":"203","image_list":[{"pic":"","text_info":null},{"pic":"","text_info":null},{"pic":"","text_info":null}]},{"title":"驱蚊器","content":"<p>生栋覆屋<\/p>","pfpID":"207","image_list":[{"pic":"","text_info":null}]},{"title":"给对方嘎辅导费","content":"<p><span style=\"color: rgb(0, 112, 192);\"><em><strong>胜多负少的<\/strong><\/em><\/span><\/p>","pfpID":"209","image_list":[{"pic":"","text_info":null}]}],"user_list":[{"username":"zp","userpic":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","num":"1"}]}
      */
 
     private int code;
@@ -44,9 +44,9 @@ public class FriendsTogetherDetailsModel {
 
     public static class ObjBean {
         /**
-         * captain : 0
-         * capttain_name : 0
-         * capttain_pic : 0
+         * captain :
+         * capttain_name :
+         * capttain_pic :
          * level : 0
          * if_sign : 0
          * title : 泰山三日游
@@ -66,7 +66,7 @@ public class FriendsTogetherDetailsModel {
          * user_list : [{"username":"zp","userpic":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","num":"1"}]
          */
 
-        private int captain;
+        private String captain;
         private String capttain_name;
         private String capttain_pic;
         private String level;
@@ -87,11 +87,11 @@ public class FriendsTogetherDetailsModel {
         private List<InfoListBean> info_list;
         private List<UserListBean> user_list;
 
-        public int getCaptain() {
+        public String getCaptain() {
             return captain;
         }
 
-        public void setCaptain(int captain) {
+        public void setCaptain(String captain) {
             this.captain = captain;
         }
 

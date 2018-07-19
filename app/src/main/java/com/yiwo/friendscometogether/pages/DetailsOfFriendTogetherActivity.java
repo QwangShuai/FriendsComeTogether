@@ -107,7 +107,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         titleTv.setText(model.getTitle());
         viewsTv.setText(model.getLook());
         focus_onTv.setText(model.getPffavorite());
-        if(model.getCaptain()!=0){
+        if(!model.getCaptain().equals("0")){
             if(!StringUtils.isEmpty(model.getCapttain_pic())){
                 Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getCapttain_pic()).into(headIv);
             }
@@ -117,8 +117,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         time_start_tv.setText("开始时间："+model.getBegin_time());
         time_end_tv.setText("结束时间："+model.getEnd_time());
         city_tv.setText("活动地点："+model.getCity());
-        priceTv.setText("人均消费"+model.getPrice());
-        womanTv.setText("女生人数"+model.getWoman());
+        priceTv.setText("人均消费："+model.getPrice());
+        womanTv.setText("女生人数："+model.getWoman());
         manTv.setText("男生人数："+model.getMan());
         participantsTv.setText("参加人员（"+model.getHave_num()+"/"+model.getPerson_num()+")");
         initList(model.getUser_list());
