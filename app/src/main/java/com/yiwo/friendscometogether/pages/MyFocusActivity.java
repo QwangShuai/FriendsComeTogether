@@ -1,21 +1,24 @@
 package com.yiwo.friendscometogether.pages;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MyFocusActivity extends AppCompatActivity {
+public class MyFocusActivity extends BaseActivity {
 
     @BindView(R.id.activity_my_focus_back)
     RelativeLayout rlBack;
+    @BindView(R.id.activity_my_focus_rv)
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,14 @@ public class MyFocusActivity extends AppCompatActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
+
+        initData();
+
+    }
+
+    private void initData() {
+
+
 
     }
 

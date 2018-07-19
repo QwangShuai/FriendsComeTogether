@@ -127,7 +127,7 @@
         <TextView
             android:id="@+id/fragment_to_trip_rv_tv_payment"
             android:textColor="#FFFFFF"
-            android:background="@drawable/fragment_to_pay_payment"
+            android:background="@drawable/bg_fragment_to_pay_payment"
             android:gravity="center"
             android:layout_marginRight="40px"
             android:layout_centerVertical="true"
@@ -139,7 +139,7 @@
 
         <TextView
             android:id="@+id/fragment_to_trip_rv_tv_cancle_trip"
-            android:background="@drawable/fragment_to_pay_cancle"
+            android:background="@drawable/bg_fragment_to_pay_cancle"
             android:layout_marginRight="30px"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/fragment_to_trip_rv_tv_payment"
@@ -152,7 +152,7 @@
 
         <TextView
             android:id="@+id/fragment_to_trip_rv_tv_invitation"
-            android:background="@drawable/fragment_to_pay_cancle"
+            android:background="@drawable/bg_fragment_to_pay_cancle"
             android:layout_marginRight="30px"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/fragment_to_trip_rv_tv_cancle_trip"

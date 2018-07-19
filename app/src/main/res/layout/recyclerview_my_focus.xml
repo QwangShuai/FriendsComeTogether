@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240px">
+
+        <com.yiwo.friendscometogether.custom.CImageView
+            android:id="@+id/activity_my_focus_rv_iv_avatar"
+            android:src="@mipmap/ic_launcher"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:layout_width="200px"
+            android:layout_height="200px" />
+
+        <LinearLayout
+            android:layout_marginLeft="18px"
+            android:layout_toLeftOf="@+id/activity_my_focus_rv_tv_2"
+            android:layout_toRightOf="@+id/activity_my_focus_rv_iv_avatar"
+            android:orientation="vertical"
+            android:layout_marginTop="42px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/activity_my_focus_rv_tv_2"
+            android:layout_marginRight="20px"
+            android:layout_marginBottom="36px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textSize="24px"
+            android:textColor="@color/black_333333"
+            android:text="已结束"
+            android:layout_width="140px"
+            android:layout_height="50px" />
+
+        <TextView
+            android:background="@drawable/bg_activity_my_focus_focus"
+            android:layout_marginBottom="14px"
+            android:layout_above="@+id/activity_my_focus_rv_tv_2"
+            android:id="@+id/activity_my_focus_rv_tv_1"
+            android:layout_marginRight="20px"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textSize="24px"
+            android:textColor="@color/white_ffffff"
+            android:text="取消关注"
+            android:layout_width="140px"
+            android:layout_height="50px" />
+
+    </RelativeLayout>
+    
+    <View
+        android:background="#F8F8F8"
+        android:layout_width="match_parent"
+        android:layout_height="20px"/>
+
+</LinearLayout>
