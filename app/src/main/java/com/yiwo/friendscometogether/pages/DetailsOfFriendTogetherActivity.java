@@ -110,8 +110,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         if(!model.getCaptain().equals("0")){
             if(!StringUtils.isEmpty(model.getCapttain_pic())){
                 Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getCapttain_pic()).into(headIv);
+                levelTv.setText(model.getIf_sign().equals("1")?"签约领队":"普通领队");
             }
-            levelTv.setText(model.getIf_sign().equals("1")?"签约领队":"普通领队");
         }
 
         time_start_tv.setText("开始时间："+model.getBegin_time());

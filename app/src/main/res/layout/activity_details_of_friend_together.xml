@@ -315,6 +315,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </RelativeLayout>
+            <View
+                android:layout_marginTop="20px"
+                android:background="@color/black_f8f8f8"
+                android:layout_width="match_parent"
+                android:layout_height="20px" />
+            <TextView
+                android:textSize="32px"
+                android:textColor="@color/black_333333"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="40px"
+                android:layout_marginTop="20px"
+                android:textStyle="bold"
+                android:text="行程介绍"
+                android:layout_width="wrap_content"
+                android:layout_height="45px" />
+            <RelativeLayout
+                android:layout_marginTop="24px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/details_content_friend_together_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
