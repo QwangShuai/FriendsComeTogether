@@ -56,6 +56,10 @@ public class FriendsTogetherFragment extends BaseFragment{
         return rootView;
     }
 
+    public void setListenter(){
+
+    }
+
     private void initData() {
         String token = getToken(NetConfig.BaseUrl+NetConfig.friendsTogetherUrl);
         ViseHttp.POST(NetConfig.friendsTogetherUrl)

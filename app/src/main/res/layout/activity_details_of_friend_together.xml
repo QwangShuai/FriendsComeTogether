@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white_ffffff"
     tools:context="com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity">
     <RelativeLayout
         android:id="@+id/activity_details_of_friends_together_rl_top"
@@ -60,9 +61,231 @@
                     android:text="标题标题标题标题标题标题标题标 题标题标题标题标题标题标题标题"
                     android:textColor="@color/black_333333"
                     android:textSize="32px" />
+
+                <RelativeLayout
+                    android:layout_marginTop="16px"
+                    android:layout_below="@+id/titleTv"
+                    android:layout_marginLeft="40px"
+                    android:layout_width="480px"
+                    android:layout_height="40px">
+                    <ImageView
+                        android:id="@+id/viewsIv"
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:src="@mipmap/views"/>
+                    <TextView
+                        android:layout_marginLeft="3px"
+                        android:id="@+id/viewsTv"
+                        android:layout_toRightOf="@+id/viewsIv"
+                        android:gravity="center_vertical"
+                        android:textSize="28px"
+                        android:textColor="@color/black_333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="浏览量：1234"/>
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/focus_on_iv"
+                        android:layout_toRightOf="@+id/viewsTv"
+                        android:layout_marginLeft="20px"
+                        android:layout_width="39px"
+                        android:layout_height="26px"
+                        android:src="@mipmap/focus_on_y"/>
+                    <TextView
+                        android:id="@+id/focus_onTv"
+                        android:layout_toRightOf="@+id/focus_on_iv"
+                        android:gravity="center_vertical"
+                        android:textSize="28px"
+                        android:textColor="@color/black_333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="关注：10"/>
+                </RelativeLayout>
                 <LinearLayout
+                    android:layout_marginRight="21px"
+                    android:orientation="vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="176px"
+                    android:layout_height="match_parent">
+
+                    <com.yiwo.friendscometogether.custom.CImageView
+                        android:id="@+id/headIv"
+                        android:layout_width="120px"
+                        android:layout_height="120px"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/ic_launcher" />
+                    <RelativeLayout
+                        android:id="@+id/item_levelBg"
+                        android:background="@mipmap/level_red"
+                        android:layout_width="match_parent"
+                        android:layout_height="61px">
+
+                        <TextView
+                            android:id="@+id/levelTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="42px"
+                            android:layout_marginLeft="46px"
+                            android:layout_marginTop="16px"
+                            android:text="签约领队"
+                            android:textColor="@color/white_ffffff"
+                            android:textSize="30px" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="6px"
+                android:layout_width="match_parent"
+                android:layout_height="270px">
+                <LinearLayout
+                    android:background="@mipmap/poly_box"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="40px"></LinearLayout>
+                    android:layout_height="250px">
+                    <LinearLayout
+                        android:layout_marginLeft="20px"
+                        android:layout_marginTop="71px"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40px">
+                            <ImageView
+                                android:id="@+id/time_startIv"
+                                android:layout_width="40px"
+                                android:layout_height="40px"
+                                android:src="@mipmap/time_start"/>
+                            <TextView
+                                android:layout_toRightOf="@id/time_startIv"
+                                android:layout_marginLeft="5px"
+                                android:textSize="28px"
+                                android:textColor="@color/black_333333"
+                                android:id="@+id/time_start_tv"
+                                android:text="开始时间：2018-05-05"
+                                android:gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_marginTop="24px"
+                            android:layout_width="match_parent"
+                            android:layout_height="40px">
+                            <ImageView
+                                android:id="@+id/time_endIv"
+                                android:layout_width="40px"
+                                android:layout_height="40px"
+                                android:src="@mipmap/time_start"/>
+                            <TextView
+                                android:layout_toRightOf="@id/time_endIv"
+                                android:layout_marginLeft="5px"
+                                android:textSize="28px"
+                                android:textColor="@color/black_333333"
+                                android:id="@+id/time_end_tv"
+                                android:text="结束时间：2018-05-05"
+                                android:gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_marginTop="24px"
+                            android:layout_width="match_parent"
+                            android:layout_height="40px">
+                            <ImageView
+                                android:id="@+id/cityIv"
+                                android:layout_width="40px"
+                                android:layout_height="40px"
+                                android:src="@mipmap/activity_place"/>
+                            <TextView
+                                android:layout_toRightOf="@id/cityIv"
+                                android:layout_marginLeft="5px"
+                                android:textSize="28px"
+                                android:textColor="@color/black_333333"
+                                android:id="@+id/city_tv"
+                                android:text="活动地点：上海"
+                                android:gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="20px"
+                        android:layout_marginTop="71px"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40px">
+                            <ImageView
+                                android:id="@+id/priceIv"
+                                android:layout_width="40px"
+                                android:layout_height="40px"
+                                android:src="@mipmap/price"/>
+                            <TextView
+                                android:layout_toRightOf="@id/priceIv"
+                                android:layout_marginLeft="5px"
+                                android:textSize="28px"
+                                android:textColor="@color/black_333333"
+                                android:id="@+id/priceTv"
+                                android:text="人均费用：￥1500.00"
+                                android:gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_marginTop="24px"
+                            android:layout_width="match_parent"
+                            android:layout_height="40px">
+                            <ImageView
+                                android:id="@+id/womanIv"
+                                android:layout_width="40px"
+                                android:layout_height="40px"
+                                android:src="@mipmap/nv"/>
+                            <TextView
+                                android:layout_toRightOf="@id/womanIv"
+                                android:layout_marginLeft="5px"
+                                android:textSize="28px"
+                                android:textColor="@color/black_333333"
+                                android:id="@+id/womanTv"
+                                android:text="女生人数：123"
+                                android:gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_marginTop="24px"
+                            android:layout_width="match_parent"
+                            android:layout_height="40px">
+                            <ImageView
+                                android:id="@+id/manIv"
+                                android:layout_width="40px"
+                                android:layout_height="40px"
+                                android:src="@mipmap/nan"/>
+                            <TextView
+                                android:layout_toRightOf="@id/manIv"
+                                android:layout_marginLeft="5px"
+                                android:textSize="28px"
+                                android:textColor="@color/black_333333"
+                                android:id="@+id/manTv"
+                                android:text="男生人数：110"
+                                android:gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:layout_marginLeft="68px"
+                    android:text="出行信息"
+                    android:textSize="28px"
+                    android:textColor="@color/black_333333"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40px" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
