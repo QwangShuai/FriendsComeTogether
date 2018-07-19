@@ -239,7 +239,6 @@
                 android:layout_height="154px">
 
                 <LinearLayout
-                    android:id="@+id/fragment_my_ll_draft"
                     android:orientation="vertical"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -248,7 +247,7 @@
 
                     <ImageView
                         android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/draft"
+                        android:src="@mipmap/publish"
                         android:layout_width="64px"
                         android:layout_height="64px" />
 
@@ -257,7 +256,31 @@
                         android:layout_gravity="center_horizontal"
                         android:textColor="#333333"
                         android:textSize="30px"
-                        android:text="草稿"
+                        android:text="新建"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/youji"
+                        android:layout_width="64px"
+                        android:layout_height="64px" />
+
+                    <TextView
+                        android:layout_marginTop="2px"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#333333"
+                        android:textSize="30px"
+                        android:text="友记"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -288,6 +311,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_draft"
                     android:orientation="vertical"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -296,7 +320,7 @@
 
                     <ImageView
                         android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/publish"
+                        android:src="@mipmap/draft"
                         android:layout_width="64px"
                         android:layout_height="64px" />
 
@@ -305,31 +329,7 @@
                         android:layout_gravity="center_horizontal"
                         android:textColor="#333333"
                         android:textSize="30px"
-                        android:text="发表"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/youji"
-                        android:layout_width="64px"
-                        android:layout_height="64px" />
-
-                    <TextView
-                        android:layout_marginTop="2px"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="#333333"
-                        android:textSize="30px"
-                        android:text="友记"
+                        android:text="草稿"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -531,7 +531,6 @@
                 android:layout_height="12px"/>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="100px">
 

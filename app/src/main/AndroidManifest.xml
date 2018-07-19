@@ -70,10 +70,12 @@
         <activity
             android:name=".pages.DetailsOfFriendTogetherActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".pages.MyCollectionActivity" />
         <activity android:name=".pages.MyCommentActivity" />
         <activity android:name=".pages.LookHistoryActivity" />
         <activity android:name=".pages.MyDraftActivity"></activity>
+
     </application>
 
 </manifest>
