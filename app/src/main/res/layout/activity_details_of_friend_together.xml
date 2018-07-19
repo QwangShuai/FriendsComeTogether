@@ -126,7 +126,7 @@
                             android:layout_height="42px"
                             android:layout_marginLeft="46px"
                             android:layout_marginTop="16px"
-                            android:text="签约领队"
+                            android:text="无领队"
                             android:textColor="@color/white_ffffff"
                             android:textSize="30px" />
                     </RelativeLayout>
@@ -177,17 +177,19 @@
                                 android:id="@+id/time_endIv"
                                 android:layout_width="40px"
                                 android:layout_height="40px"
-                                android:src="@mipmap/time_start"/>
+                                android:src="@mipmap/time_end"/>
+
                             <TextView
-                                android:layout_toRightOf="@id/time_endIv"
-                                android:layout_marginLeft="5px"
-                                android:textSize="28px"
-                                android:textColor="@color/black_333333"
                                 android:id="@+id/time_end_tv"
-                                android:text="结束时间：2018-05-05"
-                                android:gravity="center_vertical"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent" />
+                                android:layout_height="match_parent"
+                                android:layout_alignParentTop="true"
+                                android:layout_toEndOf="@+id/time_endIv"
+                                android:layout_toRightOf="@+id/time_endIv"
+                                android:gravity="center_vertical"
+                                android:text="结束时间：2018-05-05"
+                                android:textColor="@color/black_333333"
+                                android:textSize="28px" />
                         </RelativeLayout>
                         <RelativeLayout
                             android:layout_marginTop="24px"
@@ -286,6 +288,32 @@
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="40px" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/black_f8f8f8"></View>
+            <TextView
+                android:id="@+id/participantsTv"
+                android:layout_marginTop="20px"
+                android:textColor="@color/black_333333"
+                android:textSize="32px"
+                android:layout_marginLeft="40px"
+                android:text="参加人员（3/10）"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="45px" />
+            <RelativeLayout
+                android:layout_marginLeft="40px"
+                android:layout_marginTop="20px"
+                android:layout_width="match_parent"
+                android:layout_height="160px"
+                android:descendantFocusability="blocksDescendants">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/details_friend_together_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

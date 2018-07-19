@@ -16,7 +16,7 @@ public class SpImp {
         editor = sp.edit();
     }
     public String getUID() {
-        return sp.getString(SpPublic.UID, "");
+        return sp.getString(SpPublic.UID, "0");
     }
 
     public void setUID(String UID) {

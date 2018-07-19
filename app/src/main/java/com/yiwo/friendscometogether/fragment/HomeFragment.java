@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.HomeHotAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -41,6 +43,7 @@ public class HomeFragment extends BaseFragment {
         ButterKnife.bind(this, rootView);
         ScreenAdapterTools.getInstance().loadView(rootView);
         init(banner,DetailsOfFriendsActivity.class);
+        Log.e("友聚详情token",getToken(NetConfig.BaseUrl+NetConfig.friendsTogetherDetailsUrl));
         return rootView;
     }
     public void initList(){

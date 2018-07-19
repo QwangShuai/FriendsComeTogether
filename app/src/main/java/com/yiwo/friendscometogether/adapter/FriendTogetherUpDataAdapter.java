@@ -63,7 +63,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(context, DetailsOfFriendTogetherActivity.class);
-                intent.putExtra("fmid", data.get(position).getPfID());
+                intent.putExtra("pfID", data.get(position).getPfID());
                 context.startActivity(intent);
             }
         });
