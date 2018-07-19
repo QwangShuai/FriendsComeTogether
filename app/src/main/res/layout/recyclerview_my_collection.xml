@@ -28,11 +28,11 @@
             android:layout_height="200px">
 
             <TextView
-                android:layout_above="@+id/activity_my_collection_rv_tv_time"
+                android:layout_marginTop="6px"
                 android:id="@+id/activity_my_collection_rv_tv_title"
                 android:textColor="@color/black_333333"
                 android:textSize="32px"
-                android:lines="3"
+                android:lines="4"
                 android:ellipsize="end"
                 android:text="香港也是购物的天堂香港 也是购物的天堂香港也是 购物的天堂香港"
                 android:layout_width="352px"
@@ -41,7 +41,6 @@
             <TextView
                 android:layout_alignParentBottom="true"
                 android:id="@+id/activity_my_collection_rv_tv_time"
-                android:layout_marginTop="28px"
                 android:textSize="24px"
                 android:textColor="@color/black_333333"
                 android:text="香港购物天堂 2018-1-3"

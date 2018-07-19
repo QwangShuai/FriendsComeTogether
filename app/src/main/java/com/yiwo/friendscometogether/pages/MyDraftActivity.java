@@ -16,7 +16,8 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.adapter.MyCollectionAdapter;
+import com.yiwo.friendscometogether.adapter.LookHistoryAdapter;
+import com.yiwo.friendscometogether.adapter.MyDraftAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 
 import java.util.ArrayList;
@@ -26,19 +27,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MyCollectionActivity extends BaseActivity {
+public class MyDraftActivity extends BaseActivity {
 
-    @BindView(R.id.activity_my_collection_rl_back)
+    @BindView(R.id.activity_my_draft_rl_back)
     RelativeLayout rlBack;
-    @BindView(R.id.activity_my_collection_rv)
+    @BindView(R.id.activity_my_draft_rv)
     SwipeMenuRecyclerView recyclerView;
 
-    private MyCollectionAdapter adapter;
+    private MyDraftAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_collection);
+        setContentView(R.layout.activity_my_draft);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
@@ -49,7 +50,7 @@ public class MyCollectionActivity extends BaseActivity {
 
     private void initData() {
 
-        LinearLayoutManager manager = new LinearLayoutManager(MyCollectionActivity.this);
+        LinearLayoutManager manager = new LinearLayoutManager(MyDraftActivity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
         List<String> data = new ArrayList<>();
@@ -61,13 +62,13 @@ public class MyCollectionActivity extends BaseActivity {
         data.add("");
         data.add("");
         data.add("");
-        adapter = new MyCollectionAdapter(data);
-//        recyclerView.setItemViewSwipeEnabled(true);
+        adapter = new MyDraftAdapter(data);
 
         recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
         recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
 
         recyclerView.setAdapter(adapter);
+
     }
 
     /**
@@ -83,9 +84,9 @@ public class MyCollectionActivity extends BaseActivity {
             int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                Toast.makeText(MyCollectionActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyDraftActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
             } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
-                Toast.makeText(MyCollectionActivity.this, "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyDraftActivity.this, "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -98,8 +99,16 @@ public class MyCollectionActivity extends BaseActivity {
             // 2. 指定具体的高，比如80;
             // 3. WRAP_CONTENT，自身高度，不推荐;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            SwipeMenuItem deleteItem = new SwipeMenuItem(MyCollectionActivity.this)
+            SwipeMenuItem editItem = new SwipeMenuItem(MyDraftActivity.this)
                     .setBackgroundColor(Color.RED)
+                    .setText("编辑")
+                    .setTextColor(Color.WHITE)
+                    .setWidth(width)
+                    .setHeight(height);
+            rightMenu.addMenuItem(editItem);// 添加菜单到右侧。
+
+            SwipeMenuItem deleteItem = new SwipeMenuItem(MyDraftActivity.this)
+                    .setBackgroundColor(Color.GRAY)
                     .setText("删除")
                     .setTextColor(Color.WHITE)
                     .setWidth(width)
@@ -108,10 +117,10 @@ public class MyCollectionActivity extends BaseActivity {
         }
     };
 
-    @OnClick({R.id.activity_my_collection_rl_back})
+    @OnClick({R.id.activity_my_draft_rl_back})
     public void onClick(View view){
         switch (view.getId()){
-            case R.id.activity_my_collection_rl_back:
+            case R.id.activity_my_draft_rl_back:
                 onBackPressed();
                 break;
         }
@@ -120,6 +129,6 @@ public class MyCollectionActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        MyCollectionActivity.this.finish();
+        MyDraftActivity.this.finish();
     }
 }

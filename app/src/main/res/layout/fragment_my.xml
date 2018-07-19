@@ -239,6 +239,7 @@
                 android:layout_height="154px">
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_draft"
                     android:orientation="vertical"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -492,6 +493,7 @@
                 android:layout_height="12px"/>
 
             <RelativeLayout
+                android:id="@+id/fragment_my_rl_comment"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -642,6 +644,7 @@
                 android:layout_height="12px"/>
 
             <RelativeLayout
+                android:id="@+id/fragment_my_rl_history"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
