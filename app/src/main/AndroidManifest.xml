@@ -74,10 +74,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".pages.MyFocusActivity" />
-        <activity android:name=".pages.DetailsOfFriendTogetherActivity"
+            android:name=".pages.MyFocusActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".pages.DetailsOfFriendTogetherActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".pages.MyCollectionActivity"></activity>
     </application>
 
 </manifest>
