@@ -36,4 +36,5 @@ dependencies {
     compile 'com.github.chengzipi:Searchbox:v1.0.0'
     implementation 'me.yatoooon:screenadaptation:1.1.1'
     compile 'com.vise.xiaoyaoyou:xsnow:2.1.9'
+    compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 }

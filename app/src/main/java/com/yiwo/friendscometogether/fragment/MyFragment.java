@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.pages.MyCollectionActivity;
 import com.yiwo.friendscometogether.pages.MyFocusActivity;
 import com.yiwo.friendscometogether.pages.MyOrderActivity;
 
@@ -38,6 +39,8 @@ public class MyFragment extends BaseFragment {
     LinearLayout llReturnPrice;
     @BindView(R.id.fragment_my_rl_focus)
     RelativeLayout rlFocus;
+    @BindView(R.id.fragment_my_rl_collection)
+    RelativeLayout rlCollection;
 
     @Nullable
     @Override
@@ -51,7 +54,7 @@ public class MyFragment extends BaseFragment {
     }
 
     @OnClick({R.id.fragment_my_ll_look_more, R.id.fragment_my_ll_to_pay, R.id.fragment_my_ll_to_trip, R.id.fragment_my_ll_to_comment, R.id.fragment_my_ll_return_price,
-    R.id.fragment_my_rl_focus})
+    R.id.fragment_my_rl_focus, R.id.fragment_my_rl_collection})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -82,6 +85,10 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.fragment_my_rl_focus:
                 intent.setClass(getContext(), MyFocusActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.fragment_my_rl_collection:
+                intent.setClass(getContext(), MyCollectionActivity.class);
                 startActivity(intent);
                 break;
         }

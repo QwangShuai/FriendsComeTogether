@@ -454,6 +454,7 @@
                 android:layout_height="20px"/>
 
             <RelativeLayout
+                android:id="@+id/fragment_my_rl_collection"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
