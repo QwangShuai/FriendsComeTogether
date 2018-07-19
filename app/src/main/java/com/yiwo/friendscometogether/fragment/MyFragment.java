@@ -12,7 +12,10 @@ import android.widget.RelativeLayout;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.pages.LookHistoryActivity;
 import com.yiwo.friendscometogether.pages.MyCollectionActivity;
+import com.yiwo.friendscometogether.pages.MyCommentActivity;
+import com.yiwo.friendscometogether.pages.MyDraftActivity;
 import com.yiwo.friendscometogether.pages.MyFocusActivity;
 import com.yiwo.friendscometogether.pages.MyOrderActivity;
 
@@ -41,6 +44,12 @@ public class MyFragment extends BaseFragment {
     RelativeLayout rlFocus;
     @BindView(R.id.fragment_my_rl_collection)
     RelativeLayout rlCollection;
+    @BindView(R.id.fragment_my_rl_comment)
+    RelativeLayout rlComment;
+    @BindView(R.id.fragment_my_rl_history)
+    RelativeLayout rlHistory;
+    @BindView(R.id.fragment_my_ll_draft)
+    LinearLayout llDraft;
 
     @Nullable
     @Override
@@ -54,7 +63,7 @@ public class MyFragment extends BaseFragment {
     }
 
     @OnClick({R.id.fragment_my_ll_look_more, R.id.fragment_my_ll_to_pay, R.id.fragment_my_ll_to_trip, R.id.fragment_my_ll_to_comment, R.id.fragment_my_ll_return_price,
-    R.id.fragment_my_rl_focus, R.id.fragment_my_rl_collection})
+    R.id.fragment_my_rl_focus, R.id.fragment_my_rl_collection, R.id.fragment_my_rl_comment, R.id.fragment_my_rl_history, R.id.fragment_my_ll_draft})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -89,6 +98,18 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.fragment_my_rl_collection:
                 intent.setClass(getContext(), MyCollectionActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.fragment_my_rl_comment:
+                intent.setClass(getContext(), MyCommentActivity. class);
+                startActivity(intent);
+                break;
+            case R.id.fragment_my_rl_history:
+                intent.setClass(getContext(), LookHistoryActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.fragment_my_ll_draft:
+                intent.setClass(getContext(), MyDraftActivity.class);
                 startActivity(intent);
                 break;
         }
