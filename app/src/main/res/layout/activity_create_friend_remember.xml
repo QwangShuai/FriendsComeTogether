@@ -140,13 +140,36 @@
 
                 <ImageView
                     android:id="@+id/activity_create_friend_remember_iv_title"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="330px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30px"
                     android:layout_marginRight="30px"
                     android:scaleType="fitXY" />
+                
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/activity_create_friend_remember_iv_delete"
+                    android:layout_marginRight="10px"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/delete"
+                    android:layout_width="40px"
+                    android:layout_height="40px" />
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/activity_create_friend_remember_tv_first_iv"
+                    android:background="#4D000000"
+                    android:gravity="center"
+                    android:textSize="28px"
+                    android:textColor="@color/white_ffffff"
+                    android:text="首图"
+                    android:layout_alignBottom="@+id/activity_create_friend_remember_iv_title"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px"
+                    android:layout_width="match_parent"
+                    android:layout_height="80px" />
 
             </RelativeLayout>
 

@@ -22,6 +22,7 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
+                android:id="@+id/fragment_my_person_set"
                 android:layout_width="match_parent"
                 android:layout_height="258px">
 

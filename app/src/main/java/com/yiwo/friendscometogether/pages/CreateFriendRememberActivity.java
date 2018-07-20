@@ -76,6 +76,10 @@ public class CreateFriendRememberActivity extends BaseActivity {
     ImageView ivAdd;
     @BindView(R.id.activity_create_friend_remember_iv_title)
     ImageView ivTitle;
+    @BindView(R.id.activity_create_friend_remember_tv_first_iv)
+    TextView tvFirstIv;
+    @BindView(R.id.activity_create_friend_remember_iv_delete)
+    ImageView ivDelete;
 
     private int mYear;
     private int mMonth;
@@ -135,7 +139,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
     @OnClick({R.id.activity_create_friend_remember_rl_back, R.id.activity_create_friend_remember_rl_edit_title, R.id.activity_create_friend_remember_rl_edit_content,
             R.id.activity_create_friend_remember_rl_time_start, R.id.activity_create_friend_remember_rl_time_end, R.id.activity_create_friend_remember_rl_activity_city,
             R.id.activity_create_friend_remember_rl_price, R.id.activity_create_friend_remember_rl_complete, R.id.activity_create_friend_remember_rl_set_password,
-            R.id.activity_create_friend_remember_iv_add})
+            R.id.activity_create_friend_remember_iv_add, R.id.activity_create_friend_remember_iv_delete})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_create_friend_remember_rl_back:
@@ -197,6 +201,11 @@ public class CreateFriendRememberActivity extends BaseActivity {
 //                        .setSelected(selected) // 把已选的图片传入默认选中。
                         .start(CreateFriendRememberActivity.this, REQUEST_CODE); // 打开相册
                 break;
+            case R.id.activity_create_friend_remember_iv_delete:
+                ivDelete.setVisibility(View.GONE);
+                ivTitle.setVisibility(View.INVISIBLE);
+                tvFirstIv.setVisibility(View.INVISIBLE);
+                break;
         }
     }
 
@@ -209,6 +218,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
             Log.e("222", scList.get(0));
             Picasso.with(CreateFriendRememberActivity.this).load("file://" + scList.get(0)).into(ivTitle);
             ivTitle.setVisibility(View.VISIBLE);
+            tvFirstIv.setVisibility(View.VISIBLE);
+            ivDelete.setVisibility(View.VISIBLE);
         }
     }
 
