@@ -49,6 +49,7 @@ public class CityActivity extends BaseActivity {
 
         initData();
         setListener();
+        loadHot();
         loadCity();
     }
 
@@ -76,11 +77,11 @@ public class CityActivity extends BaseActivity {
             }
         });
     }
-    public void loadCity(){
-        String token = getToken(NetConfig.cityUrl);
+    public void loadHot(){
+        String token = getToken(NetConfig.BaseUrl+NetConfig.hotCityUrl);
         OkHttpUtils.post()
                 .tag(this)
-                .url(NetConfig.cityUrl)
+                .url(NetConfig.BaseUrl+NetConfig.hotCityUrl)
                 .addParams("app_key",token)
                 .build()
                 .execute(new StringCallback() {
@@ -91,9 +92,51 @@ public class CityActivity extends BaseActivity {
 
                     @Override
                     public void onResponse(String response) {
-                        String result = new String(Base64.decode(response.getBytes(),Base64.DEFAULT));
                         try {
-                            JSONObject jsonObject =new JSONObject(result);
+                            JSONObject jsonObject =new JSONObject(response);
+                            int code = jsonObject.optInt("code");
+                            JSONArray arr = jsonObject.optJSONArray("obj");
+                            if(code==200){
+                               if (arr!=null&&arr.length()!=0){
+                                   CityModel c = new CityModel();
+                                   c.setId("-1");
+                                   c.setName("热门城市");
+                                   list.add(c);
+                                   for(int j=0;j<arr.length();j++){
+                                       JSONObject o = arr.optJSONObject(j);
+                                       CityModel cm = new CityModel();
+                                       cm.setId(o.optString("city_id"));
+                                       cm.setName(o.optString("city_name"));
+                                       list.add(cm);
+                                   }
+                               }
+                            } else {
+                                toToast(CityActivity.this,jsonObject.optString("message").toString());
+                            }
+                            adapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+    public void loadCity(){
+        String token = getToken(NetConfig.BaseUrl+NetConfig.cityUrl);
+        OkHttpUtils.post()
+                .tag(this)
+                .url(NetConfig.BaseUrl+NetConfig.cityUrl)
+                .addParams("app_key",token)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject =new JSONObject(response);
                             int code = jsonObject.optInt("code");
                             JSONObject jsonobj = jsonObject.optJSONObject("obj");
                             if(code==200){

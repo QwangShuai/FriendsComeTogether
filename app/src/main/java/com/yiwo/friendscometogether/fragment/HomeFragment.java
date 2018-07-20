@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
@@ -21,6 +22,7 @@ import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -32,6 +34,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2018/7/16.
@@ -43,6 +46,8 @@ public class HomeFragment extends BaseFragment {
     Banner banner;
     @BindView(R.id.home_hotRv)
     RecyclerView home_hotRv;
+    @BindView(R.id.locationRl)
+    RelativeLayout locationRl;
     private HomeHotAdapter adapter;
     String json = " {\n" +
             "    \"code\": 200,\n" +
@@ -130,5 +135,13 @@ public class HomeFragment extends BaseFragment {
         home_hotRv.setLayoutManager(manager);
         adapter = new HomeHotAdapter(data);
         home_hotRv.setAdapter(adapter);
+    }
+    @OnClick({R.id.locationRl})
+    public void OnClick(View v){
+        switch (v.getId()){
+            case R.id.locationRl:
+                getActivity().startActivity(new Intent(getActivity(), CityActivity.class));
+                break;
+        }
     }
 }

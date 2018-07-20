@@ -22,27 +22,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="64px"
                 android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_marginLeft="20px"
+                    android:id="@+id/locationRl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/locationLv"
+                        android:layout_width="42px"
+                        android:layout_height="42px"
+                        android:src="@mipmap/index_location" />
 
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:id="@+id/locationLv"
-                    android:layout_width="42px"
-                    android:layout_height="42px"
-                    android:src="@mipmap/index_location" />
+                    <TextView
+                        android:layout_toRightOf="@+id/locationLv"
+                        android:gravity="center"
+                        android:textSize="32px"
+                        android:layout_marginLeft="10px"
+                        android:layout_width="96px"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black_333333"
+                        android:text="哈尔滨" />
+                </RelativeLayout>
 
-                <TextView
-                    android:layout_toRightOf="@+id/locationLv"
-                    android:gravity="center"
-                    android:textSize="32px"
-                    android:layout_marginLeft="10px"
-                    android:id="@+id/locationTv"
-                    android:layout_width="96px"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/black_333333"
-                    android:text="哈尔滨" />
 
                 <LinearLayout
-                    android:layout_toRightOf="@+id/locationTv"
+                    android:layout_toRightOf="@+id/locationRl"
                     android:gravity="center"
                     android:background="@drawable/bg_search1"
                     android:layout_marginLeft="30px"
