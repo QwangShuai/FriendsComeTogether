@@ -1,14 +1,17 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,7 +19,9 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -31,6 +36,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +72,10 @@ public class CreateFriendRememberActivity extends BaseActivity {
     RelativeLayout rlComplete;
     @BindView(R.id.activity_create_friend_remember_rl_set_password)
     RelativeLayout rlPassword;
+    @BindView(R.id.activity_create_friend_remember_iv_add)
+    ImageView ivAdd;
+    @BindView(R.id.activity_create_friend_remember_iv_title)
+    ImageView ivTitle;
 
     private int mYear;
     private int mMonth;
@@ -76,6 +86,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
 
     private PopupWindow popupWindow;
+
+    private static final int REQUEST_CODE = 0x00000011;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +134,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
 
     @OnClick({R.id.activity_create_friend_remember_rl_back, R.id.activity_create_friend_remember_rl_edit_title, R.id.activity_create_friend_remember_rl_edit_content,
             R.id.activity_create_friend_remember_rl_time_start, R.id.activity_create_friend_remember_rl_time_end, R.id.activity_create_friend_remember_rl_activity_city,
-            R.id.activity_create_friend_remember_rl_price, R.id.activity_create_friend_remember_rl_complete, R.id.activity_create_friend_remember_rl_set_password})
+            R.id.activity_create_friend_remember_rl_price, R.id.activity_create_friend_remember_rl_complete, R.id.activity_create_friend_remember_rl_set_password,
+            R.id.activity_create_friend_remember_iv_add})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_create_friend_remember_rl_back:
@@ -175,6 +188,27 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendRememberActivity.this);
                 setPasswordDialog.show();
                 break;
+            case R.id.activity_create_friend_remember_iv_add:
+                //限数量的多选(比喻最多9张)
+                ImageSelector.builder()
+                        .useCamera(true) // 设置是否使用拍照
+                        .setSingle(true)  //设置是否单选
+                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+//                        .setSelected(selected) // 把已选的图片传入默认选中。
+                        .start(CreateFriendRememberActivity.this, REQUEST_CODE); // 打开相册
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && data != null) {
+            //获取选择器返回的数据
+            List<String> scList = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
+            Log.e("222", scList.get(0));
+            Picasso.with(CreateFriendRememberActivity.this).load("file://" + scList.get(0)).into(ivTitle);
+            ivTitle.setVisibility(View.VISIBLE);
         }
     }
 
@@ -318,7 +352,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
         return detail;
     }
 
-    private void showCompletePopupwindow(){
+    private void showCompletePopupwindow() {
 
         View view = LayoutInflater.from(CreateFriendRememberActivity.this).inflate(R.layout.popupwindow_complete, null);
         ScreenAdapterTools.getInstance().loadView(view);
