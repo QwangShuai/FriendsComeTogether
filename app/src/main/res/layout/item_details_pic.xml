@@ -8,13 +8,15 @@
         android:src="@mipmap/ic_launcher"
         android:layout_width="match_parent"
         android:layout_height="372px" />
+
     <TextView
-        android:textSize="28px"
-        android:textColor="@color/black_333333"
+        android:id="@+id/item_titleTv"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
         android:layout_marginLeft="40px"
         android:layout_marginRight="40px"
-        android:text="怎么说，怎么做，都是迷茫的一笔"
         android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="100px" />
+        android:text="怎么说，怎么做，都是迷茫的一笔"
+        android:textColor="@color/black_333333"
+        android:textSize="28px" />
 </LinearLayout>

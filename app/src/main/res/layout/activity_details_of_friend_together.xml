@@ -181,6 +181,7 @@
 
                             <TextView
                                 android:id="@+id/time_end_tv"
+                                android:layout_marginLeft="5px"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentTop="true"
@@ -339,8 +340,81 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/details_content_friend_together_rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
             </RelativeLayout>
+            <LinearLayout
+                android:background="@color/black_f8f8f8"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="98px">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <LinearLayout
+                        android:id="@+id/consult_leaderLl"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="42px"
+                            android:layout_height="36px"
+                            android:src="@mipmap/consult"/>
+                        <TextView
+                            android:text="咨询队长"
+                            android:textSize="20px"
+                            android:textColor="@color/black_333333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28px" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="42px"
+                            android:layout_height="42px"
+                            android:src="@mipmap/share_y"/>
+                        <TextView
+                            android:text="分享"
+                            android:textSize="20px"
+                            android:textColor="@color/black_333333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28px" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="42px"
+                            android:layout_height="38px"
+                            android:src="@mipmap/focus_on_y"/>
+                        <TextView
+                            android:text="关注"
+                            android:textSize="20px"
+                            android:textColor="@color/black_333333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28px" />
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:gravity="center"
+                    android:textSize="28px"
+                    android:textColor="@color/white_ffffff"
+                    android:background="@color/yellow_ff9d00"
+                    android:id="@+id/details_applyTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="报名参加"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

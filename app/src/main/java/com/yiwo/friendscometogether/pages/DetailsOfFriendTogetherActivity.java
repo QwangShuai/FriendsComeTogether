@@ -16,6 +16,7 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.adapter.DetailsOfFriendsTogetherAdapter;
 import com.yiwo.friendscometogether.adapter.FriendTogetherUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.ParticipantsItemAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -62,9 +63,11 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     RelativeLayout item_levelBg;
     @BindView(R.id.details_friend_together_rv)
     RecyclerView recyclerViewP;
-
+    @BindView(R.id.details_content_friend_together_rv)
+    RecyclerView contentRv;
     private Unbinder unbinder;
     private ParticipantsItemAdapter adapter;
+    private DetailsOfFriendsTogetherAdapter detailsOfFriendsTogetherAdapter;
     SpImp spImp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,9 +124,10 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         womanTv.setText("女生人数："+model.getWoman());
         manTv.setText("男生人数："+model.getMan());
         participantsTv.setText("参加人员（"+model.getHave_num()+"/"+model.getPerson_num()+")");
-        initList(model.getUser_list());
+        initPerson(model.getUser_list());
+        initList(model.getInfo_list());
     }
-    private void initList(List<FriendsTogetherDetailsModel.ObjBean.UserListBean> data) {
+    private void initPerson(List<FriendsTogetherDetailsModel.ObjBean.UserListBean> data) {
 
         LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this){
             @Override
@@ -136,5 +140,17 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         adapter = new ParticipantsItemAdapter(data);
         recyclerViewP.setAdapter(adapter);
 
+    }
+    private void initList(List<FriendsTogetherDetailsModel.ObjBean.InfoListBean> data){
+        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        contentRv.setLayoutManager(manager);
+        detailsOfFriendsTogetherAdapter = new DetailsOfFriendsTogetherAdapter(data);
+        contentRv.setAdapter(detailsOfFriendsTogetherAdapter);
     }
 }

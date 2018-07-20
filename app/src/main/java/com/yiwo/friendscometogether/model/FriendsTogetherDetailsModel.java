@@ -299,7 +299,7 @@ public class FriendsTogetherDetailsModel {
                  */
 
                 private String pic;
-                private Object text_info;
+                private String text_info;
 
                 public String getPic() {
                     return pic;
@@ -309,11 +309,11 @@ public class FriendsTogetherDetailsModel {
                     this.pic = pic;
                 }
 
-                public Object getText_info() {
+                public String getText_info() {
                     return text_info;
                 }
 
-                public void setText_info(Object text_info) {
+                public void setText_info(String text_info) {
                     this.text_info = text_info;
                 }
             }
