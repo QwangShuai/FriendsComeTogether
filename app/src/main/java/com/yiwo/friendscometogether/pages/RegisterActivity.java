@@ -67,7 +67,6 @@ public class RegisterActivity extends BaseActivity {
         MyApplication.timecount
                 .setActivity(RegisterActivity.this);
         spImp = new SpImp(c);
-        setTitle();
     }
     @OnClick({R.id.getCode_btn,R.id.register_btn,R.id.rl_set_return})
     public void onClick(View v){
@@ -123,18 +122,6 @@ public class RegisterActivity extends BaseActivity {
                             }
                         }
                     });
-        }
-    }
-    public void setTitle(){
-        Intent it = getIntent();
-        String title = it.getStringExtra("title");
-        titleTv.setText(title);
-        if(title.equals("注册")){
-            register_btn.setText("注册");
-            state = true;
-        } else {
-            register_btn.setText("完成");
-            state = false;
         }
     }
     public void register(String phone,String pwd,String cpwd,String code,boolean b){

@@ -27,4 +27,6 @@ public class NetConfig {
     public static String friendsTogetherUrl = "action/ac_activity/activity_all_list";
     //友聚详情
     public static String friendsTogetherDetailsUrl = "action/ac_activity/activity_info";
+    //首页友记热门列表
+    public static String homeHotFriendsRememberUrl = "action/ac_article/index_fmrecommend";
 }
