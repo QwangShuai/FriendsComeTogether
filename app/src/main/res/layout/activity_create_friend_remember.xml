@@ -6,277 +6,369 @@
     android:layout_height="match_parent"
     tools:context="com.yiwo.friendscometogether.pages.CreateFriendRememberActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/activity_create_friend_remember_rl_top"
+        style="@style/rl_top_bar">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/tv_top_title"
+            android:text="创建友记" />
+
+        <RelativeLayout
+            android:id="@+id/activity_create_friend_remember_rl_back"
+            android:layout_width="100px"
             android:layout_height="match_parent">
 
+            <ImageView style="@style/iv_return" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_create_friend_remember_rl_top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <RelativeLayout
-                android:id="@+id/activity_create_friend_remember_rl_top"
-                style="@style/rl_top_bar">
+                android:id="@+id/activity_create_friend_remember_rl_edit_title"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
 
                 <TextView
-                    android:text="创建友记"
-                    style="@style/tv_top_title" />
+                    android:id="@+id/activity_create_friend_remember_tv_title"
+                    android:layout_width="490px"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40px"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="请输入活动标题"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                <RelativeLayout
-                    android:id="@+id/activity_create_friend_remember_rl_back"
-                    android:layout_width="100px"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        style="@style/iv_return" />
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/activity_create_friend_remember_tv_title_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40px"
+                    android:text="0/30"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:orientation="vertical"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="12px"
+                android:background="#F8F8F8" />
 
-                <RelativeLayout
+            <RelativeLayout
+                android:id="@+id/activity_create_friend_remember_rl_edit_content"
+                android:layout_width="match_parent"
+                android:layout_height="250px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40px"
+                    android:layout_marginTop="24px"
+                    android:text="具体内容"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/activity_create_friend_remember_tv_content_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40px"
+                    android:layout_marginTop="24px"
+                    android:text="0/2000"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="88px">
+                    android:layout_height="170px"
+                    android:layout_below="@+id/activity_create_friend_remember_tv_content_num"
+                    android:layout_marginLeft="40px"
+                    android:layout_marginRight="40px"
+                    android:layout_marginTop="8px"
+                    android:ellipsize="end"
+                    android:lines="4"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                    <TextView
-                        android:lines="1"
-                        android:ellipsize="end"
-                        android:id="@+id/activity_create_friend_remember_tv_title"
-                        android:layout_marginLeft="40px"
-                        android:layout_centerVertical="true"
-                        android:textSize="28px"
-                        android:textColor="@color/black_333333"
-                        android:text="请输入活动标题"
-                        android:layout_width="490px"
-                        android:layout_height="wrap_content" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/activity_create_friend_remember_tv_title_num"
-                        android:layout_marginRight="40px"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px"
-                        android:text="0/30"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="370px">
 
-                </RelativeLayout>
-
-                <View
-                    android:background="#F8F8F8"
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="12px"/>
+                    android:layout_height="330px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_launcher" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="250px">
+            </RelativeLayout>
 
-                    <TextView
-                        android:layout_marginTop="24px"
-                        android:layout_marginLeft="40px"
-                        android:textSize="28px"
-                        android:textColor="@color/black_333333"
-                        android:text="具体内容"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="#F8F8F8" />
 
-                    <TextView
-                        android:id="@+id/activity_create_friend_remember_tv_content_num"
-                        android:layout_marginRight="40px"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="24px"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px"
-                        android:text="0/2000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:id="@+id/activity_create_friend_remember_rl_time_start"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
 
-                    <TextView
-                        android:lines="4"
-                        android:ellipsize="end"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px"
-                        android:layout_marginTop="8px"
-                        android:layout_below="@+id/activity_create_friend_remember_tv_content_num"
-                        android:layout_marginLeft="40px"
-                        android:layout_marginRight="40px"
-                        android:layout_width="match_parent"
-                        android:layout_height="170px" />
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_time_start"
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40px"
+                    android:src="@mipmap/time_start" />
 
-                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12px"
+                    android:layout_toRightOf="@+id/activity_create_friend_remember_iv_time_start"
+                    android:text="开始时间"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="370px">
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_time_start_right"
+                    android:layout_width="14px"
+                    android:layout_height="24px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40px"
+                    android:src="@mipmap/right" />
 
-                    <ImageView
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_marginLeft="30px"
-                        android:layout_marginRight="30px"
-                        android:layout_centerVertical="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="330px" />
+                <TextView
+                    android:id="@+id/activity_create_friend_remember_tv_time_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10px"
+                    android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_time_start_right"
+                    android:text="0000-00-00"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                </RelativeLayout>
+            </RelativeLayout>
 
-                <View
-                    android:background="#F8F8F8"
-                    android:layout_width="match_parent"
-                    android:layout_height="12px"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="#F8F8F8" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="88px">
+            <RelativeLayout
+                android:id="@+id/activity_create_friend_remember_rl_time_end"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
 
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_time_start"
-                        android:src="@mipmap/time_start"
-                        android:layout_marginLeft="40px"
-                        android:layout_centerVertical="true"
-                        android:layout_width="40px"
-                        android:layout_height="40px" />
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_time_end"
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40px"
+                    android:src="@mipmap/time_end" />
 
-                    <TextView
-                        android:layout_marginLeft="12px"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/activity_create_friend_remember_iv_time_start"
-                        android:textSize="28px"
-                        android:textColor="@color/black_333333"
-                        android:text="开始时间"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12px"
+                    android:layout_toRightOf="@+id/activity_create_friend_remember_iv_time_end"
+                    android:text="结束时间"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_time_start_right"
-                        android:layout_marginRight="40px"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:src="@mipmap/right"
-                        android:layout_width="14px"
-                        android:layout_height="24px" />
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_time_end_right"
+                    android:layout_width="14px"
+                    android:layout_height="24px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40px"
+                    android:src="@mipmap/right" />
 
-                    <TextView
-                        android:layout_marginRight="10px"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_time_start_right"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px"
-                        android:text="0000-00-00"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_create_friend_remember_tv_time_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10px"
+                    android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_time_end_right"
+                    android:text="0000-00-00"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                </RelativeLayout>
+            </RelativeLayout>
 
-                <View
-                    android:background="#F8F8F8"
-                    android:layout_width="match_parent"
-                    android:layout_height="12px"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="#F8F8F8" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="88px">
+            <RelativeLayout
+                android:id="@+id/activity_create_friend_remember_rl_activity_city"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
 
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_time_end"
-                        android:src="@mipmap/time_end"
-                        android:layout_marginLeft="40px"
-                        android:layout_centerVertical="true"
-                        android:layout_width="40px"
-                        android:layout_height="40px" />
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_activity_city"
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40px"
+                    android:src="@mipmap/activity_place" />
 
-                    <TextView
-                        android:layout_marginLeft="12px"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/activity_create_friend_remember_iv_time_end"
-                        android:textSize="28px"
-                        android:textColor="@color/black_333333"
-                        android:text="结束时间"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12px"
+                    android:layout_toRightOf="@+id/activity_create_friend_remember_iv_activity_city"
+                    android:text="活动地点"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_time_end_right"
-                        android:layout_marginRight="40px"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:src="@mipmap/right"
-                        android:layout_width="14px"
-                        android:layout_height="24px" />
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_activity_city_right"
+                    android:layout_width="14px"
+                    android:layout_height="24px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40px"
+                    android:src="@mipmap/right" />
 
-                    <TextView
-                        android:layout_marginRight="10px"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_time_end_right"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px"
-                        android:text="0000-00-00"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_create_friend_remember_tv_activity_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10px"
+                    android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_activity_city_right"
+                    android:text="城市名字"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                </RelativeLayout>
+            </RelativeLayout>
 
-                <View
-                    android:background="#F8F8F8"
-                    android:layout_width="match_parent"
-                    android:layout_height="12px"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="#F8F8F8" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="88px">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
 
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_activity_city"
-                        android:src="@mipmap/activity_place"
-                        android:layout_marginLeft="40px"
-                        android:layout_centerVertical="true"
-                        android:layout_width="40px"
-                        android:layout_height="40px" />
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_price"
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40px"
+                    android:src="@mipmap/price" />
 
-                    <TextView
-                        android:layout_marginLeft="12px"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/activity_create_friend_remember_iv_activity_city"
-                        android:textSize="28px"
-                        android:textColor="@color/black_333333"
-                        android:text="活动地点"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12px"
+                    android:layout_toRightOf="@+id/activity_create_friend_remember_iv_price"
+                    android:text="人均费用"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_activity_city_right"
-                        android:layout_marginRight="40px"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:src="@mipmap/right"
-                        android:layout_width="14px"
-                        android:layout_height="24px" />
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_price_right"
+                    android:layout_width="14px"
+                    android:layout_height="24px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40px"
+                    android:src="@mipmap/right" />
 
-                    <TextView
-                        android:layout_marginRight="10px"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_activity_city_right"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px"
-                        android:text="城市名字"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10px"
+                    android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_price_right"
+                    android:text="¥000.00"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
 
-                </RelativeLayout>
+            </RelativeLayout>
 
-                <View
-                    android:background="#F8F8F8"
-                    android:layout_width="match_parent"
-                    android:layout_height="12px"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="#F8F8F8" />
 
-            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_encryption"
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40px"
+                    android:src="@mipmap/article_lock" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12px"
+                    android:layout_toRightOf="@+id/activity_create_friend_remember_iv_encryption"
+                    android:text="浏览加密"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
+
+                <ImageView
+                    android:id="@+id/activity_create_friend_remember_iv_encryption_right"
+                    android:layout_width="14px"
+                    android:layout_height="24px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40px"
+                    android:src="@mipmap/right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10px"
+                    android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_encryption_right"
+                    android:text="浏览需要密码"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

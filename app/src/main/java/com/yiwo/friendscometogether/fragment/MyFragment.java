@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.pages.CreateFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.LookHistoryActivity;
 import com.yiwo.friendscometogether.pages.MyCollectionActivity;
 import com.yiwo.friendscometogether.pages.MyCommentActivity;
@@ -50,6 +51,8 @@ public class MyFragment extends BaseFragment {
     RelativeLayout rlHistory;
     @BindView(R.id.fragment_my_ll_draft)
     LinearLayout llDraft;
+    @BindView(R.id.fragment_my_ll_create_friend_remember)
+    LinearLayout llFriendRemember;
 
     @Nullable
     @Override
@@ -63,7 +66,8 @@ public class MyFragment extends BaseFragment {
     }
 
     @OnClick({R.id.fragment_my_ll_look_more, R.id.fragment_my_ll_to_pay, R.id.fragment_my_ll_to_trip, R.id.fragment_my_ll_to_comment, R.id.fragment_my_ll_return_price,
-    R.id.fragment_my_rl_focus, R.id.fragment_my_rl_collection, R.id.fragment_my_rl_comment, R.id.fragment_my_rl_history, R.id.fragment_my_ll_draft})
+    R.id.fragment_my_rl_focus, R.id.fragment_my_rl_collection, R.id.fragment_my_rl_comment, R.id.fragment_my_rl_history, R.id.fragment_my_ll_draft,
+    R.id.fragment_my_ll_create_friend_remember})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -110,6 +114,10 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.fragment_my_ll_draft:
                 intent.setClass(getContext(), MyDraftActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.fragment_my_ll_create_friend_remember:
+                intent.setClass(getContext(), CreateFriendRememberActivity.class);
                 startActivity(intent);
                 break;
         }

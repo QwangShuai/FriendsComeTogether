@@ -239,6 +239,7 @@
                 android:layout_height="154px">
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_create_friend_remember"
                     android:orientation="vertical"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
