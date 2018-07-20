@@ -22,6 +22,22 @@
             <ImageView style="@style/iv_return" />
 
         </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/activity_create_friend_remember_rl_complete"
+            android:layout_alignParentRight="true"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="@color/white_ffffff"
+                android:textSize="30px"
+                android:text="完成"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -280,6 +296,7 @@
                 android:background="#F8F8F8" />
 
             <RelativeLayout
+                android:id="@+id/activity_create_friend_remember_rl_price"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -328,6 +345,7 @@
                 android:background="#F8F8F8" />
 
             <RelativeLayout
+                android:id="@+id/activity_create_friend_remember_rl_set_password"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
