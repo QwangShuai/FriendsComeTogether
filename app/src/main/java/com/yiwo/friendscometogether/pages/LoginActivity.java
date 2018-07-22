@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.okhttp.Request;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.CImageView;
@@ -56,6 +57,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         unbinder = ButterKnife.bind(this);
+        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         c = LoginActivity.this;
         spImp = new SpImp(c);
     }

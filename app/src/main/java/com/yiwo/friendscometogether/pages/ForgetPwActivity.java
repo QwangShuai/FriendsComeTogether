@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.okhttp.Request;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -63,6 +64,7 @@ public class ForgetPwActivity extends BaseActivity {
         setContentView(R.layout.activity_forget_pw);
         c = ForgetPwActivity.this;
         unbinder = ButterKnife.bind(this);
+        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         MyApplication.ftptimecount
                 .setActivity(ForgetPwActivity.this);
         spImp = new SpImp(c);

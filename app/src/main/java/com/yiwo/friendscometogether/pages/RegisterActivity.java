@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.okhttp.Request;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -64,6 +65,7 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         c = RegisterActivity.this;
         unbinder = ButterKnife.bind(this);
+        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         MyApplication.timecount
                 .setActivity(RegisterActivity.this);
         spImp = new SpImp(c);

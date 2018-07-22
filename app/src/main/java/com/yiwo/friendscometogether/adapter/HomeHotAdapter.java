@@ -56,7 +56,7 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             holder.nameTv.setText(data.get(position).getUsername());
         } else {
             list = data.get(position).getVideo();
-            holder.childrenLl.setVisibility(View.INVISIBLE);
+            holder.childrenLl.setVisibility(View.GONE);
             ((ViewGroup)videoPl.getParent()).removeView(videoPl);
             holder.vesselLl.addView(videoPl);
            videoPl.setAdapter(new PileLayoutVideoAdapter(context,data.get(position).getVideo()));

@@ -35,6 +35,7 @@
                         android:src="@mipmap/index_location" />
 
                     <TextView
+                        android:id="@+id/cityTv"
                         android:layout_toRightOf="@+id/locationLv"
                         android:gravity="center"
                         android:textSize="32px"
@@ -63,6 +64,7 @@
                         android:src="@mipmap/explore_search_icon" />
 
                     <TextView
+                        android:textSize="28px"
                         android:layout_marginLeft="20px"
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"

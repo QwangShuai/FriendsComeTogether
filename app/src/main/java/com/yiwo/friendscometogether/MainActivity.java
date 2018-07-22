@@ -1,8 +1,13 @@
 package com.yiwo.friendscometogether;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +21,9 @@ import com.yiwo.friendscometogether.fragment.FriendsRememberFragment;
 import com.yiwo.friendscometogether.fragment.FriendsTogetherFragment;
 import com.yiwo.friendscometogether.fragment.HomeFragment;
 import com.yiwo.friendscometogether.fragment.MyFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -31,11 +39,16 @@ public class MainActivity extends FragmentActivity {
 
   // 定义数组来存放Fragment界面
   private Class[] fragmentArray = {HomeFragment.class, FriendsTogetherFragment.class, FriendsRememberFragment.class, ChatFragment.class, MyFragment.class};
+  //安卓6.0动态获取权限
+  String[] permissions = new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+          Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
+  List<String> mPermissionList = new ArrayList<>();
+  boolean mShowRequestPermission = true;//用户是否禁止权限
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
+  getPermissions();
     initView();
   }
 
@@ -72,5 +85,26 @@ public class MainActivity extends FragmentActivity {
   }
   public void setmTabHost(int i){
     tabHost.setCurrentTab(i);
+  }
+
+  public void getPermissions(){
+    /**
+     * 判断哪些权限未授予
+     */
+    mPermissionList.clear();
+    for (int i = 0; i < permissions.length; i++) {
+      if (ContextCompat.checkSelfPermission(this, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
+        mPermissionList.add(permissions[i]);
+      }
+    }
+    /**
+     * 判断是否为空
+     */
+    if (mPermissionList.isEmpty()) {//未授予的权限为空，表示都授予了
+      initView();
+    } else {//请求权限方法
+      String[] permissions = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
+      ActivityCompat.requestPermissions(this, permissions, 1);
+    }
   }
 }

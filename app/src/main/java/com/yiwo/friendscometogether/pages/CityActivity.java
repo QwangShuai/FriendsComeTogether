@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.squareup.okhttp.Request;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.CityAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -46,7 +47,7 @@ public class CityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city);
         unbinder = ButterKnife.bind(this);
-
+        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         initData();
         setListener();
         loadHot();
