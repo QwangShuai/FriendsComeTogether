@@ -48,6 +48,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/searchLl"
                     android:layout_toRightOf="@+id/locationRl"
                     android:gravity="center"
                     android:background="@drawable/bg_search1"

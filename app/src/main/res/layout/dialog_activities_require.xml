@@ -25,9 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <LinearLayout
+        android:id="@+id/dialog_activities_require_age_ll"
         android:layout_marginTop="30px"
         android:layout_below="@+id/dialog_activities_require_tv"
-        android:layout_marginLeft="50px"
+        android:layout_marginLeft="40px"
         android:layout_width="match_parent"
         android:layout_height="50px">
         <TextView
@@ -37,5 +38,169 @@
             android:textSize="28px"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
+        <RelativeLayout
+            android:background="@drawable/bg_dialog_price_un_select"
+            android:layout_marginLeft="16px"
+            android:layout_width="120px"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:inputType="phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入年龄"
+                android:textColor="@color/black_333333"
+                android:textSize="20px" />
+        </RelativeLayout>
+        <TextView
+            android:layout_marginLeft="20px"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:text="~"
+            android:textSize="36px"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <RelativeLayout
+            android:background="@drawable/bg_dialog_price_un_select"
+            android:layout_marginLeft="20px"
+            android:layout_width="120px"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:inputType="phone"
+                android:layout_marginLeft="10px"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:background="@null"
+                android:textColor="@color/black_333333"
+                android:textSize="20px"
+                android:hint="请输入年龄"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dialog_activities_require_sex_ll"
+        android:layout_marginTop="40px"
+        android:layout_below="@+id/dialog_activities_require_age_ll"
+        android:layout_marginLeft="40px"
+        android:layout_width="match_parent"
+        android:layout_height="50px">
+    <TextView
+        android:textColor="@color/black_333333"
+        android:gravity="center"
+        android:text="性别："
+        android:textSize="28px"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+        <TextView
+            android:layout_marginLeft="16px"
+            android:background="@drawable/bg_dialog_price_un_select"
+            android:textSize="24px"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:text="无"
+            android:layout_width="120px"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_marginLeft="20px"
+            android:background="@drawable/bg_dialog_price_un_select"
+            android:textSize="24px"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:text="男"
+            android:layout_width="120px"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_marginLeft="20px"
+            android:background="@drawable/bg_dialog_price_un_select"
+            android:textSize="24px"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:text="女"
+            android:layout_width="120px"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dialog_activities_require_marriage_ll"
+        android:layout_marginTop="40px"
+        android:layout_below="@+id/dialog_activities_require_sex_ll"
+        android:layout_marginLeft="40px"
+        android:layout_width="match_parent"
+        android:layout_height="56px">
+    <TextView
+        android:textColor="@color/black_333333"
+        android:gravity="center"
+        android:text="婚姻状况："
+        android:textSize="28px"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+        <TextView
+            android:layout_marginLeft="10px"
+            android:background="@drawable/bg_dialog_price_un_select"
+            android:textSize="24px"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:text="未婚"
+            android:layout_width="160px"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_marginLeft="20px"
+            android:background="@drawable/bg_dialog_price_un_select"
+            android:textSize="24px"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:text="已婚"
+            android:layout_width="160px"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dialog_activities_require_other_ll"
+        android:layout_marginTop="40px"
+        android:layout_below="@+id/dialog_activities_require_marriage_ll"
+        android:layout_marginLeft="40px"
+        android:layout_width="match_parent"
+        android:layout_height="56px">
+        <TextView
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:text="其他要求："
+            android:textSize="28px"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <RelativeLayout
+            android:background="@drawable/bg_dialog_price_un_select"
+            android:layout_marginLeft="10px"
+            android:layout_width="350px"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_marginLeft="20px"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:background="@null"
+                android:textColor="@color/black_333333"
+                android:textSize="24px"
+                android:hint="请输入要求"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+    <Button
+        android:textSize="24px"
+        android:layout_marginBottom="50px"
+        android:layout_marginTop="50px"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
+        android:text="确定"
+        android:background="@drawable/bg_dialog_button"
+        android:layout_below="@+id/dialog_activities_require_other_ll"
+        android:layout_width="260px"
+        android:layout_height="56px" />
 </RelativeLayout>

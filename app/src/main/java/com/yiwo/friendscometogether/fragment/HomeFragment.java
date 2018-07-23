@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,7 +37,9 @@ import com.yiwo.friendscometogether.custom.GlideImageLoader;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
+import com.yiwo.friendscometogether.pages.CreateFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
+import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -71,6 +74,8 @@ public class HomeFragment extends BaseFragment {
     RelativeLayout locationRl;
     @BindView(R.id.cityTv)
     TextView cityTv;
+    @BindView(R.id.searchLl)
+    LinearLayout searchLl;
     private LocationManager locationManager;
     private double latitude = 0.0;
     private double longitude = 0.0;
@@ -182,11 +187,15 @@ public class HomeFragment extends BaseFragment {
         home_hotRv.setAdapter(adapter);
     }
 
-    @OnClick({R.id.locationRl})
+    @OnClick({R.id.locationRl,R.id.searchLl})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.locationRl:
                 getActivity().startActivity(new Intent(getActivity(), CityActivity.class));
+                break;
+            case R.id.searchLl:
+//                getActivity().startActivity(new Intent(getActivity(), SearchActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), CreateFriendTogetherActivity.class));
                 break;
         }
     }

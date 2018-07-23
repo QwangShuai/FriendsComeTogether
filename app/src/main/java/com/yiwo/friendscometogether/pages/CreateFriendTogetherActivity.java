@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.custom.ActivitiesRequireDialog;
 import com.yiwo.friendscometogether.custom.EditContentDialog;
 import com.yiwo.friendscometogether.custom.EditTitleDialog;
 import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
@@ -70,8 +71,8 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
     RelativeLayout rlPrice;
     @BindView(R.id.activity_create_friend_together_rl_complete)
     RelativeLayout rlComplete;
-    @BindView(R.id.activity_create_friend_together_rl_set_password)
-    RelativeLayout rlPassword;
+    @BindView(R.id.activity_create_friend_together_rl_enter_activities)
+    RelativeLayout rlEnterActivities;
     @BindView(R.id.activity_create_friend_together_rl_person_require)
     RelativeLayout rlPeopleRequire;
     @BindView(R.id.activity_create_friend_together_rl_activities_require)
@@ -141,8 +142,8 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
 
     @OnClick({R.id.activity_create_friend_together_rl_back, R.id.activity_create_friend_together_rl_edit_title, R.id.activity_create_friend_together_rl_edit_content,
             R.id.activity_create_friend_together_rl_time_start, R.id.activity_create_friend_together_rl_time_end, R.id.activity_create_friend_together_rl_activity_city,
-            R.id.activity_create_friend_together_rl_price, R.id.activity_create_friend_together_rl_complete, R.id.activity_create_friend_together_rl_set_password,
-            R.id.activity_create_friend_together_iv_person_require,R.id.activity_create_friend_together_rl_activities_require,
+            R.id.activity_create_friend_together_rl_price, R.id.activity_create_friend_together_rl_complete, R.id.activity_create_friend_together_rl_enter_activities,
+            R.id.activity_create_friend_together_rl_person_require,R.id.activity_create_friend_together_rl_activities_require,
             R.id.activity_create_friend_together_iv_add, R.id.activity_create_friend_together_iv_delete})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -192,16 +193,17 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
             case R.id.activity_create_friend_together_rl_complete:
                 showCompletePopupwindow();
                 break;
-            case R.id.activity_create_friend_together_rl_set_password:
+            case R.id.activity_create_friend_together_rl_enter_activities:
                 SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendTogetherActivity.this);
                 setPasswordDialog.show();
                 break;
-            case R.id.activity_create_friend_together_iv_person_require:
+            case R.id.activity_create_friend_together_rl_person_require:
                 PeopleRequireDialog peopleRequireDialog = new PeopleRequireDialog(CreateFriendTogetherActivity.this);
                 peopleRequireDialog.show();
                 break;
-            case R.id.activity_create_friend_together_iv_activities_require:
-
+            case R.id.activity_create_friend_together_rl_activities_require:
+                ActivitiesRequireDialog activitiesRequireDialog = new ActivitiesRequireDialog(CreateFriendTogetherActivity.this);
+                activitiesRequireDialog.show();
                 break;
             case R.id.activity_create_friend_together_iv_add:
                 //限数量的多选(比喻最多9张)
