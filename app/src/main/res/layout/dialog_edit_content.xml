@@ -55,7 +55,7 @@
             android:layout_alignParentRight="true"
             android:textColor="#CACACA"
             android:textSize="28px"
-            android:text="0/200"
+            android:text="0/2000"
             android:id="@+id/dialog_edit_title_tv_text_num"
             android:layout_below="@+id/dialog_edit_content_et_content"
             android:layout_width="wrap_content"
