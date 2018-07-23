@@ -90,7 +90,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".pages.CreateFriendTogetherActivity" />
-        <activity android:name=".pages.DetailsToBePaidActivity"></activity>
+        <activity android:name=".pages.DetailsToBePaidActivity" />
+        <activity android:name=".pages.DetailsToCommentActivity" />
+        <activity android:name=".pages.DetailsToTripActivity" />
+        <activity android:name=".pages.DetailsToReturnPriceActivity"></activity>
     </application>
 
 </manifest>
