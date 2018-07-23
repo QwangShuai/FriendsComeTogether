@@ -98,6 +98,7 @@
         <activity android:name=".pages.MyIntercalationActivity" />
         <activity android:name=".pages.MyPicturesActivity" />
         <activity android:name=".pages.MessageCenterActivity" />
+        <activity android:name=".pages.MyInformationActivity"></activity>
     </application>
 
 </manifest>
