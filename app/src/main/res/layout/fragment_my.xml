@@ -265,6 +265,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_my_friend_remember"
                     android:orientation="vertical"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -289,6 +290,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_ll_my_intercalation"
                     android:orientation="vertical"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
