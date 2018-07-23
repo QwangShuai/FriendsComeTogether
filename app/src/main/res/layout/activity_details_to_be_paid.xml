@@ -207,7 +207,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/activity_details_to_pay_rv_tv_payment"
+                android:id="@+id/activity_details_to_pay_tv_payment"
                 android:textColor="#FF9D00"
                 android:background="@drawable/bg_activity_details_to_pay"
                 android:gravity="center"
@@ -220,11 +220,11 @@
                 android:layout_height="44px" />
 
             <TextView
-                android:id="@+id/activity_details_to_pay_rv_tv_cancle_trip"
+                android:id="@+id/activity_details_to_pay_tv_cancle_trip"
                 android:background="@drawable/bg_fragment_to_pay_cancle"
                 android:layout_marginRight="30px"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/activity_details_to_pay_rv_tv_payment"
+                android:layout_toLeftOf="@+id/activity_details_to_pay_tv_payment"
                 android:gravity="center"
                 android:textSize="24px"
                 android:textColor="@color/black_333333"
@@ -233,11 +233,11 @@
                 android:layout_height="44px" />
 
             <TextView
-                android:id="@+id/activity_details_to_pay_rv_tv_invitation"
+                android:id="@+id/activity_details_to_pay_tv_invitation"
                 android:background="@drawable/bg_fragment_to_pay_cancle"
                 android:layout_marginRight="30px"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/activity_details_to_pay_rv_tv_cancle_trip"
+                android:layout_toLeftOf="@+id/activity_details_to_pay_tv_cancle_trip"
                 android:gravity="center"
                 android:textSize="24px"
                 android:textColor="@color/black_333333"

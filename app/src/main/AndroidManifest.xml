@@ -93,7 +93,9 @@
         <activity android:name=".pages.DetailsToBePaidActivity" />
         <activity android:name=".pages.DetailsToCommentActivity" />
         <activity android:name=".pages.DetailsToTripActivity" />
-        <activity android:name=".pages.DetailsToReturnPriceActivity"></activity>
+        <activity android:name=".pages.DetailsToReturnPriceActivity" />
+        <activity android:name=".pages.MyFriendRememberActivity" />
+        <activity android:name=".pages.MyIntercalationActivity"></activity>
     </application>
 
 </manifest>

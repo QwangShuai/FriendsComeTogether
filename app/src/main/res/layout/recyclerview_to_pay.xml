@@ -35,6 +35,7 @@
     </RelativeLayout>
     
     <RelativeLayout
+        android:id="@+id/fragment_to_pay_rv_rl_details"
         android:background="#F1F1F1"
         android:layout_width="match_parent"
         android:layout_height="210px">

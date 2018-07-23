@@ -1,13 +1,16 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.pages.DetailsToCommentActivity;
 
 import java.util.List;
 
@@ -35,7 +38,14 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.rlDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(context, DetailsToCommentActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -45,9 +55,11 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        private RelativeLayout rlDetails;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            rlDetails = itemView.findViewById(R.id.fragment_to_comment_rv_rl_details);
         }
     }
 
