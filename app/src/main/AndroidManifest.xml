@@ -89,7 +89,8 @@
             android:name="com.donkingliang.imageselector.ClipImageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".pages.CreateFriendTogetherActivity"></activity>
+        <activity android:name=".pages.CreateFriendTogetherActivity" />
+        <activity android:name=".pages.DetailsToBePaidActivity"></activity>
     </application>
 
 </manifest>
