@@ -20,6 +20,7 @@ import com.yiwo.friendscometogether.pages.MyCommentActivity;
 import com.yiwo.friendscometogether.pages.MyDraftActivity;
 import com.yiwo.friendscometogether.pages.MyFocusActivity;
 import com.yiwo.friendscometogether.pages.MyFriendRememberActivity;
+import com.yiwo.friendscometogether.pages.MyInformationActivity;
 import com.yiwo.friendscometogether.pages.MyIntercalationActivity;
 import com.yiwo.friendscometogether.pages.MyOrderActivity;
 
@@ -130,7 +131,7 @@ public class MyFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.fragment_my_person_set:
-                intent.setClass(getContext(), LoginActivity.class);
+                intent.setClass(getContext(), MyInformationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.fragment_my_ll_my_friend_remember:
