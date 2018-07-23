@@ -95,7 +95,8 @@
         <activity android:name=".pages.DetailsToTripActivity" />
         <activity android:name=".pages.DetailsToReturnPriceActivity" />
         <activity android:name=".pages.MyFriendRememberActivity" />
-        <activity android:name=".pages.MyIntercalationActivity"></activity>
+        <activity android:name=".pages.MyIntercalationActivity" />
+        <activity android:name=".pages.MyPicturesActivity"></activity>
     </application>
 
 </manifest>

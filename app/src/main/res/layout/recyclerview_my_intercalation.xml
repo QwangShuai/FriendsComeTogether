@@ -115,11 +115,28 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/activity_my_intercalation_rv_ll_editor"
+            android:layout_marginRight="35px"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/activity_my_intercalation_rv_ll_delete"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/editor_b"
+                android:layout_width="28px"
+                android:layout_height="28px" />
 
+            <TextView
+                android:layout_marginLeft="10px"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black_333333"
+                android:textSize="24px"
+                android:text="编辑"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
