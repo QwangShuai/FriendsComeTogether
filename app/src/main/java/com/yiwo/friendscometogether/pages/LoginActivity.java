@@ -57,7 +57,6 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         unbinder = ButterKnife.bind(this);
-        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         c = LoginActivity.this;
         spImp = new SpImp(c);
     }

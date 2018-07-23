@@ -65,7 +65,6 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         c = RegisterActivity.this;
         unbinder = ButterKnife.bind(this);
-        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         MyApplication.timecount
                 .setActivity(RegisterActivity.this);
         spImp = new SpImp(c);
