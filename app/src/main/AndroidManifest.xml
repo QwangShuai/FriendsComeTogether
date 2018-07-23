@@ -96,7 +96,8 @@
         <activity android:name=".pages.DetailsToReturnPriceActivity" />
         <activity android:name=".pages.MyFriendRememberActivity" />
         <activity android:name=".pages.MyIntercalationActivity" />
-        <activity android:name=".pages.MyPicturesActivity"></activity>
+        <activity android:name=".pages.MyPicturesActivity" />
+        <activity android:name=".pages.MessageCenterActivity" />
     </application>
 
 </manifest>
