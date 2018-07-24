@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.okhttp.Request;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
@@ -64,6 +66,7 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         c = RegisterActivity.this;
+        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         unbinder = ButterKnife.bind(this);
         MyApplication.timecount
                 .setActivity(RegisterActivity.this);
@@ -80,104 +83,85 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.register_btn:
                 register(register_phoneEt.getText().toString(),register_pwEt.getText().toString(),
-                        register_confirmPwEt.getText().toString(),register_codeEt.getText().toString(),state);
+                        register_confirmPwEt.getText().toString(),register_codeEt.getText().toString());
                 break;
         }
     }
-    public void getCode(String phone){
-        if(!StringUtils.isPhoneNumberValid(phone)){
-            toToast(c,"请输入正确的手机号");
-        }
-        else {
-            MyApplication.timecount.start();
-            String token =getToken(NetConfig.getCodeUrl);
-            OkHttpUtils.post()
-                    .tag(this)
-                    .url(NetConfig.getCodeUrl)
-                    .addParams("app_key",token)
-                    .addParams("phone",phone)
-                    .build()
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onError(Request request, Exception e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(String response) {
-                            String result = new String(Base64.decode(response.getBytes(),Base64.DEFAULT));
+    public void getCode(String phone) {
+        if (!StringUtils.isPhoneNumberValid(phone)) {
+            toToast(c, "请输入正确的手机号");
+        } else {
+            MyApplication.ftptimecount.start();
+            String token = getToken(NetConfig.BaseUrl + NetConfig.getCodeUrl);
+            ViseHttp.POST(NetConfig.getCodeUrl)
+                    .addParam("app_key", token)
+                    .addParam("phone", phone)
+                    .request(new ACallback<String>() {
+                        public void onSuccess(String data) {
                             try {
-                                JSONObject jsonObject =new JSONObject(result);
+                                JSONObject jsonObject = new JSONObject(data);
                                 int code = jsonObject.optInt("code");
-                                if(code==200){
+                                if (code == 200) {
                                     String a = jsonObject.optString("obj");
                                     JSONObject js = new JSONObject(a);
                                     codeID = js.optString("codeID");
-                                    Log.i("我的codeID",js.optString("codeID").toString());
+                                    Log.i("我的codeID", js.optString("codeID").toString());
                                 } else {
-                                    toToast(c,jsonObject.optString("message").toString());
+                                    toToast(c, jsonObject.optString("message").toString());
                                 }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
                         }
                     });
         }
     }
-    public void register(String phone,String pwd,String cpwd,String code,boolean b){
-        String token= "";
-        String url="";
-        if (b) {
-            token = getToken(NetConfig.registerUrl);
-            url = NetConfig.registerUrl;
+    public void register(String phone, String pwd, String cpwd, String code) {
+        String token = getToken(NetConfig.BaseUrl + NetConfig.registerUrl);
+        if (!StringUtils.isPhoneNumberValid(phone)) {
+            toToast(c, "请输入正确的手机号");
+        } else if (code.length() != 6) {
+            toToast(c, "请输入正确的验证码");
+        } else if (StringUtils.isEmpty(pwd) || !pwd.equals(cpwd)) {
+            toToast(c, "两次输入的密码不一致");
         } else {
-            token = getToken(NetConfig.forgetPwUrl);
-            url = NetConfig.forgetPwUrl;
-        }
-
-        Log.i("我的注册key",token);
-        if(!StringUtils.isPhoneNumberValid(phone)){
-            toToast(c,"请输入正确的手机号");
-        } else if(code.length()!=6){
-            toToast(c,"请输入正确的验证码");
-        } else if(StringUtils.isEmpty(pwd)||!pwd.equals(cpwd)){
-            toToast(c,"两次输入的密码不一致");
-        } else {
-            OkHttpUtils.post()
-                    .tag(this)
-                    .url(url)
-                    .addParams("app_key",token)
-                    .addParams("phone",phone)
-                    .addParams("CodeId",codeID)
-                    .addParams("password",pwd)
+            ViseHttp.POST(NetConfig.registerUrl)
+                    .addParam("app_key", token)
+                    .addParam("phone", phone)
+                    .addParam("CodeId", codeID)
+                    .addParam("password", pwd)
 //                    .addParams("confirm_password",cpwd)
-                    .addParams("code",code)
-                    .build()
-                    .execute(new StringCallback() {
+                    .addParam("code", code)
+                    .request(new ACallback<String>() {
                         @Override
-                        public void onError(Request request, Exception e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(String response) {
-                            String result = new String(Base64.decode(response.getBytes(),Base64.DEFAULT));
+                        public void onSuccess(String data) {
                             try {
-                                JSONObject jsonObject =new JSONObject(result);
+                                JSONObject jsonObject = new JSONObject(data);
                                 int code = jsonObject.optInt("code");
-                                if(code==200){
-                                    Log.i("我的UID",jsonObject.optString("obj").toString());
+                                if (code == 200) {
+                                    Log.i("我的UID", jsonObject.optString("obj").toString());
                                     JSONObject js = new JSONObject(jsonObject.optString("obj"));
                                     spImp.setUID(js.optString("uid"));
                                     finish();
                                 } else {
-                                    toToast(c,jsonObject.optString("message").toString());
+                                    toToast(c, jsonObject.optString("message").toString());
                                 }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
                         }
                     });
         }

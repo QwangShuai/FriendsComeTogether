@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.okhttp.Request;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -49,14 +51,14 @@ public class LoginActivity extends BaseActivity {
     TextView login_forgetPwTv;
     @BindView(R.id.login_wechatIv)
     ImageView login_wechatIv;
-    private Unbinder unbinder;
     Context c;
     public SpImp spImp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        unbinder = ButterKnife.bind(this);
+        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
+        ButterKnife.bind(this);
         c = LoginActivity.this;
         spImp = new SpImp(c);
     }
@@ -86,25 +88,16 @@ public class LoginActivity extends BaseActivity {
         if(!StringUtils.isPhoneNumberValid(phone)){
             toToast(this,"请输入正确的手机号");
         } else {
-            String token =getToken(NetConfig.loginUrl);
-            OkHttpUtils.post()
-                    .tag(this)
-                    .url(NetConfig.loginUrl)
-                    .addParams("app_key",token)
-                    .addParams("phone",phone)
-                    .addParams("password",pwd)
-                    .build()
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onError(Request request, Exception e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(String response) {
-                            String result = new String(Base64.decode(response.getBytes(),Base64.DEFAULT));
+            String token =getToken(NetConfig.BaseUrl+NetConfig.loginUrl);
+            ViseHttp.POST(NetConfig.loginUrl)
+                    .addParam("app_key",token)
+                    .addParam("phone",phone)
+                    .addParam("password",pwd)
+                    .request(new ACallback<String>() {
+                        public void onSuccess(String data) {
+                            Log.e("222", data);
                             try {
-                                JSONObject jsonObject =new JSONObject(result);
+                                JSONObject jsonObject =new JSONObject(data);
                                 int code = jsonObject.optInt("code");
                                 if(code==200){
                                     Log.i("我的UID",jsonObject.optString("obj").toString());
@@ -118,6 +111,11 @@ public class LoginActivity extends BaseActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
                         }
                     });
         }
