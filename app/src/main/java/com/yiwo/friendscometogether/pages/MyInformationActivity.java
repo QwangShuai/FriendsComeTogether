@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.pages;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -194,7 +195,9 @@ public class MyInformationActivity extends BaseActivity {
                 singleChoiceDialog1.show();
                 break;
             case R.id.activity_my_information_rl_real_name:
-                
+                Intent intent = new Intent();
+                intent.setClass(MyInformationActivity.this, RealNameActivity.class);
+                startActivity(intent);
                 break;
         }
     }

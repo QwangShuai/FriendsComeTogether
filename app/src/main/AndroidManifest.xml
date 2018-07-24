@@ -100,7 +100,9 @@
         <activity android:name=".pages.MessageCenterActivity" />
         <activity android:name=".pages.MyInformationActivity" />
         <activity android:name=".pages.ApplyActivity" />
-        <activity android:name=".pages.RealNameActivity"></activity>
+        <activity android:name=".pages.RealNameActivity" />
+        <activity android:name=".pages.StartActiveActivity" />
+        <activity android:name=".pages.JoinActiveActivity"></activity>
     </application>
 
 </manifest>
