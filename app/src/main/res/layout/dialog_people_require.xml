@@ -89,27 +89,6 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/dialog_people_require_person_average_ll"
-        android:layout_marginTop="36px"
-        android:layout_marginLeft="40px"
-        android:layout_below="@+id/dialog_people_require_more_ll"
-        android:layout_width="match_parent"
-        android:layout_height="40px">
-        <TextView
-            android:textColor="@color/black_333333"
-            android:gravity="center"
-            android:text="男,女人数均等"
-            android:textSize="28px"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-
-        <Button
-            android:background="@mipmap/switch_off"
-            android:layout_marginLeft="34px"
-            android:layout_width="70px"
-            android:layout_height="match_parent" />
-    </LinearLayout>
     <Button
         android:textSize="24px"
         android:layout_marginBottom="50px"
@@ -118,7 +97,7 @@
         android:textColor="#FFFFFF"
         android:text="确定"
         android:background="@drawable/bg_dialog_button"
-        android:layout_below="@+id/dialog_people_require_person_average_ll"
+        android:layout_below="@+id/dialog_people_require_more_ll"
         android:layout_width="260px"
         android:layout_height="56px" />
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class DetailsOfFriendTogetherActivity extends BaseActivity {
@@ -65,6 +67,10 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     RecyclerView recyclerViewP;
     @BindView(R.id.details_content_friend_together_rv)
     RecyclerView contentRv;
+    @BindView(R.id.details_applyTv)
+    TextView details_applyTv;
+    @BindView(R.id.activity_details_of_friends_together_rl_back)
+    RelativeLayout activity_details_of_friends_together_rl_back;
     private Unbinder unbinder;
     private ParticipantsItemAdapter adapter;
     private DetailsOfFriendsTogetherAdapter detailsOfFriendsTogetherAdapter;
@@ -152,5 +158,16 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         contentRv.setLayoutManager(manager);
         detailsOfFriendsTogetherAdapter = new DetailsOfFriendsTogetherAdapter(data);
         contentRv.setAdapter(detailsOfFriendsTogetherAdapter);
+    }
+    @OnClick({R.id.details_applyTv,R.id.activity_details_of_friends_together_rl_back})
+    public void OnClick(View v){
+        switch (v.getId()){
+            case R.id.activity_details_of_friends_together_rl_back:
+                finish();
+                break;
+            case R.id.details_applyTv:
+                startActivity(new Intent(DetailsOfFriendTogetherActivity.this,ApplyActivity.class));
+                break;
+        }
     }
 }

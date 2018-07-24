@@ -126,10 +126,22 @@
             android:layout_width="120px"
             android:layout_height="match_parent" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/dialog_activities_require_equal_tv"
+        android:layout_marginTop="20px"
+        android:layout_below="@+id/dialog_activities_require_sex_ll"
+        android:layout_marginLeft="140px"
+        android:background="@drawable/bg_dialog_price_un_select"
+        android:textSize="24px"
+        android:textColor="@color/black_333333"
+        android:gravity="center"
+        android:text="男女均等"
+        android:layout_width="120px"
+        android:layout_height="50px" />
     <LinearLayout
         android:id="@+id/dialog_activities_require_marriage_ll"
         android:layout_marginTop="40px"
-        android:layout_below="@+id/dialog_activities_require_sex_ll"
+        android:layout_below="@+id/dialog_activities_require_equal_tv"
         android:layout_marginLeft="40px"
         android:layout_width="match_parent"
         android:layout_height="56px">

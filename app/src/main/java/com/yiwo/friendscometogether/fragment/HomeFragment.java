@@ -36,6 +36,7 @@ import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.pages.ApplyActivity;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
@@ -195,7 +196,7 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.searchLl:
 //                getActivity().startActivity(new Intent(getActivity(), SearchActivity.class));
-                getActivity().startActivity(new Intent(getActivity(), CreateFriendTogetherActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), ApplyActivity.class));
                 break;
         }
     }
