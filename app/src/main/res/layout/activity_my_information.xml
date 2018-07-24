@@ -114,6 +114,8 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -135,14 +137,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/activity_my_information_tv_username"
+                <EditText
+                    android:gravity="end"
+                    android:maxLength="12"
+                    android:hint="请输入昵称"
+                    android:background="@null"
+                    android:id="@+id/activity_my_information_et_username"
                     android:layout_marginRight="38px"
                     android:textColor="@color/black_333333"
                     android:textSize="28px"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="阿拉斯加阿基"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -154,6 +159,7 @@
                 android:layout_height="12px"/>
 
             <RelativeLayout
+                android:id="@+id/activity_my_information_rl_sex"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -194,6 +200,7 @@
                 android:layout_height="12px"/>
             
             <RelativeLayout
+                android:id="@+id/activity_my_information_rl_location"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -234,6 +241,8 @@
                 android:layout_height="12px"/>
             
             <RelativeLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -255,15 +264,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/activity_my_information_tv_sign"
+                <EditText
+                    android:layout_marginLeft="100px"
+                    android:layout_toRightOf="@+id/activity_my_information_iv_sign"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:gravity="end"
+                    android:hint="请输入个性签名"
+                    android:background="@null"
+                    android:id="@+id/activity_my_information_et_sign"
                     android:layout_marginRight="38px"
                     android:textColor="@color/black_333333"
                     android:textSize="28px"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="黑龙江"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
@@ -274,6 +289,7 @@
                 android:layout_height="12px"/>
             
             <RelativeLayout
+                android:id="@+id/activity_my_information_rl_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -314,6 +330,7 @@
                 android:layout_height="12px"/>
             
             <RelativeLayout
+                android:id="@+id/activity_my_information_rl_register_time"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -354,6 +371,7 @@
                 android:layout_height="12px"/>
             
             <RelativeLayout
+                android:id="@+id/activity_my_information_rl_real_name"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -394,6 +412,7 @@
                 android:layout_height="12px"/>
 
             <RelativeLayout
+                android:id="@+id/activity_my_information_rl_is_single"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 

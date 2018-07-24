@@ -99,7 +99,8 @@
         <activity android:name=".pages.MyPicturesActivity" />
         <activity android:name=".pages.MessageCenterActivity" />
         <activity android:name=".pages.MyInformationActivity" />
-        <activity android:name=".pages.ApplyActivity"></activity>
+        <activity android:name=".pages.ApplyActivity" />
+        <activity android:name=".pages.RealNameActivity"></activity>
     </application>
 
 </manifest>
