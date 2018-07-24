@@ -535,6 +535,7 @@
                 android:layout_height="12px"/>
 
             <RelativeLayout
+                android:id="@+id/fragment_my_rl_initiating_activities"
                 android:layout_width="match_parent"
                 android:layout_height="100px">
 
@@ -552,7 +553,7 @@
                     android:layout_marginLeft="17px"
                     android:textColor="#333333"
                     android:textSize="28px"
-                    android:text="发起活动"
+                    android:text="发起的活动"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -573,6 +574,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/fragment_my_rl_join_activitys"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
@@ -590,7 +592,7 @@
                     android:layout_centerVertical="true"
                     android:textColor="#333333"
                     android:textSize="28px"
-                    android:text="参加活动"
+                    android:text="参加的活动"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
