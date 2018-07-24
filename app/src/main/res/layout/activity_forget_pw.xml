@@ -31,17 +31,26 @@
         android:scaleType="fitXY"
         android:src="@mipmap/hhh" />
     <EditText
+        android:gravity="center_vertical"
+        android:background="@null"
+        android:layout_height="45px"
         android:textSize="32px"
         android:id="@+id/forgetPw_phoneEt"
         android:layout_marginLeft="50px"
         android:layout_marginRight="50px"
         android:layout_width="match_parent"
-        android:layout_height="52px"
         android:layout_marginTop="67px"
         android:ems="11"
         android:hint="  请输入手机号"
         android:inputType="phone"
         android:maxLength="11" />
+    <View
+        android:layout_marginTop="4px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:background="@color/gray_e5e5e5" />
     <LinearLayout
         android:layout_gravity="center"
         android:layout_marginLeft="50px"
@@ -50,10 +59,12 @@
         android:layout_height="52px"
         android:layout_marginTop="67px">
         <EditText
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:layout_height="45px"
             android:textSize="32px"
             android:id="@+id/forgetPw_codeEt"
             android:layout_width="400px"
-            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:ems="11"
             android:hint="  请输入验证码"
@@ -69,31 +80,55 @@
             android:textColor="@color/yellow_ff9d00"
             android:textSize="32px"/>
     </LinearLayout>
+    <View
+        android:layout_marginTop="4px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:background="@color/gray_e5e5e5" />
     <EditText
         android:id="@+id/forgetPw_pwEt"
         android:layout_marginLeft="50px"
         android:layout_marginRight="50px"
         android:layout_width="match_parent"
-        android:layout_height="52px"
+        android:gravity="center_vertical"
+        android:background="@null"
+        android:layout_height="45px"
         android:layout_marginTop="42px"
         android:textSize="32px"
         android:ems="16"
         android:hint="  设置密码"
         android:inputType="textPassword"
         android:maxLength="16" />
+    <View
+        android:layout_marginTop="4px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:background="@color/gray_e5e5e5" />
     <EditText
         android:textSize="32px"
         android:id="@+id/forgetPw_confirmPwEt"
         android:layout_marginLeft="50px"
         android:layout_marginRight="50px"
         android:layout_width="match_parent"
-        android:layout_height="52px"
+        android:gravity="center_vertical"
+        android:background="@null"
+        android:layout_height="45px"
         android:layout_marginTop="42px"
         android:ems="16"
         android:hint="  确认密码"
         android:inputType="textPassword"
         android:maxLength="16" />
-
+    <View
+        android:layout_marginTop="4px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:background="@color/gray_e5e5e5" />
     <Button
         android:textSize="32px"
         android:id="@+id/forgetPw_btn"

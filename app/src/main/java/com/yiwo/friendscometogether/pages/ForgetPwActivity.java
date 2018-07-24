@@ -85,7 +85,7 @@ public class ForgetPwActivity extends BaseActivity {
                 getCode(forgetPw_phoneEt.getText().toString());
                 break;
             case R.id.forgetPw_btn:
-                register(forgetPw_phoneEt.getText().toString(), forgetPw_pwEt.getText().toString(),
+                forgetPw(forgetPw_phoneEt.getText().toString(), forgetPw_pwEt.getText().toString(),
                         forgetPw_confirmPwEt.getText().toString(), forgetPw_codeEt.getText().toString());
                 break;
         }
@@ -128,7 +128,7 @@ public class ForgetPwActivity extends BaseActivity {
         }
     }
 
-    public void register(String phone, String pwd, String cpwd, String code) {
+    public void forgetPw(String phone, String pwd, String cpwd, String code) {
         String token = getToken(NetConfig.BaseUrl + NetConfig.forgetPwUrl);
         if (!StringUtils.isPhoneNumberValid(phone)) {
             toToast(c, "请输入正确的手机号");
