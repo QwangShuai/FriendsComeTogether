@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yiwo.friendscometogether.pages.ApplyActivity">
+    <RelativeLayout
+        android:id="@+id/activity_create_friend_together_rl_top"
+        style="@style/rl_top_bar">
+
+        <TextView
+            style="@style/tv_top_title"
+            android:text="报名" />
+
+        <RelativeLayout
+            android:id="@+id/activity_apply_rl_back"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <ImageView style="@style/iv_return" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginLeft="40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                <TextView
+                    android:textSize="28px"
+                    android:gravity="center_vertical"
+                    android:layout_width="140px"
+                    android:layout_height="match_parent"
+                    android:text="姓         名:"/>
+                <EditText
+                    android:id="@+id/apply_name_et"
+                    android:inputType="textPersonName"
+                    android:layout_marginLeft="20px"
+                    android:textSize="28px"
+                    android:hint="请输入姓名"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="@color/black_f8f8f8" />
+            <LinearLayout
+                android:layout_marginLeft="40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                <TextView
+                    android:textSize="28px"
+                    android:gravity="center_vertical"
+                    android:layout_width="140px"
+                    android:layout_height="match_parent"
+                    android:text="联系方式:"/>
+                <EditText
+                    android:id="@+id/apply_phone_et"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:layout_marginLeft="20px"
+                    android:textSize="28px"
+                    android:hint="请输入手机号"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="@color/black_f8f8f8" />
+            <LinearLayout
+                android:layout_marginLeft="40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                <TextView
+                    android:textSize="28px"
+                    android:gravity="center_vertical"
+                    android:layout_width="140px"
+                    android:layout_height="match_parent"
+                    android:text="活动标题:"/>
+                <TextView
+                    android:id="@+id/apply_title_tv"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="44px"
+                    android:text="标题标题标题标题标题标题标题标题标题标题标题"
+                    android:maxLength="30"
+                    android:layout_marginLeft="20px"
+                    android:textSize="28px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="@color/black_f8f8f8" />
+            <LinearLayout
+                android:layout_marginLeft="40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                <TextView
+                    android:textSize="28px"
+                    android:gravity="center_vertical"
+                    android:layout_width="140px"
+                    android:layout_height="match_parent"
+                    android:text="性         别:"/>
+                <EditText
+                    android:maxLength="1"
+                    android:id="@+id/apply_sex_et"
+                    android:inputType="textPersonName"
+                    android:layout_marginLeft="20px"
+                    android:textSize="28px"
+                    android:hint="请输入性别"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="@color/black_f8f8f8" />
+            <LinearLayout
+                android:layout_marginLeft="40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                <TextView
+                    android:textSize="28px"
+                    android:gravity="center_vertical"
+                    android:layout_width="140px"
+                    android:layout_height="match_parent"
+                    android:text="年         龄:"/>
+                <EditText
+                    android:maxLength="1"
+                    android:id="@+id/apply_age_et"
+                    android:inputType="textPersonName"
+                    android:layout_marginLeft="20px"
+                    android:textSize="28px"
+                    android:hint="请输入年龄"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="@color/black_f8f8f8" />
+            <LinearLayout
+                android:layout_marginLeft="40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                <TextView
+                    android:textSize="28px"
+                    android:gravity="center_vertical"
+                    android:layout_width="140px"
+                    android:layout_height="match_parent"
+                    android:text="联系方式:"/>
+                <EditText
+                    android:id="@+id/apply_marriage_et"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:layout_marginLeft="20px"
+                    android:textSize="28px"
+                    android:hint="请输入婚姻状况"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="@color/black_f8f8f8" />
+            <LinearLayout
+                android:layout_marginLeft="40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                <TextView
+                    android:textSize="28px"
+                    android:gravity="center_vertical"
+                    android:layout_width="140px"
+                    android:layout_height="match_parent"
+                    android:text="出发时间:"/>
+                <TextView
+                    android:id="@+id/apply_time_tv"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="44px"
+                    android:text="2018-02-21"
+                    android:maxLength="30"
+                    android:layout_marginLeft="20px"
+                    android:textSize="28px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="@color/black_f8f8f8" />
+            <LinearLayout
+                android:layout_marginLeft="40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                <TextView
+                    android:textSize="28px"
+                    android:gravity="center_vertical"
+                    android:layout_width="140px"
+                    android:layout_height="match_parent"
+                    android:text="费        用:"/>
+                <TextView
+                    android:id="@+id/apply_cost_tv"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="44px"
+                    android:text="￥888.88"
+                    android:maxLength="30"
+                    android:layout_marginLeft="20px"
+                    android:textSize="28px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="@color/black_f8f8f8" />
+            <LinearLayout
+                android:id="@+id/apply_vessel_ll"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_marginLeft="40px"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="88px">
+                    <TextView
+                        android:textSize="28px"
+                        android:gravity="center_vertical"
+                        android:layout_width="140px"
+                        android:layout_height="match_parent"
+                        android:text="支付方式:"/>
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="44px"
+                        android:text="现场支付"
+                        android:maxLength="30"
+                        android:layout_marginLeft="20px"
+                        android:textSize="28px"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="12px"
+                    android:background="@color/black_f8f8f8" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/apply_btn"
+                android:text="支付"
+                android:textSize="36px"
+                android:textColor="@color/white_ffffff"
+                android:gravity="center"
+                android:layout_marginBottom="40px"
+                android:layout_marginLeft="25px"
+                android:layout_marginRight="25px"
+                android:background="@drawable/bg_btn"
+                android:layout_marginTop="60px"
+                android:layout_width="match_parent"
+                android:layout_height="88px" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
