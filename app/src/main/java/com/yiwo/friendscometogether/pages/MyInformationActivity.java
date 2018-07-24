@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
@@ -138,7 +139,12 @@ public class MyInformationActivity extends BaseActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                tvSex.setText(yourChoice);
+                                if(TextUtils.isEmpty(yourChoice)){
+                                    tvSex.setText("男");
+                                }else {
+                                    tvSex.setText(yourChoice);
+                                    yourChoice = "";
+                                }
                             }
                         });
                 singleChoiceDialog.show();
@@ -189,7 +195,12 @@ public class MyInformationActivity extends BaseActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                tvSingle.setText(yourChoice);
+                                if(TextUtils.isEmpty(yourChoice)){
+                                    tvSingle.setText("是");
+                                }else {
+                                    tvSingle.setText(yourChoice);
+                                    yourChoice = "";
+                                }
                             }
                         });
                 singleChoiceDialog1.show();

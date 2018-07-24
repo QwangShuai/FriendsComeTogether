@@ -31,4 +31,6 @@ public class NetConfig {
     public static String homeHotFriendsRememberUrl = "action/ac_article/index_fmrecommend";
     //热门城市
     public static String hotCityUrl = "action/ac_activity/hot_city";
+    //获取用户信息
+    public static String userInformation = "action/ac_user/UserInformation";
 }

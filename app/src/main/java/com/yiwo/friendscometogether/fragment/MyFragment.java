@@ -3,15 +3,22 @@ package com.yiwo.friendscometogether.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.model.UserModel;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CreateFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.JoinActiveActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
@@ -26,6 +33,10 @@ import com.yiwo.friendscometogether.pages.MyIntercalationActivity;
 import com.yiwo.friendscometogether.pages.MyOrderActivity;
 import com.yiwo.friendscometogether.pages.MyPicturesActivity;
 import com.yiwo.friendscometogether.pages.StartActiveActivity;
+import com.yiwo.friendscometogether.sp.SpImp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +84,9 @@ public class MyFragment extends BaseFragment {
     @BindView(R.id.fragment_my_rl_picture)
     RelativeLayout rlPicture;
 
+    private SpImp spImp;
+    private String uid = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,8 +94,41 @@ public class MyFragment extends BaseFragment {
         ScreenAdapterTools.getInstance().loadView(rootView);
 
         ButterKnife.bind(this, rootView);
+        spImp = new SpImp(getContext());
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        uid = spImp.getUID();
+        Log.e("222", uid);
+        if(!TextUtils.isEmpty(uid)&&!uid.equals("0")){
+            ViseHttp.POST(NetConfig.userInformation)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userInformation))
+                    .addParam("uid", uid)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.getInt("code") == 200){
+                                    Gson gson = new Gson();
+                                    UserModel userModel = gson.fromJson(data, UserModel.class);
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
     }
 
     @OnClick({R.id.fragment_my_ll_look_more, R.id.fragment_my_ll_to_pay, R.id.fragment_my_ll_to_trip, R.id.fragment_my_ll_to_comment, R.id.fragment_my_ll_return_price,
@@ -141,8 +188,13 @@ public class MyFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.fragment_my_person_set:
-                intent.setClass(getContext(), LoginActivity.class);
-                startActivity(intent);
+                if(!TextUtils.isEmpty(uid)&&!uid.equals("0")){
+                    intent.setClass(getContext(), MyInformationActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_ll_my_friend_remember:
                 intent.setClass(getContext(), MyFriendRememberActivity.class);

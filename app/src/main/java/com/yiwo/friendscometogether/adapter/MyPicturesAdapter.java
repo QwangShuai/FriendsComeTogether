@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 
@@ -31,7 +32,7 @@ public class MyPicturesAdapter extends RecyclerView.Adapter<MyPicturesAdapter.Vi
         this.data = data;
     }
 
-    public void setOnItemClickListener(onItemClickListener listener){
+    public void setOnItemClickListener(onItemClickListener listener) {
         this.listener = listener;
     }
 
@@ -45,25 +46,32 @@ public class MyPicturesAdapter extends RecyclerView.Adapter<MyPicturesAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_ADD) {
             holder.rlAdd.setVisibility(View.VISIBLE);
-            holder.iv.setVisibility(View.GONE);
+            holder.rlIv.setVisibility(View.GONE);
         } else {
             holder.rlAdd.setVisibility(View.GONE);
-            holder.iv.setVisibility(View.VISIBLE);
+            holder.rlIv.setVisibility(View.VISIBLE);
+            Picasso.with(context).load("file://" + data.get(position - 1)).into(holder.iv);
         }
         holder.rlAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onClick(view);
+                listener.onClick(1, position);
+            }
+        });
+        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(2, position);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size() + 1;
+        return data == null ? 1 : data.size() + 1;
     }
 
     @Override
@@ -79,16 +87,20 @@ public class MyPicturesAdapter extends RecyclerView.Adapter<MyPicturesAdapter.Vi
 
         private RelativeLayout rlAdd;
         private ImageView iv;
+        private RelativeLayout rlIv;
+        private ImageView ivDelete;
 
         public ViewHolder(View itemView) {
             super(itemView);
             rlAdd = itemView.findViewById(R.id.activity_my_pictures_rv_rl_add);
             iv = itemView.findViewById(R.id.activity_my_pictures_rv_iv);
+            rlIv = itemView.findViewById(R.id.activity_my_pictures_rv_rl_iv);
+            ivDelete = itemView.findViewById(R.id.activity_my_pictures_rv_iv_delete);
         }
     }
 
-    public interface onItemClickListener{
-        void onClick(View view);
+    public interface onItemClickListener {
+        void onClick(int type, int position);
     }
 
 }
