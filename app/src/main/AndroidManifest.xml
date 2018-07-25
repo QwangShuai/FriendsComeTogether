@@ -3,6 +3,7 @@
     package="com.yiwo.friendscometogether">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -102,7 +103,11 @@
         <activity android:name=".pages.ApplyActivity" />
         <activity android:name=".pages.RealNameActivity" />
         <activity android:name=".pages.StartActiveActivity" />
-        <activity android:name=".pages.JoinActiveActivity"></activity>
+        <activity android:name=".pages.JoinActiveActivity" />
+        <activity android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
     </application>
 
 </manifest>

@@ -370,6 +370,7 @@
                             android:layout_height="28px" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/activity_details_of_friends_together_ll_share"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

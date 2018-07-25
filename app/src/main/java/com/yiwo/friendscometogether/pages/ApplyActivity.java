@@ -82,6 +82,7 @@ public class ApplyActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 apply_sex_tv.setText(yourChoice);
+                                yourChoice = "男";
                             }
                         });
                 singleChoiceDialog.show();

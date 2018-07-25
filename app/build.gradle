@@ -8,6 +8,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+//        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -16,10 +17,37 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    configurations.all {
+
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+
+            def requested = details.requested
+
+            if (requested.group =='com.android.support') {
+
+                if (!requested.name.startsWith("multidex")) {
+
+                    details.useVersion'26.1.0' //这里改为你项目使用的版本即可
+
+                     }
+
+               }
+
+            }
+
+    }
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support:support-annotations:26.1.0') {
+        force = true
+    }
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     api 'com.jakewharton:butterknife:8.4.0'

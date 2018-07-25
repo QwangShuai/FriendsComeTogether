@@ -14,9 +14,13 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 import com.vise.xsnow.http.ViseHttp;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.network.UMConfig;
 import com.yiwo.friendscometogether.utils.FTPTimeCount;
 import com.yiwo.friendscometogether.utils.TimeCount;
 
@@ -42,7 +46,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ScreenAdapterTools.init(this);
-
+        UMShareAPI.get(this);
+        UMConfigure.init(this,"5b5579fbb27b0a608200000d"
+                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+        {
+            PlatformConfig.setWeixin(UMConfig.WECHAT_APPID,UMConfig.WECHAT_APPSECRET);
+        }
         ViseHttp.init(this);
         ViseHttp.CONFIG()
                 //配置请求主机地址
