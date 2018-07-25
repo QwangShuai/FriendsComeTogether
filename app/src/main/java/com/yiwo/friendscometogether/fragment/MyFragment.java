@@ -23,6 +23,7 @@ import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.model.UserModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CreateFriendRememberActivity;
+import com.yiwo.friendscometogether.pages.CreateFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.JoinActiveActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.LookHistoryActivity;
@@ -98,7 +99,8 @@ public class MyFragment extends BaseFragment {
     ImageView ivSex;
     @BindView(R.id.fragment_my_sign_team)
     RelativeLayout rlSignTeam;
-
+    @BindView(R.id.fragment_my_rl_create_activity)
+    RelativeLayout rlCreateActivity;
     private SpImp spImp;
     private String uid = "";
 
@@ -166,7 +168,7 @@ public class MyFragment extends BaseFragment {
     @OnClick({R.id.fragment_my_ll_look_more, R.id.fragment_my_ll_to_pay, R.id.fragment_my_ll_to_trip, R.id.fragment_my_ll_to_comment, R.id.fragment_my_ll_return_price,
             R.id.fragment_my_rl_focus, R.id.fragment_my_rl_collection, R.id.fragment_my_rl_comment, R.id.fragment_my_rl_history, R.id.fragment_my_ll_draft,
             R.id.fragment_my_ll_create_friend_remember, R.id.fragment_my_person_set, R.id.fragment_my_ll_my_friend_remember, R.id.fragment_my_ll_my_intercalation,
-            R.id.fragment_my_rl_initiating_activities, R.id.fragment_my_rl_join_activitys, R.id.fragment_my_rl_picture})
+            R.id.fragment_my_rl_initiating_activities, R.id.fragment_my_rl_join_activitys, R.id.fragment_my_rl_picture,R.id.fragment_my_rl_create_activity})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -246,6 +248,10 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.fragment_my_rl_picture:
                 intent.setClass(getContext(), MyPicturesActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.fragment_my_rl_create_activity:
+                intent.setClass(getContext(), CreateFriendTogetherActivity.class);
                 startActivity(intent);
                 break;
         }

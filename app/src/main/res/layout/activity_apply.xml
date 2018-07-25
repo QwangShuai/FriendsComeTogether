@@ -146,7 +146,7 @@
                 <EditText
                     android:maxLength="1"
                     android:id="@+id/apply_age_et"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
                     android:layout_marginLeft="20px"
                     android:textSize="28px"
                     android:hint="请输入年龄"
@@ -171,8 +171,8 @@
                     android:text="婚姻状况:"/>
                 <EditText
                     android:id="@+id/apply_marriage_et"
-                    android:inputType="phone"
-                    android:maxLength="11"
+                    android:inputType="textPersonName"
+                    android:maxLength="4"
                     android:layout_marginLeft="20px"
                     android:textSize="28px"
                     android:hint="请输入婚姻状况"
