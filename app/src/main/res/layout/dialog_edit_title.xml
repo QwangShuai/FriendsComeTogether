@@ -64,6 +64,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/dialog_edit_title_btn_ok"
         android:textSize="24px"
         android:layout_marginBottom="80px"
         android:layout_marginTop="50px"

@@ -82,6 +82,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
     ImageView ivDelete;
     @BindView(R.id.activity_create_friend_remember_tv_title)
     TextView tvTitle;
+    @BindView(R.id.activity_create_friend_remember_tv_content)
+    TextView tvContent;
 
     private int mYear;
     private int mMonth;
@@ -148,12 +150,26 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_create_friend_remember_rl_edit_title:
-                EditTitleDialog editTitleDialog = new EditTitleDialog(CreateFriendRememberActivity.this);
+                final EditTitleDialog editTitleDialog = new EditTitleDialog(CreateFriendRememberActivity.this);
                 editTitleDialog.show();
+                editTitleDialog.setOnReturnListener(new EditTitleDialog.OnReturnListener() {
+                    @Override
+                    public void onReturn(String title) {
+                        tvTitle.setText(title);
+                        editTitleDialog.dismiss();
+                    }
+                });
                 break;
             case R.id.activity_create_friend_remember_rl_edit_content:
-                EditContentDialog editContentDialog = new EditContentDialog(CreateFriendRememberActivity.this);
+                final EditContentDialog editContentDialog = new EditContentDialog(CreateFriendRememberActivity.this);
                 editContentDialog.show();
+                editContentDialog.setOnReturnListener(new EditContentDialog.OnReturnListener() {
+                    @Override
+                    public void onReturn(String content) {
+                        tvContent.setText(content);
+                        editContentDialog.dismiss();
+                    }
+                });
                 break;
             case R.id.activity_create_friend_remember_rl_time_start:
                 new DatePickerDialog(CreateFriendRememberActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
@@ -238,20 +254,20 @@ public class CreateFriendRememberActivity extends BaseActivity {
             String days;
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             } else {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             }
@@ -272,20 +288,20 @@ public class CreateFriendRememberActivity extends BaseActivity {
             String days;
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             } else {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             }
