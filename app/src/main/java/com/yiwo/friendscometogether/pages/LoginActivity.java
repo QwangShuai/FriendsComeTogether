@@ -14,6 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.okhttp.Request;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -28,6 +31,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +58,7 @@ public class LoginActivity extends BaseActivity {
     ImageView login_wechatIv;
     Context c;
     public SpImp spImp;
+    UMShareAPI api;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,7 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         c = LoginActivity.this;
         spImp = new SpImp(c);
+        api = UMShareAPI.get(this);
     }
     @OnClick({R.id.rl_set_return,R.id.login_btn,R.id.login_registerTv,R.id.login_forgetPwTv,R.id.login_wechatIv})
     public void onClick(View v){
@@ -80,7 +87,28 @@ public class LoginActivity extends BaseActivity {
                 startActivity(itf);
                 break;
             case R.id.login_wechatIv:
+                toToast(LoginActivity.this,"调起微信登录失败");
+                UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, new UMAuthListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
 
+                    }
+
+                    @Override
+                    public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+                        toToast(LoginActivity.this,map.toString());
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+                        toToast(LoginActivity.this,throwable.toString());
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media, int i) {
+
+                    }
+                });
                 break;
         }
     }

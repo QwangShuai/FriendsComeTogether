@@ -15,6 +15,7 @@ import android.os.Build;
 
 
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.vise.xsnow.http.ViseHttp;
@@ -47,6 +48,7 @@ public class MyApplication extends Application {
         super.onCreate();
         ScreenAdapterTools.init(this);
         UMShareAPI.get(this);
+        UMConfigure.setLogEnabled(true);
         UMConfigure.init(this,"5b5579fbb27b0a608200000d"
                 ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
         {

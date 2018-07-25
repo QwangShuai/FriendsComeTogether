@@ -97,6 +97,7 @@ public class ApplyActivity extends AppCompatActivity {
         if(state==1){
             apply_pay_ll.setVisibility(View.GONE);
             View v = LayoutInflater.from(this).inflate(R.layout.include_payment,null);
+            ScreenAdapterTools.getInstance().loadView(v);
             RelativeLayout wachat_pay = (RelativeLayout) v.findViewById(R.id.wechat_pay) ;
             RelativeLayout alipay_alipay = (RelativeLayout) v.findViewById(R.id.alipay_pay) ;
             final ImageView wechatIv = (ImageView) v.findViewById(R.id.wechatIv);
