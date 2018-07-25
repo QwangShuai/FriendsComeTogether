@@ -1,16 +1,20 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -22,6 +26,8 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -30,9 +36,14 @@ import com.yiwo.friendscometogether.custom.EditTitleDialog;
 import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.model.JsonBean;
+import com.yiwo.friendscometogether.model.UserLabelModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -84,6 +95,12 @@ public class CreateFriendRememberActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.activity_create_friend_remember_tv_content)
     TextView tvContent;
+    @BindView(R.id.activity_create_friend_remember_rl_label)
+    RelativeLayout rlLabel;
+    @BindView(R.id.activity_create_friend_remember_tv_label)
+    TextView tvLabel;
+    @BindView(R.id.activity_create_friend_remember_et_price)
+    EditText etPrice;
 
     private int mYear;
     private int mMonth;
@@ -96,6 +113,14 @@ public class CreateFriendRememberActivity extends BaseActivity {
     private PopupWindow popupWindow;
 
     private static final int REQUEST_CODE = 0x00000011;
+
+    private String[] itemId;
+    private String[] itemName;
+    private String yourChoiceId = "";
+    private String yourChoiceName = "";
+
+    private SpImp spImp;
+    private String uid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,11 +135,15 @@ public class CreateFriendRememberActivity extends BaseActivity {
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
 
+        spImp = new SpImp(CreateFriendRememberActivity.this);
+
         init();
 
     }
 
     private void init() {
+
+        uid = spImp.getUID();
 
         Observable.just("").subscribeOn(Schedulers.newThread()).subscribe(new Observer<String>() {
             @Override
@@ -138,12 +167,41 @@ public class CreateFriendRememberActivity extends BaseActivity {
             }
         });
 
+        ViseHttp.POST(NetConfig.userLabel)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userLabel))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.e("222", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                UserLabelModel userLabelModel = gson.fromJson(data, UserLabelModel.class);
+                                itemId = new String[userLabelModel.getObj().size()];
+                                itemName = new String[userLabelModel.getObj().size()];
+                                for (int i = 0; i < userLabelModel.getObj().size(); i++) {
+                                    itemId[i] = userLabelModel.getObj().get(i).getLID();
+                                    itemName[i] = userLabelModel.getObj().get(i).getLname();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
     }
 
     @OnClick({R.id.activity_create_friend_remember_rl_back, R.id.activity_create_friend_remember_rl_edit_title, R.id.activity_create_friend_remember_rl_edit_content,
             R.id.activity_create_friend_remember_rl_time_start, R.id.activity_create_friend_remember_rl_time_end, R.id.activity_create_friend_remember_rl_activity_city,
             R.id.activity_create_friend_remember_rl_price, R.id.activity_create_friend_remember_rl_complete, R.id.activity_create_friend_remember_rl_set_password,
-            R.id.activity_create_friend_remember_iv_add, R.id.activity_create_friend_remember_iv_delete})
+            R.id.activity_create_friend_remember_iv_add, R.id.activity_create_friend_remember_iv_delete, R.id.activity_create_friend_remember_rl_label})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_create_friend_remember_rl_back:
@@ -200,8 +258,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 pvOptions.show();
                 break;
             case R.id.activity_create_friend_remember_rl_price:
-                PeoplePriceDialog peoplePriceDialog = new PeoplePriceDialog(CreateFriendRememberActivity.this);
-                peoplePriceDialog.show();
+
                 break;
             case R.id.activity_create_friend_remember_rl_complete:
                 showCompletePopupwindow();
@@ -223,6 +280,34 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 ivDelete.setVisibility(View.GONE);
                 ivTitle.setVisibility(View.INVISIBLE);
                 tvFirstIv.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.activity_create_friend_remember_rl_label:
+                AlertDialog.Builder singleChoiceDialog =
+                        new AlertDialog.Builder(CreateFriendRememberActivity.this);
+                singleChoiceDialog.setTitle("请选择标签");
+                // 第二个参数是默认选项，此处设置为0
+                singleChoiceDialog.setSingleChoiceItems(itemName, 0,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                yourChoiceName = itemName[which];
+                                yourChoiceId = itemId[which];
+                            }
+                        });
+                singleChoiceDialog.setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (TextUtils.isEmpty(yourChoiceName)) {
+                                    tvLabel.setText(itemName[0]);
+                                    yourChoiceId = itemId[0];
+                                } else {
+                                    tvLabel.setText(yourChoiceName);
+                                    yourChoiceName = "";
+                                }
+                            }
+                        });
+                singleChoiceDialog.show();
                 break;
         }
     }
@@ -386,6 +471,11 @@ public class CreateFriendRememberActivity extends BaseActivity {
         View view = LayoutInflater.from(CreateFriendRememberActivity.this).inflate(R.layout.popupwindow_complete, null);
         ScreenAdapterTools.getInstance().loadView(view);
 
+        TextView tvRelease = view.findViewById(R.id.popupwindow_complete_tv_release);
+        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
+        TextView tvNext = view.findViewById(R.id.popupwindow_complete_tv_next);
+        TextView tvCancel = view.findViewById(R.id.popupwindow_complete_tv_cancel);
+
         popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setTouchable(true);
         popupWindow.setFocusable(true);
@@ -407,6 +497,89 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 WindowManager.LayoutParams params = getWindow().getAttributes();
                 params.alpha = 1f;
                 getWindow().setAttributes(params);
+            }
+        });
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+
+        tvRelease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViseHttp.POST(NetConfig.userRelease)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                        .addParam("fmtitle", tvTitle.getText().toString())
+                        .addParam("fmcontent", tvContent.getText().toString())
+                        .addParam("fmaddress", tvCity.getText().toString())
+                        .addParam("uid", uid)
+                        .addParam("fmlable", yourChoiceId)
+                        .addParam("fmgotime", tvTimeStart.getText().toString())
+                        .addParam("fmendtime", tvTimeEnd.getText().toString())
+                        .addParam("percapitacost", etPrice.getText().toString())
+                        .addParam("activity_id", "0")
+                        .addParam("fmpic", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg")
+                        .addParam("type", "0")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
+                                        onBackPressed();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+        });
+
+        tvSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViseHttp.POST(NetConfig.userRelease)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                        .addParam("fmtitle", tvTitle.getText().toString())
+                        .addParam("fmcontent", tvContent.getText().toString())
+                        .addParam("fmaddress", tvCity.getText().toString())
+                        .addParam("uid", uid)
+                        .addParam("fmlable", yourChoiceId)
+                        .addParam("fmgotime", tvTimeStart.getText().toString())
+                        .addParam("fmendtime", tvTimeEnd.getText().toString())
+                        .addParam("percapitacost", etPrice.getText().toString())
+                        .addParam("activity_id", "0")
+                        .addParam("fmpic", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg")
+                        .addParam("type", "1")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
+                                        onBackPressed();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
             }
         });
 

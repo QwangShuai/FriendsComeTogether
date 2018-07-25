@@ -39,4 +39,8 @@ public class NetConfig {
     public static String userCollection = "action/ac_user/Usercollection";
     //我的评论
     public static String userComment = "action/ac_article/article_comment_list";
+    //获取标签
+    public static String userLabel = "action/ac_public/Label";
+    //友记发布
+    public static String userRelease = "http://47.92.136.19/index.php/action/ac_article/InsertArticle";
 }
