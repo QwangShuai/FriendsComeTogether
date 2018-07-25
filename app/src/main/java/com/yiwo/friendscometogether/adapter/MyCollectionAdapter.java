@@ -5,9 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.UserCollectionModel;
 
 import java.util.List;
 
@@ -18,9 +22,9 @@ import java.util.List;
 public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<UserCollectionModel.ObjBean> data;
 
-    public MyCollectionAdapter(List<String> data) {
+    public MyCollectionAdapter(List<UserCollectionModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -35,7 +39,9 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Picasso.with(context).load(data.get(position).getFpic()).into(holder.iv);
+        holder.tvTitle.setText(data.get(position).getFtitle());
+        holder.tvTime.setText(data.get(position).getFtime());
     }
 
     @Override
@@ -45,9 +51,15 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        private ImageView iv;
+        private TextView tvTitle;
+        private TextView tvTime;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            iv = itemView.findViewById(R.id.activity_my_collection_rv_iv);
+            tvTitle = itemView.findViewById(R.id.activity_my_collection_rv_tv_title);
+            tvTime = itemView.findViewById(R.id.activity_my_collection_rv_tv_time);
         }
     }
 
