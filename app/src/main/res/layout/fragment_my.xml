@@ -39,6 +39,7 @@
                     android:layout_height="20px"/>
 
                 <com.yiwo.friendscometogether.custom.CImageView
+                    android:id="@+id/fragment_my_iv_avatar"
                     android:layout_marginTop="20px"
                     android:layout_marginLeft="20px"
                     android:src="@mipmap/my_head"
@@ -46,6 +47,8 @@
                     android:layout_height="200px" />
 
                 <TextView
+                    android:visibility="gone"
+                    android:id="@+id/fragment_my_tv_not_login"
                     android:textStyle="bold"
                     android:layout_centerInParent="true"
                     android:textSize="36px"
@@ -53,6 +56,59 @@
                     android:text="未登录"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/fragment_my_rl_content"
+                    android:layout_marginRight="50px"
+                    android:layout_marginTop="79px"
+                    android:layout_marginLeft="36px"
+                    android:layout_toRightOf="@+id/fragment_my_iv_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/fragment_my_iv_sex"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/nan"
+                        android:layout_width="40px"
+                        android:layout_height="40px" />
+
+                    <TextView
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:textColor="@color/black_333333"
+                        android:textStyle="bold"
+                        android:textSize="36px"
+                        android:text="昵称: 帅气的小迷糊"
+                        android:layout_marginRight="10px"
+                        android:layout_toLeftOf="@+id/fragment_my_iv_sex"
+                        android:id="@+id/fragment_my_tv_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RelativeLayout
+                        android:id="@+id/fragment_my_sign_team"
+                        android:background="@mipmap/level_red"
+                        android:layout_marginTop="14px"
+                        android:layout_below="@+id/fragment_my_tv_nickname"
+                        android:layout_width="183px"
+                        android:layout_height="60px">
+
+                        <TextView
+                            android:layout_marginRight="10px"
+                            android:layout_marginBottom="3px"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/white_ffffff"
+                            android:textSize="30px"
+                            android:text="签约领队"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
 
             </RelativeLayout>
 

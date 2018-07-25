@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,13 +18,21 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.JsonBean;
+import com.yiwo.friendscometogether.model.UserModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,8 +51,6 @@ public class MyInformationActivity extends BaseActivity {
     RelativeLayout rlBack;
     @BindView(R.id.activity_my_information_rl_sex)
     RelativeLayout rlSex;
-    @BindView(R.id.activity_my_information_tv_sex)
-    TextView tvSex;
     @BindView(R.id.activity_my_information_rl_location)
     RelativeLayout rlLocation;
     @BindView(R.id.activity_my_information_tv_location)
@@ -61,6 +69,24 @@ public class MyInformationActivity extends BaseActivity {
     TextView tvSingle;
     @BindView(R.id.activity_my_information_rl_real_name)
     RelativeLayout rlRealName;
+    @BindView(R.id.activity_my_information_iv_avatar)
+    ImageView ivAvatar;
+    @BindView(R.id.activity_my_information_tv_nickname)
+    TextView tvNickname;
+    @BindView(R.id.activity_my_information_iv_sex)
+    ImageView ivSex;
+    @BindView(R.id.activity_my_information_rl_sign_team)
+    RelativeLayout rlSignTeam;
+    @BindView(R.id.activity_my_information_et_username)
+    EditText etUsername;
+    @BindView(R.id.activity_my_information_tv_sex)
+    TextView tvSex;
+    @BindView(R.id.activity_my_information_et_sign)
+    EditText etSign;
+    @BindView(R.id.activity_my_information_tv_real_name)
+    TextView tvRealName;
+    @BindView(R.id.activity_my_information_tv_level)
+    TextView tvLevel;
 
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
@@ -69,6 +95,9 @@ public class MyInformationActivity extends BaseActivity {
     private int mYear;
     private int mMonth;
     private int mDay;
+
+    private SpImp spImp;
+    private String uid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +111,8 @@ public class MyInformationActivity extends BaseActivity {
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
+
+        spImp = new SpImp(MyInformationActivity.this);
 
         initData();
 
@@ -110,6 +141,52 @@ public class MyInformationActivity extends BaseActivity {
 
             }
         });
+
+        uid = spImp.getUID();
+        ViseHttp.POST(NetConfig.userInformation)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userInformation))
+                .addParam("uid", uid)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                UserModel userModel = gson.fromJson(data, UserModel.class);
+                                Picasso.with(MyInformationActivity.this).load(userModel.getObj().getHeadeimg()).into(ivAvatar);
+                                tvNickname.setText("昵称: " + userModel.getObj().getUsername());
+                                if(userModel.getObj().getSex().equals("男")){
+                                    Picasso.with(MyInformationActivity.this).load(R.mipmap.nan).into(ivSex);
+                                }else {
+                                    Picasso.with(MyInformationActivity.this).load(R.mipmap.nv).into(ivSex);
+                                }
+                                if(userModel.getObj().getSign().equals("0")){
+                                    rlSignTeam.setVisibility(View.GONE);
+                                }else {
+                                    rlSignTeam.setVisibility(View.VISIBLE);
+                                }
+                                etUsername.setText(userModel.getObj().getUsername());
+                                tvSex.setText(userModel.getObj().getSex());
+                                tvLocation.setText(userModel.getObj().getUseraddress());
+                                etSign.setText(userModel.getObj().getUserautograph());
+                                tvBirthday.setText(userModel.getObj().getUserbirthday());
+                                tvRegister.setText(userModel.getObj().getUsertime());
+                                tvRealName.setText(userModel.getObj().getUsercodeok());
+                                tvSingle.setText(userModel.getObj().getUsermarry());
+                                tvLevel.setText(userModel.getObj().getUsergrade());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
 
     }
 

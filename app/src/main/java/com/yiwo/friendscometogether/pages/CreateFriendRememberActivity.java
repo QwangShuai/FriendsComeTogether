@@ -80,6 +80,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
     TextView tvFirstIv;
     @BindView(R.id.activity_create_friend_remember_iv_delete)
     ImageView ivDelete;
+    @BindView(R.id.activity_create_friend_remember_tv_title)
+    TextView tvTitle;
 
     private int mYear;
     private int mMonth;

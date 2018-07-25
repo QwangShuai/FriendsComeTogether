@@ -3,11 +3,15 @@ package com.yiwo.friendscometogether.pages;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
@@ -18,6 +22,12 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.MyCollectionAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.UserCollectionModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +45,9 @@ public class MyCollectionActivity extends BaseActivity {
 
     private MyCollectionAdapter adapter;
 
+    private SpImp spImp;
+    private String uid = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +55,7 @@ public class MyCollectionActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
+        spImp = new SpImp(MyCollectionActivity.this);
 
         initData();
 
@@ -49,25 +63,37 @@ public class MyCollectionActivity extends BaseActivity {
 
     private void initData() {
 
+        uid = spImp.getUID();
         LinearLayoutManager manager = new LinearLayoutManager(MyCollectionActivity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        List<String> data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        adapter = new MyCollectionAdapter(data);
-//        recyclerView.setItemViewSwipeEnabled(true);
+        ViseHttp.POST(NetConfig.userCollection)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userCollection))
+                .addParam("uid", uid)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                UserCollectionModel userCollectionModel = gson.fromJson(data, UserCollectionModel.class);
+                                adapter = new MyCollectionAdapter(userCollectionModel.getObj());
+                                recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
+                                recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-        recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
-        recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
 
-        recyclerView.setAdapter(adapter);
+                    }
+                });
+
     }
 
     /**

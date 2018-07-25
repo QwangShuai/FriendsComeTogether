@@ -21,30 +21,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_marginTop="32px"
-                android:layout_marginRight="40px"
-                android:layout_alignParentRight="true"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <!--<LinearLayout-->
+                <!--android:layout_marginTop="32px"-->
+                <!--android:layout_marginRight="40px"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:src="@mipmap/praise_g"
-                    android:layout_width="35px"
-                    android:layout_height="35px" />
+                <!--<ImageView-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:src="@mipmap/praise_g"-->
+                    <!--android:layout_width="35px"-->
+                    <!--android:layout_height="35px" />-->
 
-                <TextView
-                    android:gravity="center"
-                    android:layout_marginLeft="6px"
-                    android:textColor="#CACACA"
-                    android:textSize="30px"
-                    android:text="246"
-                    android:layout_width="wrap_content"
-                    android:layout_height="42px" />
+                <!--<TextView-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_marginLeft="6px"-->
+                    <!--android:textColor="#CACACA"-->
+                    <!--android:textSize="30px"-->
+                    <!--android:text="246"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="42px" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
             <TextView
                 android:id="@+id/activity_my_comment_rv_tv_nickname"

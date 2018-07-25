@@ -33,4 +33,10 @@ public class NetConfig {
     public static String hotCityUrl = "action/ac_activity/hot_city";
     //获取用户信息
     public static String userInformation = "action/ac_user/UserInformation";
+    //我的关注
+    public static String userFocus = "action/ac_user/my_look";
+    //我的收藏
+    public static String userCollection = "action/ac_user/Usercollection";
+    //我的评论
+    public static String userComment = "action/ac_article/article_comment_list";
 }
