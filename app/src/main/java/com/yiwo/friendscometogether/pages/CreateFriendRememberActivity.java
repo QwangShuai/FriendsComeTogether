@@ -526,7 +526,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                         .addParam("fmendtime", tvTimeEnd.getText().toString())
                         .addParam("percapitacost", etPrice.getText().toString())
                         .addParam("activity_id", "0")
-                        .addParam("fmpic", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg")
+                        .addParam("fmpic", "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg")
                         .addParam("type", "0")
                         .request(new ACallback<String>() {
                             @Override
@@ -564,7 +564,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                         .addParam("fmendtime", tvTimeEnd.getText().toString())
                         .addParam("percapitacost", etPrice.getText().toString())
                         .addParam("activity_id", "0")
-                        .addParam("fmpic", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg")
+                        .addParam("fmpic", "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg")
                         .addParam("type", "1")
                         .request(new ACallback<String>() {
                             @Override

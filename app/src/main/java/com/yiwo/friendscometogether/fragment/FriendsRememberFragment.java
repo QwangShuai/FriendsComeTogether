@@ -24,6 +24,7 @@ import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.FriendsRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
+import com.yiwo.friendscometogether.pages.CreateIntercalationActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -64,7 +65,7 @@ public class FriendsRememberFragment extends BaseFragment {
 
         ButterKnife.bind(this, rootView);
 
-        init(banner,DetailsOfFriendsActivity.class);
+        init(banner,CreateIntercalationActivity.class);
         initData();
 
         return rootView;
