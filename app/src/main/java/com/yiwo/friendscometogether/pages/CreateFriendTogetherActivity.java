@@ -24,6 +24,8 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -37,6 +39,7 @@ import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.network.ActivityConfig;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
@@ -286,6 +289,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
             ivTitle.setVisibility(View.VISIBLE);
             tvFirstIv.setVisibility(View.VISIBLE);
             ivDelete.setVisibility(View.VISIBLE);
+            map.put("file_img","http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg");
         }
         if(requestCode==CITY_REQUEST && data!=null){
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
@@ -437,10 +441,12 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     }
 
     private void showCompletePopupwindow() {
-
-        View view = LayoutInflater.from(CreateFriendTogetherActivity.this).inflate(R.layout.popupwindow_complete, null);
+        TextView relaseTv,nextTv,cancleTv;
+        View view = LayoutInflater.from(CreateFriendTogetherActivity.this).inflate(R.layout.popupwindow_complete_together, null);
         ScreenAdapterTools.getInstance().loadView(view);
-
+        relaseTv = (TextView) view.findViewById(R.id.popupwindow_complete_tv_release);
+        nextTv = (TextView) view.findViewById(R.id.popupwindow_complete_tv_next);
+        cancleTv = (TextView) view.findViewById(R.id.popupwindow_complete_tv_cancel);
         popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setTouchable(true);
         popupWindow.setFocusable(true);
@@ -464,7 +470,24 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                 getWindow().setAttributes(params);
             }
         });
-
+        relaseTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onComplete(0);
+            }
+        });
+        nextTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onComplete(1);
+            }
+        });
+        cancleTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
     }
 
     @Override
@@ -476,4 +499,23 @@ public class CreateFriendTogetherActivity extends BaseActivity {
         }
     }
 
+    public void onComplete(int state){
+        if(map.size()==20){
+            String token = getToken(NetConfig.BaseUrl+NetConfig.createActivityUrl);
+            ViseHttp.POST(NetConfig.createActivityUrl)
+                    .addParams(map)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+
+                        }
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        } else {
+            toToast(CreateFriendTogetherActivity.this,"请输入完整的创建活动信息");
+        }
+    }
 }
