@@ -42,5 +42,7 @@ public class NetConfig {
     //获取标签
     public static String userLabel = "action/ac_public/Label";
     //友记发布
-    public static String userRelease = "http://47.92.136.19/index.php/action/ac_article/InsertArticle";
+    public static String userRelease = "action/ac_article/InsertArticle";
+    //用户友记列表(草稿)
+    public static String userRemember = "action/ac_article/Listofarticles";
 }
