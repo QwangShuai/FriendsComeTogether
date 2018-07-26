@@ -361,6 +361,7 @@
                     android:src="@mipmap/right" />
 
                 <TextView
+                    android:id="@+id/activity_create_friend_together_tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

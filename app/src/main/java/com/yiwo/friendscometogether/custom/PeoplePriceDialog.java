@@ -7,11 +7,14 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
+import com.yiwo.friendscometogether.utils.StringUtils;
 
 import org.w3c.dom.Text;
 
@@ -26,6 +29,7 @@ public class PeoplePriceDialog extends Dialog {
     private Context context;
     private TextView showTv,treatTv,submitBtn;
     private EditText priceEt,otherEt;
+    private RelativeLayout closeRl;
     CreateFriendsTogetherRequestModel model = new CreateFriendsTogetherRequestModel();
     public interface PeoplePriceListener {
         /**
@@ -59,6 +63,13 @@ public class PeoplePriceDialog extends Dialog {
         submitBtn = (TextView) view.findViewById(R.id.dialog_people_price_btn);
         priceEt = (EditText) view.findViewById(R.id.dialog_people_price_et_price);
         otherEt = (EditText) view.findViewById(R.id.dialog_people_price_et_explain);
+        closeRl = (RelativeLayout) view.findViewById(R.id.dialog_people_price_rl_close);
+        closeRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         showTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +84,19 @@ public class PeoplePriceDialog extends Dialog {
                 model.setPrice_type("1");
                 treatTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
                 treatTv.setTextColor(context.getResources().getColor(R.color.black_333333));
+            }
+        });
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!StringUtils.isEmpty(priceEt.getText().toString())){
+                    model.setPrice(priceEt.getText().toString());
+                    model.setPrice_info(otherEt.getText().toString());
+                    listener.setActivityText(model);
+                    dismiss();
+                } else {
+                    Toast.makeText(context,"花费为空，请重新输入",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

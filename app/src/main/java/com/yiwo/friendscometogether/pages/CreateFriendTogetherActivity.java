@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.yiwo.friendscometogether.custom.EditTitleDialog;
 import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.PeopleRequireDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
+import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 
@@ -38,7 +40,9 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +89,8 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
     TextView tvFirstIv;
     @BindView(R.id.activity_create_friend_together_iv_delete)
     ImageView ivDelete;
-
+    @BindView(R.id.activity_create_friend_together_tv_price)
+    TextView tvPrice;
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -93,7 +98,7 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
-
+    private Map<String,String> map = new HashMap<>();
     private PopupWindow popupWindow;
 
     private static final int REQUEST_CODE = 0x00000011;
@@ -187,7 +192,15 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
                 pvOptions.show();
                 break;
             case R.id.activity_create_friend_together_rl_price:
-                PeoplePriceDialog peoplePriceDialog = new PeoplePriceDialog(CreateFriendTogetherActivity.this);
+                PeoplePriceDialog peoplePriceDialog = new PeoplePriceDialog(CreateFriendTogetherActivity.this, new PeoplePriceDialog.PeoplePriceListener() {
+                    @Override
+                    public void setActivityText(CreateFriendsTogetherRequestModel model) {
+                        map.put("price",model.getPrice());
+                        map.put("price_type",model.getPrice_type());
+                        map.put("price_info",model.getPrice_info());
+                        tvPrice.setText(model.getPrice());
+                    }
+                });
                 peoplePriceDialog.show();
                 break;
             case R.id.activity_create_friend_together_rl_complete:
