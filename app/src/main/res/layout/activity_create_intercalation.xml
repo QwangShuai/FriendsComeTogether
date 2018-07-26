@@ -29,6 +29,22 @@
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/activity_create_intercalation_rl_complete"
+            android:layout_alignParentRight="true"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textSize="30px"
+                android:textColor="@color/white_ffffff"
+                android:text="发布"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -37,6 +37,7 @@ import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.model.UserLabelModel;
+import com.yiwo.friendscometogether.model.UserReleaseModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
@@ -574,6 +575,49 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                     if (jsonObject.getInt("code") == 200) {
                                         toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
                                         onBackPressed();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+        });
+
+        tvNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViseHttp.POST(NetConfig.userRelease)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                        .addParam("fmtitle", tvTitle.getText().toString())
+                        .addParam("fmcontent", tvContent.getText().toString())
+                        .addParam("fmaddress", tvCity.getText().toString())
+                        .addParam("uid", uid)
+                        .addParam("fmlable", yourChoiceId)
+                        .addParam("fmgotime", tvTimeStart.getText().toString())
+                        .addParam("fmendtime", tvTimeEnd.getText().toString())
+                        .addParam("percapitacost", etPrice.getText().toString())
+                        .addParam("activity_id", "0")
+                        .addParam("fmpic", "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg")
+                        .addParam("type", "0")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Gson gson = new Gson();
+                                        UserReleaseModel userReleaseModel = gson.fromJson(data, UserReleaseModel.class);
+                                        Intent intent = new Intent();
+                                        intent.putExtra("id", userReleaseModel.getObj().getId()+"");
+                                        intent.setClass(CreateFriendRememberActivity.this, CreateIntercalationActivity.class);
+                                        startActivity(intent);
+                                        CreateFriendRememberActivity.this.finish();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

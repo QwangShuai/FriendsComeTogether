@@ -45,4 +45,8 @@ public class NetConfig {
     public static String userRelease = "action/ac_article/InsertArticle";
     //用户友记列表(草稿)
     public static String userRemember = "action/ac_article/Listofarticles";
+    //添加插文
+    public static String userIntercalation = "action/ac_article/Intercalation";
+    //续写友记
+    public static String userRenewTheArticle = "action/ac_article/RenewTheArticle";
 }

@@ -364,6 +364,7 @@
                     android:src="@mipmap/right" />
 
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/activity_create_friend_remember_et_price"
                     android:hint="000.00"
                     android:gravity="end"

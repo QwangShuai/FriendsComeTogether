@@ -5,15 +5,23 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.donkingliang.imageselector.utils.ImageSelector;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.IntercalationAdapter;
 import com.yiwo.friendscometogether.adapter.MyPicturesAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +36,21 @@ public class CreateIntercalationActivity extends BaseActivity {
     RelativeLayout rlBack;
     @BindView(R.id.activity_create_intercalation_rv)
     RecyclerView recyclerView;
+    @BindView(R.id.activity_create_intercalation_rl_complete)
+    RelativeLayout rlComplete;
+    @BindView(R.id.activity_create_intercalation_et_title)
+    EditText etTitle;
+    @BindView(R.id.activity_create_intercalation_et_content)
+    EditText etContent;
 
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
 
     private static final int REQUEST_CODE = 0x00000011;
+
+    private SpImp spImp;
+    private String uid = "";
+    private String id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +59,7 @@ public class CreateIntercalationActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
+        spImp = new SpImp(CreateIntercalationActivity.this);
 
         initData();
 
@@ -48,6 +67,10 @@ public class CreateIntercalationActivity extends BaseActivity {
 
     private void initData() {
 
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
+
+        uid = spImp.getUID();
         mList = new ArrayList<>();
         GridLayoutManager manager = new GridLayoutManager(CreateIntercalationActivity.this, 3);
         recyclerView.setLayoutManager(manager);
@@ -86,20 +109,66 @@ public class CreateIntercalationActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE && data != null) {
             //获取选择器返回的数据
             List<String> pic = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
-            for (int i = 0; i<pic.size(); i++){
+            for (int i = 0; i < pic.size(); i++) {
                 mList.add(new UserIntercalationPicModel(pic.get(i), ""));
             }
             adapter.notifyDataSetChanged();
         }
     }
 
-    @OnClick({R.id.activity_create_intercalation_rl_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.activity_create_intercalation_rl_back, R.id.activity_create_intercalation_rl_complete})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.activity_create_intercalation_rl_back:
-
+                onBackPressed();
+                break;
+            case R.id.activity_create_intercalation_rl_complete:
+                complete();
                 break;
         }
+    }
+
+    /**
+     * 发布
+     */
+    private void complete() {
+
+        String images = "";
+        for (int i = 0; i < mList.size(); i++) {
+            if (i < mList.size() - 1) {
+                images = "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg" + "-" + mList.get(i).getDescribe() + "|";
+            } else {
+                images = "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg" + "-" + mList.get(i).getDescribe();
+            }
+        }
+
+        ViseHttp.POST(NetConfig.userRenewTheArticle)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
+                .addParam("title", etTitle.getText().toString())
+                .addParam("content", etContent.getText().toString())
+                .addParam("id", id)
+                .addParam("images", images)
+                .addParam("uid", uid)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                toToast(CreateIntercalationActivity.this, jsonObject.getString("message"));
+                                CreateIntercalationActivity.this.finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
     }
 
     @Override
