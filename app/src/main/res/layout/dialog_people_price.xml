@@ -55,9 +55,9 @@
 
             <TextView
                 android:id="@+id/dialog_people_price_tv_right"
-                android:background="@drawable/bg_dialog_price_select"
+                android:background="@drawable/bg_dialog_price_un_select"
                 android:layout_marginLeft="60px"
-                android:textColor="#F71F1F"
+                android:textColor="@color/black_333333"
                 android:textSize="24px"
                 android:gravity="center"
                 android:text="我请客"
@@ -100,6 +100,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:inputType="phone"
                 android:id="@+id/dialog_people_price_et_price"
                 android:layout_marginLeft="10px"
                 android:layout_gravity="center_vertical"
@@ -127,6 +128,7 @@
             android:layout_height="56px">
 
             <EditText
+                android:inputType="textPersonName"
                 android:id="@+id/dialog_people_price_et_explain"
                 android:layout_marginLeft="40px"
                 android:layout_centerVertical="true"

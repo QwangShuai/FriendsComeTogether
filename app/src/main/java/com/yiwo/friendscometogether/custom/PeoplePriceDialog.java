@@ -76,14 +76,20 @@ public class PeoplePriceDialog extends Dialog {
                 model.setPrice_type("0");
                 showTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
                 showTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
+
+                treatTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
+                treatTv.setTextColor(context.getResources().getColor(R.color.black_333333));
             }
         });
         treatTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 model.setPrice_type("1");
-                treatTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
-                treatTv.setTextColor(context.getResources().getColor(R.color.black_333333));
+                showTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
+                showTv.setTextColor(context.getResources().getColor(R.color.black_333333));
+
+                treatTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
+                treatTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
             }
         });
         submitBtn.setOnClickListener(new View.OnClickListener() {
