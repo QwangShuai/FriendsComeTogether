@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
@@ -19,6 +22,12 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.LookHistoryAdapter;
 import com.yiwo.friendscometogether.adapter.MyDraftAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.UserRememberModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +45,9 @@ public class MyDraftActivity extends BaseActivity {
 
     private MyDraftAdapter adapter;
 
+    private SpImp spImp;
+    private String uid = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +55,7 @@ public class MyDraftActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
+        spImp = new SpImp(MyDraftActivity.this);
 
         initData();
 
@@ -50,24 +63,37 @@ public class MyDraftActivity extends BaseActivity {
 
     private void initData() {
 
+        uid = spImp.getUID();
         LinearLayoutManager manager = new LinearLayoutManager(MyDraftActivity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        List<String> data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        adapter = new MyDraftAdapter(data);
+        ViseHttp.POST(NetConfig.userRemember)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userRemember))
+                .addParam("uid", uid)
+                .addParam("type", "1")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                UserRememberModel userRememberModel = gson.fromJson(data, UserRememberModel.class);
+                                adapter = new MyDraftAdapter(userRememberModel.getObj());
+                                recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
+                                recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-        recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
-        recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
 
-        recyclerView.setAdapter(adapter);
+                    }
+                });
 
     }
 

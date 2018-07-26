@@ -5,9 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.UserRememberModel;
 
 import java.util.List;
 
@@ -18,9 +22,9 @@ import java.util.List;
 public class MyDraftAdapter extends RecyclerView.Adapter<MyDraftAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<UserRememberModel.ObjBean> data;
 
-    public MyDraftAdapter(List<String> data) {
+    public MyDraftAdapter(List<UserRememberModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -35,7 +39,9 @@ public class MyDraftAdapter extends RecyclerView.Adapter<MyDraftAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Picasso.with(context).load(data.get(position).getFmpic()).into(holder.iv);
+        holder.tvTitle.setText(data.get(position).getFmtitle());
+        holder.tvCreateTime.setText("创建时间: " + data.get(position).getFmtime());
     }
 
     @Override
@@ -45,9 +51,15 @@ public class MyDraftAdapter extends RecyclerView.Adapter<MyDraftAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        private ImageView iv;
+        private TextView tvTitle;
+        private TextView tvCreateTime;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            iv = itemView.findViewById(R.id.activity_my_draft_rv_iv);
+            tvTitle = itemView.findViewById(R.id.activity_my_draft_rv_tv_title);
+            tvCreateTime = itemView.findViewById(R.id.activity_my_draft_rv_tv_c_time);
         }
     }
 

@@ -11,7 +11,7 @@ public class UserRememberModel {
     /**
      * code : 200
      * message : 获取成功
-     * obj : [{"fmID":"14","fmtitle":"就下去","fmpic":"http://47.92.136.19/https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&im","fmgotime":"2018-07-25","fmendtime":"2018-07-31","percapitacost":"125.00","fmlook":"0","fmfavorite":"0"},{"fmID":"13","fmtitle":"123123","fmpic":"http://47.92.136.19/https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&im","fmgotime":"2018-1-11","fmendtime":"2018-12-12","percapitacost":"120.00","fmlook":"0","fmfavorite":"0"}]
+     * obj : [{"fmID":"15","fmtitle":"6组","fmpic":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg","fmgotime":"2018-07-25","fmendtime":"2018-07-31","percapitacost":"1.00","fmlook":"0","fmfavorite":"0","fmtime":"2018-07-25 17:24:31"}]
      */
 
     private int code;
@@ -44,14 +44,15 @@ public class UserRememberModel {
 
     public static class ObjBean {
         /**
-         * fmID : 14
-         * fmtitle : 就下去
-         * fmpic : http://47.92.136.19/https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&im
+         * fmID : 15
+         * fmtitle : 6组
+         * fmpic : http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg
          * fmgotime : 2018-07-25
          * fmendtime : 2018-07-31
-         * percapitacost : 125.00
+         * percapitacost : 1.00
          * fmlook : 0
          * fmfavorite : 0
+         * fmtime : 2018-07-25 17:24:31
          */
 
         private String fmID;
@@ -62,6 +63,7 @@ public class UserRememberModel {
         private String percapitacost;
         private String fmlook;
         private String fmfavorite;
+        private String fmtime;
 
         public String getFmID() {
             return fmID;
@@ -125,6 +127,14 @@ public class UserRememberModel {
 
         public void setFmfavorite(String fmfavorite) {
             this.fmfavorite = fmfavorite;
+        }
+
+        public String getFmtime() {
+            return fmtime;
+        }
+
+        public void setFmtime(String fmtime) {
+            this.fmtime = fmtime;
         }
     }
 }
