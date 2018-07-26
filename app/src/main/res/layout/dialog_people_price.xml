@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="600px"
+    android:layout_width="620px"
     android:layout_height="wrap_content">
 
     <RelativeLayout
@@ -29,7 +29,6 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:layout_marginRight="40px"
         android:layout_marginTop="40px"
         android:layout_marginLeft="40px"
         android:id="@+id/dialog_people_price_ll"
@@ -56,11 +55,21 @@
             <TextView
                 android:id="@+id/dialog_people_price_tv_right"
                 android:background="@drawable/bg_dialog_price_un_select"
-                android:layout_marginLeft="60px"
+                android:layout_marginLeft="30px"
                 android:textColor="@color/black_333333"
                 android:textSize="24px"
                 android:gravity="center"
                 android:text="我请客"
+                android:layout_width="160px"
+                android:layout_height="56px" />
+            <TextView
+                android:id="@+id/dialog_people_price_tv_pay"
+                android:background="@drawable/bg_dialog_price_un_select"
+                android:layout_marginLeft="30px"
+                android:textColor="@color/black_333333"
+                android:textSize="24px"
+                android:gravity="center"
+                android:text="线上交易"
                 android:layout_width="160px"
                 android:layout_height="56px" />
 

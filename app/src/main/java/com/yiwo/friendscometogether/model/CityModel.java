@@ -1,10 +1,12 @@
 package com.yiwo.friendscometogether.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2018/7/15.
  */
 
-public class CityModel {
+public class CityModel implements Serializable {
     private String id;
     private String name;
 

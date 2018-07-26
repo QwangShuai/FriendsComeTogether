@@ -27,7 +27,7 @@ import java.util.Map;
 public class PeoplePriceDialog extends Dialog {
 
     private Context context;
-    private TextView showTv,treatTv,submitBtn;
+    private TextView showTv,treatTv,payTv,submitBtn,contentTv;
     private EditText priceEt,otherEt;
     private RelativeLayout closeRl;
     CreateFriendsTogetherRequestModel model = new CreateFriendsTogetherRequestModel();
@@ -60,6 +60,8 @@ public class PeoplePriceDialog extends Dialog {
         ScreenAdapterTools.getInstance().loadView(view);
         showTv = (TextView) view.findViewById(R.id.dialog_people_price_tv_left);
         treatTv = (TextView) view.findViewById(R.id.dialog_people_price_tv_right);
+        payTv = (TextView) view.findViewById(R.id.dialog_people_price_tv_pay);
+        contentTv = (TextView) view.findViewById(R.id.dialog_people_price_tv_content);
         submitBtn = (TextView) view.findViewById(R.id.dialog_people_price_btn);
         priceEt = (EditText) view.findViewById(R.id.dialog_people_price_et_price);
         otherEt = (EditText) view.findViewById(R.id.dialog_people_price_et_explain);
@@ -74,22 +76,22 @@ public class PeoplePriceDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 model.setPrice_type("0");
-                showTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
-                showTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
-
-                treatTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
-                treatTv.setTextColor(context.getResources().getColor(R.color.black_333333));
+                setViewColor(0);
             }
         });
         treatTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 model.setPrice_type("1");
-                showTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
-                showTv.setTextColor(context.getResources().getColor(R.color.black_333333));
+                setViewColor(1);
+            }
+        });
 
-                treatTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
-                treatTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
+        payTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                model.setPrice_type("2");
+                setViewColor(2);
             }
         });
         submitBtn.setOnClickListener(new View.OnClickListener() {
@@ -105,5 +107,32 @@ public class PeoplePriceDialog extends Dialog {
                 }
             }
         });
+    }
+
+    public void setViewColor(int key){
+        showTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
+        showTv.setTextColor(context.getResources().getColor(R.color.black_333333));
+        treatTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
+        treatTv.setTextColor(context.getResources().getColor(R.color.black_333333));
+        payTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
+        payTv.setTextColor(context.getResources().getColor(R.color.black_333333));
+        switch (key){
+            case 0:
+                showTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
+                showTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
+                contentTv.setText("活动费用现场实际收费");
+                break;
+            case 1:
+                treatTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
+                treatTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
+                contentTv.setText("活动费用由领队支付，你可免费参加活动。");
+                break;
+            case 2:
+                payTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
+                payTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
+                contentTv.setText("活动费用队员可选微信或支付宝支付。");
+                break;
+        }
+
     }
 }

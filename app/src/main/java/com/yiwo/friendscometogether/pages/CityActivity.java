@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -11,11 +12,13 @@ import android.widget.RelativeLayout;
 
 import com.squareup.okhttp.Request;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
+import com.yiwo.friendscometogether.MainActivity;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.CityAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.SlideBar;
 import com.yiwo.friendscometogether.model.CityModel;
+import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -24,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +79,16 @@ public class CityActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 toToast(CityActivity.this,list.get(position).getName());
+                String ac = getIntent().getStringExtra(ActivityConfig.ACTIVITY);
+                Intent it = new Intent();
+                if(ac.equals("youju")){
+                    it.setClass(CityActivity.this,CreateFriendTogetherActivity.class);
+                } else {
+                    it.setClass(CityActivity.this, MainActivity.class);
+                }
+                it.putExtra(ActivityConfig.CITY,list.get(position));
+                setResult(1,it);
+                finish();
             }
         });
     }

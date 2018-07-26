@@ -26,14 +26,17 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.ActivitiesRequireDialog;
 import com.yiwo.friendscometogether.custom.EditContentDialog;
 import com.yiwo.friendscometogether.custom.EditTitleDialog;
 import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.PeopleRequireDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
+import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
 import com.yiwo.friendscometogether.model.JsonBean;
+import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
@@ -53,7 +56,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class CreateFriendTogetherActivity extends AppCompatActivity {
+public class CreateFriendTogetherActivity extends BaseActivity {
     @BindView(R.id.activity_create_friend_together_rl_back)
     RelativeLayout rlBack;
     @BindView(R.id.activity_create_friend_together_rl_edit_title)
@@ -113,6 +116,7 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
     private PopupWindow popupWindow;
 
     private static final int REQUEST_CODE = 0x00000011;
+    private static final int CITY_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,26 +201,9 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
                 new DatePickerDialog(CreateFriendTogetherActivity.this, onDateSetListenerEnd, mYear, mMonth, mDay).show();
                 break;
             case R.id.activity_create_friend_together_rl_activity_city:
-                OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-                    @Override
-                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                        //返回的分别是三个级别的选中位置
-                        String tx = options1Items.get(options1).getPickerViewText() + "-" +
-                                options2Items.get(options1).get(options2) + "-" +
-                                options3Items.get(options1).get(options2).get(options3);
-                        tvCity.setText(tx);
-                    }
-                })
-                        .setTitleText("城市选择")
-                        .setDividerColor(Color.BLACK)
-                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-                        .setContentTextSize(20)
-                        .build();
-
-        /*pvOptions.setPicker(options1Items);//一级选择器
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-                pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
-                pvOptions.show();
+                Intent it = new Intent(CreateFriendTogetherActivity.this,CityActivity.class);
+                it.putExtra(ActivityConfig.ACTIVITY,"youju");
+                startActivityForResult(it,CITY_REQUEST);
                 break;
             case R.id.activity_create_friend_together_rl_price:
                 PeoplePriceDialog peoplePriceDialog = new PeoplePriceDialog(CreateFriendTogetherActivity.this, new PeoplePriceDialog.PeoplePriceListener() {
@@ -300,6 +287,11 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
             tvFirstIv.setVisibility(View.VISIBLE);
             ivDelete.setVisibility(View.VISIBLE);
         }
+        if(requestCode==CITY_REQUEST && data!=null){
+            CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
+            tvCity.setText(model.getName());
+            map.put("city",model.getId());
+        }
     }
 
     /**
@@ -315,23 +307,24 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
             String days;
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("-").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append(mDay).append("-").toString();
                 }
 
             } else {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("-").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append(mDay).append("-").toString();
                 }
 
             }
+            map.put("begin_time",days);
             tvTimeStart.setText(days);
         }
     };
@@ -349,23 +342,24 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
             String days;
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("-").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append(mDay).append("-").toString();
                 }
 
             } else {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("-").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append(mDay).append("-").toString();
                 }
 
             }
+            map.put("end_time",days);
             tvTimeEnd.setText(days);
         }
     };
