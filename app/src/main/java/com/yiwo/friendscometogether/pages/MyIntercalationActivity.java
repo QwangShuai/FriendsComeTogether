@@ -6,10 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.MyIntercalationAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.UserIntercalationListModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +36,9 @@ public class MyIntercalationActivity extends BaseActivity {
 
     private MyIntercalationAdapter adapter;
 
+    private SpImp spImp;
+    private String uid = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +46,7 @@ public class MyIntercalationActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
+        spImp = new SpImp(MyIntercalationActivity.this);
 
         initData();
 
@@ -41,20 +54,34 @@ public class MyIntercalationActivity extends BaseActivity {
 
     private void initData() {
 
+        uid = spImp.getUID();
         LinearLayoutManager manager = new LinearLayoutManager(MyIntercalationActivity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        List<String> data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        adapter = new MyIntercalationAdapter(data);
-        recyclerView.setAdapter(adapter);
+        ViseHttp.POST(NetConfig.userIntercalationListUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userIntercalationListUrl))
+                .addParam("uid", uid)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                UserIntercalationListModel userIntercalationListModel = gson.fromJson(data, UserIntercalationListModel.class);
+                                adapter = new MyIntercalationAdapter(userIntercalationListModel.getObj());
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 

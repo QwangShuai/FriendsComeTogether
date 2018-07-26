@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/activity_my_intercalation_rv_tv_title"
         android:layout_marginTop="40px"
         android:layout_marginLeft="40px"
         android:textSize="32px"
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/activity_my_intercalation_rv_tv_state"
             android:textColor="#F71F1F"
             android:textSize="28px"
             android:text="待审核"
@@ -28,6 +30,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/activity_my_intercalation_rv_tv_reason"
             android:textSize="28px"
             android:textColor="@color/black_333333"
             android:layout_marginLeft="10px"
@@ -38,6 +41,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/activity_my_intercalation_rv_iv"
         android:layout_marginTop="20px"
         android:layout_marginRight="35px"
         android:layout_marginLeft="35px"
@@ -47,6 +51,7 @@
         android:layout_height="453px" />
 
     <TextView
+        android:id="@+id/activity_my_intercalation_rv_tv_location"
         android:layout_marginRight="40px"
         android:layout_marginLeft="40px"
         android:layout_marginTop="30px"
@@ -57,6 +62,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/activity_my_intercalation_rv_tv_activity"
         android:layout_marginRight="40px"
         android:layout_marginLeft="40px"
         android:layout_marginTop="10px"
@@ -67,6 +73,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/activity_my_intercalation_rv_tv_time"
         android:layout_marginRight="40px"
         android:layout_marginLeft="40px"
         android:layout_marginTop="10px"

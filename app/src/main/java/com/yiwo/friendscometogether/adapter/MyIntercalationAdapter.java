@@ -5,9 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.UserIntercalationListModel;
 
 import java.util.List;
 
@@ -18,9 +23,9 @@ import java.util.List;
 public class MyIntercalationAdapter extends RecyclerView.Adapter<MyIntercalationAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<UserIntercalationListModel.ObjBean> data;
 
-    public MyIntercalationAdapter(List<String> data) {
+    public MyIntercalationAdapter(List<UserIntercalationListModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -35,7 +40,13 @@ public class MyIntercalationAdapter extends RecyclerView.Adapter<MyIntercalation
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.tvTitle.setText(data.get(position).getFfptitle());
+        holder.tvState.setText(data.get(position).getState());
+        holder.tvReason.setText(data.get(position).getReason());
+        Picasso.with(context).load(data.get(position).getFfpurl()).into(holder.iv);
+        holder.tvLocation.setText("插文位置: " + data.get(position).getPosition());
+        holder.tvActivity.setText("参与的活动: " + data.get(position).getActivity_name());
+        holder.tvTime.setText("上次编辑时间: " + data.get(position).getFfptime());
     }
 
     @Override
@@ -45,9 +56,27 @@ public class MyIntercalationAdapter extends RecyclerView.Adapter<MyIntercalation
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView tvTitle;
+        private TextView tvState;
+        private TextView tvReason;
+        private ImageView iv;
+        private TextView tvLocation;
+        private TextView tvActivity;
+        private TextView tvTime;
+        private LinearLayout llDelete;
+        private LinearLayout llEditor;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            tvTitle = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_title);
+            tvState = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_state);
+            tvReason = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_reason);
+            iv = itemView.findViewById(R.id.activity_my_intercalation_rv_iv);
+            tvLocation = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_location);
+            tvActivity = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_activity);
+            tvTime = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_time);
+            llDelete = itemView.findViewById(R.id.activity_my_intercalation_rv_ll_delete);
+            llEditor = itemView.findViewById(R.id.activity_my_intercalation_rv_ll_editor);
         }
     }
 

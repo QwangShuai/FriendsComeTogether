@@ -51,4 +51,6 @@ public class NetConfig {
     public static String userRenewTheArticle = "action/ac_article/RenewTheArticle";
     //创建活动
     public static String createActivityUrl = "action/ac_activity/add_travel";
+    //用户插文列表
+    public static String userIntercalationListUrl = "action/ac_article/MylistoFinserts";
 }
