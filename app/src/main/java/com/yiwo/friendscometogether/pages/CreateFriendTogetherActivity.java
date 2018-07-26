@@ -35,6 +35,7 @@ import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
+import com.yiwo.friendscometogether.utils.StringUtils;
 
 import org.json.JSONArray;
 
@@ -91,6 +92,16 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
     ImageView ivDelete;
     @BindView(R.id.activity_create_friend_together_tv_price)
     TextView tvPrice;
+    @BindView(R.id.activity_create_friend_together_tv_price_require)
+    TextView tvPriceRequire;
+    @BindView(R.id.activity_create_friend_together_tv_activity_require)
+    TextView tvActivityRequire;
+    @BindView(R.id.activity_create_friend_together_tv_pwd)
+    TextView pwdTv;
+    @BindView(R.id.activity_create_friend_together_tv_title)
+    TextView titleTv;
+    @BindView(R.id.activity_create_friend_together_tv_content)
+    TextView contentTv;
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -156,12 +167,28 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.activity_create_friend_together_rl_edit_title:
-                EditTitleDialog editTitleDialog = new EditTitleDialog(CreateFriendTogetherActivity.this);
+                final EditTitleDialog editTitleDialog = new EditTitleDialog(CreateFriendTogetherActivity.this);
                 editTitleDialog.show();
+                editTitleDialog.setOnReturnListener(new EditTitleDialog.OnReturnListener() {
+                    @Override
+                    public void onReturn(String title) {
+                        map.put("title",title);
+                        titleTv.setText(title);
+                        editTitleDialog.dismiss();
+                    }
+                });
                 break;
             case R.id.activity_create_friend_together_rl_edit_content:
-                EditContentDialog editContentDialog = new EditContentDialog(CreateFriendTogetherActivity.this);
+                final EditContentDialog editContentDialog = new EditContentDialog(CreateFriendTogetherActivity.this);
                 editContentDialog.show();
+                editContentDialog.setOnReturnListener(new EditContentDialog.OnReturnListener() {
+                    @Override
+                    public void onReturn(String content) {
+                        map.put("content",content);
+                        contentTv.setText(content);
+                        editContentDialog.dismiss();
+                    }
+                });
                 break;
             case R.id.activity_create_friend_together_rl_time_start:
                 new DatePickerDialog(CreateFriendTogetherActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
@@ -207,15 +234,41 @@ public class CreateFriendTogetherActivity extends AppCompatActivity {
                 showCompletePopupwindow();
                 break;
             case R.id.activity_create_friend_together_rl_enter_activities:
-                SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendTogetherActivity.this);
+                SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendTogetherActivity.this, new SetPasswordDialog.SetPasswordListener() {
+                    @Override
+                    public void setActivityText(String s) {
+                        if(!StringUtils.isEmpty(s)){
+                            map.put("follow_pass",s);
+                            pwdTv.setText(s);
+                        }
+
+                    }
+                });
                 setPasswordDialog.show();
                 break;
             case R.id.activity_create_friend_together_rl_person_require:
-                PeopleRequireDialog peopleRequireDialog = new PeopleRequireDialog(CreateFriendTogetherActivity.this);
+                PeopleRequireDialog peopleRequireDialog = new PeopleRequireDialog(CreateFriendTogetherActivity.this, new PeopleRequireDialog.PeopleRequireListener() {
+                    @Override
+                    public void setActivityText(CreateFriendsTogetherRequestModel model) {
+                        map.put("min_num",model.getMin_num());
+                        map.put("max_num",model.getMax_num());
+                        tvPriceRequire.setText(model.getMin_num()+"~"+model.getMax_num());
+                    }
+                });
                 peopleRequireDialog.show();
                 break;
             case R.id.activity_create_friend_together_rl_activities_require:
-                ActivitiesRequireDialog activitiesRequireDialog = new ActivitiesRequireDialog(CreateFriendTogetherActivity.this);
+                ActivitiesRequireDialog activitiesRequireDialog = new ActivitiesRequireDialog(CreateFriendTogetherActivity.this, new ActivitiesRequireDialog.ActivitiesRequireListener() {
+                    @Override
+                    public void setActivityText(CreateFriendsTogetherRequestModel model) {
+                        map.put("peoplesex",model.getPeoplesex());
+                        map.put("age_begin",model.getAge_begin());
+                        map.put("age_end",model.getAge_end());
+                        map.put("marry",model.getMarry());
+                        map.put("follow_info",model.getFollow_info());
+                        tvActivityRequire.setText("已填写");
+                    }
+                });
                 activitiesRequireDialog.show();
                 break;
             case R.id.activity_create_friend_together_iv_add:

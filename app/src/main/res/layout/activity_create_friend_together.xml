@@ -112,6 +112,7 @@
                     android:textSize="28px" />
 
                 <TextView
+                    android:id="@+id/activity_create_friend_together_tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="170px"
                     android:layout_below="@+id/activity_create_friend_together_tv_content_num"
@@ -410,12 +411,13 @@
                     android:src="@mipmap/right" />
 
                 <TextView
+                    android:id="@+id/activity_create_friend_together_tv_price_require"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10px"
                     android:layout_toLeftOf="@+id/activity_create_friend_together_iv_person_require_right"
-                    android:text="无，最少，最多"
+                    android:text="最少，最多"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
@@ -458,6 +460,7 @@
                     android:src="@mipmap/right" />
 
                 <TextView
+                    android:id="@+id/activity_create_friend_together_tv_activity_require"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -506,6 +509,7 @@
                     android:src="@mipmap/right" />
 
                 <TextView
+                    android:id="@+id/activity_create_friend_together_tv_pwd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

@@ -45,6 +45,8 @@
             android:layout_height="match_parent">
 
             <EditText
+                android:inputType="phone"
+                android:id="@+id/dialog_people_require_et_min"
                 android:layout_marginLeft="20px"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
@@ -78,6 +80,8 @@
             android:layout_height="match_parent">
 
             <EditText
+                android:inputType="phone"
+                android:id="@+id/dialog_people_require_et_max"
                 android:layout_marginLeft="20px"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
@@ -89,7 +93,9 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
-    <Button
+    <TextView
+        android:gravity="center"
+        android:id="@+id/dialog_people_require_bt_submit"
         android:textSize="24px"
         android:layout_marginBottom="50px"
         android:layout_marginTop="50px"

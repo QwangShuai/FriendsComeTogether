@@ -264,7 +264,12 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 showCompletePopupwindow();
                 break;
             case R.id.activity_create_friend_remember_rl_set_password:
-                SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendRememberActivity.this);
+                SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendRememberActivity.this, new SetPasswordDialog.SetPasswordListener() {
+                    @Override
+                    public void setActivityText(String s) {
+
+                    }
+                });
                 setPasswordDialog.show();
                 break;
             case R.id.activity_create_friend_remember_iv_add:

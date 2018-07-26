@@ -45,6 +45,7 @@
             android:layout_height="match_parent">
 
             <EditText
+                android:id="@+id/dialog_activities_require_age_min_et"
                 android:inputType="phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,6 +72,7 @@
             android:layout_height="match_parent">
 
             <EditText
+                android:id="@+id/dialog_activities_require_age_max_et"
                 android:inputType="phone"
                 android:layout_marginLeft="10px"
                 android:layout_centerVertical="true"
@@ -98,6 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
         <TextView
+            android:id="@+id/dialog_activities_require_sex_none_tv"
             android:layout_marginLeft="16px"
             android:background="@drawable/bg_dialog_price_un_select"
             android:textSize="24px"
@@ -108,6 +111,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/dialog_activities_require_sex_man_tv"
             android:layout_marginLeft="20px"
             android:background="@drawable/bg_dialog_price_un_select"
             android:textSize="24px"
@@ -117,6 +121,7 @@
             android:layout_width="120px"
             android:layout_height="match_parent" />
         <TextView
+            android:id="@+id/dialog_activities_require_sex_woman_tv"
             android:layout_marginLeft="20px"
             android:background="@drawable/bg_dialog_price_un_select"
             android:textSize="24px"
@@ -148,27 +153,29 @@
     <TextView
         android:textColor="@color/black_333333"
         android:gravity="center"
-        android:text="婚姻状况："
+        android:text="是否单身："
         android:textSize="28px"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
         <TextView
+            android:id="@+id/dialog_activities_require_unmarriage_tv"
             android:layout_marginLeft="10px"
             android:background="@drawable/bg_dialog_price_un_select"
             android:textSize="24px"
             android:textColor="@color/black_333333"
             android:gravity="center"
-            android:text="未婚"
+            android:text="是"
             android:layout_width="160px"
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/dialog_activities_require_marriage_tv"
             android:layout_marginLeft="20px"
             android:background="@drawable/bg_dialog_price_un_select"
             android:textSize="24px"
             android:textColor="@color/black_333333"
             android:gravity="center"
-            android:text="已婚"
+            android:text="否"
             android:layout_width="160px"
             android:layout_height="match_parent" />
     </LinearLayout>
@@ -193,6 +200,7 @@
             android:layout_height="match_parent">
 
             <EditText
+                android:id="@+id/dialog_activities_require_other_et"
                 android:layout_marginLeft="20px"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
@@ -204,7 +212,9 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
-    <Button
+    <TextView
+        android:gravity="center"
+        android:id="@+id/dialog_activities_require_submit_tv"
         android:textSize="24px"
         android:layout_marginBottom="50px"
         android:layout_marginTop="50px"
