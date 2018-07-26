@@ -50,6 +50,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -255,7 +256,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                         map.put("age_begin",model.getAge_begin());
                         map.put("age_end",model.getAge_end());
                         map.put("marry",model.getMarry());
-                        map.put("follow_info",model.getFollow_info());
+                        map.put("warning",model.getWarning());
                         tvActivityRequire.setText("已填写");
                     }
                 });
@@ -347,19 +348,19 @@ public class CreateFriendTogetherActivity extends BaseActivity {
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
                     days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("-").toString();
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
                     days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append(mDay).append("-").toString();
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             } else {
                 if (mDay < 10) {
                     days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("-").toString();
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
                     days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append(mDay).append("-").toString();
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             }
@@ -500,14 +501,15 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     }
 
     public void onComplete(int state){
-        if(map.size()==20){
+        map.put("user_id","7");
+        if(map.size()==18){
             String token = getToken(NetConfig.BaseUrl+NetConfig.createActivityUrl);
             ViseHttp.POST(NetConfig.createActivityUrl)
                     .addParams(map)
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
-
+                            Log.i("myData",data.toString());
                         }
                         @Override
                         public void onFail(int errCode, String errMsg) {
@@ -516,6 +518,16 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                     });
         } else {
             toToast(CreateFriendTogetherActivity.this,"请输入完整的创建活动信息");
+            // 获取所有键值对对象的集合
+            Set<Map.Entry<String, String>> set = map.entrySet();
+            // 遍历键值对对象的集合，得到每一个键值对对象
+            for (Map.Entry<String, String> me : set) {
+                // 根据键值对对象获取键和值
+                String key = me.getKey();
+                String value = me.getValue();
+                Log.i(key, "---" + value);
+            }
+
         }
     }
 }

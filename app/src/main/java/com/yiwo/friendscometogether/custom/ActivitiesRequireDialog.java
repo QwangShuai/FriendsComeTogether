@@ -125,7 +125,7 @@ public class ActivitiesRequireDialog extends Dialog {
                 } else {
                     model.setAge_begin(ageMinEt.getText().toString());
                     model.setAge_end(ageMaxEt.getText().toString());
-                    model.setFollow_info(otherEt.getText().toString());
+                    model.setWarning(otherEt.getText().toString());
                     listener.setActivityText(model);
                     dismiss();
                 }

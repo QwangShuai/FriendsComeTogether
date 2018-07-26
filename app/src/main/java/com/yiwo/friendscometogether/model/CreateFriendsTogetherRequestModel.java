@@ -20,7 +20,6 @@ public class CreateFriendsTogetherRequestModel {
     private String peoplesex;
     private String age_begin;
     private String age_end;
-    private String get_type;
     private String marry;
     private String follow_info;
     private String warning;
@@ -144,14 +143,6 @@ public class CreateFriendsTogetherRequestModel {
 
     public void setAge_end(String age_end) {
         this.age_end = age_end;
-    }
-
-    public String getGet_type() {
-        return get_type;
-    }
-
-    public void setGet_type(String get_type) {
-        this.get_type = get_type;
     }
 
     public String getMarry() {
