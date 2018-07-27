@@ -144,7 +144,6 @@
                     android:layout_height="match_parent"
                     android:text="年         龄:"/>
                 <EditText
-                    android:maxLength="1"
                     android:id="@+id/apply_age_et"
                     android:inputType="number"
                     android:layout_marginLeft="20px"

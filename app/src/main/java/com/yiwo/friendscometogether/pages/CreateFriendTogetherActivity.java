@@ -232,6 +232,9 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                         if(!StringUtils.isEmpty(s)){
                             map.put("follow_pass",s);
                             pwdTv.setText(s);
+                        } else {
+                            map.put("follow_pass",s);
+                            pwdTv.setText("参加活动需输入密码");
                         }
 
                     }
@@ -503,7 +506,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
 
     public void onComplete(final int state){
         map.put("user_id","7");
-        if(map.size()==18){
+        if((map.size()==18&&findPwd())||(map.size()==17&&!findPwd())){
             String token = getToken(NetConfig.BaseUrl+NetConfig.createActivityUrl);
             ViseHttp.POST(NetConfig.createActivityUrl)
                     .addParams(map)
@@ -512,11 +515,15 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                         public void onSuccess(String data) {
                             CreateFriendsTogetherModel model = new Gson().fromJson(data,CreateFriendsTogetherModel.class);
                             if(model.getCode()==200){
+                                Log.i("hhh","执行成功");
+                                popupWindow.dismiss();
                                 if(state==0){
-                                    
+                                    finish();
+                                } else{
+                                    toToast(CreateFriendTogetherActivity.this,"需要跳转到补充内容了");
                                 }
                             } else {
-
+                                toToast(CreateFriendTogetherActivity.this,model.getMessage());
                             }
                         }
                         @Override
@@ -537,5 +544,25 @@ public class CreateFriendTogetherActivity extends BaseActivity {
             }
 
         }
+    }
+
+    public boolean findPwd(){
+        boolean b = false;
+        // 获取所有键值对对象的集合
+        Set<Map.Entry<String, String>> set = map.entrySet();
+        // 遍历键值对对象的集合，得到每一个键值对对象
+        for (Map.Entry<String, String> me : set) {
+            // 根据键值对对象获取键和值
+            if("follow_pass".equals(me.getKey())){
+                Log.i("follow_pass","找到了密码");
+                b = true;
+                break;
+            }
+            String key = me.getKey();
+            String value = me.getValue();
+            Log.i(key, "---" + value);
+        }
+        Log.i("kkk",b+"");
+        return b;
     }
 }
