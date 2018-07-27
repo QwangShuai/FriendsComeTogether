@@ -1,11 +1,14 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.czp.searchmlist.mSearchLayout;
 import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.network.NetConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +36,23 @@ public class SearchActivity extends BaseActivity {
         this.mSearch.initData(skills, skillHots, new mSearchLayout.setSearchCallBackListener() {
             @Override
             public void Search(String s) {
-//                ViseHttp.POST()
+                Log.i("11111111",s);
+                ViseHttp.POST(NetConfig.searchFriendTogetherUrl)
+                        .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.searchFriendTogetherUrl))
+                        .addParam("page","1")
+                        .addParam("activity_name",s)
+                        .addParam("userID","7")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.i("222222",data.toString());
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                toToast(SearchActivity.this,errMsg);
+                            }
+                        });
             }
 
             @Override
