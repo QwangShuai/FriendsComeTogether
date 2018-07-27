@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.vise.xsnow.http.ViseHttp;
@@ -42,6 +45,8 @@ public class CreateIntercalationActivity extends BaseActivity {
     EditText etTitle;
     @BindView(R.id.activity_create_intercalation_et_content)
     EditText etContent;
+    @BindView(R.id.activity_create_intercalation_tv_text_num)
+    TextView tvContentNum;
 
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
@@ -101,7 +106,32 @@ public class CreateIntercalationActivity extends BaseActivity {
             }
         });
 
+        etContent.addTextChangedListener(textContentWatcher);
+
     }
+
+    TextWatcher textContentWatcher = new TextWatcher() {
+
+        private CharSequence temp;
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            temp = charSequence;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            tvContentNum.setText(temp.length()+"/2000");
+            if(temp.length()>=2000){
+                toToast(CreateIntercalationActivity.this, "您输入的字数已经超过了限制");
+            }
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -100,6 +100,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:maxLength="2000"
             android:id="@+id/activity_create_intercalation_et_content"
             android:textColor="@color/black_333333"
             android:layout_marginBottom="10px"

@@ -52,11 +52,16 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:id="@+id/activity_create_friend_remember_rl_edit_title"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
-                <TextView
+                <EditText
+                    android:maxLength="30"
+                    android:gravity="start"
+                    android:background="@null"
                     android:id="@+id/activity_create_friend_remember_tv_title"
                     android:layout_width="490px"
                     android:layout_height="wrap_content"
@@ -64,7 +69,7 @@
                     android:layout_marginLeft="40px"
                     android:ellipsize="end"
                     android:lines="1"
-                    android:text="请输入友记标题"
+                    android:hint="请输入友记标题"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
@@ -87,6 +92,8 @@
                 android:background="#F8F8F8" />
 
             <RelativeLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:id="@+id/activity_create_friend_remember_rl_edit_content"
                 android:layout_width="match_parent"
                 android:layout_height="250px">
@@ -111,7 +118,11 @@
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
-                <TextView
+                <EditText
+                    android:maxLength="2000"
+                    android:gravity="start"
+                    android:background="@null"
+                    android:hint="请输入具体内容"
                     android:id="@+id/activity_create_friend_remember_tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="170px"
@@ -218,7 +229,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10px"
                     android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_time_start_right"
-                    android:text="0000-00-00"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
@@ -268,7 +278,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10px"
                     android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_time_end_right"
-                    android:text="0000-00-00"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
@@ -318,7 +327,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10px"
                     android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_activity_city_right"
-                    android:text="城市名字"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
@@ -423,7 +431,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10px"
                     android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_label_right"
-                    android:text="选择活动标签"
+                    android:hint="选择活动标签"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 

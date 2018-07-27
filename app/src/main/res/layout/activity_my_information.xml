@@ -431,7 +431,7 @@
                     android:layout_toRightOf="@+id/activity_my_information_iv_is_single"
                     android:textSize="28px"
                     android:textColor="@color/black_333333"
-                    android:text="是否已婚"
+                    android:text="是否单身"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

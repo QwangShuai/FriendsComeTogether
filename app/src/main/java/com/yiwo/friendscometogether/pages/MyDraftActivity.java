@@ -116,7 +116,29 @@ public class MyDraftActivity extends BaseActivity {
 //                Toast.makeText(MyDraftActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
                 switch (menuPosition){
                     case 0:
-                        
+                        ViseHttp.POST(NetConfig.releaseDraftUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.releaseDraftUrl))
+                                .addParam("id", mList.get(adapterPosition).getFmID())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.getInt("code") == 200){
+                                                toToast(MyDraftActivity.this, "发布成功");
+                                                mList.remove(adapterPosition);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
                         break;
                     case 1:
                         ViseHttp.POST(NetConfig.deleteFriendRememberUrl)
@@ -159,15 +181,15 @@ public class MyDraftActivity extends BaseActivity {
             // 3. WRAP_CONTENT，自身高度，不推荐;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
             SwipeMenuItem editItem = new SwipeMenuItem(MyDraftActivity.this)
-                    .setBackgroundColor(Color.RED)
-                    .setText("编辑")
+                    .setBackgroundColor(Color.GRAY)
+                    .setText("发布")
                     .setTextColor(Color.WHITE)
                     .setWidth(width)
                     .setHeight(height);
             rightMenu.addMenuItem(editItem);// 添加菜单到右侧。
 
             SwipeMenuItem deleteItem = new SwipeMenuItem(MyDraftActivity.this)
-                    .setBackgroundColor(Color.GRAY)
+                    .setBackgroundColor(Color.RED)
                     .setText("删除")
                     .setTextColor(Color.WHITE)
                     .setWidth(width)

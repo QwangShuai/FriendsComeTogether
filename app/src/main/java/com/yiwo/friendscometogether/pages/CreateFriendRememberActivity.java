@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -93,15 +95,19 @@ public class CreateFriendRememberActivity extends BaseActivity {
     @BindView(R.id.activity_create_friend_remember_iv_delete)
     ImageView ivDelete;
     @BindView(R.id.activity_create_friend_remember_tv_title)
-    TextView tvTitle;
+    EditText etTitle;
     @BindView(R.id.activity_create_friend_remember_tv_content)
-    TextView tvContent;
+    EditText etContent;
     @BindView(R.id.activity_create_friend_remember_rl_label)
     RelativeLayout rlLabel;
     @BindView(R.id.activity_create_friend_remember_tv_label)
     TextView tvLabel;
     @BindView(R.id.activity_create_friend_remember_et_price)
     EditText etPrice;
+    @BindView(R.id.activity_create_friend_remember_tv_title_num)
+    TextView tvTitleNum;
+    @BindView(R.id.activity_create_friend_remember_tv_content_num)
+    TextView tvContentNum;
 
     private int mYear;
     private int mMonth;
@@ -197,7 +203,56 @@ public class CreateFriendRememberActivity extends BaseActivity {
                     }
                 });
 
+        etTitle.addTextChangedListener(textTitleWatcher);
+        etContent.addTextChangedListener(textContentWatcher);
+
     }
+
+    TextWatcher textTitleWatcher = new TextWatcher() {
+
+        private CharSequence temp;
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            temp = charSequence;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            tvTitleNum.setText(temp.length()+"/30");
+            if(temp.length()>=30){
+                toToast(CreateFriendRememberActivity.this, "您输入的字数已经超过了限制");
+            }
+        }
+    };
+
+    TextWatcher textContentWatcher = new TextWatcher() {
+
+        private CharSequence temp;
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            temp = charSequence;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            tvContentNum.setText(temp.length()+"/2000");
+            if(temp.length()>=2000){
+                toToast(CreateFriendRememberActivity.this, "您输入的字数已经超过了限制");
+            }
+        }
+    };
 
     @OnClick({R.id.activity_create_friend_remember_rl_back, R.id.activity_create_friend_remember_rl_edit_title, R.id.activity_create_friend_remember_rl_edit_content,
             R.id.activity_create_friend_remember_rl_time_start, R.id.activity_create_friend_remember_rl_time_end, R.id.activity_create_friend_remember_rl_activity_city,
@@ -209,26 +264,26 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_create_friend_remember_rl_edit_title:
-                final EditTitleDialog editTitleDialog = new EditTitleDialog(CreateFriendRememberActivity.this);
-                editTitleDialog.show();
-                editTitleDialog.setOnReturnListener(new EditTitleDialog.OnReturnListener() {
-                    @Override
-                    public void onReturn(String title) {
-                        tvTitle.setText(title);
-                        editTitleDialog.dismiss();
-                    }
-                });
+//                final EditTitleDialog editTitleDialog = new EditTitleDialog(CreateFriendRememberActivity.this);
+//                editTitleDialog.show();
+//                editTitleDialog.setOnReturnListener(new EditTitleDialog.OnReturnListener() {
+//                    @Override
+//                    public void onReturn(String title) {
+//                        tvTitle.setText(title);
+//                        editTitleDialog.dismiss();
+//                    }
+//                });
                 break;
             case R.id.activity_create_friend_remember_rl_edit_content:
-                final EditContentDialog editContentDialog = new EditContentDialog(CreateFriendRememberActivity.this);
-                editContentDialog.show();
-                editContentDialog.setOnReturnListener(new EditContentDialog.OnReturnListener() {
-                    @Override
-                    public void onReturn(String content) {
-                        tvContent.setText(content);
-                        editContentDialog.dismiss();
-                    }
-                });
+//                final EditContentDialog editContentDialog = new EditContentDialog(CreateFriendRememberActivity.this);
+//                editContentDialog.show();
+//                editContentDialog.setOnReturnListener(new EditContentDialog.OnReturnListener() {
+//                    @Override
+//                    public void onReturn(String content) {
+//                        tvContent.setText(content);
+//                        editContentDialog.dismiss();
+//                    }
+//                });
                 break;
             case R.id.activity_create_friend_remember_rl_time_start:
                 new DatePickerDialog(CreateFriendRememberActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
@@ -262,7 +317,13 @@ public class CreateFriendRememberActivity extends BaseActivity {
 
                 break;
             case R.id.activity_create_friend_remember_rl_complete:
-                showCompletePopupwindow();
+                if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())||TextUtils.isEmpty(tvTimeStart.getText().toString())
+                        ||TextUtils.isEmpty(tvTimeEnd.getText().toString())||TextUtils.isEmpty(tvCity.getText().toString())||TextUtils.isEmpty(etPrice.getText().toString())
+                        ||TextUtils.isEmpty(tvLabel.getText().toString())){
+                    toToast(CreateFriendRememberActivity.this, "请完善信息");
+                }else {
+                    showCompletePopupwindow();
+                }
                 break;
             case R.id.activity_create_friend_remember_rl_set_password:
                 SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendRememberActivity.this, new SetPasswordDialog.SetPasswordListener() {
@@ -518,8 +579,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
             public void onClick(View view) {
                 ViseHttp.POST(NetConfig.userRelease)
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
-                        .addParam("fmtitle", tvTitle.getText().toString())
-                        .addParam("fmcontent", tvContent.getText().toString())
+                        .addParam("fmtitle", etTitle.getText().toString())
+                        .addParam("fmcontent", etContent.getText().toString())
                         .addParam("fmaddress", tvCity.getText().toString())
                         .addParam("uid", uid)
                         .addParam("fmlable", yourChoiceId)
@@ -556,8 +617,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
             public void onClick(View view) {
                 ViseHttp.POST(NetConfig.userRelease)
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
-                        .addParam("fmtitle", tvTitle.getText().toString())
-                        .addParam("fmcontent", tvContent.getText().toString())
+                        .addParam("fmtitle", etTitle.getText().toString())
+                        .addParam("fmcontent", etContent.getText().toString())
                         .addParam("fmaddress", tvCity.getText().toString())
                         .addParam("uid", uid)
                         .addParam("fmlable", yourChoiceId)
@@ -594,8 +655,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
             public void onClick(View view) {
                 ViseHttp.POST(NetConfig.userRelease)
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
-                        .addParam("fmtitle", tvTitle.getText().toString())
-                        .addParam("fmcontent", tvContent.getText().toString())
+                        .addParam("fmtitle", etTitle.getText().toString())
+                        .addParam("fmcontent", etContent.getText().toString())
                         .addParam("fmaddress", tvCity.getText().toString())
                         .addParam("uid", uid)
                         .addParam("fmlable", yourChoiceId)
