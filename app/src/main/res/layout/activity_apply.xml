@@ -70,7 +70,7 @@
                 <EditText
                     android:id="@+id/apply_phone_et"
                     android:inputType="phone"
-                    android:maxLength="11"
+                    android:maxLength="16"
                     android:layout_marginLeft="20px"
                     android:textSize="28px"
                     android:hint="请输入手机号"

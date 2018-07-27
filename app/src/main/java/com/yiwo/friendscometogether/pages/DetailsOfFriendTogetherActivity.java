@@ -84,6 +84,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     private ParticipantsItemAdapter adapter;
     private DetailsOfFriendsTogetherAdapter detailsOfFriendsTogetherAdapter;
     SpImp spImp;
+    FriendsTogetherDetailsModel model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +108,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String data) {
                         Log.e("222", data);
-                        FriendsTogetherDetailsModel model = new Gson().fromJson(data,FriendsTogetherDetailsModel.class);
+                        model = new Gson().fromJson(data,FriendsTogetherDetailsModel.class);
                         initView(model.getObj());
                     }
 
@@ -175,7 +176,13 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.details_applyTv:
-                startActivity(new Intent(DetailsOfFriendTogetherActivity.this,ApplyActivity.class));
+                Intent it = new Intent(DetailsOfFriendTogetherActivity.this,ApplyActivity.class);
+                it.putExtra("if_pay",model.getObj().getIf_pay());
+                it.putExtra("title",model.getObj().getTitle());
+                it.putExtra("begin_time",model.getObj().getBegin_time());
+                it.putExtra("price",model.getObj().getPrice());
+                it.putExtra("pfID",model.getObj().getPfID());
+                startActivity(it);
                 break;
             case R.id.activity_details_of_friends_together_ll_share:
                 new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)

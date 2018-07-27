@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.pages;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,8 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.vise.xsnow.http.ViseHttp;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.sp.SpImp;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +53,9 @@ public class ApplyActivity extends AppCompatActivity {
 
     private String yourChoice = "";
     private int payState = 0;
+    private String pfID ="0";
+    private String if_pay="0";
+    SpImp spImp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +63,8 @@ public class ApplyActivity extends AppCompatActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
-        setApplyPaymentView(1);
+        spImp =new SpImp(ApplyActivity.this);
+        getShowView();
     }
 
     @OnClick({R.id.activity_apply_rl_back,R.id.apply_sex_tv,R.id.apply_btn})
@@ -88,7 +98,11 @@ public class ApplyActivity extends AppCompatActivity {
                 singleChoiceDialog.show();
                 break;
             case R.id.apply_btn:
+                if(if_pay.equals(2)){
 
+                } else {
+
+                }
                 break;
         }
 
@@ -120,6 +134,30 @@ public class ApplyActivity extends AppCompatActivity {
             });
             apply_vessel_ll.addView(v);
             apply_btn.setText("支付");
+        }
+    }
+
+    public void getShowView(){
+        if_pay = getIntent().getStringExtra("if_pay");
+        String title = getIntent().getStringExtra("title");
+        String price = getIntent().getStringExtra("price");
+        String begin_time = getIntent().getStringExtra("begin_time");
+        pfID = getIntent().getStringExtra("pfID");
+        apply_title_tv.setText(title);
+        apply_cost_tv.setText(price);
+        apply_time_tv.setText(begin_time);
+        if(if_pay.equals("2")){
+                setApplyPaymentView(1);
+        } else {
+            setApplyPaymentView(0);
+        }
+    }
+    public void apply(){
+        String user_id = spImp.getUID();
+        if(user_id.equals("0")){
+            startActivity(new Intent(ApplyActivity.this,LoginActivity.class));
+        } else {
+//            ViseHttp.POST()
         }
     }
 }

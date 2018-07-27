@@ -84,8 +84,26 @@ public class FriendsTogetherDetailsModel {
         private String have_num;
         private String show_pic;
         private String text_info;
+        private String if_pay;
+        private String pfID;
         private List<InfoListBean> info_list;
         private List<UserListBean> user_list;
+
+        public String getPfID() {
+            return pfID;
+        }
+
+        public void setPfID(String pfID) {
+            this.pfID = pfID;
+        }
+
+        public String getIf_pay() {
+            return if_pay;
+        }
+
+        public void setIf_pay(String if_pay) {
+            this.if_pay = if_pay;
+        }
 
         public String getCaptain() {
             return captain;
