@@ -20,6 +20,7 @@ import com.yiwo.friendscometogether.custom.SlideBar;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.utils.UserUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -63,8 +64,20 @@ public class CityActivity extends BaseActivity {
         adapter = new CityAdapter(this, list);
         letter = getResources().getStringArray(R.array.lowerletter);
         cityLv.setAdapter(adapter);
+
+//        CityModel model = (CityModel) getIntent().getSerializableExtra("model");
+        CityModel model = UserUtils.readCity(CityActivity.this);
+        if(model!=null){
+            list.add(model);
+        }
     }
     private void setListener() {
+        returnRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         citySb.setOnTouchLetterChangeListenner(new SlideBar.OnTouchLetterChangeListenner() {
             @Override
             public void onTouchLetterChange(MotionEvent event, String s) {

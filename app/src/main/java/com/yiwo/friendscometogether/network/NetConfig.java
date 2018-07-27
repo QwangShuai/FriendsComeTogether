@@ -63,4 +63,6 @@ public class NetConfig {
     public static String deleteFriendRememberUrl = "action/ac_article/delArticles";
     //发布草稿
     public static String releaseDraftUrl = "action/ac_article/draftRadio";
+    //搜索友聚列表
+    public static String searchFriendTogetherUrl = "action/ac_activity/search_activity_list";
 }

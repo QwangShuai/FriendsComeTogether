@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.pages;
 import android.os.Bundle;
 
 import com.czp.searchmlist.mSearchLayout;
+import com.vise.xsnow.http.ViseHttp;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 
@@ -32,7 +33,7 @@ public class SearchActivity extends BaseActivity {
         this.mSearch.initData(skills, skillHots, new mSearchLayout.setSearchCallBackListener() {
             @Override
             public void Search(String s) {
-
+//                ViseHttp.POST()
             }
 
             @Override

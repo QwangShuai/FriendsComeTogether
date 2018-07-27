@@ -182,6 +182,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 it.putExtra("begin_time",model.getObj().getBegin_time());
                 it.putExtra("price",model.getObj().getPrice());
                 it.putExtra("pfID",model.getObj().getPfID());
+                it.putExtra("sex","2");
                 startActivity(it);
                 break;
             case R.id.activity_details_of_friends_together_ll_share:

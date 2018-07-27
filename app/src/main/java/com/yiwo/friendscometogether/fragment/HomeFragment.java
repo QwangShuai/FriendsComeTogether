@@ -34,13 +34,16 @@ import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.HomeHotAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
+import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
+import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.ApplyActivity;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
+import com.yiwo.friendscometogether.utils.UserUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -192,11 +195,17 @@ public class HomeFragment extends BaseFragment {
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.locationRl:
-                getActivity().startActivity(new Intent(getActivity(), CityActivity.class));
+                Intent it = new Intent(getActivity(), CityActivity.class);
+                CityModel model = new CityModel();
+                model.setName("哈尔滨");
+                model.setId("-1");
+                UserUtils.saveCity(getActivity(),model);
+                it.putExtra(ActivityConfig.ACTIVITY,"home");
+//                it.putExtra("model",model);
+                startActivityForResult(it,1);
                 break;
             case R.id.searchLl:
-//                getActivity().startActivity(new Intent(getActivity(), SearchActivity.class));
-                getActivity().startActivity(new Intent(getActivity(), ApplyActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
         }
     }
@@ -280,5 +289,14 @@ public class HomeFragment extends BaseFragment {
 //            Log.i("长度",addList.size()+"???");
 //            handler.sendEmptyMessage(2);
 //        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1&&data!=null){
+            CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
+            cityTv.setText(model.getName());
+        }
     }
 }

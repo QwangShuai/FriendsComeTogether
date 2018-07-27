@@ -16,7 +16,10 @@ import android.widget.TextView;
 import com.vise.xsnow.http.ViseHttp;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,11 +28,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ApplyActivity extends AppCompatActivity {
+public class ApplyActivity extends BaseActivity {
     @BindView(R.id.apply_name_et)
-    EditText apply_name_et;
+    TextView apply_name_tv;
     @BindView(R.id.apply_phone_et)
-    EditText apply_phone_et;
+    TextView apply_phone_tv;
     @BindView(R.id.apply_title_tv)
     TextView apply_title_tv;
     @BindView(R.id.apply_sex_tv)
@@ -50,7 +53,8 @@ public class ApplyActivity extends AppCompatActivity {
     RelativeLayout apply_back;
     @BindView(R.id.apply_btn)
     TextView apply_btn;
-
+    @BindView(R.id.apply_num_ll)
+    LinearLayout apply_num_ll;
     private String yourChoice = "";
     private int payState = 0;
     private String pfID ="0";
@@ -142,10 +146,16 @@ public class ApplyActivity extends AppCompatActivity {
         String title = getIntent().getStringExtra("title");
         String price = getIntent().getStringExtra("price");
         String begin_time = getIntent().getStringExtra("begin_time");
+        String sex = getIntent().getStringExtra("sex");
         pfID = getIntent().getStringExtra("pfID");
         apply_title_tv.setText(title);
         apply_cost_tv.setText(price);
         apply_time_tv.setText(begin_time);
+
+        if(!sex.equals("0")){
+            apply_num_ll.setVisibility(View.GONE);
+        }
+
         if(if_pay.equals("2")){
                 setApplyPaymentView(1);
         } else {
@@ -154,10 +164,18 @@ public class ApplyActivity extends AppCompatActivity {
     }
     public void apply(){
         String user_id = spImp.getUID();
+        String toast = "报名成功";
         if(user_id.equals("0")){
             startActivity(new Intent(ApplyActivity.this,LoginActivity.class));
+        }else if(Integer.valueOf(apply_age_et.getText().toString())>100){
+            toast = "您输入的年龄过高";
+        } else if(StringUtils.isEmpty(apply_marriage_et.getText().toString())){
+            toast = "婚姻状况为空";
         } else {
-//            ViseHttp.POST()
+//            ViseHttp.POST(NetConfig.applyActivityUrl)
+//                    .addParam("user_id",user_id)
+//                    .addParam("")
         }
+       toToast(ApplyActivity.this,toast);
     }
 }

@@ -42,12 +42,13 @@
                     android:layout_width="140px"
                     android:layout_height="match_parent"
                     android:text="姓         名:"/>
-                <EditText
+                <TextView
+                    android:text="葫芦娃1号"
+                    android:gravity="center_vertical"
                     android:id="@+id/apply_name_et"
                     android:inputType="textPersonName"
                     android:layout_marginLeft="20px"
                     android:textSize="28px"
-                    android:hint="请输入姓名"
                     android:background="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -67,13 +68,14 @@
                     android:layout_width="140px"
                     android:layout_height="match_parent"
                     android:text="联系方式:"/>
-                <EditText
+                <TextView
+                    android:gravity="center_vertical"
                     android:id="@+id/apply_phone_et"
                     android:inputType="phone"
                     android:maxLength="16"
                     android:layout_marginLeft="20px"
                     android:textSize="28px"
-                    android:hint="请输入手机号"
+                    android:text="18333333333"
                     android:background="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -125,6 +127,32 @@
                     android:id="@+id/apply_sex_tv"
                     android:layout_marginLeft="20px"
                     android:textSize="28px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12px"
+                android:background="@color/black_f8f8f8" />
+            <LinearLayout
+                android:id="@+id/apply_num_ll"
+                android:layout_marginLeft="40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+                <TextView
+                    android:textSize="28px"
+                    android:gravity="center_vertical"
+                    android:layout_width="140px"
+                    android:layout_height="match_parent"
+                    android:text="报名人数:"/>
+                <EditText
+                    android:id="@+id/apply_num_et"
+                    android:inputType="number"
+                    android:layout_marginLeft="20px"
+                    android:textSize="28px"
+                    android:hint="请输入报名人数"
+                    android:background="@null"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
