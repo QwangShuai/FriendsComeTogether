@@ -109,7 +109,8 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".pages.CreateIntercalationActivity"></activity>
+        <activity android:name=".pages.CreateIntercalationActivity" />
+        <activity android:name=".pages.EditorFriendRememberActivity"></activity>
     </application>
 
 </manifest>

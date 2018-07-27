@@ -53,4 +53,8 @@ public class NetConfig {
     public static String createActivityUrl = "action/ac_activity/add_travel";
     //用户插文列表
     public static String userIntercalationListUrl = "action/ac_article/MylistoFinserts";
+    //编辑友记
+    public static String editorFriendRememberUrl = "action/ac_article/Friendeditor";
+    //删除续写
+    public static String deleteRenewUrl = "action/ac_article/DeleteRenew";
 }
