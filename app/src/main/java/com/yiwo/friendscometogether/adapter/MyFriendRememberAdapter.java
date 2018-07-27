@@ -21,6 +21,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.UserRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.EditorFriendRememberActivity;
+import com.yiwo.friendscometogether.pages.TeamIntercalationActivity;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 
 import org.json.JSONException;
@@ -80,6 +81,15 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
                 listener.onDelete(position);
             }
         });
+        holder.rlTeamIntercalation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("id", data.get(position).getFmID());
+                intent.setClass(context, TeamIntercalationActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -98,6 +108,7 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
         private TextView tvFocus;
         private RelativeLayout rlEditor;
         private RelativeLayout rlDelete;
+        private RelativeLayout rlTeamIntercalation;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -110,6 +121,7 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
             tvFocus = itemView.findViewById(R.id.activity_my_friend_remember_rv_tv_focus_num);
             rlEditor = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_editor);
             rlDelete = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_delete);
+            rlTeamIntercalation = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_team_intercalation);
         }
     }
 

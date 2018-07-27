@@ -61,4 +61,6 @@ public class NetConfig {
     public static String applyActivityUrl = "action/ac_order/user_join";
     //删除友记
     public static String deleteFriendRememberUrl = "action/ac_article/delArticles";
+    //发布草稿
+    public static String releaseDraftUrl = "action/ac_article/draftRadio";
 }

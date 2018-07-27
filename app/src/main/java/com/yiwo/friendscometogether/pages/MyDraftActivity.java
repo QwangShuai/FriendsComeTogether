@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +45,7 @@ public class MyDraftActivity extends BaseActivity {
     SwipeMenuRecyclerView recyclerView;
 
     private MyDraftAdapter adapter;
+    private List<UserRememberModel.ObjBean> mList;
 
     private SpImp spImp;
     private String uid = "";
@@ -79,6 +81,7 @@ public class MyDraftActivity extends BaseActivity {
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 UserRememberModel userRememberModel = gson.fromJson(data, UserRememberModel.class);
+                                mList = userRememberModel.getObj();
                                 adapter = new MyDraftAdapter(userRememberModel.getObj());
                                 recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
                                 recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
@@ -106,11 +109,41 @@ public class MyDraftActivity extends BaseActivity {
             menuBridge.closeMenu();
 
             int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
-            int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+            final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
             int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                Toast.makeText(MyDraftActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MyDraftActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+                switch (menuPosition){
+                    case 0:
+                        
+                        break;
+                    case 1:
+                        ViseHttp.POST(NetConfig.deleteFriendRememberUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteFriendRememberUrl))
+                                .addParam("id", mList.get(adapterPosition).getFmID())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.getInt("code") == 200){
+                                                toToast(MyDraftActivity.this, "删除成功");
+                                                mList.remove(adapterPosition);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                        break;
+                }
             } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
                 Toast.makeText(MyDraftActivity.this, "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
             }

@@ -573,7 +573,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if (jsonObject.getInt("code") == 200) {
-                                        toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
+                                        toToast(CreateFriendRememberActivity.this, "保存成功");
                                         onBackPressed();
                                     }
                                 } catch (JSONException e) {
