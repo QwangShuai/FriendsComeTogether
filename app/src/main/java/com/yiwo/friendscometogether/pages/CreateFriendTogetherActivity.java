@@ -36,6 +36,7 @@ import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.PeopleRequireDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.model.CityModel;
+import com.yiwo.friendscometogether.model.CreateFriendsTogetherModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.network.ActivityConfig;
@@ -313,19 +314,19 @@ public class CreateFriendTogetherActivity extends BaseActivity {
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
                     days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("-").toString();
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
                     days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append(mDay).append("-").toString();
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             } else {
                 if (mDay < 10) {
                     days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("-").toString();
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
                     days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append(mDay).append("-").toString();
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             }
@@ -500,7 +501,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
         }
     }
 
-    public void onComplete(int state){
+    public void onComplete(final int state){
         map.put("user_id","7");
         if(map.size()==18){
             String token = getToken(NetConfig.BaseUrl+NetConfig.createActivityUrl);
@@ -509,7 +510,14 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
-                            Log.i("myData",data.toString());
+                            CreateFriendsTogetherModel model = new Gson().fromJson(data,CreateFriendsTogetherModel.class);
+                            if(model.getCode()==200){
+                                if(state==0){
+                                    
+                                }
+                            } else {
+
+                            }
                         }
                         @Override
                         public void onFail(int errCode, String errMsg) {

@@ -49,7 +49,9 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Picasso.with(context).load(data.get(position).getPfpic()).into(holder.picIv);
+        if(!StringUtils.isEmpty(data.get(position).getPfpic())){
+            Picasso.with(context).load(data.get(position).getPfpic()).into(holder.picIv);
+        }
         holder.titleTv.setText(data.get(position).getPftitle());
         holder.contentTv.setText(data.get(position).getPfcontent());
         if(!StringUtils.isEmpty(data.get(position).getUpicurl())){
