@@ -59,4 +59,6 @@ public class NetConfig {
     public static String deleteRenewUrl = "action/ac_article/DeleteRenew";
     //活动报名
     public static String applyActivityUrl = "action/ac_order/user_join";
+    //删除友记
+    public static String deleteFriendRememberUrl = "action/ac_article/delArticles";
 }
