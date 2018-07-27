@@ -1,10 +1,13 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
@@ -16,6 +19,7 @@ import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.UserRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.TokenUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +39,7 @@ public class MyFriendRememberActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     private MyFriendRememberAdapter adapter;
+    private List<UserRememberModel.ObjBean> mList;
 
     private SpImp spImp;
     private String uid = "";
@@ -70,8 +75,48 @@ public class MyFriendRememberActivity extends BaseActivity {
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 UserRememberModel userRememberModel = gson.fromJson(data, UserRememberModel.class);
+                                mList = userRememberModel.getObj();
                                 adapter = new MyFriendRememberAdapter(userRememberModel.getObj());
                                 recyclerView.setAdapter(adapter);
+                                adapter.setOnDeleteListener(new MyFriendRememberAdapter.OnDeleteListener() {
+                                    @Override
+                                    public void onDelete(final int i) {
+                                        toDialog(MyFriendRememberActivity.this, "提示", "是否删除友记", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(final DialogInterface dialogInterface, int which) {
+                                                ViseHttp.POST(NetConfig.deleteFriendRememberUrl)
+                                                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.deleteFriendRememberUrl))
+                                                        .addParam("id", mList.get(i).getFmID())
+                                                        .request(new ACallback<String>() {
+                                                            @Override
+                                                            public void onSuccess(String data) {
+                                                                try {
+                                                                    JSONObject jsonObject = new JSONObject(data);
+                                                                    if(jsonObject.getInt("code") == 200){
+                                                                        toToast(MyFriendRememberActivity.this, jsonObject.getString("message"));
+                                                                        mList.remove(i);
+                                                                        adapter.notifyDataSetChanged();
+                                                                        dialogInterface.dismiss();
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFail(int errCode, String errMsg) {
+
+                                                            }
+                                                        });
+                                            }
+                                        }, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int which) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

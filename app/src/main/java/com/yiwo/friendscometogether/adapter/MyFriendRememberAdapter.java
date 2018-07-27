@@ -11,12 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.UserRememberModel;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.EditorFriendRememberActivity;
+import com.yiwo.friendscometogether.utils.TokenUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -28,6 +36,12 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
 
     private Context context;
     private List<UserRememberModel.ObjBean> data;
+
+    private OnDeleteListener listener;
+
+    public void setOnDeleteListener(OnDeleteListener listener){
+        this.listener = listener;
+    }
 
     public MyFriendRememberAdapter(List<UserRememberModel.ObjBean> data) {
         this.data = data;
@@ -63,26 +77,7 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
         holder.rlDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder normalDialog = new AlertDialog.Builder(context);
-                normalDialog.setIcon(R.mipmap.ic_launcher);
-                normalDialog.setTitle("提示");
-                normalDialog.setMessage("是否删除友记");
-                normalDialog.setPositiveButton("确定",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //...To-do
-                            }
-                        });
-                normalDialog.setNegativeButton("关闭",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                // 显示
-                normalDialog.show();
+                listener.onDelete(position);
             }
         });
     }
@@ -116,6 +111,10 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
             rlEditor = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_editor);
             rlDelete = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_delete);
         }
+    }
+
+    public interface OnDeleteListener{
+        void onDelete(int i);
     }
 
 }
