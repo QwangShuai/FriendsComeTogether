@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -19,6 +25,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.utils.ShareUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +68,10 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     TextView tvStar;
 
     private DetailsOfFriendsUpDataAdapter adapter;
+
+    private boolean isFocus = false;
+    private boolean isPraise = false;
+    private boolean isStar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,13 +124,72 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.activity_details_of_friends_rl_back})
+    @OnClick({R.id.activity_details_of_friends_rl_back, R.id.activity_details_of_friends_ll_intercalation, R.id.activity_details_of_friends_ll_comment,
+            R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_focus, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star})
     public void onClick(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.activity_details_of_friends_rl_back:
                 onBackPressed();
                 break;
+            case R.id.activity_details_of_friends_ll_intercalation:
+                intent.setClass(DetailsOfFriendsActivity.this, InsertIntercalationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.activity_details_of_friends_ll_comment:
+                intent.setClass(DetailsOfFriendsActivity.this, MyCommentActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.activity_details_of_friends_ll_share:
+                new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                        .setShareboardclickCallback(new ShareBoardlistener() {
+                            @Override
+                            public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                                ShareUtils.shareWeb(DetailsOfFriendsActivity.this,"http://www.baidu.com","不快乐",
+                                        "就是不快乐","",share_media);
+                            }
+                        }).open();
+                break;
+            case R.id.activity_details_of_friends_ll_focus:
+                if(!isFocus){
+                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.focus_on_y).into(ivFocus);
+                    tvFocus.setTextColor(Color.parseColor("#FF9D00"));
+                    isFocus = !isFocus;
+                }else {
+                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_focus_on_b).into(ivFocus);
+                    tvFocus.setTextColor(Color.parseColor("#333333"));
+                    isFocus = !isFocus;
+                }
+                break;
+            case R.id.activity_details_of_friends_ll_praise:
+                if(!isPraise){
+                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.praise_y).into(ivPraise);
+                    tvPraise.setTextColor(Color.parseColor("#FF9D00"));
+                    isPraise = !isPraise;
+                }else {
+                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_praise_b).into(ivPraise);
+                    tvPraise.setTextColor(Color.parseColor("#333333"));
+                    isPraise = !isPraise;
+                }
+                break;
+            case R.id.activity_details_of_friends_ll_star:
+                if(!isStar){
+                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.star_y).into(ivStar);
+                    tvStar.setTextColor(Color.parseColor("#FF9D00"));
+                    isStar = !isStar;
+                }else {
+                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_star_b).into(ivStar);
+                    tvStar.setTextColor(Color.parseColor("#333333"));
+                    isStar = !isStar;
+                }
+                break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

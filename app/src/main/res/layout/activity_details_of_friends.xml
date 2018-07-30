@@ -460,8 +460,8 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:elevation="4px"
                 android:background="@color/white_ffffff"
+                android:elevation="4px"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="98px">
