@@ -146,6 +146,7 @@
             android:layout_height="match_parent"
             android:id="@+id/focus_on_activitiesLl">
             <ImageView
+                android:id="@+id/focus_on_iv"
                 android:layout_width="38px"
                 android:layout_height="38px"
                 android:layout_centerVertical="true"

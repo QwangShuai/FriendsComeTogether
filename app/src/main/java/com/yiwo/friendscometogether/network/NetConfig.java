@@ -65,4 +65,6 @@ public class NetConfig {
     public static String releaseDraftUrl = "action/ac_article/draftRadio";
     //搜索友聚列表
     public static String searchFriendTogetherUrl = "action/ac_activity/search_activity_list";
+    //关注活动
+    public static String focusOnToFriendTogetherUrl = "action/ac_activity/follow_attention";
 }

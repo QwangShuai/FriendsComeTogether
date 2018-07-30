@@ -58,7 +58,7 @@ public class FriendsTogethermodel {
          * focusOn : 0
          */
 
-        private int usergrade;
+        private String usergrade;
         private String username;
         private String pfID;
         private String pfpeople;
@@ -68,14 +68,14 @@ public class FriendsTogethermodel {
         private String pfpic;
         private String upicurl;
         private String have_num;
-        private int focusOn;
+        private String focusOn;
         private List<String> all_u_pic;
 
-        public int getUsergrade() {
+        public String getUsergrade() {
             return usergrade;
         }
 
-        public void setUsergrade(int usergrade) {
+        public void setUsergrade(String usergrade) {
             this.usergrade = usergrade;
         }
 
@@ -151,11 +151,11 @@ public class FriendsTogethermodel {
             this.have_num = have_num;
         }
 
-        public int getFocusOn() {
+        public String getFocusOn() {
             return focusOn;
         }
 
-        public void setFocusOn(int focusOn) {
+        public void setFocusOn(String focusOn) {
             this.focusOn = focusOn;
         }
 

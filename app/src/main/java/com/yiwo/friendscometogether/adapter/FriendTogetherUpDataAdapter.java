@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.vise.xsnow.http.ViseHttp;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
@@ -57,9 +58,21 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         if(!StringUtils.isEmpty(data.get(position).getUpicurl())){
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
         }
-        holder.levelTv.setText(data.get(position).getUsergrade()==1?"签约领队":"普通领队");
-        holder.levelBg.setBackgroundResource(data.get(position).getUsergrade()==1?R.mipmap.level_golden_yellow:R.mipmap.level_red);
+        holder.levelTv.setText(data.get(position).getUsergrade().equals("1")?"签约领队":"普通领队");
+        holder.levelBg.setBackgroundResource(data.get(position).getUsergrade().equals("1")?R.mipmap.level_golden_yellow:R.mipmap.level_red);
         holder.personTv.setText(data.get(position).getHave_num()+"/"+data.get(position).getPfpeople());
+        holder.focusOnIv.setImageResource(data.get(position).getFocusOn().equals("0")?R.mipmap.focus_on_empty_y:R.mipmap.focus_on_y);
+        holder.focus_on_activitiesLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ViseHttp.POST()
+                if (data.get(position).getFocusOn().equals("0")){
+                    data.get(position).setFocusOn("1");
+                } else {
+
+                }
+            }
+        });
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +110,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         private TextView contentTv;
         private LinearLayout vessel;
         private ImageView headIv;
+        private ImageView focusOnIv;
         private RelativeLayout levelBg;
         private TextView levelTv;
         private TextView personTv;
@@ -115,6 +129,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             levelTv = (itemView).findViewById(R.id.levelTv);
             personTv = (itemView).findViewById(R.id.item_person);
             look_overLl = (itemView).findViewById(R.id.look_overLl);
+            focusOnIv = (itemView).findViewById(R.id.focus_on_iv);
             consult_leaderLl = (itemView).findViewById(R.id.consult_leaderLl);
             focus_on_activitiesLl = (itemView).findViewById(R.id.focus_on_activitiesLl);
             ll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll);
