@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,7 +44,11 @@ import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
+import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.UserUtils;
+import com.yiwo.friendscometogether.viewpagercard.CardFragmentPagerAdapter;
+import com.yiwo.friendscometogether.viewpagercard.CardItem;
+import com.yiwo.friendscometogether.viewpagercard.CardPagerAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -80,6 +85,12 @@ public class HomeFragment extends BaseFragment {
     TextView cityTv;
     @BindView(R.id.searchLl)
     LinearLayout searchLl;
+
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    private CardPagerAdapter mCardAdapter;
+    private CardFragmentPagerAdapter mFragmentCardAdapter;
+
     private LocationManager locationManager;
     private double latitude = 0.0;
     private double longitude = 0.0;
@@ -153,8 +164,28 @@ public class HomeFragment extends BaseFragment {
         init(banner, DetailsOfFriendsActivity.class);
         HomeHotFriendsRememberModel model = new Gson().fromJson(json, HomeHotFriendsRememberModel.class);
         initList(model.getObj());
+        initCardView();
 //        initData();
         return rootView;
+    }
+
+    private void initCardView() {
+
+        mCardAdapter = new CardPagerAdapter();
+
+        mCardAdapter.addCardItem(new CardItem(""));
+        mCardAdapter.addCardItem(new CardItem(""));
+        mCardAdapter.addCardItem(new CardItem(""));
+        mCardAdapter.addCardItem(new CardItem(""));
+        mCardAdapter.addCardItem(new CardItem(""));
+        mCardAdapter.addCardItem(new CardItem(""));
+
+        mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
+                TokenUtils.dpToPixels(1, getContext()));
+
+        viewPager.setAdapter(mCardAdapter);
+        viewPager.setOffscreenPageLimit(3);
+
     }
 
     public void initData() {

@@ -68,4 +68,5 @@ dependencies {
     compile 'com.contrarywind:Android-PickerView:4.1.5'
     implementation project(':library')
     compile 'com.github.donkingliang:ImageSelector:1.6.0'
+    compile 'com.android.support:cardview-v7:26.+'
 }

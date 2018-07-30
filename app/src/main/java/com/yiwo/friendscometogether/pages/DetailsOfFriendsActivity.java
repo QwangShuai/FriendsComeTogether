@@ -66,6 +66,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     ImageView ivStar;
     @BindView(R.id.activity_details_of_friends_tv_star)
     TextView tvStar;
+    @BindView(R.id.activity_details_of_friends_ll_person_content)
+    LinearLayout llPersonContent;
 
     private DetailsOfFriendsUpDataAdapter adapter;
 
@@ -125,7 +127,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     }
 
     @OnClick({R.id.activity_details_of_friends_rl_back, R.id.activity_details_of_friends_ll_intercalation, R.id.activity_details_of_friends_ll_comment,
-            R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_focus, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star})
+            R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_focus, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star,
+            R.id.activity_details_of_friends_ll_person_content})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -182,6 +185,10 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                     tvStar.setTextColor(Color.parseColor("#333333"));
                     isStar = !isStar;
                 }
+                break;
+            case R.id.activity_details_of_friends_ll_person_content:
+                intent.setClass(DetailsOfFriendsActivity.this, OtherInformationActivity.class);
+                startActivity(intent);
                 break;
         }
     }
