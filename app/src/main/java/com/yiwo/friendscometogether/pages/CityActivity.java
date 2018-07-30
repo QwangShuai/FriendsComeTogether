@@ -47,6 +47,7 @@ public class CityActivity extends BaseActivity {
     String[] letter;
     private Unbinder unbinder;
     private CityAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class CityActivity extends BaseActivity {
         loadCity();
     }
 
-    public void initData(){
+    public void initData() {
         list = new ArrayList<>();
         adapter = new CityAdapter(this, list);
         letter = getResources().getStringArray(R.array.lowerletter);
@@ -67,10 +68,11 @@ public class CityActivity extends BaseActivity {
 
 //        CityModel model = (CityModel) getIntent().getSerializableExtra("model");
         CityModel model = UserUtils.readCity(CityActivity.this);
-        if(model!=null){
+        if (model != null) {
             list.add(model);
         }
     }
+
     private void setListener() {
         returnRl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,26 +93,29 @@ public class CityActivity extends BaseActivity {
         cityLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toToast(CityActivity.this,list.get(position).getName());
-                String ac = getIntent().getStringExtra(ActivityConfig.ACTIVITY);
-                Intent it = new Intent();
-                if(ac.equals("youju")){
-                    it.setClass(CityActivity.this,CreateFriendTogetherActivity.class);
-                } else {
-                    it.setClass(CityActivity.this, MainActivity.class);
+                if (!list.get(position).getId().equals("-1")||position==0) {
+                    toToast(CityActivity.this, list.get(position).getName());
+                    String ac = getIntent().getStringExtra(ActivityConfig.ACTIVITY);
+                    Intent it = new Intent();
+                    if (ac.equals("youju")) {
+                        it.setClass(CityActivity.this, CreateFriendTogetherActivity.class);
+                    } else {
+                        it.setClass(CityActivity.this, MainActivity.class);
+                    }
+                    it.putExtra(ActivityConfig.CITY, list.get(position));
+                    setResult(1, it);
+                    finish();
                 }
-                it.putExtra(ActivityConfig.CITY,list.get(position));
-                setResult(1,it);
-                finish();
             }
         });
     }
-    public void loadHot(){
-        String token = getToken(NetConfig.BaseUrl+NetConfig.hotCityUrl);
+
+    public void loadHot() {
+        String token = getToken(NetConfig.BaseUrl + NetConfig.hotCityUrl);
         OkHttpUtils.post()
                 .tag(this)
-                .url(NetConfig.BaseUrl+NetConfig.hotCityUrl)
-                .addParams("app_key",token)
+                .url(NetConfig.BaseUrl + NetConfig.hotCityUrl)
+                .addParams("app_key", token)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -121,25 +126,25 @@ public class CityActivity extends BaseActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jsonObject =new JSONObject(response);
+                            JSONObject jsonObject = new JSONObject(response);
                             int code = jsonObject.optInt("code");
                             JSONArray arr = jsonObject.optJSONArray("obj");
-                            if(code==200){
-                               if (arr!=null&&arr.length()!=0){
-                                   CityModel c = new CityModel();
-                                   c.setId("-1");
-                                   c.setName("热门城市");
-                                   list.add(c);
-                                   for(int j=0;j<arr.length();j++){
-                                       JSONObject o = arr.optJSONObject(j);
-                                       CityModel cm = new CityModel();
-                                       cm.setId(o.optString("city_id"));
-                                       cm.setName(o.optString("city_name"));
-                                       list.add(cm);
-                                   }
-                               }
+                            if (code == 200) {
+                                if (arr != null && arr.length() != 0) {
+                                    CityModel c = new CityModel();
+                                    c.setId("-1");
+                                    c.setName("热门城市");
+                                    list.add(c);
+                                    for (int j = 0; j < arr.length(); j++) {
+                                        JSONObject o = arr.optJSONObject(j);
+                                        CityModel cm = new CityModel();
+                                        cm.setId(o.optString("city_id"));
+                                        cm.setName(o.optString("city_name"));
+                                        list.add(cm);
+                                    }
+                                }
                             } else {
-                                toToast(CityActivity.this,jsonObject.optString("message").toString());
+                                toToast(CityActivity.this, jsonObject.optString("message").toString());
                             }
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -148,12 +153,13 @@ public class CityActivity extends BaseActivity {
                     }
                 });
     }
-    public void loadCity(){
-        String token = getToken(NetConfig.BaseUrl+NetConfig.cityUrl);
+
+    public void loadCity() {
+        String token = getToken(NetConfig.BaseUrl + NetConfig.cityUrl);
         OkHttpUtils.post()
                 .tag(this)
-                .url(NetConfig.BaseUrl+NetConfig.cityUrl)
-                .addParams("app_key",token)
+                .url(NetConfig.BaseUrl + NetConfig.cityUrl)
+                .addParams("app_key", token)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -164,18 +170,18 @@ public class CityActivity extends BaseActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jsonObject =new JSONObject(response);
+                            JSONObject jsonObject = new JSONObject(response);
                             int code = jsonObject.optInt("code");
                             JSONObject jsonobj = jsonObject.optJSONObject("obj");
-                            if(code==200){
-                                for(int i=0;i<letter.length;i++){
+                            if (code == 200) {
+                                for (int i = 0; i < letter.length; i++) {
                                     JSONArray arr = jsonobj.optJSONArray(letter[i]);
-                                    if(arr!=null){
+                                    if (arr != null) {
                                         CityModel c = new CityModel();
                                         c.setId("-1");
                                         c.setName(letter[i].toUpperCase());
                                         list.add(c);
-                                        for(int j=0;j<arr.length();j++){
+                                        for (int j = 0; j < arr.length(); j++) {
                                             JSONObject o = arr.optJSONObject(j);
                                             CityModel cm = new CityModel();
                                             cm.setId(o.optString("ID"));
@@ -185,9 +191,9 @@ public class CityActivity extends BaseActivity {
                                     }
                                 }
                             } else {
-                                toToast(CityActivity.this,jsonObject.optString("message").toString());
+                                toToast(CityActivity.this, jsonObject.optString("message").toString());
                             }
-                           adapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

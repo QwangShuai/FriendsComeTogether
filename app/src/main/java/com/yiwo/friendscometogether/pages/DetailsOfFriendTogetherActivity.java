@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -27,12 +28,14 @@ import com.yiwo.friendscometogether.adapter.DetailsOfFriendsTogetherAdapter;
 import com.yiwo.friendscometogether.adapter.FriendTogetherUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.ParticipantsItemAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.FriendsTogetherDetailsModel;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.utils.StringUtils;
+import com.yiwo.friendscometogether.utils.TokenUtils;
 
 import java.util.List;
 
@@ -78,6 +81,10 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     TextView details_applyTv;
     @BindView(R.id.activity_details_of_friends_together_ll_share)
     LinearLayout details_shareLl;
+    @BindView(R.id.activity_details_of_friends_together_ll_focus_on)
+    LinearLayout focusOnLl;
+    @BindView(R.id.activity_details_of_friends_together_iv_focus_on)
+    ImageView focusOnIv;
     @BindView(R.id.activity_details_of_friends_together_rl_back)
     RelativeLayout activity_details_of_friends_together_rl_back;
     private Unbinder unbinder;
@@ -85,6 +92,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     private DetailsOfFriendsTogetherAdapter detailsOfFriendsTogetherAdapter;
     SpImp spImp;
     FriendsTogetherDetailsModel model;
+    String pfID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,20 +104,20 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         initData();
     }
 
-    public void initData(){
+    public void initData() {
         Intent intent = getIntent();
-        String pfID = intent.getStringExtra("pfID");
+        pfID = intent.getStringExtra("pfID");
         String userID = spImp.getUID();
-        String token = getToken(NetConfig.BaseUrl+NetConfig.friendsTogetherDetailsUrl);
+        String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherDetailsUrl);
         ViseHttp.POST(NetConfig.friendsTogetherDetailsUrl)
-                .addParam("app_key",token)
-                .addParam("pfID",pfID)
-                .addParam("userID",userID)
+                .addParam("app_key", token)
+                .addParam("pfID", pfID)
+                .addParam("userID", userID)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         Log.e("222", data);
-                        model = new Gson().fromJson(data,FriendsTogetherDetailsModel.class);
+                        model = new Gson().fromJson(data, FriendsTogetherDetailsModel.class);
                         initView(model.getObj());
                     }
 
@@ -119,33 +128,36 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 });
 
     }
-    public void initView(FriendsTogetherDetailsModel.ObjBean model){
-        if(!StringUtils.isEmpty(model.getShow_pic())){
+
+    public void initView(FriendsTogetherDetailsModel.ObjBean model) {
+        if (!StringUtils.isEmpty(model.getShow_pic())) {
             Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getShow_pic()).into(titleIv);
         }
         titleTv.setText(model.getTitle());
         viewsTv.setText(model.getLook());
         focus_onTv.setText(model.getPffavorite());
-        if(!model.getCaptain().equals("0")){
-            if(!StringUtils.isEmpty(model.getCapttain_pic())){
+        if (!model.getCaptain().equals("0")) {
+            if (!StringUtils.isEmpty(model.getCapttain_pic())) {
                 Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getCapttain_pic()).into(headIv);
-                levelTv.setText(model.getIf_sign().equals("1")?"签约领队":"普通领队");
+                levelTv.setText(model.getIf_sign().equals("1") ? "签约领队" : "普通领队");
             }
         }
-
-        time_start_tv.setText("开始时间："+model.getBegin_time());
-        time_end_tv.setText("结束时间："+model.getEnd_time());
-        city_tv.setText("活动地点："+model.getCity());
-        priceTv.setText("人均消费："+model.getPrice());
-        womanTv.setText("女生人数："+model.getWoman());
-        manTv.setText("男生人数："+model.getMan());
-        participantsTv.setText("参加人员（"+model.getHave_num()+"/"+model.getPerson_num()+")");
+        Log.i("qwe", model.getAttention());
+        focusOnIv.setImageResource(model.getAttention().equals("0") ? R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
+        time_start_tv.setText("开始时间：" + model.getBegin_time());
+        time_end_tv.setText("结束时间：" + model.getEnd_time());
+        city_tv.setText("活动地点：" + model.getCity());
+        priceTv.setText("人均消费：" + model.getPrice());
+        womanTv.setText("女生人数：" + model.getWoman());
+        manTv.setText("男生人数：" + model.getMan());
+        participantsTv.setText("参加人员（" + model.getHave_num() + "/" + model.getPerson_num() + ")");
         initPerson(model.getUser_list());
         initList(model.getInfo_list());
     }
+
     private void initPerson(List<FriendsTogetherDetailsModel.ObjBean.UserListBean> data) {
 
-        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this){
+        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -157,8 +169,9 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         recyclerViewP.setAdapter(adapter);
 
     }
-    private void initList(List<FriendsTogetherDetailsModel.ObjBean.InfoListBean> data){
-        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this){
+
+    private void initList(List<FriendsTogetherDetailsModel.ObjBean.InfoListBean> data) {
+        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -169,31 +182,60 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         detailsOfFriendsTogetherAdapter = new DetailsOfFriendsTogetherAdapter(data);
         contentRv.setAdapter(detailsOfFriendsTogetherAdapter);
     }
-    @OnClick({R.id.details_applyTv,R.id.activity_details_of_friends_together_rl_back,R.id.activity_details_of_friends_together_ll_share})
-    public void OnClick(View v){
-        switch (v.getId()){
+
+    @OnClick({R.id.details_applyTv, R.id.activity_details_of_friends_together_rl_back, R.id.activity_details_of_friends_together_ll_share,
+            R.id.activity_details_of_friends_together_ll_focus_on})
+    public void OnClick(View v) {
+        switch (v.getId()) {
             case R.id.activity_details_of_friends_together_rl_back:
                 finish();
                 break;
             case R.id.details_applyTv:
-                Intent it = new Intent(DetailsOfFriendTogetherActivity.this,ApplyActivity.class);
-                it.putExtra("if_pay",model.getObj().getIf_pay());
-                it.putExtra("title",model.getObj().getTitle());
-                it.putExtra("begin_time",model.getObj().getBegin_time());
-                it.putExtra("price",model.getObj().getPrice());
-                it.putExtra("pfID",model.getObj().getPfID());
-                it.putExtra("sex","2");
+                Intent it = new Intent(DetailsOfFriendTogetherActivity.this, ApplyActivity.class);
+                it.putExtra("if_pay", model.getObj().getIf_pay());
+                it.putExtra("title", model.getObj().getTitle());
+                it.putExtra("begin_time", model.getObj().getBegin_time());
+                it.putExtra("price", model.getObj().getPrice());
+                it.putExtra("pfID", model.getObj().getPfID());
+                it.putExtra("sex", "2");
                 startActivity(it);
                 break;
             case R.id.activity_details_of_friends_together_ll_share:
-                new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
                         .setShareboardclickCallback(new ShareBoardlistener() {
                             @Override
                             public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                ShareUtils.shareWeb(DetailsOfFriendTogetherActivity.this,"http://www.baidu.com","不快乐",
-                                        "就是不快乐","",share_media);
+                                ShareUtils.shareWeb(DetailsOfFriendTogetherActivity.this, "http://www.baidu.com", "不快乐",
+                                        "就是不快乐", "", share_media);
                             }
                         }).open();
+                break;
+            case R.id.activity_details_of_friends_together_ll_focus_on:
+                String userID = spImp.getUID();
+                ViseHttp.POST(NetConfig.focusOnToFriendTogetherUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.focusOnToFriendTogetherUrl))
+                        .addParam("userID", userID)
+                        .addParam("pfID", pfID)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                FocusOnToFriendTogetherModel model = new Gson().fromJson(result, FocusOnToFriendTogetherModel.class);
+                                if (model.getCode() == 200) {
+                                    if (model.getObj().equals("1")) {
+                                        focusOnIv.setImageResource(R.mipmap.focus_on_y);
+                                        toToast(DetailsOfFriendTogetherActivity.this, "关注成功");
+                                    } else {
+                                        focusOnIv.setImageResource(R.mipmap.focus_on_empty_y);
+                                        toToast(DetailsOfFriendTogetherActivity.this, "取消成功");
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
         }
     }

@@ -33,6 +33,7 @@ import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
+import com.yiwo.friendscometogether.sp.SpImp;
 import com.youth.banner.Banner;
 
 import org.json.JSONException;
@@ -70,6 +71,7 @@ public class FriendsTogetherFragment extends BaseFragment{
     private String[] itemName;
     private String yourChoiceId = "";
     private String yourChoiceName = "";
+    SpImp spImp;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,16 +81,19 @@ public class FriendsTogetherFragment extends BaseFragment{
         ButterKnife.bind(this, rootView);
 
         init(banner,DetailsOfFriendsActivity.class);
+        spImp = new SpImp(getContext());
         initData();
         return rootView;
     }
 
     private void initData() {
         getLable();
+
         String token = getToken(NetConfig.BaseUrl+NetConfig.friendsTogetherUrl);
         ViseHttp.POST(NetConfig.friendsTogetherUrl)
                 .addParam("app_key",token)
                 .addParam("page", "1")
+                .addParam("userID",spImp.getUID())
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

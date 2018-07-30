@@ -86,8 +86,17 @@ public class FriendsTogetherDetailsModel {
         private String text_info;
         private String if_pay;
         private String pfID;
+        private String attention;
         private List<InfoListBean> info_list;
         private List<UserListBean> user_list;
+
+        public String getAttention() {
+            return attention;
+        }
+
+        public void setAttention(String attention) {
+            this.attention = attention;
+        }
 
         public String getPfID() {
             return pfID;
