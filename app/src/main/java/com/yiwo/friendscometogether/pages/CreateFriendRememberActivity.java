@@ -670,6 +670,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                             @Override
                             public void onSuccess(String data) {
                                 try {
+                                    Log.e("222", data);
                                     JSONObject jsonObject = new JSONObject(data);
                                     if (jsonObject.getInt("code") == 200) {
                                         Gson gson = new Gson();
@@ -687,7 +688,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-
+                                Log.e("222", "失败");
                             }
                         });
             }

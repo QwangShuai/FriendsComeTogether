@@ -1,11 +1,15 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
+import com.vise.xsnow.http.callback.UCallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.IntercalationAdapter;
@@ -26,12 +31,25 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.vise.utils.io.IOUtil.copy;
 
 public class CreateIntercalationActivity extends BaseActivity {
 
@@ -126,8 +144,8 @@ public class CreateIntercalationActivity extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            tvContentNum.setText(temp.length()+"/2000");
-            if(temp.length()>=2000){
+            tvContentNum.setText(temp.length() + "/2000");
+            if (temp.length() >= 2000) {
                 toToast(CreateIntercalationActivity.this, "您输入的字数已经超过了限制");
             }
         }
@@ -172,25 +190,29 @@ public class CreateIntercalationActivity extends BaseActivity {
             }
         }
 
-        ViseHttp.POST(NetConfig.userRenewTheArticle)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
+        File imgFile = compressImage(GetLocalOrNetBitmap("file://"+mList.get(0).getPic()));
+
+        ViseHttp.UPLOAD(NetConfig.userRenewTheArticle, new UCallback() {
+            @Override
+            public void onProgress(long currentLength, long totalLength, float percent) {
+
+            }
+
+            @Override
+            public void onFail(int errCode, String errMsg) {
+
+            }
+        }).addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
                 .addParam("title", etTitle.getText().toString())
                 .addParam("content", etContent.getText().toString())
                 .addParam("id", id)
-                .addParam("images", images)
                 .addParam("uid", uid)
+                .addParam("describe", "")
+                .addImageFile("images", imgFile)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if (jsonObject.getInt("code") == 200) {
-                                toToast(CreateIntercalationActivity.this, jsonObject.getString("message"));
-                                CreateIntercalationActivity.this.finish();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        Log.e("222", data);
                     }
 
                     @Override
@@ -199,6 +221,103 @@ public class CreateIntercalationActivity extends BaseActivity {
                     }
                 });
 
+//        ViseHttp.POST(NetConfig.userRenewTheArticle)
+//                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
+//                .addParam("title", etTitle.getText().toString())
+//                .addParam("content", etContent.getText().toString())
+//                .addParam("id", id)
+//                .addParam("images", images)
+//                .addParam("uid", uid)
+//                .addParam("describe", "")
+//                .request(new ACallback<String>() {
+//                    @Override
+//                    public void onSuccess(String data) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(data);
+//                            if (jsonObject.getInt("code") == 200) {
+//                                toToast(CreateIntercalationActivity.this, jsonObject.getString("message"));
+//                                CreateIntercalationActivity.this.finish();
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFail(int errCode, String errMsg) {
+//
+//                    }
+//                });
+
+    }
+
+    public static Bitmap GetLocalOrNetBitmap(String url) {
+        Bitmap bitmap = null;
+        InputStream in = null;
+        BufferedOutputStream out = null;
+        try {
+            in = new BufferedInputStream(new URL(url).openStream(), 4*1024);
+            final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
+            out = new BufferedOutputStream(dataStream, 4*1024);
+            copy(in, out);
+            out.flush();
+            byte[] data = dataStream.toByteArray();
+            bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            data = null;
+            return bitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 压缩图片（质量压缩）
+     *
+     * @param bitmap
+     */
+    public static File compressImage(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > 500) {  //循环判断如果压缩后图片是否大于500kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            options -= 10;//每次都减少10
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            long length = baos.toByteArray().length;
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date(System.currentTimeMillis());
+        String filename = format.format(date);
+        File file = new File(Environment.getExternalStorageDirectory(), filename + ".png");
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            try {
+                fos.write(baos.toByteArray());
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+//                BAFLogger.e(TAG,e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+//            BAFLogger.e(TAG,e.getMessage());
+            e.printStackTrace();
+        }
+        recycleBitmap(bitmap);
+        return file;
+    }
+
+
+    public static void recycleBitmap(Bitmap... bitmaps) {
+        if (bitmaps == null) {
+            return;
+        }
+        for (Bitmap bm : bitmaps) {
+            if (null != bm && !bm.isRecycled()) {
+                bm.recycle();
+            }
+        }
     }
 
     @Override
