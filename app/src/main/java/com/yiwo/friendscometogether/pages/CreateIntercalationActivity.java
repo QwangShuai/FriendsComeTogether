@@ -190,25 +190,19 @@ public class CreateIntercalationActivity extends BaseActivity {
             }
         }
 
-        File imgFile = compressImage(GetLocalOrNetBitmap("file://"+mList.get(0).getPic()));
+        File imgFile = new File(mList.get(0).getPic());
+        List<File> list = new ArrayList<>();
+        list.add(imgFile);
 
-        ViseHttp.UPLOAD(NetConfig.userRenewTheArticle, new UCallback() {
-            @Override
-            public void onProgress(long currentLength, long totalLength, float percent) {
-
-            }
-
-            @Override
-            public void onFail(int errCode, String errMsg) {
-
-            }
-        }).addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
+        ViseHttp.UPLOAD(NetConfig.userRenewTheArticle)
+                .addHeader("Content-Type","multipart/form-data")
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
                 .addParam("title", etTitle.getText().toString())
                 .addParam("content", etContent.getText().toString())
                 .addParam("id", id)
                 .addParam("uid", uid)
-                .addParam("describe", "")
-                .addImageFile("images", imgFile)
+                .addParam("describe", "1|")
+                .addFile("images", imgFile)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
