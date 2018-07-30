@@ -12,6 +12,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:search_hint="搜索景点/领队">
-
     </com.czp.searchmlist.mSearchLayout>
 </LinearLayout>
