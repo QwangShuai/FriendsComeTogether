@@ -65,7 +65,7 @@ public class FriendsRememberFragment extends BaseFragment {
 
         ButterKnife.bind(this, rootView);
 
-        init(banner,CreateIntercalationActivity.class);
+        init(banner,DetailsOfFriendsActivity.class);
         initData();
 
         return rootView;

@@ -111,7 +111,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".pages.CreateIntercalationActivity" />
         <activity android:name=".pages.EditorFriendRememberActivity" />
-        <activity android:name=".pages.TeamIntercalationActivity"></activity>
+        <activity android:name=".pages.TeamIntercalationActivity" />
+        <activity android:name=".pages.InsertIntercalationActivity"></activity>
     </application>
 
 </manifest>
