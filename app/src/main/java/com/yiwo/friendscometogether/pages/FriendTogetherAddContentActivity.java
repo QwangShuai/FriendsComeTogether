@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -33,6 +32,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class FriendTogetherAddContentActivity extends BaseActivity {
     @BindView(R.id.activity_add_content_rl_back)
@@ -51,10 +57,10 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
     private List<UserIntercalationPicModel> mList;
 
     private static final int REQUEST_CODE = 0x00000011;
-
     private SpImp spImp;
     private String uid = "";
     private String id = "";
+    Map<String,String> textmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +73,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
 
         initData();
     }
+
     private void initData() {
 
         Intent intent = getIntent();
@@ -129,6 +136,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
             }
         }
     };
+
     @OnClick({R.id.activity_add_content_rl_back, R.id.activity_add_content_rl_complete})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -145,43 +153,64 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
      * 发布
      */
     private void complete() {
+        Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
+            @Override
+            public void subscribe(ObservableEmitter<Map<String, File>> e) throws Exception {
+                Map<String, File> map = new HashMap<>();
+                textmap = new HashMap<>();
+                for (int i = 0; i < mList.size(); i++) {
+                    map.put("activity_files[" + i + "]", new File(mList.get(i).getPic()));
+                    textmap.put("textarea_img["+i+"]",mList.get(i).getDescribe());
 
-        String images = "";
-        for (int i = 0; i < mList.size(); i++) {
-            if (i < mList.size() - 1) {
-                images = "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg" + "-" + mList.get(i).getDescribe() + "|";
-            } else {
-                images = "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg" + "-" + mList.get(i).getDescribe();
+                }
+                e.onNext(map);
             }
-        }
+        });
+        Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
 
-        File imgFile = new File(mList.get(0).getPic());
-        Log.i("123321",mList.get(0).getPic());
-        Map<String,File> map = new HashMap<>();
-        map.put("activity_files[]",imgFile);
-        Log.i("3333",imgFile.toString());
-        ViseHttp.UPLOAD(NetConfig.addContentFriendTogetherUrl)
-                .addHeader("Content-Type","multipart/form-data")
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addContentFriendTogetherUrl))
-                .addParam("title", etTitle.getText().toString())
-                .addParam("content", etContent.getText().toString())
-                .addParam("activity_id", id)
-                .addParam("user_id", uid)
-//                .addParam("describe", "都是你的南沙")
-                .addFiles(map)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        Log.e("222", data);
-                    }
+            }
 
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
+            @Override
+            public void onNext(Map<String, File> value) {
+                ViseHttp.UPLOAD(NetConfig.addContentFriendTogetherUrl)
+                        .addHeader("Content-Type", "multipart/form-data")
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addContentFriendTogetherUrl))
+                        .addParam("title", etTitle.getText().toString())
+                        .addParam("content", etContent.getText().toString())
+                        .addParam("activity_id", id)
+                        .addParam("user_id", uid)
+                        .addParams(textmap)
+                        .addFiles(value)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("222", data);
+                            }
 
-                    }
-                });
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
 
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.observeOn(Schedulers.newThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -189,12 +218,13 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
             //获取选择器返回的数据
             List<String> pic = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
             for (int i = 0; i < pic.size(); i++) {
-                Log.i("333",pic.get(i));
+                Log.i("333", pic.get(i));
                 mList.add(new UserIntercalationPicModel(pic.get(i), ""));
             }
             adapter.notifyDataSetChanged();
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
