@@ -81,6 +81,8 @@ public class HomeFragment extends BaseFragment {
     Banner banner;
     @BindView(R.id.home_hotRv)
     RecyclerView home_hotRv;
+    @BindView(R.id.home_hotVideoRv)
+    RecyclerView home_hotVideoRv;
     @BindView(R.id.locationRl)
     RelativeLayout locationRl;
     @BindView(R.id.cityTv)
@@ -133,7 +135,7 @@ public class HomeFragment extends BaseFragment {
                     public void onSuccess(String data) {
                         Log.e("222", data);
                         HomeHotFriendsRememberModel model = new Gson().fromJson(data, HomeHotFriendsRememberModel.class);
-//                        initList(model.getObj().getInfo());
+                        initList(model.getObj().getInfo());
                         initVideoList(model.getObj().getVideo());
                     }
 
@@ -166,16 +168,16 @@ public class HomeFragment extends BaseFragment {
             }
         };
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        home_hotRv.setLayoutManager(manager);
+        home_hotVideoRv.setLayoutManager(manager);
         videoAdapter = new VideoAdapter(data);
-        home_hotRv.setAdapter(videoAdapter);
+        home_hotVideoRv.setAdapter(videoAdapter);
         ScalableCardHelper cardHelper = new ScalableCardHelper(new ScalableCardHelper.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
 
             }
         });
-        cardHelper.attachToRecyclerView(home_hotRv);
+        cardHelper.attachToRecyclerView(home_hotVideoRv);
     }
     @OnClick({R.id.locationRl,R.id.searchLl})
     public void OnClick(View v) {
