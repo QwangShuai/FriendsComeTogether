@@ -67,4 +67,6 @@ public class NetConfig {
     public static String searchFriendTogetherUrl = "action/ac_activity/search_activity_list";
     //关注活动
     public static String focusOnToFriendTogetherUrl = "action/ac_activity/follow_attention";
+    //补充内容
+    public static String addContentFriendTogetherUrl = "action/ac_activity/add_travel_info";
 }

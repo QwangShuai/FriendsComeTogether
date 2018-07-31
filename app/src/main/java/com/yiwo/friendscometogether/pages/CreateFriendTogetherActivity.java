@@ -303,8 +303,6 @@ public class CreateFriendTogetherActivity extends BaseActivity {
             ivDelete.setVisibility(View.VISIBLE);
             file = new File("" + scList.get(0));
             Log.i("文件格式", file.toString());
-//            map.put("file_img","http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg");
-//            map.put("file_img",file);
         }
         if (requestCode == CITY_REQUEST && data != null) {
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
@@ -541,7 +539,10 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                         if (state == 0) {
                             finish();
                         } else {
-                            toToast(CreateFriendTogetherActivity.this, "需要跳转到补充内容了");
+                            Intent it = new Intent(CreateFriendTogetherActivity.this,FriendTogetherAddContentActivity.class);
+                            it.putExtra("pfID",model.getObj().getActivity_id());
+                            startActivity(it);
+                            finish();
                         }
                     } else {
                         toToast(CreateFriendTogetherActivity.this, model.getMessage());
@@ -553,30 +554,6 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                     toToast(CreateFriendTogetherActivity.this, errMsg);
                 }
             });
-//            ViseHttp.UPLOAD(NetConfig.createActivityUrl)
-//                    .addParams(map)
-//                    .addImageFile("file_img",file)
-//                    .request(new ACallback<String>() {
-//                        @Override
-//                        public void onSuccess(String data) {
-//                            CreateFriendsTogetherModel model = new Gson().fromJson(data,CreateFriendsTogetherModel.class);
-//                            if(model.getCode()==200){
-//                                Log.i("hhh","执行成功");
-//                                popupWindow.dismiss();
-//                                if(state==0){
-//                                    finish();
-//                                } else{
-//                                    toToast(CreateFriendTogetherActivity.this,"需要跳转到补充内容了");
-//                                }
-//                            } else {
-//                                toToast(CreateFriendTogetherActivity.this,model.getMessage());
-//                            }
-//                        }
-//                        @Override
-//                        public void onFail(int errCode, String errMsg) {
-//                            toToast(CreateFriendTogetherActivity.this,errMsg);
-//                        }
-//                    });
         } else {
             toToast(CreateFriendTogetherActivity.this, "请输入完整的创建活动信息");
             // 获取所有键值对对象的集合
