@@ -77,4 +77,6 @@ public class NetConfig {
     public static String myPictureUploadUrl = "action/ac_user/Photoalbum";
     //相册删除图片
     public static String myPictureDeleteUrl = "action/ac_user/deleteAlbum";
+    //文章详情
+    public static String detailsOfFriendsUrl = "action/ac_article/ArticleContent";
 }

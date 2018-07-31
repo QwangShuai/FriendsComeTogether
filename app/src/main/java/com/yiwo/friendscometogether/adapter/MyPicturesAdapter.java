@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.MyPicListModel;
 
 import java.util.List;
 
@@ -24,11 +25,11 @@ public class MyPicturesAdapter extends RecyclerView.Adapter<MyPicturesAdapter.Vi
     private static final int TYPE_PIC = 2;
 
     private Context context;
-    private List<String> data;
+    private List<MyPicListModel.ObjBean> data;
 
     private onItemClickListener listener;
 
-    public MyPicturesAdapter(List<String> data) {
+    public MyPicturesAdapter(List<MyPicListModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -53,7 +54,7 @@ public class MyPicturesAdapter extends RecyclerView.Adapter<MyPicturesAdapter.Vi
         } else {
             holder.rlAdd.setVisibility(View.GONE);
             holder.rlIv.setVisibility(View.VISIBLE);
-            Picasso.with(context).load("file://" + data.get(position - 1)).into(holder.iv);
+            Picasso.with(context).load(data.get(position - 1).getUpicurl()).into(holder.iv);
         }
         holder.rlAdd.setOnClickListener(new View.OnClickListener() {
             @Override

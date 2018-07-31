@@ -11,7 +11,7 @@ public class DetailsRememberModel {
     /**
      * code : 200
      * message : 获取成功
-     * obj : {"content":{"fmID":"60","fmtitle":"北京","fmpic":"uploads/article/20180731/20180731/ef5e6d09a5158f3cb93e17bb0937c18a.jpg","fmlook":"0","fmfavorite":"0","fmgotime":"2018-07-31","fmendtime":"2018-07-31","percapitacost":"2.00","fmaddress":"北京市-北京市-东城区","usergrade":"0","username":"baiducom","userpic":"uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg","follow":0},"activityInfo":{"pfcontent":"登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！","pftime":"2018-07-24 14:04:30","pflook":"12","pfcomment":"12","pfpic":"http://127.0.0.1/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg"},"Renew":[{"ffID":"60","fftitle":"吃了","ffcontect":"嗯","pic":[{"ffptitle":"吧","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490998.jpg","userID":"7","username":"baiducom","userpic":"http://127.0.0.1/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"},{"ffptitle":"","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490110.jpg","userID":"7","username":"baiducom","userpic":"http://127.0.0.1/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"}]}],"InserList":[{"ffID":"59","fftitle":"吃了","ffcontect":"出来了","pic":[]}]}
+     * obj : {"content":{"fmID":"60","fmtitle":"北京","fmpic":"uploads/article/20180731/20180731/ef5e6d09a5158f3cb93e17bb0937c18a.jpg","fmlook":"1","fmfavorite":"0","fmgotime":"2018-07-31","fmendtime":"2018-07-31","percapitacost":"2.00","fmaddress":"北京市-北京市-东城区","usergrade":"0","username":"baiducom","userpic":"uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg","uid":"7","give":0,"Collection":0,"follow":0},"activityInfo":{"pfcontent":"洱海10天游洱海10天游洱海10天游","pftime":"2018-07-23 17:12:08","pflook":"123","pfcomment":"123","pfpic":"http://47.92.136.19/uploads/xingcheng/20180723/20180723/6c2644a18caacdf5e463a600c11a6916.jpg"},"Renew":[{"ffID":"60","fftitle":"吃了","ffcontect":"嗯","pic":[{"ffptitle":"吧","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490998.jpg","userID":"7","username":"baiducom","userpic":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"},{"ffptitle":"","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490110.jpg","userID":"7","username":"baiducom","userpic":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"}]}],"InserList":[{"ffID":"59","fftitle":"吃了","ffcontect":"出来了","pic":[]}]}
      */
 
     private int code;
@@ -44,9 +44,9 @@ public class DetailsRememberModel {
 
     public static class ObjBean {
         /**
-         * content : {"fmID":"60","fmtitle":"北京","fmpic":"uploads/article/20180731/20180731/ef5e6d09a5158f3cb93e17bb0937c18a.jpg","fmlook":"0","fmfavorite":"0","fmgotime":"2018-07-31","fmendtime":"2018-07-31","percapitacost":"2.00","fmaddress":"北京市-北京市-东城区","usergrade":"0","username":"baiducom","userpic":"uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg","follow":0}
-         * activityInfo : {"pfcontent":"登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！","pftime":"2018-07-24 14:04:30","pflook":"12","pfcomment":"12","pfpic":"http://127.0.0.1/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg"}
-         * Renew : [{"ffID":"60","fftitle":"吃了","ffcontect":"嗯","pic":[{"ffptitle":"吧","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490998.jpg","userID":"7","username":"baiducom","userpic":"http://127.0.0.1/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"},{"ffptitle":"","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490110.jpg","userID":"7","username":"baiducom","userpic":"http://127.0.0.1/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"}]}]
+         * content : {"fmID":"60","fmtitle":"北京","fmpic":"uploads/article/20180731/20180731/ef5e6d09a5158f3cb93e17bb0937c18a.jpg","fmlook":"1","fmfavorite":"0","fmgotime":"2018-07-31","fmendtime":"2018-07-31","percapitacost":"2.00","fmaddress":"北京市-北京市-东城区","usergrade":"0","username":"baiducom","userpic":"uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg","uid":"7","give":0,"Collection":0,"follow":0}
+         * activityInfo : {"pfcontent":"洱海10天游洱海10天游洱海10天游","pftime":"2018-07-23 17:12:08","pflook":"123","pfcomment":"123","pfpic":"http://47.92.136.19/uploads/xingcheng/20180723/20180723/6c2644a18caacdf5e463a600c11a6916.jpg"}
+         * Renew : [{"ffID":"60","fftitle":"吃了","ffcontect":"嗯","pic":[{"ffptitle":"吧","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490998.jpg","userID":"7","username":"baiducom","userpic":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"},{"ffptitle":"","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490110.jpg","userID":"7","username":"baiducom","userpic":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"}]}]
          * InserList : [{"ffID":"59","fftitle":"吃了","ffcontect":"出来了","pic":[]}]
          */
 
@@ -92,7 +92,7 @@ public class DetailsRememberModel {
              * fmID : 60
              * fmtitle : 北京
              * fmpic : uploads/article/20180731/20180731/ef5e6d09a5158f3cb93e17bb0937c18a.jpg
-             * fmlook : 0
+             * fmlook : 1
              * fmfavorite : 0
              * fmgotime : 2018-07-31
              * fmendtime : 2018-07-31
@@ -101,6 +101,9 @@ public class DetailsRememberModel {
              * usergrade : 0
              * username : baiducom
              * userpic : uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg
+             * uid : 7
+             * give : 0
+             * Collection : 0
              * follow : 0
              */
 
@@ -116,6 +119,9 @@ public class DetailsRememberModel {
             private String usergrade;
             private String username;
             private String userpic;
+            private String uid;
+            private int give;
+            private int Collection;
             private int follow;
 
             public String getFmID() {
@@ -214,6 +220,30 @@ public class DetailsRememberModel {
                 this.userpic = userpic;
             }
 
+            public String getUid() {
+                return uid;
+            }
+
+            public void setUid(String uid) {
+                this.uid = uid;
+            }
+
+            public int getGive() {
+                return give;
+            }
+
+            public void setGive(int give) {
+                this.give = give;
+            }
+
+            public int getCollection() {
+                return Collection;
+            }
+
+            public void setCollection(int Collection) {
+                this.Collection = Collection;
+            }
+
             public int getFollow() {
                 return follow;
             }
@@ -225,11 +255,11 @@ public class DetailsRememberModel {
 
         public static class ActivityInfoBean {
             /**
-             * pfcontent : 登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！
-             * pftime : 2018-07-24 14:04:30
-             * pflook : 12
-             * pfcomment : 12
-             * pfpic : http://127.0.0.1/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg
+             * pfcontent : 洱海10天游洱海10天游洱海10天游
+             * pftime : 2018-07-23 17:12:08
+             * pflook : 123
+             * pfcomment : 123
+             * pfpic : http://47.92.136.19/uploads/xingcheng/20180723/20180723/6c2644a18caacdf5e463a600c11a6916.jpg
              */
 
             private String pfcontent;
@@ -284,7 +314,7 @@ public class DetailsRememberModel {
              * ffID : 60
              * fftitle : 吃了
              * ffcontect : 嗯
-             * pic : [{"ffptitle":"吧","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490998.jpg","userID":"7","username":"baiducom","userpic":"http://127.0.0.1/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"},{"ffptitle":"","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490110.jpg","userID":"7","username":"baiducom","userpic":"http://127.0.0.1/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"}]
+             * pic : [{"ffptitle":"吧","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490998.jpg","userID":"7","username":"baiducom","userpic":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"},{"ffptitle":"","ffpurl":"http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490110.jpg","userID":"7","username":"baiducom","userpic":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg"}]
              */
 
             private String ffID;
@@ -330,7 +360,7 @@ public class DetailsRememberModel {
                  * ffpurl : http://47.92.136.19/uploads/header/2018/07/31/42e2febc149d7d233867d754877d85e41533007490998.jpg
                  * userID : 7
                  * username : baiducom
-                 * userpic : http://127.0.0.1/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg
+                 * userpic : http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg
                  */
 
                 private String ffptitle;
