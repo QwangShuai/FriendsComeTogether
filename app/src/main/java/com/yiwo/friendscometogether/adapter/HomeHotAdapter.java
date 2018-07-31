@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +26,11 @@ import java.util.List;
 
 public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHolder> {
     private Context context;
-    private List<HomeHotFriendsRememberModel.ObjBean> data;
+    private List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data;
     View v;
     PileLayout videoPl;
-    private List<HomeHotFriendsRememberModel.ObjBean.VideoBean> list;
-    public HomeHotAdapter(List<HomeHotFriendsRememberModel.ObjBean> data){
+//    private List<HomeHotFriendsRememberModel.ObjBean.VideoBean> list;
+    public HomeHotAdapter(List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data){
         this.data = data;
     }
 
@@ -45,22 +46,23 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if(data.get(position).getVideo().size()==0){
+//        if(data.get(position).getVideo().size()==0){
             Picasso.with(context).load(data.get(position).getFmpic()).into(holder.titleIv);
             holder.titleTv.setText(data.get(position).getFmtitle());
-            holder.contentTv.setText(data.get(position).getFmcontent());
+        Log.i("00000000",data.get(position).getFmcomment());
+            holder.contentTv.setText(data.get(position).getFmcontent()+"");
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
             holder.timeTv.setText(data.get(position).getFmtime());
             holder.viewsTv.setText(data.get(position).getFmlook());
             holder.messageTv.setText(data.get(position).getFmcomment());
             holder.nameTv.setText(data.get(position).getUsername());
-        } else {
-            list = data.get(position).getVideo();
-            holder.childrenLl.setVisibility(View.GONE);
-            ((ViewGroup)videoPl.getParent()).removeView(videoPl);
-            holder.vesselLl.addView(videoPl);
-           videoPl.setAdapter(new PileLayoutVideoAdapter(context,data.get(position).getVideo()));
-        }
+//        } else {
+//            list = data.get(position).getVideo();
+//            holder.childrenLl.setVisibility(View.GONE);
+//            ((ViewGroup)videoPl.getParent()).removeView(videoPl);
+//            holder.vesselLl.addView(videoPl);
+//           videoPl.setAdapter(new PileLayoutVideoAdapter(context,data.get(position).getVideo()));
+//        }
 
     }
 
@@ -84,7 +86,7 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             super(itemView);
             titleIv = itemView.findViewById(R.id.home_hot_itemIv);
             titleTv = itemView.findViewById(R.id.home_hot_title);
-            contentTv = itemView.findViewById(R.id.contentTv);
+            contentTv = itemView.findViewById(R.id.home_hot_content);
             headIv = itemView.findViewById(R.id.home_hot_itemHeadIv);
             nameTv = itemView.findViewById(R.id.home_hot_itemNameTv);
             timeTv = itemView.findViewById(R.id.home_hot_itemTimeTv);

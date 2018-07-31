@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -143,6 +144,7 @@ public class ApplyActivity extends BaseActivity {
 
     public void getShowView(){
         if_pay = getIntent().getStringExtra("if_pay");
+        Log.i("789456",if_pay);
         String title = getIntent().getStringExtra("title");
         String price = getIntent().getStringExtra("price");
         String begin_time = getIntent().getStringExtra("begin_time");

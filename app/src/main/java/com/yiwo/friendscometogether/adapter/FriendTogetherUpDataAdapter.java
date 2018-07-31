@@ -24,6 +24,7 @@ import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
+import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
@@ -80,39 +81,48 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             @Override
             public void onClick(View v) {
                 String userID = spImp.getUID();
-                ViseHttp.POST(NetConfig.focusOnToFriendTogetherUrl)
-                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.focusOnToFriendTogetherUrl))
-                        .addParam("userID", userID)
-                        .addParam("pfID", data.get(position).getPfID())
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                FocusOnToFriendTogetherModel model = new Gson().fromJson(result, FocusOnToFriendTogetherModel.class);
-                                if (model.getCode() == 200) {
-                                    if (model.getObj().equals("1")) {
-                                        holder.focusOnIv.setImageResource(R.mipmap.focus_on_y);
-                                        Toast.makeText(context, "关注成功", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        holder.focusOnIv.setImageResource(R.mipmap.focus_on_empty_y);
-                                        Toast.makeText(context, "取消成功", Toast.LENGTH_SHORT).show();
+                if(userID.equals("0")){
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                } else {
+                    ViseHttp.POST(NetConfig.focusOnToFriendTogetherUrl)
+                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.focusOnToFriendTogetherUrl))
+                            .addParam("userID", userID)
+                            .addParam("pfID", data.get(position).getPfID())
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    FocusOnToFriendTogetherModel model = new Gson().fromJson(result, FocusOnToFriendTogetherModel.class);
+                                    if (model.getCode() == 200) {
+                                        if (model.getObj().equals("1")) {
+                                            holder.focusOnIv.setImageResource(R.mipmap.focus_on_y);
+//                                        Toast.makeText(context, "关注成功", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            holder.focusOnIv.setImageResource(R.mipmap.focus_on_empty_y);
+//                                        Toast.makeText(context, "取消成功", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
 
-                            }
-                        });
+                                }
+                            });
+                }
+
             }
         });
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(context, DetailsOfFriendTogetherActivity.class);
-                intent.putExtra("pfID", data.get(position).getPfID());
-                context.startActivity(intent);
+                if(spImp.getUID().equals("0")){
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(context, DetailsOfFriendTogetherActivity.class);
+                    intent.putExtra("pfID", data.get(position).getPfID());
+                    context.startActivity(intent);
+                }
             }
         });
         if (data.get(position).getAll_u_pic().size() < 8) {

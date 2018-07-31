@@ -32,6 +32,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
+import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.youth.banner.Banner;
@@ -125,44 +126,50 @@ public class FriendsTogetherFragment extends BaseFragment{
     }
     @OnClick({R.id.select_city,R.id.select_lable,R.id.search_leader})
     public void OnClick(View v){
-        switch (v.getId()){
-            case R.id.select_city:
-                Intent it = new Intent(getActivity(), CityActivity.class);
-                it.putExtra(ActivityConfig.ACTIVITY,"home");
-                startActivityForResult(it,1);
-                break;
-            case R.id.select_lable:
-                AlertDialog.Builder singleChoiceDialog =
-                        new AlertDialog.Builder(getContext());
-                singleChoiceDialog.setTitle("请选择标签");
-                // 第二个参数是默认选项，此处设置为0
-                singleChoiceDialog.setSingleChoiceItems(itemName, 0,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                yourChoiceName = itemName[which];
-                                yourChoiceId = itemId[which];
-                            }
-                        });
-                singleChoiceDialog.setPositiveButton("确定",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (TextUtils.isEmpty(yourChoiceName)) {
-                                    lableTv.setText(itemName[0]);
-                                    yourChoiceId = itemId[0];
-                                } else {
-                                    lableTv.setText(yourChoiceName);
-                                    yourChoiceName = "";
+        if (spImp.getUID().equals("0")){
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+        } else {
+            Log.i("110120",spImp.getUID());
+            switch (v.getId()){
+                case R.id.select_city:
+                    Intent it = new Intent(getActivity(), CityActivity.class);
+                    it.putExtra(ActivityConfig.ACTIVITY,"home");
+                    startActivityForResult(it,1);
+                    break;
+                case R.id.select_lable:
+                    AlertDialog.Builder singleChoiceDialog =
+                            new AlertDialog.Builder(getContext());
+                    singleChoiceDialog.setTitle("请选择标签");
+                    // 第二个参数是默认选项，此处设置为0
+                    singleChoiceDialog.setSingleChoiceItems(itemName, 0,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    yourChoiceName = itemName[which];
+                                    yourChoiceId = itemId[which];
                                 }
-                            }
-                        });
-                singleChoiceDialog.show();
-                break;
-            case R.id.search_leader:
-                startActivity(new Intent(getActivity(), SearchActivity.class));
-                break;
+                            });
+                    singleChoiceDialog.setPositiveButton("确定",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (TextUtils.isEmpty(yourChoiceName)) {
+                                        lableTv.setText(itemName[0]);
+                                        yourChoiceId = itemId[0];
+                                    } else {
+                                        lableTv.setText(yourChoiceName);
+                                        yourChoiceName = "";
+                                    }
+                                }
+                            });
+                    singleChoiceDialog.show();
+                    break;
+                case R.id.search_leader:
+                    startActivity(new Intent(getActivity(), SearchActivity.class));
+                    break;
+            }
         }
+
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

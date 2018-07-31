@@ -94,7 +94,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     SpImp spImp;
     FriendsTogetherDetailsModel model;
     String pfID;
-    boolean b = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,16 +192,39 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.details_applyTv:
-                if(isRealName()){
-                    Intent it = new Intent(DetailsOfFriendTogetherActivity.this, ApplyActivity.class);
-                    it.putExtra("if_pay", model.getObj().getIf_pay());
-                    it.putExtra("title", model.getObj().getTitle());
-                    it.putExtra("begin_time", model.getObj().getBegin_time());
-                    it.putExtra("price", model.getObj().getPrice());
-                    it.putExtra("pfID", model.getObj().getPfID());
-                    it.putExtra("sex", "2");
-                    startActivity(it);
-                }
+                ViseHttp.POST(NetConfig.isRealNameUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.isRealNameUrl))
+                        .addParam("userID", spImp.getUID())
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.i("123321", data);
+                                IsRealNameModel models = new Gson().fromJson(data, IsRealNameModel.class);
+                                if (models.getCode() == 200) {
+                                    if (models.getObj().getOk().equals("2")) {
+                                        Intent it = new Intent(DetailsOfFriendTogetherActivity.this, ApplyActivity.class);
+                                        it.putExtra("if_pay", model.getObj().getIf_pay());
+                                        it.putExtra("title", model.getObj().getTitle());
+                                        it.putExtra("begin_time", model.getObj().getBegin_time());
+                                        it.putExtra("price", model.getObj().getPrice());
+                                        it.putExtra("pfID", model.getObj().getPfID());
+                                        it.putExtra("sex", "2");
+                                        startActivity(it);
+                                    } else if (models.getObj().getOk().equals("1")) {
+                                        toToast(DetailsOfFriendTogetherActivity.this, "请于身份审核通过后报名");
+                                    } else {
+                                        startActivity(new Intent(DetailsOfFriendTogetherActivity.this, RealNameActivity.class));
+                                    }
+                                } else {
+                                    toToast(DetailsOfFriendTogetherActivity.this, model.getMessage());
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
             case R.id.activity_details_of_friends_together_ll_share:
                 new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
@@ -226,10 +249,10 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                                 if (model.getCode() == 200) {
                                     if (model.getObj().equals("1")) {
                                         focusOnIv.setImageResource(R.mipmap.focus_on_y);
-                                        toToast(DetailsOfFriendTogetherActivity.this, "关注成功");
+//                                        toToast(DetailsOfFriendTogetherActivity.this, "关注成功");
                                     } else {
                                         focusOnIv.setImageResource(R.mipmap.focus_on_empty_y);
-                                        toToast(DetailsOfFriendTogetherActivity.this, "取消成功");
+//                                        toToast(DetailsOfFriendTogetherActivity.this, "取消成功");
                                     }
                                 }
                             }
@@ -242,34 +265,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 break;
         }
     }
-    public boolean isRealName(){
-        ViseHttp.POST(NetConfig.isRealNameUrl)
-                .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.isRealNameUrl))
-                .addParam("userID",spImp.getUID())
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        IsRealNameModel model = new Gson().fromJson(data,IsRealNameModel.class);
-                        if (model.getCode()==200){
-                            if(model.getObj().getOk().equals("2")){
-                                b = true;
-                            } else if(model.getObj().getOk().equals("1")){
-                                toToast(DetailsOfFriendTogetherActivity.this,"请于身份审核通过后报名");
-                            } else {
-                                startActivity(new Intent(DetailsOfFriendTogetherActivity.this,RealNameActivity.class));
-                            }
-                        } else {
-                            toToast(DetailsOfFriendTogetherActivity.this,model.getMessage());
-                        }
-                    }
 
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
-
-                    }
-                });
-        return b;
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

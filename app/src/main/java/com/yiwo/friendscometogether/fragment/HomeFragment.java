@@ -33,8 +33,10 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.HomeHotAdapter;
+import com.yiwo.friendscometogether.adapter.VideoAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
+import com.yiwo.friendscometogether.custom.ScalableCardHelper;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
@@ -85,18 +87,16 @@ public class HomeFragment extends BaseFragment {
     TextView cityTv;
     @BindView(R.id.searchLl)
     LinearLayout searchLl;
-
-    @BindView(R.id.viewPager)
-    ViewPager viewPager;
     private CardPagerAdapter mCardAdapter;
     private CardFragmentPagerAdapter mFragmentCardAdapter;
-
+    List<CardItem> listCard;
     private LocationManager locationManager;
     private double latitude = 0.0;
     private double longitude = 0.0;
     public static int GET_LOCATION = 1;
     String latLongString = "";
     private HomeHotAdapter adapter;
+    private VideoAdapter videoAdapter;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -111,49 +111,6 @@ public class HomeFragment extends BaseFragment {
 
     };
 
-    String json = " {\n" +
-            "    \"code\": 200,\n" +
-            "    \"message\": \"获取成功!\",\n" +
-            "    \"obj\": [\n" +
-            "        {\n" +
-            "            \"type\": 3,\n" +
-            "            \"userphone\": \"110\",\n" +
-            "            \"fmhot\": \"1\",\n" +
-            "            \"fmID\": \"1\",\n" +
-            "            \"fmtitle\": \"尼玛\",\n" +
-            "            \"fmcontent\": \"jsp吃屎了\",\n" +
-            "            \"upicurl\": \"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532086833238&di=0e33145bf798ca42e099fe9f4c04b563&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ffaf2b2119313b07ea96992d900d7912396dd8c0f.jpg\",\n" +
-            "            \"fmpic\": \"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532086833238&di=0e33145bf798ca42e099fe9f4c04b563&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ffaf2b2119313b07ea96992d900d7912396dd8c0f.jpg\",\n" +
-            "            \"fmtime\": \"2018-05-09\",\n" +
-            "            \"fmlook\": \"1234\",\n" +
-            "            \"fmcomment\": \"1234\",\n" +
-            "            \"username\": \"EMMMMM,,,,\",\n" +
-            "            \"video\": [\n" +
-            "                {\n" +
-            "                    \"vname\": \"哈1\",\n" +
-            "                    \"vurl\": \"www.youku.com\",\n" +
-            "                    \"img\": \"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532086833238&di=0e33145bf798ca42e099fe9f4c04b563&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ffaf2b2119313b07ea96992d900d7912396dd8c0f.jpg\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"vname\": \"哈2\",\n" +
-            "                    \"vurl\": \"www.youku.com\",\n" +
-            "                    \"img\": \"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532086833238&di=0e33145bf798ca42e099fe9f4c04b563&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ffaf2b2119313b07ea96992d900d7912396dd8c0f.jpg\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"vname\": \"ha3\",\n" +
-            "                    \"vurl\": \"www.youku.com\",\n" +
-            "                    \"img\": \"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532086833238&di=0e33145bf798ca42e099fe9f4c04b563&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ffaf2b2119313b07ea96992d900d7912396dd8c0f.jpg\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"vname\": \"ha4\",\n" +
-            "                    \"vurl\": \"www.youku.com\",\n" +
-            "                    \"img\": \"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532086833238&di=0e33145bf798ca42e099fe9f4c04b563&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ffaf2b2119313b07ea96992d900d7912396dd8c0f.jpg\"\n" +
-            "                }\n" +
-            "            ]\n" +
-            "        }\n" +
-            "    ]\n" +
-            "}";
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -162,30 +119,8 @@ public class HomeFragment extends BaseFragment {
         ScreenAdapterTools.getInstance().loadView(rootView);
         getLocation();
         init(banner, DetailsOfFriendsActivity.class);
-        HomeHotFriendsRememberModel model = new Gson().fromJson(json, HomeHotFriendsRememberModel.class);
-        initList(model.getObj());
-        initCardView();
-//        initData();
+        initData();
         return rootView;
-    }
-
-    private void initCardView() {
-
-        mCardAdapter = new CardPagerAdapter();
-
-        mCardAdapter.addCardItem(new CardItem(""));
-        mCardAdapter.addCardItem(new CardItem(""));
-        mCardAdapter.addCardItem(new CardItem(""));
-        mCardAdapter.addCardItem(new CardItem(""));
-        mCardAdapter.addCardItem(new CardItem(""));
-        mCardAdapter.addCardItem(new CardItem(""));
-
-        mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
-                TokenUtils.dpToPixels(1, getContext()));
-
-        viewPager.setAdapter(mCardAdapter);
-        viewPager.setOffscreenPageLimit(3);
-
     }
 
     public void initData() {
@@ -198,8 +133,10 @@ public class HomeFragment extends BaseFragment {
                     public void onSuccess(String data) {
                         Log.e("222", data);
                         HomeHotFriendsRememberModel model = new Gson().fromJson(data, HomeHotFriendsRememberModel.class);
-                        initList(model.getObj());
+//                        initList(model.getObj().getInfo());
+                        initVideoList(model.getObj().getVideo());
                     }
+
 
                     @Override
                     public void onFail(int errCode, String errMsg) {
@@ -209,7 +146,7 @@ public class HomeFragment extends BaseFragment {
 
     }
 
-    public void initList(List<HomeHotFriendsRememberModel.ObjBean> data) {
+    public void initList(List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data) {
         LinearLayoutManager manager = new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
@@ -221,7 +158,25 @@ public class HomeFragment extends BaseFragment {
         adapter = new HomeHotAdapter(data);
         home_hotRv.setAdapter(adapter);
     }
+    public void initVideoList(List<HomeHotFriendsRememberModel.ObjBean.VideoBean> data) {
+        LinearLayoutManager manager = new LinearLayoutManager(getContext()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        home_hotRv.setLayoutManager(manager);
+        videoAdapter = new VideoAdapter(data);
+        home_hotRv.setAdapter(videoAdapter);
+        ScalableCardHelper cardHelper = new ScalableCardHelper(new ScalableCardHelper.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
 
+            }
+        });
+        cardHelper.attachToRecyclerView(home_hotRv);
+    }
     @OnClick({R.id.locationRl,R.id.searchLl})
     public void OnClick(View v) {
         switch (v.getId()) {
@@ -302,24 +257,6 @@ public class HomeFragment extends BaseFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        ;
-//        List<Address> addList = null;
-//        Geocoder ge = new Geocoder(getActivity(), Locale.getDefault());
-//        try {
-//            Log.i("位置-","纬度："+latitude+"经度："+longitude);
-//            addList =ge.getFromLocation(latitude, longitude, 1);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        if (addList != null && addList.size() > 0) {
-//            for (int i = 0; i < addList.size(); i++) {
-//                Address ad = addList.get(i);
-//                latLongString = ad.getLocality();
-//            }
-//            Log.i("长度",addList.size()+"???");
-//            handler.sendEmptyMessage(2);
-//        }
     }
 
     @Override
