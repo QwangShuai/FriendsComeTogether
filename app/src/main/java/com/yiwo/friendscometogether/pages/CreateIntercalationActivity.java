@@ -191,15 +191,6 @@ public class CreateIntercalationActivity extends BaseActivity {
      */
     private void complete() {
 
-        String images = "";
-        for (int i = 0; i < mList.size(); i++) {
-            if (i < mList.size() - 1) {
-                images = "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg" + "-" + mList.get(i).getDescribe() + "|";
-            } else {
-                images = "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg" + "-" + mList.get(i).getDescribe();
-            }
-        }
-
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
             public void subscribe(ObservableEmitter<Map<String, File>> e) throws Exception {
@@ -218,6 +209,13 @@ public class CreateIntercalationActivity extends BaseActivity {
 
             @Override
             public void onNext(Map<String, File> value) {
+
+                String describe = "";
+                for(int i = 0; i<mList.size(); i++){
+                    describe = describe+mList.get(i).getDescribe()+"|";
+                }
+                Log.e("222", describe);
+
                 ViseHttp.UPLOAD(NetConfig.userRenewTheArticle)
                         .addHeader("Content-Type","multipart/form-data")
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
@@ -225,12 +223,20 @@ public class CreateIntercalationActivity extends BaseActivity {
                         .addParam("content", etContent.getText().toString())
                         .addParam("id", id)
                         .addParam("uid", uid)
-                        .addParam("describe", "都是你的南沙|1||")
+                        .addParam("describe", describe)
                         .addFiles(value)
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
-                                Log.e("222", data);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        toToast(CreateIntercalationActivity.this, "创建成功");
+                                        onBackPressed();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
                             @Override

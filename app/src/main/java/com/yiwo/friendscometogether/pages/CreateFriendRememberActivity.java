@@ -48,15 +48,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -128,6 +134,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
 
     private SpImp spImp;
     private String uid = "";
+
+    private String images = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -386,6 +394,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
             //获取选择器返回的数据
             List<String> scList = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
             Log.e("222", scList.get(0));
+            images = scList.get(0);
             Picasso.with(CreateFriendRememberActivity.this).load("file://" + scList.get(0)).into(ivTitle);
             ivTitle.setVisibility(View.VISIBLE);
             tvFirstIv.setVisibility(View.VISIBLE);
@@ -577,120 +586,213 @@ public class CreateFriendRememberActivity extends BaseActivity {
         tvRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViseHttp.POST(NetConfig.userRelease)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
-                        .addParam("fmtitle", etTitle.getText().toString())
-                        .addParam("fmcontent", etContent.getText().toString())
-                        .addParam("fmaddress", tvCity.getText().toString())
-                        .addParam("uid", uid)
-                        .addParam("fmlable", yourChoiceId)
-                        .addParam("fmgotime", tvTimeStart.getText().toString())
-                        .addParam("fmendtime", tvTimeEnd.getText().toString())
-                        .addParam("percapitacost", etPrice.getText().toString())
-                        .addParam("activity_id", "0")
-                        .addParam("fmpic", "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg")
-                        .addParam("type", "0")
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String data) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(data);
-                                    if (jsonObject.getInt("code") == 200) {
-                                        toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
-                                        onBackPressed();
+                Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<File> e) throws Exception {
+                        File file = new File(images);
+                        e.onNext(file);
+                    }
+                });
+                Observer<File> observer = new Observer<File>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(File value) {
+                        ViseHttp.UPLOAD(NetConfig.userRelease)
+                                .addHeader("Content-Type","multipart/form-data")
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                                .addParam("fmtitle", etTitle.getText().toString())
+                                .addParam("fmcontent", etContent.getText().toString())
+                                .addParam("fmaddress", tvCity.getText().toString())
+                                .addParam("uid", uid)
+                                .addParam("fmlable", yourChoiceId)
+                                .addParam("fmgotime", tvTimeStart.getText().toString())
+                                .addParam("fmendtime", tvTimeEnd.getText().toString())
+                                .addParam("percapitacost", etPrice.getText().toString())
+                                .addParam("activity_id", "0")
+                                .addParam("type", "0")
+                                .addFile("fmpic", value)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if (jsonObject.getInt("code") == 200) {
+                                                toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
+                                                onBackPressed();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
 
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
 
-                            }
-                        });
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                };
+                observable.observeOn(Schedulers.newThread())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe(observer);
             }
         });
 
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViseHttp.POST(NetConfig.userRelease)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
-                        .addParam("fmtitle", etTitle.getText().toString())
-                        .addParam("fmcontent", etContent.getText().toString())
-                        .addParam("fmaddress", tvCity.getText().toString())
-                        .addParam("uid", uid)
-                        .addParam("fmlable", yourChoiceId)
-                        .addParam("fmgotime", tvTimeStart.getText().toString())
-                        .addParam("fmendtime", tvTimeEnd.getText().toString())
-                        .addParam("percapitacost", etPrice.getText().toString())
-                        .addParam("activity_id", "0")
-                        .addParam("fmpic", "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg")
-                        .addParam("type", "1")
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String data) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(data);
-                                    if (jsonObject.getInt("code") == 200) {
-                                        toToast(CreateFriendRememberActivity.this, "保存成功");
-                                        onBackPressed();
+                Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<File> e) throws Exception {
+                        File file = new File(images);
+                        e.onNext(file);
+                    }
+                });
+                Observer<File> observer = new Observer<File>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(File value) {
+                        ViseHttp.UPLOAD(NetConfig.userRelease)
+                                .addHeader("Content-Type","multipart/form-data")
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                                .addParam("fmtitle", etTitle.getText().toString())
+                                .addParam("fmcontent", etContent.getText().toString())
+                                .addParam("fmaddress", tvCity.getText().toString())
+                                .addParam("uid", uid)
+                                .addParam("fmlable", yourChoiceId)
+                                .addParam("fmgotime", tvTimeStart.getText().toString())
+                                .addParam("fmendtime", tvTimeEnd.getText().toString())
+                                .addParam("percapitacost", etPrice.getText().toString())
+                                .addParam("activity_id", "0")
+                                .addParam("type", "1")
+                                .addFile("fmpic", value)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if (jsonObject.getInt("code") == 200) {
+                                                toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
+                                                onBackPressed();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
 
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
 
-                            }
-                        });
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                };
+                observable.observeOn(Schedulers.newThread())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe(observer);
             }
         });
 
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViseHttp.POST(NetConfig.userRelease)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
-                        .addParam("fmtitle", etTitle.getText().toString())
-                        .addParam("fmcontent", etContent.getText().toString())
-                        .addParam("fmaddress", tvCity.getText().toString())
-                        .addParam("uid", uid)
-                        .addParam("fmlable", yourChoiceId)
-                        .addParam("fmgotime", tvTimeStart.getText().toString())
-                        .addParam("fmendtime", tvTimeEnd.getText().toString())
-                        .addParam("percapitacost", etPrice.getText().toString())
-                        .addParam("activity_id", "0")
-                        .addParam("fmpic", "http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg")
-                        .addParam("type", "0")
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String data) {
-                                try {
-                                    Log.e("222", data);
-                                    JSONObject jsonObject = new JSONObject(data);
-                                    if (jsonObject.getInt("code") == 200) {
-                                        Gson gson = new Gson();
-                                        UserReleaseModel userReleaseModel = gson.fromJson(data, UserReleaseModel.class);
-                                        Intent intent = new Intent();
-                                        intent.putExtra("id", userReleaseModel.getObj().getId()+"");
-                                        intent.setClass(CreateFriendRememberActivity.this, CreateIntercalationActivity.class);
-                                        startActivity(intent);
-                                        CreateFriendRememberActivity.this.finish();
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<File> e) throws Exception {
+                        File file = new File(images);
+                        e.onNext(file);
+                    }
+                });
+                Observer<File> observer = new Observer<File>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
-                                Log.e("222", "失败");
-                            }
-                        });
+                    }
+
+                    @Override
+                    public void onNext(File value) {
+                        ViseHttp.UPLOAD(NetConfig.userRelease)
+                                .addHeader("Content-Type","multipart/form-data")
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                                .addParam("fmtitle", etTitle.getText().toString())
+                                .addParam("fmcontent", etContent.getText().toString())
+                                .addParam("fmaddress", tvCity.getText().toString())
+                                .addParam("uid", uid)
+                                .addParam("fmlable", yourChoiceId)
+                                .addParam("fmgotime", tvTimeStart.getText().toString())
+                                .addParam("fmendtime", tvTimeEnd.getText().toString())
+                                .addParam("percapitacost", etPrice.getText().toString())
+                                .addParam("activity_id", "0")
+                                .addParam("type", "0")
+                                .addFile("fmpic", value)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            Log.e("222", data);
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if (jsonObject.getInt("code") == 200) {
+                                                Gson gson = new Gson();
+                                                UserReleaseModel userReleaseModel = gson.fromJson(data, UserReleaseModel.class);
+                                                Intent intent = new Intent();
+                                                intent.putExtra("id", userReleaseModel.getObj().getId()+"");
+                                                intent.setClass(CreateFriendRememberActivity.this, CreateIntercalationActivity.class);
+                                                startActivity(intent);
+                                                CreateFriendRememberActivity.this.finish();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                };
+                observable.observeOn(Schedulers.newThread())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe(observer);
             }
         });
 
