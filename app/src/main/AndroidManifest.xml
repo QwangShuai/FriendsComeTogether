@@ -115,6 +115,7 @@
         <activity android:name=".pages.InsertIntercalationActivity" />
         <activity android:name=".pages.OtherInformationActivity" />
         <activity android:name=".pages.FriendTogetherAddContentActivity" />
+        <activity android:name=".wxapi.WXPayEntryActivity"></activity>
     </application>
 
 </manifest>
