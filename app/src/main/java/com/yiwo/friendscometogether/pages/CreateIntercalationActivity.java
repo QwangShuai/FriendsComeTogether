@@ -43,7 +43,9 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -158,6 +160,7 @@ public class CreateIntercalationActivity extends BaseActivity {
             //获取选择器返回的数据
             List<String> pic = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
             for (int i = 0; i < pic.size(); i++) {
+                Log.i("333",pic.get(i));
                 mList.add(new UserIntercalationPicModel(pic.get(i), ""));
             }
             adapter.notifyDataSetChanged();
@@ -191,9 +194,10 @@ public class CreateIntercalationActivity extends BaseActivity {
         }
 
         File imgFile = new File(mList.get(0).getPic());
-        List<File> list = new ArrayList<>();
-        list.add(imgFile);
-
+        Log.i("123321",mList.get(0).getPic());
+        Map<String,File> map = new HashMap<>();
+        map.put("images[]",imgFile);
+        Log.i("3333",imgFile.toString());
         ViseHttp.UPLOAD(NetConfig.userRenewTheArticle)
                 .addHeader("Content-Type","multipart/form-data")
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
@@ -201,8 +205,8 @@ public class CreateIntercalationActivity extends BaseActivity {
                 .addParam("content", etContent.getText().toString())
                 .addParam("id", id)
                 .addParam("uid", uid)
-                .addParam("describe", "1|")
-                .addFile("images", imgFile)
+                .addParam("describe", "都是你的南沙")
+                .addFiles(map)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

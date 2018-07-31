@@ -113,7 +113,8 @@
         <activity android:name=".pages.EditorFriendRememberActivity" />
         <activity android:name=".pages.TeamIntercalationActivity" />
         <activity android:name=".pages.InsertIntercalationActivity" />
-        <activity android:name=".pages.OtherInformationActivity"></activity>
+        <activity android:name=".pages.OtherInformationActivity" />
+        <activity android:name=".pages.FriendTogetherAddContentActivity" />
     </application>
 
 </manifest>
