@@ -31,6 +31,7 @@ import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.FriendsTogetherDetailsModel;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
+import com.yiwo.friendscometogether.model.IsRealNameModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
@@ -93,7 +94,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     SpImp spImp;
     FriendsTogetherDetailsModel model;
     String pfID;
-
+    boolean b = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,14 +192,16 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.details_applyTv:
-                Intent it = new Intent(DetailsOfFriendTogetherActivity.this, ApplyActivity.class);
-                it.putExtra("if_pay", model.getObj().getIf_pay());
-                it.putExtra("title", model.getObj().getTitle());
-                it.putExtra("begin_time", model.getObj().getBegin_time());
-                it.putExtra("price", model.getObj().getPrice());
-                it.putExtra("pfID", model.getObj().getPfID());
-                it.putExtra("sex", "2");
-                startActivity(it);
+                if(isRealName()){
+                    Intent it = new Intent(DetailsOfFriendTogetherActivity.this, ApplyActivity.class);
+                    it.putExtra("if_pay", model.getObj().getIf_pay());
+                    it.putExtra("title", model.getObj().getTitle());
+                    it.putExtra("begin_time", model.getObj().getBegin_time());
+                    it.putExtra("price", model.getObj().getPrice());
+                    it.putExtra("pfID", model.getObj().getPfID());
+                    it.putExtra("sex", "2");
+                    startActivity(it);
+                }
                 break;
             case R.id.activity_details_of_friends_together_ll_share:
                 new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
@@ -240,9 +243,31 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         }
     }
     public boolean isRealName(){
-        boolean b = false;
-//        ViseHttp.POST(NetConfig.isRealNameUrl)
-//                .addParam("app_key",getToken(NetConfig.BaseUrl+))
+        ViseHttp.POST(NetConfig.isRealNameUrl)
+                .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.isRealNameUrl))
+                .addParam("userID",spImp.getUID())
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        IsRealNameModel model = new Gson().fromJson(data,IsRealNameModel.class);
+                        if (model.getCode()==200){
+                            if(model.getObj().getOk().equals("2")){
+                                b = true;
+                            } else if(model.getObj().getOk().equals("1")){
+                                toToast(DetailsOfFriendTogetherActivity.this,"请于身份审核通过后报名");
+                            } else {
+                                startActivity(new Intent(DetailsOfFriendTogetherActivity.this,RealNameActivity.class));
+                            }
+                        } else {
+                            toToast(DetailsOfFriendTogetherActivity.this,model.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
         return b;
     }
     @Override
