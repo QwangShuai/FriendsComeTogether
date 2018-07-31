@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.DetailsRememberModel;
 
 import java.util.List;
 
@@ -20,9 +22,9 @@ import java.util.List;
 public class DetailsOfFriendsUpDataAdapter extends RecyclerView.Adapter<DetailsOfFriendsUpDataAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<DetailsRememberModel.ObjBean.RenewBean.PicBean> data;
 
-    public DetailsOfFriendsUpDataAdapter(List<String> data) {
+    public DetailsOfFriendsUpDataAdapter(List<DetailsRememberModel.ObjBean.RenewBean.PicBean> data) {
         this.data = data;
     }
 
@@ -37,7 +39,10 @@ public class DetailsOfFriendsUpDataAdapter extends RecyclerView.Adapter<DetailsO
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Picasso.with(context).load(data.get(position)).into(holder.ivTitle);
+        Picasso.with(context).load(data.get(position).getFfpurl()).into(holder.ivTitle);
+        holder.tvContent.setText(data.get(position).getFfptitle());
+        Picasso.with(context).load(data.get(position).getUserpic()).into(holder.ivAvatar);
+        holder.tvNickname.setText(data.get(position).getUsername());
     }
 
     @Override
@@ -48,10 +53,16 @@ public class DetailsOfFriendsUpDataAdapter extends RecyclerView.Adapter<DetailsO
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivTitle;
+        private TextView tvContent;
+        private ImageView ivAvatar;
+        private TextView tvNickname;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivTitle = itemView.findViewById(R.id.activity_details_of_friends_rv_iv_title);
+            tvContent = itemView.findViewById(R.id.activity_details_of_friends_rv_rv_tv_content);
+            ivAvatar = itemView.findViewById(R.id.activity_details_of_friends_rv_rv_iv_avatar);
+            tvNickname = itemView.findViewById(R.id.activity_details_of_friends_rv_rv_tv_nickname);
         }
     }
 

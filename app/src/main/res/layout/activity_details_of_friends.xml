@@ -256,6 +256,7 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
+                            android:id="@+id/activity_details_of_friends_iv_focus"
                             android:layout_gravity="center_vertical"
                             android:src="@mipmap/focus_on_empty_y"
                             android:layout_width="26px"
@@ -286,6 +287,7 @@
                         android:layout_height="match_parent" />
 
                     <TextView
+                        android:id="@+id/activity_details_of_friends_tv_level"
                         android:layout_marginRight="19px"
                         android:layout_centerVertical="true"
                         android:textSize="18px"
@@ -424,40 +426,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/activity_details_of_friends_tv_trip_title"
-                    android:layout_marginLeft="40px"
-                    android:layout_marginTop="20px"
-                    android:textSize="30px"
-                    android:textColor="#333333"
-                    android:text="玉龙雪山 景色美呆了"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
 
-                <TextView
-                    android:id="@+id/activity_details_of_friends_tv_trip_content"
-                    android:layout_marginRight="40px"
-                    android:layout_marginBottom="30px"
-                    android:layout_marginLeft="40px"
-                    android:layout_marginTop="20px"
-                    android:textColor="#333333"
-                    android:textSize="28px"
-                    android:text="玉龙雪山为云南省丽江市境内雪山群，地处东经100°4′2″～100°16′30″、北纬27°3′2″～27°18′57″之间，在丽江北面约15千米处，全长75千米，是北半球最近赤道终年积雪的山脉，隔江西与中甸雪山、东与绵绵山相并列，北自三江口，向南延伸到北纬27°，如扇面向古城展开。全山的13座山峰由南向北纵向排列，主峰扇子陡最高处海拔5596米，终年积雪，发育有亚欧大陆距离赤道最近的温带海洋性冰川。 玉龙雪山在纳西语中被称为“欧鲁”，意为银色的山岩。其十三座雪峰连绵不绝，宛若一条“巨龙”腾越飞舞，故称为“玉龙”。又因其岩性主要为石灰岩与玄武岩，黑白分明，所以又称为“黑白雪山”。是纳西人的神山，传说纳西族保护神“三多”的化身。 1984年，云南玉龙雪山省级自然保护区建立。2001年，玉龙雪山被评为4A级旅游景区，2007年5月成为全国首批5A级旅游景区。"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/activity_details_of_friends_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/activity_details_of_friends_rv_intercalation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
 
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/activity_details_of_friends_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
 
             <LinearLayout
                 android:background="@color/white_ffffff"
@@ -536,33 +527,6 @@
                         android:textColor="#404040"
                         android:textSize="20px"
                         android:text="分享"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/activity_details_of_friends_ll_focus"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/activity_details_of_friends_iv_focus"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/details_focus_on_b"
-                        android:layout_width="36px"
-                        android:layout_height="36px" />
-
-                    <TextView
-                        android:id="@+id/activity_details_of_friends_tv_focus"
-                        android:layout_marginTop="6px"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="#404040"
-                        android:textSize="20px"
-                        android:text="关注"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

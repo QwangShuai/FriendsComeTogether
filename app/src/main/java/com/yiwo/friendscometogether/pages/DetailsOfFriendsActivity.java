@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -22,10 +23,17 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.adapter.DetailsOfFriendsIntercalation1Adapter;
+import com.yiwo.friendscometogether.adapter.DetailsOfFriendsIntercalationAdapter;
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.DetailsRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +56,6 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     LinearLayout llComment;
     @BindView(R.id.activity_details_of_friends_ll_share)
     LinearLayout llShare;
-    @BindView(R.id.activity_details_of_friends_ll_focus)
-    LinearLayout llFocus;
-    @BindView(R.id.activity_details_of_friends_iv_focus)
-    ImageView ivFocus;
-    @BindView(R.id.activity_details_of_friends_tv_focus)
-    TextView tvFocus;
     @BindView(R.id.activity_details_of_friends_ll_praise)
     LinearLayout llPraise;
     @BindView(R.id.activity_details_of_friends_iv_praise)
@@ -68,12 +70,51 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     TextView tvStar;
     @BindView(R.id.activity_details_of_friends_ll_person_content)
     LinearLayout llPersonContent;
+    @BindView(R.id.activity_details_of_friends_tv_title)
+    TextView tvTitle;
+    @BindView(R.id.activity_details_of_friends_tv_look_num)
+    TextView tvLookNum;
+    @BindView(R.id.activity_details_of_friends_tv_focus_num)
+    TextView tvFocusNum;
+    @BindView(R.id.activity_details_of_friends_tv_start_time)
+    TextView tvStartTime;
+    @BindView(R.id.activity_details_of_friends_tv_end_time)
+    TextView tvEndTime;
+    @BindView(R.id.activity_details_of_friends_tv_price)
+    TextView tvPrice;
+    @BindView(R.id.activity_details_of_friends_tv_city)
+    TextView tvCity;
+    @BindView(R.id.activity_details_of_friends_iv_avatar)
+    ImageView ivAvatar;
+    @BindView(R.id.activity_details_of_friends_tv_nickname)
+    TextView tvNickname;
+    @BindView(R.id.activity_details_of_friends_tv_level)
+    TextView tvLevel;
+    @BindView(R.id.activity_details_of_friends_tv_related_activity)
+    TextView tvRelatedActive;
+    @BindView(R.id.activity_details_of_friends_tv_related_c_time)
+    TextView tvRelatedCTime;
+    @BindView(R.id.activity_details_of_friends_tv_related_look_num)
+    TextView tvRelatedLookNum;
+    @BindView(R.id.activity_details_of_friends_tv_related_comment_num)
+    TextView tvRelatedCommentNum;
+    @BindView(R.id.activity_details_of_friends_iv_activity_title)
+    ImageView ivActiveTitle;
+    @BindView(R.id.activity_details_of_friends_rv_intercalation)
+    RecyclerView recyclerView1;
+    @BindView(R.id.activity_details_of_friends_iv_focus)
+    ImageView ivFocus;
 
-    private DetailsOfFriendsUpDataAdapter adapter;
+    private DetailsOfFriendsIntercalationAdapter adapter;
+    private DetailsOfFriendsIntercalation1Adapter adapter1;
 
     private boolean isFocus = false;
     private boolean isPraise = false;
     private boolean isStar = false;
+
+    private SpImp spImp;
+    private String uid = "";
+    private String fmID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +123,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
+        spImp = new SpImp(DetailsOfFriendsActivity. this);
 
         initData();
 
@@ -89,16 +131,93 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
     private void initData() {
 
+        uid = spImp.getUID();
+
         Intent intent = getIntent();
         String fmid = intent.getStringExtra("fmid");
 
-        ViseHttp.POST(NetConfig.articleContentUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleContentUrl))
+        ViseHttp.POST(NetConfig.detailsOfFriendsUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.detailsOfFriendsUrl))
                 .addParam("id", fmid)
+                .addParam("uid", uid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        Log.e("222", data);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                DetailsRememberModel model = gson.fromJson(data, DetailsRememberModel.class);
+                                fmID = model.getObj().getContent().getFmID();
+                                Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getContent().getFmpic()).into(ivTitle);
+                                tvTitle.setText(model.getObj().getContent().getFmtitle());
+                                tvLookNum.setText("浏览: "+model.getObj().getContent().getFmlook());
+                                tvFocusNum.setText("收藏: "+model.getObj().getContent().getFmfavorite());
+                                tvStartTime.setText("开始时间: "+model.getObj().getContent().getFmgotime());
+                                tvEndTime.setText("结束时间: "+model.getObj().getContent().getFmendtime());
+                                tvPrice.setText("人均费用: ¥"+model.getObj().getContent().getPercapitacost());
+                                tvCity.setText("活动地点: "+model.getObj().getContent().getFmaddress());
+                                Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getContent().getUserpic()).into(ivAvatar);
+                                tvNickname.setText(model.getObj().getContent().getUsername());
+                                tvLevel.setText("LV"+model.getObj().getContent().getUsergrade());
+                                tvRelatedActive.setText(model.getObj().getActivityInfo().getPfcontent());
+                                tvRelatedCTime.setText(model.getObj().getActivityInfo().getPftime());
+                                tvRelatedLookNum.setText(model.getObj().getActivityInfo().getPflook());
+                                tvRelatedCommentNum.setText(model.getObj().getActivityInfo().getPfcomment());
+                                Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getActivityInfo().getPfpic()).into(ivActiveTitle);
+                                LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendsActivity.this) {
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                adapter = new DetailsOfFriendsIntercalationAdapter(model.getObj().getRenew());
+                                recyclerView.setAdapter(adapter);
+                                LinearLayoutManager manager1 = new LinearLayoutManager(DetailsOfFriendsActivity.this) {
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                manager1.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView1.setLayoutManager(manager1);
+                                adapter1 = new DetailsOfFriendsIntercalation1Adapter(model.getObj().getInserList());
+                                recyclerView1.setAdapter(adapter1);
+
+                                if(model.getObj().getContent().getGive() == 0){
+                                    isPraise = false;
+                                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_praise_b).into(ivPraise);
+                                    tvPraise.setTextColor(Color.parseColor("#333333"));
+                                }else {
+                                    isPraise = true;
+                                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.praise_y).into(ivPraise);
+                                    tvPraise.setTextColor(Color.parseColor("#FF9D00"));
+                                }
+
+                                if(model.getObj().getContent().getCollection() == 0){
+                                    isStar = false;
+                                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_star_b).into(ivStar);
+                                    tvStar.setTextColor(Color.parseColor("#333333"));
+                                }else {
+                                    isStar = true;
+                                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.star_y).into(ivStar);
+                                    tvStar.setTextColor(Color.parseColor("#FF9D00"));
+                                }
+
+                                if(model.getObj().getContent().getFollow() == 0){
+                                    isFocus = false;
+                                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_focus_on_b).into(ivFocus);
+                                }else {
+                                    isFocus = true;
+                                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.focus_on_y).into(ivFocus);
+                                }
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -107,27 +226,10 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                     }
                 });
 
-        Picasso.with(DetailsOfFriendsActivity.this).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg").into(ivTitle);
-
-        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendsActivity.this) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        List<String> data = new ArrayList<>();
-        data.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg");
-        data.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739807163&di=f3875854f37cf9d8f5261998f229bd03&imgtype=0&src=http%3A%2F%2Fattachments.gfan.com%2Fforum%2Fattachments2%2Fday_100825%2F10082513558ebc5978899bb24c.jpg");
-        data.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739807163&di=3be9c2032fcb53a8764c5d5a1409c58a&imgtype=0&src=http%3A%2F%2Fattachments.gfan.com%2Fforum%2F201612%2F12%2F22290422z010jrivvoloid.jpg");
-        adapter = new DetailsOfFriendsUpDataAdapter(data);
-        recyclerView.setAdapter(adapter);
-
     }
 
     @OnClick({R.id.activity_details_of_friends_rl_back, R.id.activity_details_of_friends_ll_intercalation, R.id.activity_details_of_friends_ll_comment,
-            R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_focus, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star,
+            R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star,
             R.id.activity_details_of_friends_ll_person_content})
     public void onClick(View view) {
         Intent intent = new Intent();
@@ -152,17 +254,6 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                         "就是不快乐","",share_media);
                             }
                         }).open();
-                break;
-            case R.id.activity_details_of_friends_ll_focus:
-                if(!isFocus){
-                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.focus_on_y).into(ivFocus);
-                    tvFocus.setTextColor(Color.parseColor("#FF9D00"));
-                    isFocus = !isFocus;
-                }else {
-                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_focus_on_b).into(ivFocus);
-                    tvFocus.setTextColor(Color.parseColor("#333333"));
-                    isFocus = !isFocus;
-                }
                 break;
             case R.id.activity_details_of_friends_ll_praise:
                 if(!isPraise){
