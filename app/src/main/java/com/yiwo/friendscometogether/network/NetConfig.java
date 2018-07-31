@@ -71,4 +71,10 @@ public class NetConfig {
     public static String addContentFriendTogetherUrl = "action/ac_activity/add_travel_info";
     //是否实名认证
     public static String isRealNameUrl = "action/ac_order/check_usercodeok";
+    //相册列表
+    public static String myPictureListUrl = "action/ac_user/AlbumList";
+    //相册上传图片
+    public static String myPictureUploadUrl = "action/ac_user/Photoalbum";
+    //相册删除图片
+    public static String myPictureDeleteUrl = "action/ac_user/deleteAlbum";
 }
