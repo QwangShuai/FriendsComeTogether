@@ -50,6 +50,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.vise.utils.io.IOUtil.copy;
 
@@ -193,31 +200,60 @@ public class CreateIntercalationActivity extends BaseActivity {
             }
         }
 
-        File imgFile = new File(mList.get(0).getPic());
-        Log.i("123321",mList.get(0).getPic());
-        Map<String,File> map = new HashMap<>();
-        map.put("images[]",imgFile);
-        Log.i("3333",imgFile.toString());
-        ViseHttp.UPLOAD(NetConfig.userRenewTheArticle)
-                .addHeader("Content-Type","multipart/form-data")
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
-                .addParam("title", etTitle.getText().toString())
-                .addParam("content", etContent.getText().toString())
-                .addParam("id", id)
-                .addParam("uid", uid)
-                .addParam("describe", "都是你的南沙")
-                .addFiles(map)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        Log.e("222", data);
-                    }
+        Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
+            @Override
+            public void subscribe(ObservableEmitter<Map<String, File>> e) throws Exception {
+                Map<String, File> map = new HashMap<>();
+                for(int i = 0; i<mList.size(); i++){
+                    map.put("images["+i+"]", new File(mList.get(i).getPic()));
+                }
+                e.onNext(map);
+            }
+        });
+        Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
 
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
+            }
 
-                    }
-                });
+            @Override
+            public void onNext(Map<String, File> value) {
+                ViseHttp.UPLOAD(NetConfig.userRenewTheArticle)
+                        .addHeader("Content-Type","multipart/form-data")
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
+                        .addParam("title", etTitle.getText().toString())
+                        .addParam("content", etContent.getText().toString())
+                        .addParam("id", id)
+                        .addParam("uid", uid)
+                        .addParam("describe", "都是你的南沙|1||")
+                        .addFiles(value)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("222", data);
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.observeOn(Schedulers.newThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
 
 //        ViseHttp.POST(NetConfig.userRenewTheArticle)
 //                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
