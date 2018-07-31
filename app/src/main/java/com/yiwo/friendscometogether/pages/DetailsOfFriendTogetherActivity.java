@@ -239,7 +239,12 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 break;
         }
     }
-
+    public boolean isRealName(){
+        boolean b = false;
+//        ViseHttp.POST(NetConfig.isRealNameUrl)
+//                .addParam("app_key",getToken(NetConfig.BaseUrl+))
+        return b;
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

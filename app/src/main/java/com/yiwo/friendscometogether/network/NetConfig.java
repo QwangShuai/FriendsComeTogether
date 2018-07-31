@@ -69,4 +69,6 @@ public class NetConfig {
     public static String focusOnToFriendTogetherUrl = "action/ac_activity/follow_attention";
     //补充内容
     public static String addContentFriendTogetherUrl = "action/ac_activity/add_travel_info";
+    //是否实名认证
+    public static String isRealNameUrl = "action/ac_order/check_usercodeok";
 }
