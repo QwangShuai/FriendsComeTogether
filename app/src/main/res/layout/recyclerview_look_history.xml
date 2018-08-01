@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/activity_look_history_rv_tv_title"
                 android:lines="4"
                 android:ellipsize="end"
                 android:layout_marginTop="6px"

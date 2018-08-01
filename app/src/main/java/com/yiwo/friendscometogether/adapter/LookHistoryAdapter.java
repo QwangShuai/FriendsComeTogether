@@ -5,9 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.LookHistoryModel;
 
 import java.util.List;
 
@@ -18,9 +22,9 @@ import java.util.List;
 public class LookHistoryAdapter extends RecyclerView.Adapter<LookHistoryAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<LookHistoryModel.ObjBean> data;
 
-    public LookHistoryAdapter(List<String> data) {
+    public LookHistoryAdapter(List<LookHistoryModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -35,7 +39,9 @@ public class LookHistoryAdapter extends RecyclerView.Adapter<LookHistoryAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Picasso.with(context).load(data.get(position).getPic_url()).into(holder.ivTitle);
+        holder.tvTime.setText(data.get(position).getLook_time());
+        holder.tvTitle.setText(data.get(position).getTitle());
     }
 
     @Override
@@ -45,9 +51,15 @@ public class LookHistoryAdapter extends RecyclerView.Adapter<LookHistoryAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        private ImageView ivTitle;
+        private TextView tvTime;
+        private TextView tvTitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ivTitle = itemView.findViewById(R.id.activity_look_history_rv_iv);
+            tvTime = itemView.findViewById(R.id.activity_look_history_rv_tv_time);
+            tvTitle = itemView.findViewById(R.id.activity_look_history_rv_tv_title);
         }
     }
 

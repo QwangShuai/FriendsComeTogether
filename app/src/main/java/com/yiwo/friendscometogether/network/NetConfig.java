@@ -79,4 +79,8 @@ public class NetConfig {
     public static String myPictureDeleteUrl = "action/ac_user/deleteAlbum";
     //文章详情
     public static String detailsOfFriendsUrl = "action/ac_article/ArticleContent";
+    //浏览历史
+    public static String lookHistoryUrl = "action/ac_article/BrowsEhistory";
+    //删除浏览历史
+    public static String deleteLookHistoryUrl = "action/ac_article/deletehistory";
 }

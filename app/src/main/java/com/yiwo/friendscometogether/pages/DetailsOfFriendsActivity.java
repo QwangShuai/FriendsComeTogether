@@ -259,11 +259,6 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 if(!isPraise){
                     Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.praise_y).into(ivPraise);
                     tvPraise.setTextColor(Color.parseColor("#FF9D00"));
-                    isPraise = !isPraise;
-                }else {
-                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_praise_b).into(ivPraise);
-                    tvPraise.setTextColor(Color.parseColor("#333333"));
-                    isPraise = !isPraise;
                 }
                 break;
             case R.id.activity_details_of_friends_ll_star:
