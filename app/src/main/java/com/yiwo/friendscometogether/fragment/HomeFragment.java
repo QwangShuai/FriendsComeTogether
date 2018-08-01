@@ -48,9 +48,6 @@ import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.UserUtils;
-import com.yiwo.friendscometogether.viewpagercard.CardFragmentPagerAdapter;
-import com.yiwo.friendscometogether.viewpagercard.CardItem;
-import com.yiwo.friendscometogether.viewpagercard.CardPagerAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -89,9 +86,6 @@ public class HomeFragment extends BaseFragment {
     TextView cityTv;
     @BindView(R.id.searchLl)
     LinearLayout searchLl;
-    private CardPagerAdapter mCardAdapter;
-    private CardFragmentPagerAdapter mFragmentCardAdapter;
-    List<CardItem> listCard;
     private LocationManager locationManager;
     private double latitude = 0.0;
     private double longitude = 0.0;

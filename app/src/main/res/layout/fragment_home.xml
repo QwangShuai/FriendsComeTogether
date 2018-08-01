@@ -124,7 +124,7 @@
                 android:descendantFocusability="blocksDescendants">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/home_hotRv"
+                    android:id="@+id/home_hotVideoRv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
@@ -134,7 +134,7 @@
                 android:descendantFocusability="blocksDescendants">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/home_hotVideoRv"
+                    android:id="@+id/home_hotRv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </RelativeLayout>

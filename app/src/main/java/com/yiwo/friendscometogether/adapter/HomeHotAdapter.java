@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.stone.pile.libs.PileLayout;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
@@ -27,8 +26,6 @@ import java.util.List;
 public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHolder> {
     private Context context;
     private List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data;
-    View v;
-    PileLayout videoPl;
 //    private List<HomeHotFriendsRememberModel.ObjBean.VideoBean> list;
     public HomeHotAdapter(List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data){
         this.data = data;
@@ -37,8 +34,6 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     @Override
     public HomeHotAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_home_hot, parent, false);
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item_pilelayout, parent, false);
-        videoPl =(PileLayout) v.findViewById(R.id.pileLayout);
         ScreenAdapterTools.getInstance().loadView(view);
         HomeHotAdapter.ViewHolder holder = new HomeHotAdapter.ViewHolder(view);
         return holder;
