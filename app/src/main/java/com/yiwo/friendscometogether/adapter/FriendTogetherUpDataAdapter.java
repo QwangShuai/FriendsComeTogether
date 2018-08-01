@@ -136,8 +136,13 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             }
         } else {
             for (int i = 0; i < 8; i++) {
-                Picasso.with(context).load(data.get(position).getAll_u_pic().get(i)).into(iv);
-                holder.vessel.addView(iv);
+                if(!StringUtils.isEmpty(data.get(position).getAll_u_pic().get(i))){
+                    Picasso.with(context).load(data.get(position).getAll_u_pic().get(i)).into(iv);
+                }
+                if (iv.getParent() != null) {
+                    ((ViewGroup) iv.getParent()).removeView(iv);
+                    holder.vessel.addView(iv);
+                }
             }
         }
     }

@@ -154,7 +154,7 @@ public class HomeFragment extends BaseFragment {
         adapter = new HomeHotAdapter(data);
         home_hotRv.setAdapter(adapter);
     }
-    public void initVideoList(List<HomeHotFriendsRememberModel.ObjBean.VideoBean> data) {
+    public void initVideoList(final List<HomeHotFriendsRememberModel.ObjBean.VideoBean> data) {
         LinearLayoutManager manager = new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
@@ -168,7 +168,7 @@ public class HomeFragment extends BaseFragment {
         ScalableCardHelper cardHelper = new ScalableCardHelper(new ScalableCardHelper.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-
+                toToast(getContext(),data.get(position).getVurl());
             }
         });
         cardHelper.attachToRecyclerView(home_hotVideoRv);

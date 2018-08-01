@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,10 @@ import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
+import com.yiwo.friendscometogether.pages.LoginActivity;
+import com.yiwo.friendscometogether.sp.SpImp;
 
 import org.w3c.dom.Text;
 
@@ -26,6 +31,7 @@ import java.util.List;
 public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHolder> {
     private Context context;
     private List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data;
+    SpImp spImp;
 //    private List<HomeHotFriendsRememberModel.ObjBean.VideoBean> list;
     public HomeHotAdapter(List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data){
         this.data = data;
@@ -34,13 +40,15 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     @Override
     public HomeHotAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_home_hot, parent, false);
+        this.context = parent.getContext();
+        spImp = new SpImp(parent.getContext());
         ScreenAdapterTools.getInstance().loadView(view);
         HomeHotAdapter.ViewHolder holder = new HomeHotAdapter.ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 //        if(data.get(position).getVideo().size()==0){
             Picasso.with(context).load(data.get(position).getFmpic()).into(holder.titleIv);
             holder.titleTv.setText(data.get(position).getFmtitle());
@@ -51,6 +59,19 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             holder.viewsTv.setText(data.get(position).getFmlook());
             holder.messageTv.setText(data.get(position).getFmcomment());
             holder.nameTv.setText(data.get(position).getUsername());
+            holder.childrenLl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(spImp.getUID().equals("0")){
+                        context.startActivity(new Intent(context, LoginActivity.class));
+                    } else {
+                        Intent intent = new Intent();
+                        intent.setClass(context, DetailsOfFriendsActivity.class);
+                        intent.putExtra("fmid", data.get(position).getFmID());
+                        context.startActivity(intent);
+                    }
+                }
+            });
 //        } else {
 //            list = data.get(position).getVideo();
 //            holder.childrenLl.setVisibility(View.GONE);

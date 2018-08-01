@@ -14,11 +14,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.Paymodel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.network.UMConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
@@ -42,6 +49,8 @@ public class ApplyActivity extends BaseActivity {
     EditText apply_age_et;
     @BindView(R.id.apply_marriage_et)
     EditText apply_marriage_et;
+    @BindView(R.id.apply_num_et)
+    EditText apply_num_et;
     @BindView(R.id.apply_time_tv)
     TextView apply_time_tv;
     @BindView(R.id.apply_cost_tv)
@@ -61,12 +70,13 @@ public class ApplyActivity extends BaseActivity {
     private String pfID ="0";
     private String if_pay="0";
     SpImp spImp;
+    private IWXAPI api;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
-
+        api = WXAPIFactory.createWXAPI(this, null);
         ButterKnife.bind(this);
         spImp =new SpImp(ApplyActivity.this);
         getShowView();
@@ -103,11 +113,7 @@ public class ApplyActivity extends BaseActivity {
                 singleChoiceDialog.show();
                 break;
             case R.id.apply_btn:
-                if(if_pay.equals(2)){
-
-                } else {
-
-                }
+                apply();
                 break;
         }
 
@@ -174,10 +180,45 @@ public class ApplyActivity extends BaseActivity {
         } else if(StringUtils.isEmpty(apply_marriage_et.getText().toString())){
             toast = "婚姻状况为空";
         } else {
-//            ViseHttp.POST(NetConfig.applyActivityUrl)
-//                    .addParam("user_id",user_id)
-//                    .addParam("")
+            String num ="1";
+            if(StringUtils.isEmpty(apply_num_et.getText().toString())){
+                num = apply_num_et.getText().toString();
+            }
+            ViseHttp.POST(NetConfig.applyActivityUrl)
+                    .addParam("user_id",user_id)
+                    .addParam("num",num)
+                    .addParam("pfid",pfID)
+                    .addParam("need_paytype",payState+"")
+                    .addParam("join_age",apply_age_et.getText().toString())
+                    .addParam("join_marry",apply_marriage_et.getText().toString())
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String data) {
+                            Log.i("123654",data);
+                            Paymodel paymodel = new Gson().fromJson(data,Paymodel.class);
+                            wxPay(paymodel.getObj());
+                        }
+                    });
+
         }
        toToast(ApplyActivity.this,toast);
+    }
+    public void wxPay(Paymodel.ObjBean model){
+        api.registerApp(UMConfig.WECHAT_APPID);
+        PayReq req = new PayReq();
+        req.appId = model.getAppid();
+        req.partnerId = model.getAppid();
+        req.prepayId = model.getPrepayid();
+        req.nonceStr = model.getNoncestr();
+        req.timeStamp = model.getTimestamp()+"";
+        req.packageValue = model.getPackageX();
+        req.sign = model.getSign();
+        req.extData = "app data";
+        api.sendReq(req);
     }
 }

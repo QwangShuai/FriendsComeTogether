@@ -20,6 +20,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wxpay_entry);
         api = WXAPIFactory.createWXAPI(this, UMConfig.WECHAT_APPID);
+        api.registerApp(UMConfig.WECHAT_APPID);
         api.handleIntent(getIntent(), this);
     }
 
@@ -46,5 +47,6 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             case -2:
                 break;
         }
+        finish();
     }
 }

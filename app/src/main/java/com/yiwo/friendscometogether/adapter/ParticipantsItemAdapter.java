@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.FriendsTogetherDetailsModel;
+import com.yiwo.friendscometogether.utils.StringUtils;
 
 import java.util.List;
 
@@ -38,7 +39,9 @@ public class ParticipantsItemAdapter extends RecyclerView.Adapter<ParticipantsIt
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if(data.size()!=0){
-            Picasso.with(context).load(data.get(position).getUserpic()).into(holder.headIv);
+            if(!StringUtils.isEmpty(data.get(position).getUserpic())){
+                Picasso.with(context).load(data.get(position).getUserpic()).into(holder.headIv);
+            }
             holder.nicknameTv.setText(data.get(position).getUsername());
             if(data.get(position).getNum().equals("1")){
                 holder.numTv.setVisibility(View.INVISIBLE);

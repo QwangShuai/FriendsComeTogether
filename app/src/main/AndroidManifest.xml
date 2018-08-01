@@ -115,7 +115,17 @@
         <activity android:name=".pages.InsertIntercalationActivity" />
         <activity android:name=".pages.OtherInformationActivity" />
         <activity android:name=".pages.FriendTogetherAddContentActivity" />
-        <activity android:name=".wxapi.WXPayEntryActivity"></activity>
+        <activity android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="wx77762a8eab365cf1"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
