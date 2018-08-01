@@ -83,4 +83,8 @@ public class NetConfig {
     public static String lookHistoryUrl = "action/ac_article/BrowsEhistory";
     //删除浏览历史
     public static String deleteLookHistoryUrl = "action/ac_article/deletehistory";
+    //文章点赞
+    public static String articlePraiseUrl = "action/ac_article/Give";
+    //文章收藏
+    public static String articleCollectionUrl = "action/ac_article/Collection";
 }
