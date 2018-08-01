@@ -138,7 +138,7 @@ public class MyFragment extends BaseFragment {
                                     UserModel userModel = gson.fromJson(data, UserModel.class);
                                     Picasso.with(getContext()).load(userModel.getObj().getHeadeimg()).into(ivAvatar);
                                     tvNickname.setText("昵称: " + userModel.getObj().getUsername());
-                                    if(userModel.getObj().getSex().equals("男")){
+                                    if(userModel.getObj().getSex().equals("1")){
                                         Picasso.with(getContext()).load(R.mipmap.nan).into(ivSex);
                                     }else {
                                         Picasso.with(getContext()).load(R.mipmap.nv).into(ivSex);

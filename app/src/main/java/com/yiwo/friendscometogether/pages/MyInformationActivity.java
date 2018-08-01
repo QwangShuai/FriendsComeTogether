@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
@@ -25,6 +27,8 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.JsonBean;
+import com.yiwo.friendscometogether.model.MyPicListModel;
+import com.yiwo.friendscometogether.model.MyUploadPicModel;
 import com.yiwo.friendscometogether.model.UserModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -34,14 +38,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -101,6 +110,8 @@ public class MyInformationActivity extends BaseActivity {
     private SpImp spImp;
     private String uid = "";
 
+    private static final int REQUEST_CODE = 0x00000011;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,7 +169,7 @@ public class MyInformationActivity extends BaseActivity {
                                 UserModel userModel = gson.fromJson(data, UserModel.class);
                                 Picasso.with(MyInformationActivity.this).load(userModel.getObj().getHeadeimg()).into(ivAvatar);
                                 tvNickname.setText("昵称: " + userModel.getObj().getUsername());
-                                if(userModel.getObj().getSex().equals("男")){
+                                if(userModel.getObj().getSex().equals("1")){
                                     Picasso.with(MyInformationActivity.this).load(R.mipmap.nan).into(ivSex);
                                 }else {
                                     Picasso.with(MyInformationActivity.this).load(R.mipmap.nv).into(ivSex);
@@ -194,7 +205,8 @@ public class MyInformationActivity extends BaseActivity {
 
     private String yourChoice = "";
     @OnClick({R.id.activity_my_information_rl_back, R.id.activity_my_information_rl_sex, R.id.activity_my_information_rl_location, R.id.activity_my_information_rl_birthday,
-            R.id.activity_my_information_rl_register_time, R.id.activity_my_information_rl_is_single, R.id.activity_my_information_rl_real_name, R.id.activity_my_information_rl_save})
+            R.id.activity_my_information_rl_register_time, R.id.activity_my_information_rl_is_single, R.id.activity_my_information_rl_real_name, R.id.activity_my_information_rl_save,
+            R.id.activity_my_information_iv_avatar})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.activity_my_information_rl_back:
@@ -292,6 +304,80 @@ public class MyInformationActivity extends BaseActivity {
             case R.id.activity_my_information_rl_save:
                 onSave();
                 break;
+            case R.id.activity_my_information_iv_avatar:
+                //限数量的多选(比喻最多9张)
+                ImageSelector.builder()
+                        .useCamera(true) // 设置是否使用拍照
+                        .setSingle(true)  //设置是否单选
+                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+//                        .setSelected(selected) // 把已选的图片传入默认选中。
+                        .start(MyInformationActivity.this, REQUEST_CODE); // 打开相册
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && data != null) {
+            //获取选择器返回的数据
+            final List<String> list = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
+            Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
+                @Override
+                public void subscribe(ObservableEmitter<File> e) throws Exception {
+                    File file = new File(list.get(0));
+                    e.onNext(file);
+                }
+            });
+            Observer<File> observer = new Observer<File>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(File value) {
+
+                    ViseHttp.UPLOAD(NetConfig.userUploadHeaderUrl)
+                            .addHeader("Content-Type","multipart/form-data")
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userUploadHeaderUrl))
+                            .addParam("uid", uid)
+                            .addFile("images", value)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        Log.e("222", data);
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            toToast(MyInformationActivity.this, "头像上传成功");
+                                            Picasso.with(MyInformationActivity.this).load("file://"+list.get(0)).into(ivAvatar);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            };
+            observable.observeOn(Schedulers.newThread())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(observer);
         }
     }
 
@@ -300,7 +386,35 @@ public class MyInformationActivity extends BaseActivity {
      */
     private void onSave() {
 
+        ViseHttp.POST(NetConfig.saveUserInformationUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.saveUserInformationUrl))
+                .addParam("uid", uid)
+                .addParam("username", TextUtils.isEmpty(etUsername.getText().toString())?etUsername.getHint().toString():etUsername.getText().toString())
+                .addParam("usersex", tvSex.getText().toString().equals("男")?"1":"2")
+                .addParam("useraddress", tvLocation.getText().toString())
+                .addParam("userautograph", TextUtils.isEmpty(etSign.getText().toString())?etSign.getHint().toString():etSign.getText().toString())
+                .addParam("userbirthday", tvBirthday.getText().toString())
+                .addParam("usertime", tvRegister.getText().toString())
+                .addParam("usermarry", tvSingle.getText().toString().equals("是")?"1":"2")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                toToast(MyInformationActivity.this, "保存成功");
+                                onBackPressed();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 

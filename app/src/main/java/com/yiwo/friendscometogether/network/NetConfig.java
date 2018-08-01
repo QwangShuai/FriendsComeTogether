@@ -91,4 +91,6 @@ public class NetConfig {
     public static String saveUserInformationUrl = "action/ac_user/saveUserinfo";
     //用户上传头像
     public static String userUploadHeaderUrl = "action/ac_user/UploadSheader";
+    //实名认证
+    public static String realNameUrl = "action/ac_user/Realnameauthentication";
 }
