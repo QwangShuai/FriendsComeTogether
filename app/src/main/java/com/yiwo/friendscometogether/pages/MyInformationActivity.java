@@ -87,6 +87,8 @@ public class MyInformationActivity extends BaseActivity {
     TextView tvRealName;
     @BindView(R.id.activity_my_information_tv_level)
     TextView tvLevel;
+    @BindView(R.id.activity_my_information_rl_save)
+    RelativeLayout rlSave;
 
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
@@ -166,14 +168,14 @@ public class MyInformationActivity extends BaseActivity {
                                 }else {
                                     rlSignTeam.setVisibility(View.VISIBLE);
                                 }
-                                etUsername.setText(userModel.getObj().getUsername());
-                                tvSex.setText(userModel.getObj().getSex());
+                                etUsername.setHint(userModel.getObj().getUsername());
+                                tvSex.setText(userModel.getObj().getSex().equals("1")?"男":"女");
                                 tvLocation.setText(userModel.getObj().getUseraddress());
-                                etSign.setText(userModel.getObj().getUserautograph());
+                                etSign.setHint(userModel.getObj().getUserautograph());
                                 tvBirthday.setText(userModel.getObj().getUserbirthday());
                                 tvRegister.setText(userModel.getObj().getUsertime());
                                 tvRealName.setText(userModel.getObj().getUsercodeok());
-                                tvSingle.setText(userModel.getObj().getUsermarry());
+                                tvSingle.setText(userModel.getObj().getUsermarry().equals("1")?"是":"否");
                                 tvLevel.setText(userModel.getObj().getUsergrade());
                             }
                         } catch (JSONException e) {
@@ -192,7 +194,7 @@ public class MyInformationActivity extends BaseActivity {
 
     private String yourChoice = "";
     @OnClick({R.id.activity_my_information_rl_back, R.id.activity_my_information_rl_sex, R.id.activity_my_information_rl_location, R.id.activity_my_information_rl_birthday,
-            R.id.activity_my_information_rl_register_time, R.id.activity_my_information_rl_is_single, R.id.activity_my_information_rl_real_name})
+            R.id.activity_my_information_rl_register_time, R.id.activity_my_information_rl_is_single, R.id.activity_my_information_rl_real_name, R.id.activity_my_information_rl_save})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.activity_my_information_rl_back:
@@ -287,7 +289,19 @@ public class MyInformationActivity extends BaseActivity {
                 intent.setClass(MyInformationActivity.this, RealNameActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.activity_my_information_rl_save:
+                onSave();
+                break;
         }
+    }
+
+    /**
+     * 保存信息
+     */
+    private void onSave() {
+
+
+
     }
 
     /**
@@ -303,20 +317,20 @@ public class MyInformationActivity extends BaseActivity {
             String days;
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             } else {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             }
@@ -337,20 +351,20 @@ public class MyInformationActivity extends BaseActivity {
             String days;
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").append("0").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").append("0").
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             } else {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append("0").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("年").
-                            append(mMonth + 1).append("月").append(mDay).append("日").toString();
+                    days = new StringBuffer().append(mYear).append("-").
+                            append(mMonth + 1).append("-").append(mDay).append("").toString();
                 }
 
             }

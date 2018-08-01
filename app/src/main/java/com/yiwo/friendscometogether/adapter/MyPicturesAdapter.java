@@ -55,17 +55,17 @@ public class MyPicturesAdapter extends RecyclerView.Adapter<MyPicturesAdapter.Vi
             holder.rlAdd.setVisibility(View.GONE);
             holder.rlIv.setVisibility(View.VISIBLE);
             Picasso.with(context).load(data.get(position - 1).getUpicurl()).into(holder.iv);
+            holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onClick(2, position);
+                }
+            });
         }
         holder.rlAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onClick(1, position);
-            }
-        });
-        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onClick(2, position);
             }
         });
     }

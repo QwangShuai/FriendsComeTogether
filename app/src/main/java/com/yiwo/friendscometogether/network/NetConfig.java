@@ -87,4 +87,8 @@ public class NetConfig {
     public static String articlePraiseUrl = "action/ac_article/Give";
     //文章收藏
     public static String articleCollectionUrl = "action/ac_article/Collection";
+    //保存用户信息
+    public static String saveUserInformationUrl = "action/ac_user/saveUserinfo";
+    //用户上传头像
+    public static String userUploadHeaderUrl = "action/ac_user/UploadSheader";
 }

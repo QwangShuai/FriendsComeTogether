@@ -52,10 +52,12 @@ public class MyPicListModel {
          */
 
         private String uid;
-        private String userID;
         private String upicurl;
-        private String utime;
-        private String udel;
+
+        public ObjBean(String uid, String upicurl) {
+            this.uid = uid;
+            this.upicurl = upicurl;
+        }
 
         public String getUid() {
             return uid;
@@ -63,14 +65,6 @@ public class MyPicListModel {
 
         public void setUid(String uid) {
             this.uid = uid;
-        }
-
-        public String getUserID() {
-            return userID;
-        }
-
-        public void setUserID(String userID) {
-            this.userID = userID;
         }
 
         public String getUpicurl() {
@@ -81,20 +75,5 @@ public class MyPicListModel {
             this.upicurl = upicurl;
         }
 
-        public String getUtime() {
-            return utime;
-        }
-
-        public void setUtime(String utime) {
-            this.utime = utime;
-        }
-
-        public String getUdel() {
-            return udel;
-        }
-
-        public void setUdel(String udel) {
-            this.udel = udel;
-        }
     }
 }
