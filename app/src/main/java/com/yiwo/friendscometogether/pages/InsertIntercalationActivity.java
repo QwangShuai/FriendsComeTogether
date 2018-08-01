@@ -1,22 +1,35 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.donkingliang.imageselector.utils.ImageSelector;
+import com.google.gson.Gson;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.IntercalationAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.IntercalationLocationModel;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
+import com.yiwo.friendscometogether.model.UserLabelModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +54,8 @@ public class InsertIntercalationActivity extends BaseActivity {
     RelativeLayout rlComplete;
     @BindView(R.id.activity_insert_intercalation_rl_intercalation_location)
     RelativeLayout rlIntercalationLocation;
+    @BindView(R.id.activity_insert_intercalation_tv_select)
+    TextView tvSelect;
 
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
@@ -49,6 +64,10 @@ public class InsertIntercalationActivity extends BaseActivity {
 
     private String[] itemId;
     private String[] itemName;
+    private String yourChoiceId = "";
+    private String yourChoiceName = "";
+
+    private String fmID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +82,9 @@ public class InsertIntercalationActivity extends BaseActivity {
     }
 
     private void initData() {
+
+        Intent intent = getIntent();
+        fmID = intent.getStringExtra("id");
 
         mList = new ArrayList<>();
         GridLayoutManager manager = new GridLayoutManager(InsertIntercalationActivity.this, 3);
@@ -95,6 +117,36 @@ public class InsertIntercalationActivity extends BaseActivity {
         });
 
         etContent.addTextChangedListener(textContentWatcher);
+
+        ViseHttp.POST(NetConfig.intercalationLocationUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.intercalationLocationUrl))
+                .addParam("id", fmID)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.e("222", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                IntercalationLocationModel model = gson.fromJson(data, IntercalationLocationModel.class);
+                                itemId = new String[model.getObj().size()];
+                                itemName = new String[model.getObj().size()];
+                                for (int i = 0; i < model.getObj().size(); i++) {
+                                    itemId[i] = model.getObj().get(i).getFfID();
+                                    itemName[i] = model.getObj().get(i).getFftitle();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 
@@ -144,7 +196,32 @@ public class InsertIntercalationActivity extends BaseActivity {
                 complete();
                 break;
             case R.id.activity_insert_intercalation_rl_intercalation_location:
-
+                AlertDialog.Builder singleChoiceDialog =
+                        new AlertDialog.Builder(InsertIntercalationActivity.this);
+                singleChoiceDialog.setTitle("请选择标签");
+                // 第二个参数是默认选项，此处设置为0
+                singleChoiceDialog.setSingleChoiceItems(itemName, 0,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                yourChoiceName = itemName[which];
+                                yourChoiceId = itemId[which];
+                            }
+                        });
+                singleChoiceDialog.setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (TextUtils.isEmpty(yourChoiceName)) {
+                                    tvSelect.setText(itemName[0]);
+                                    yourChoiceId = itemId[0];
+                                } else {
+                                    tvSelect.setText(yourChoiceName);
+                                    yourChoiceName = "";
+                                }
+                            }
+                        });
+                singleChoiceDialog.show();
                 break;
         }
     }

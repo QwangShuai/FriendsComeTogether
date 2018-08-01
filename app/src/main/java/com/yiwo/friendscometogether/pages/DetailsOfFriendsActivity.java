@@ -239,6 +239,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 break;
             case R.id.activity_details_of_friends_ll_intercalation:
                 intent.setClass(DetailsOfFriendsActivity.this, InsertIntercalationActivity.class);
+                intent.putExtra("id", fmID);
                 startActivity(intent);
                 break;
             case R.id.activity_details_of_friends_ll_comment:

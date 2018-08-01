@@ -153,6 +153,7 @@
             android:layout_height="24px" />
 
         <TextView
+            android:id="@+id/activity_insert_intercalation_tv_select"
             android:layout_marginRight="10px"
             android:layout_toLeftOf="@+id/activity_insert_intercalation_iv_right"
             android:layout_centerVertical="true"

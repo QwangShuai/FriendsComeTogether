@@ -64,7 +64,6 @@ public class MyIntercalationAdapter extends RecyclerView.Adapter<MyIntercalation
         private TextView tvActivity;
         private TextView tvTime;
         private LinearLayout llDelete;
-        private LinearLayout llEditor;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -76,7 +75,6 @@ public class MyIntercalationAdapter extends RecyclerView.Adapter<MyIntercalation
             tvActivity = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_activity);
             tvTime = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_time);
             llDelete = itemView.findViewById(R.id.activity_my_intercalation_rv_ll_delete);
-            llEditor = itemView.findViewById(R.id.activity_my_intercalation_rv_ll_editor);
         }
     }
 
