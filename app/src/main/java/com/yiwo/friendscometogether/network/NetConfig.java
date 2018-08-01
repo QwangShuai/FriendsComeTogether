@@ -93,4 +93,6 @@ public class NetConfig {
     public static String userUploadHeaderUrl = "action/ac_user/UploadSheader";
     //实名认证
     public static String realNameUrl = "action/ac_user/Realnameauthentication";
+    //删除收藏
+    public static String deleteCollectionUrl = "action/ac_user/deletecollection";
 }

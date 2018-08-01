@@ -259,6 +259,28 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 if(!isPraise){
                     Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.praise_y).into(ivPraise);
                     tvPraise.setTextColor(Color.parseColor("#FF9D00"));
+                    ViseHttp.POST(NetConfig.articlePraiseUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articlePraiseUrl))
+                            .addParam("id", fmID)
+                            .addParam("uid", uid)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            toToast(DetailsOfFriendsActivity.this, "点赞成功");
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
                 }
                 break;
             case R.id.activity_details_of_friends_ll_star:
@@ -266,10 +288,56 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                     Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.star_y).into(ivStar);
                     tvStar.setTextColor(Color.parseColor("#FF9D00"));
                     isStar = !isStar;
+                    ViseHttp.POST(NetConfig.articleCollectionUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleCollectionUrl))
+                            .addParam("id", fmID)
+                            .addParam("uid", uid)
+                            .addParam("type", "0")
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            toToast(DetailsOfFriendsActivity.this, "收藏成功");
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
                 }else {
                     Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_star_b).into(ivStar);
                     tvStar.setTextColor(Color.parseColor("#333333"));
                     isStar = !isStar;
+                    ViseHttp.POST(NetConfig.articleCollectionUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleCollectionUrl))
+                            .addParam("id", fmID)
+                            .addParam("uid", uid)
+                            .addParam("type", "1")
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            toToast(DetailsOfFriendsActivity.this, "取消收藏成功");
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
                 }
                 break;
             case R.id.activity_details_of_friends_ll_person_content:
