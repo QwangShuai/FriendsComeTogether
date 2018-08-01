@@ -211,10 +211,10 @@ public class ApplyActivity extends BaseActivity {
     public void wxPay(Paymodel.ObjBean model){
         api.registerApp(UMConfig.WECHAT_APPID);
         PayReq req = new PayReq();
-        req.appId = model.getAppid();
-        req.partnerId = model.getAppid();
-        req.prepayId = model.getPrepayid();
-        req.nonceStr = model.getNoncestr();
+        req.appId = model.getAppId();
+        req.partnerId = model.getPartnerId();
+        req.prepayId = model.getPrepayId();
+        req.nonceStr = model.getNonceStr();
         req.timeStamp = model.getTimestamp()+"";
         req.packageValue = model.getPackageX();
         req.sign = model.getSign();

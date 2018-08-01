@@ -11,7 +11,7 @@ public class Paymodel {
     /**
      * code : 200
      * message : 填加成功!
-     * obj : {"appid":"wx1c9e70bb94b3fd85","mch_id":"1286274601","prepayid":"wx0111113806191404c1585ed41433636648","package":"Sign=WXPay","noncestr":"rylbdiyil6zy0a2jqor2948q76r3vieu","timestamp":1533093098,"sign":"C2420BECF3626B83B59BD2EF3BBE6E71"}
+     * obj : {"appId":"wx77762a8eab365cf1","partnerId":"1509630191","prepayId":"wx01155640810285df2f0b7e6f2294766270","package":"Sign=WXPay","nonceStr":"JX7YNB0uJgR7NMQh","timestamp":1533110201,"sign":"A6ADC2F68AF860DE9EFA4DED1BCC412C"}
      */
 
     private int code;
@@ -44,46 +44,46 @@ public class Paymodel {
 
     public static class ObjBean {
         /**
-         * appid : wx1c9e70bb94b3fd85
-         * mch_id : 1286274601
-         * prepayid : wx0111113806191404c1585ed41433636648
+         * appId : wx77762a8eab365cf1
+         * partnerId : 1509630191
+         * prepayId : wx01155640810285df2f0b7e6f2294766270
          * package : Sign=WXPay
-         * noncestr : rylbdiyil6zy0a2jqor2948q76r3vieu
-         * timestamp : 1533093098
-         * sign : C2420BECF3626B83B59BD2EF3BBE6E71
+         * nonceStr : JX7YNB0uJgR7NMQh
+         * timestamp : 1533110201
+         * sign : A6ADC2F68AF860DE9EFA4DED1BCC412C
          */
 
-        private String appid;
-        private String mch_id;
-        private String prepayid;
+        private String appId;
+        private String partnerId;
+        private String prepayId;
         @SerializedName("package")
         private String packageX;
-        private String noncestr;
+        private String nonceStr;
         private int timestamp;
         private String sign;
 
-        public String getAppid() {
-            return appid;
+        public String getAppId() {
+            return appId;
         }
 
-        public void setAppid(String appid) {
-            this.appid = appid;
+        public void setAppId(String appId) {
+            this.appId = appId;
         }
 
-        public String getMch_id() {
-            return mch_id;
+        public String getPartnerId() {
+            return partnerId;
         }
 
-        public void setMch_id(String mch_id) {
-            this.mch_id = mch_id;
+        public void setPartnerId(String partnerId) {
+            this.partnerId = partnerId;
         }
 
-        public String getPrepayid() {
-            return prepayid;
+        public String getPrepayId() {
+            return prepayId;
         }
 
-        public void setPrepayid(String prepayid) {
-            this.prepayid = prepayid;
+        public void setPrepayId(String prepayId) {
+            this.prepayId = prepayId;
         }
 
         public String getPackageX() {
@@ -94,12 +94,12 @@ public class Paymodel {
             this.packageX = packageX;
         }
 
-        public String getNoncestr() {
-            return noncestr;
+        public String getNonceStr() {
+            return nonceStr;
         }
 
-        public void setNoncestr(String noncestr) {
-            this.noncestr = noncestr;
+        public void setNonceStr(String nonceStr) {
+            this.nonceStr = nonceStr;
         }
 
         public int getTimestamp() {
