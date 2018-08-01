@@ -44,6 +44,7 @@ public class MyCollectionActivity extends BaseActivity {
     SwipeMenuRecyclerView recyclerView;
 
     private MyCollectionAdapter adapter;
+    private List<UserCollectionModel.ObjBean> mList;
 
     private SpImp spImp;
     private String uid = "";
@@ -78,7 +79,8 @@ public class MyCollectionActivity extends BaseActivity {
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 UserCollectionModel userCollectionModel = gson.fromJson(data, UserCollectionModel.class);
-                                adapter = new MyCollectionAdapter(userCollectionModel.getObj());
+                                mList = userCollectionModel.getObj();
+                                adapter = new MyCollectionAdapter(mList);
                                 recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
                                 recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
                                 recyclerView.setAdapter(adapter);
@@ -105,12 +107,34 @@ public class MyCollectionActivity extends BaseActivity {
             menuBridge.closeMenu();
 
             int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
-            int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+            final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
             int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
 //                Toast.makeText(MyCollectionActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+                ViseHttp.POST(NetConfig.deleteCollectionUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteCollectionUrl))
+                        .addParam("id", mList.get(adapterPosition).getFID())
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        toToast(MyCollectionActivity.this, "删除成功");
+                                        mList.remove(adapterPosition);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
             } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
                 Toast.makeText(MyCollectionActivity.this, "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
             }

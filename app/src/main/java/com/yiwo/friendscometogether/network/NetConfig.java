@@ -95,4 +95,8 @@ public class NetConfig {
     public static String realNameUrl = "action/ac_user/Realnameauthentication";
     //删除收藏
     public static String deleteCollectionUrl = "action/ac_user/deletecollection";
+    //获取插文位置列表
+    public static String intercalationLocationUrl = "action/ac_article/IntercalationPosition";
+    //添加插文
+    public static String insertIntercalationUrl = "action/ac_article/Intercalation";
 }

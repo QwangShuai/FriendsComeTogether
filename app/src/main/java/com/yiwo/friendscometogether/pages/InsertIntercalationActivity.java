@@ -39,11 +39,16 @@ public class InsertIntercalationActivity extends BaseActivity {
     TextView tvContentNum;
     @BindView(R.id.activity_insert_intercalation_rl_complete)
     RelativeLayout rlComplete;
+    @BindView(R.id.activity_insert_intercalation_rl_intercalation_location)
+    RelativeLayout rlIntercalationLocation;
 
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
 
     private static final int REQUEST_CODE = 0x00000011;
+
+    private String[] itemId;
+    private String[] itemName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +134,7 @@ public class InsertIntercalationActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.activity_insert_intercalation_rl_back, R.id.activity_insert_intercalation_rl_complete})
+    @OnClick({R.id.activity_insert_intercalation_rl_back, R.id.activity_insert_intercalation_rl_complete, R.id.activity_insert_intercalation_rl_intercalation_location})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.activity_insert_intercalation_rl_back:
@@ -137,6 +142,9 @@ public class InsertIntercalationActivity extends BaseActivity {
                 break;
             case R.id.activity_insert_intercalation_rl_complete:
                 complete();
+                break;
+            case R.id.activity_insert_intercalation_rl_intercalation_location:
+
                 break;
         }
     }
