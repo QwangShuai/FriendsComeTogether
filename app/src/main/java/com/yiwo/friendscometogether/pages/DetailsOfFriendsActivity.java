@@ -102,10 +102,10 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     ImageView ivActiveTitle;
     @BindView(R.id.activity_details_of_friends_rv_intercalation)
     RecyclerView recyclerView1;
-    @BindView(R.id.activity_details_of_friends_iv_focus)
-    ImageView ivFocus;
     @BindView(R.id.activity_details_of_friends_ll_top_focus)
     LinearLayout llTopFocus;
+    @BindView(R.id.activity_details_of_friends_iv_focus)
+    ImageView ivFocus;
 
     private DetailsOfFriendsIntercalationAdapter adapter;
     private DetailsOfFriendsIntercalation1Adapter adapter1;
@@ -117,6 +117,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     private SpImp spImp;
     private String uid = "";
     private String fmID = "";
+    private String articleUid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +152,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                 Gson gson = new Gson();
                                 DetailsRememberModel model = gson.fromJson(data, DetailsRememberModel.class);
                                 fmID = model.getObj().getContent().getFmID();
+                                articleUid = model.getObj().getContent().getUid();
                                 Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getContent().getFmpic()).into(ivTitle);
                                 tvTitle.setText(model.getObj().getContent().getFmtitle());
                                 tvLookNum.setText("浏览: "+model.getObj().getContent().getFmlook());
@@ -348,7 +350,32 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.activity_details_of_friends_ll_top_focus:
+                //添加关注
+                if(!isFocus){
+                    ViseHttp.POST(NetConfig.userFocusUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+                            .addParam("uid", uid)
+                            .addParam("likeId", articleUid)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            toToast(DetailsOfFriendsActivity.this, "关注成功");
+                                            Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.focus_on_y).into(ivFocus);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
 
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }
                 break;
         }
     }

@@ -105,4 +105,6 @@ public class NetConfig {
     public static String userCancelFocusUrl = "action/ac_user/AbolishConcern";
     //个人中心插文删除
     public static String userDeleteIntercalationFocusUrl = "action/ac_article/Deletetheinsert";
+    //队友插文列表
+    public static String teamIntercalationListUrl = "action/ac_article/IntercalationList";
 }
