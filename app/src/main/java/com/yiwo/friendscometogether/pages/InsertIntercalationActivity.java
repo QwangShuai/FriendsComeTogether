@@ -27,16 +27,27 @@ import com.yiwo.friendscometogether.model.IntercalationLocationModel;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
 import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class InsertIntercalationActivity extends BaseActivity {
 
@@ -64,10 +75,13 @@ public class InsertIntercalationActivity extends BaseActivity {
 
     private String[] itemId;
     private String[] itemName;
-    private String yourChoiceId = "";
+    private String yourChoiceId = "0";
     private String yourChoiceName = "";
 
     private String fmID = "";
+
+    private SpImp spImp;
+    private String uid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +90,15 @@ public class InsertIntercalationActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
+        spImp = new SpImp(InsertIntercalationActivity.this);
 
         initData();
 
     }
 
     private void initData() {
+
+        uid = spImp.getUID();
 
         Intent intent = getIntent();
         fmID = intent.getStringExtra("id");
@@ -179,6 +196,7 @@ public class InsertIntercalationActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE && data != null) {
             //获取选择器返回的数据
             List<String> pic = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
+            Log.e("222", pic.get(0));
             for (int i = 0; i < pic.size(); i++) {
                 mList.add(new UserIntercalationPicModel(pic.get(i), ""));
             }
@@ -193,35 +211,43 @@ public class InsertIntercalationActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_insert_intercalation_rl_complete:
-                complete();
+                if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())){
+                    toToast(InsertIntercalationActivity.this, "请完善信息");
+                }else {
+                    complete();
+                }
                 break;
             case R.id.activity_insert_intercalation_rl_intercalation_location:
-                AlertDialog.Builder singleChoiceDialog =
-                        new AlertDialog.Builder(InsertIntercalationActivity.this);
-                singleChoiceDialog.setTitle("请选择标签");
-                // 第二个参数是默认选项，此处设置为0
-                singleChoiceDialog.setSingleChoiceItems(itemName, 0,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                yourChoiceName = itemName[which];
-                                yourChoiceId = itemId[which];
-                            }
-                        });
-                singleChoiceDialog.setPositiveButton("确定",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (TextUtils.isEmpty(yourChoiceName)) {
-                                    tvSelect.setText(itemName[0]);
-                                    yourChoiceId = itemId[0];
-                                } else {
-                                    tvSelect.setText(yourChoiceName);
-                                    yourChoiceName = "";
+                if(itemName.length == 0){
+                    toToast(InsertIntercalationActivity.this, "暂无子标题");
+                }else {
+                    AlertDialog.Builder singleChoiceDialog =
+                            new AlertDialog.Builder(InsertIntercalationActivity.this);
+                    singleChoiceDialog.setTitle("请选择标签");
+                    // 第二个参数是默认选项，此处设置为0
+                    singleChoiceDialog.setSingleChoiceItems(itemName, 0,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    yourChoiceName = itemName[which];
+                                    yourChoiceId = itemId[which];
                                 }
-                            }
-                        });
-                singleChoiceDialog.show();
+                            });
+                    singleChoiceDialog.setPositiveButton("确定",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (TextUtils.isEmpty(yourChoiceName)) {
+                                        tvSelect.setText(itemName[0]);
+                                        yourChoiceId = itemId[0];
+                                    } else {
+                                        tvSelect.setText(yourChoiceName);
+                                        yourChoiceName = "";
+                                    }
+                                }
+                            });
+                    singleChoiceDialog.show();
+                }
                 break;
         }
     }
@@ -231,7 +257,75 @@ public class InsertIntercalationActivity extends BaseActivity {
      */
     private void complete() {
 
+        Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
+            @Override
+            public void subscribe(ObservableEmitter<Map<String, File>> e) throws Exception {
+                Map<String, File> map = new HashMap<>();
+                for(int i = 0; i<mList.size(); i++){
+                    map.put("images["+i+"]", new File(mList.get(i).getPic()));
+                }
+                e.onNext(map);
+            }
+        });
+        Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
 
+            }
+
+            @Override
+            public void onNext(Map<String, File> value) {
+
+                String describe = "";
+                for(int i = 0; i<mList.size(); i++){
+                    describe = describe+mList.get(i).getDescribe()+"|";
+                }
+                Log.e("222", describe);
+
+                ViseHttp.UPLOAD(NetConfig.insertIntercalationUrl)
+                        .addHeader("Content-Type","multipart/form-data")
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.insertIntercalationUrl))
+                        .addParam("title", etTitle.getText().toString())
+                        .addParam("content", etContent.getText().toString())
+                        .addParam("id", fmID)
+                        .addParam("uid", uid)
+                        .addParam("describe", describe)
+                        .addParam("position", itemId.length == 0?"0":yourChoiceId)
+                        .addFiles(value)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        toToast(InsertIntercalationActivity.this, "创建成功");
+                                        onBackPressed();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.observeOn(Schedulers.newThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
     }
 

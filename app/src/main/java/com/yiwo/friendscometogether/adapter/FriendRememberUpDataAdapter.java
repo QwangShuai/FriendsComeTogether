@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,10 +43,18 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Picasso.with(context).load(data.get(position).getFmpic()).into(holder.ivTitle);
+        if(TextUtils.isEmpty(data.get(position).getFmpic())){
+
+        }else {
+            Picasso.with(context).load(data.get(position).getFmpic()).into(holder.ivTitle);
+        }
         holder.tvTitle.setText(data.get(position).getFmtitle());
         holder.tvContent.setText(data.get(position).getFmcontent());
-        Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.ivAvatar);
+        if(TextUtils.isEmpty(data.get(position).getUpicurl())){
+            Picasso.with(context).load(R.mipmap.my_head).into(holder.ivAvatar);
+        }else {
+            Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.ivAvatar);
+        }
         holder.tvNickname.setText(data.get(position).getUsername());
         holder.tvUsergrade.setText("LV" + data.get(position).getUsergrade());
         holder.tvCreateTime.setText(data.get(position).getFmtime());
