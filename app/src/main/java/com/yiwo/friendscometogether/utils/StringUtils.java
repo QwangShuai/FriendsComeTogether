@@ -3,9 +3,12 @@ package com.yiwo.friendscometogether.utils;
 import android.content.Context;
 import android.os.Build.VERSION;
 import android.text.ClipboardManager;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -514,5 +517,19 @@ public class StringUtils {
 		}
 
 		return hex.toString();
+	}
+	//设置输入框不能输入空格回车
+	public static void setEditTextInputSpace(EditText editText) {
+		InputFilter filter = new InputFilter() {
+			@Override
+			public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+				if (source.equals(" ") || source.toString().contentEquals("\n")) {
+					return "";
+				} else {
+					return null;
+				}
+			}
+		};
+		editText.setFilters(new InputFilter[]{filter});
 	}
 }

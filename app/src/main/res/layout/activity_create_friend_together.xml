@@ -52,11 +52,16 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:id="@+id/activity_create_friend_together_rl_edit_title"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
 
-                <TextView
+                <EditText
+                    android:maxLength="30"
+                    android:gravity="start"
+                    android:background="@null"
                     android:id="@+id/activity_create_friend_together_tv_title"
                     android:layout_width="490px"
                     android:layout_height="wrap_content"
@@ -64,7 +69,7 @@
                     android:layout_marginLeft="40px"
                     android:ellipsize="end"
                     android:lines="1"
-                    android:text="请输入友聚标题"
+                    android:hint="请输入友记标题"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
@@ -87,6 +92,8 @@
                 android:background="#F8F8F8" />
 
             <RelativeLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:id="@+id/activity_create_friend_together_rl_edit_content"
                 android:layout_width="match_parent"
                 android:layout_height="250px">
@@ -111,7 +118,11 @@
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
-                <TextView
+                <EditText
+                    android:maxLength="2000"
+                    android:gravity="start"
+                    android:background="@null"
+                    android:hint="请输入具体内容"
                     android:id="@+id/activity_create_friend_together_tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="170px"

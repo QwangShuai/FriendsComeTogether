@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,6 +41,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class FriendTogetherAddContentActivity extends BaseActivity {
     @BindView(R.id.activity_add_content_rl_back)
@@ -53,6 +58,8 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
     EditText etContent;
     @BindView(R.id.activity_add_content_tv_text_num)
     TextView tvContentNum;
+    @BindView(R.id.activity_friend_together_add_content_tv_title_num)
+    TextView tvTitle;
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
 
@@ -61,6 +68,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
     private String uid = "";
     private String id = "";
     Map<String,String> textmap;
+    private List<File> files = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +117,24 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+        StringUtils.setEditTextInputSpace(etTitle);
+        etTitle.addTextChangedListener(new TextWatcher() {
+            CharSequence temp;
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                temp = s;
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tvTitle.setText(temp.length()+"/30");
+            }
+        });
         etContent.addTextChangedListener(textContentWatcher);
 
     }
@@ -155,15 +180,45 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
     private void complete() {
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
-            public void subscribe(ObservableEmitter<Map<String, File>> e) throws Exception {
+            public void subscribe(final ObservableEmitter<Map<String, File>> e) throws Exception {
                 Map<String, File> map = new HashMap<>();
-                textmap = new HashMap<>();
+                List<String> list = new ArrayList<>();
                 for (int i = 0; i < mList.size(); i++) {
-                    map.put("activity_files[" + i + "]", new File(mList.get(i).getPic()));
-                    textmap.put("textarea_img["+i+"]",mList.get(i).getDescribe());
-
+                    list.add(mList.get(i).getPic());
                 }
-                e.onNext(map);
+                Luban.with(FriendTogetherAddContentActivity.this)
+                        .load(list)
+                        .ignoreBy(100)
+                        .filter(new CompressionPredicate() {
+                            @Override
+                            public boolean apply(String path) {
+                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                            }
+                        })
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                // TODO 压缩成功后调用，返回压缩后的图片文件
+                                files.add(file);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // TODO 当压缩过程出现问题时调用
+                            }
+                        }).launch();
+                if(files.size() == list.size()){
+                    for (int i = 0; i < files.size(); i++) {
+                        map.put("activity_files[" + i + "]", files.get(i));
+                    }
+                    Log.e("222", map.size() + "");
+                    e.onNext(map);
+                }
             }
         });
         Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {

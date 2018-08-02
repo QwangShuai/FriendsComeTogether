@@ -9,12 +9,16 @@ import android.os.Environment;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -61,9 +65,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class CreateFriendTogetherActivity extends BaseActivity {
     @BindView(R.id.activity_create_friend_together_rl_back)
@@ -111,9 +121,13 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     @BindView(R.id.activity_create_friend_together_tv_pwd)
     TextView pwdTv;
     @BindView(R.id.activity_create_friend_together_tv_title)
-    TextView titleTv;
+    EditText etTitle;
     @BindView(R.id.activity_create_friend_together_tv_content)
-    TextView contentTv;
+    EditText etContent;
+    @BindView(R.id.activity_create_friend_together_tv_title_num)
+    TextView tvTitleNum;
+    @BindView(R.id.activity_create_friend_together_tv_content_num)
+    TextView tvContentNum;
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -168,10 +182,46 @@ public class CreateFriendTogetherActivity extends BaseActivity {
 
             }
         });
+        StringUtils.setEditTextInputSpace(etTitle);
+        etTitle.addTextChangedListener(new TextWatcher() {
+            private CharSequence temp;
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                temp = s;
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tvTitleNum.setText(temp.length()+"/30");
+                map.put("title",temp.toString());
+            }
+        });
+        etContent.addTextChangedListener(new TextWatcher() {
+            private CharSequence temp;
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                temp = s;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tvContentNum.setText(temp.length()+"/2000");
+                map.put("content",temp.toString());
+            }
+        });
     }
 
-    @OnClick({R.id.activity_create_friend_together_rl_back, R.id.activity_create_friend_together_rl_edit_title, R.id.activity_create_friend_together_rl_edit_content,
+    @OnClick({R.id.activity_create_friend_together_rl_back,
             R.id.activity_create_friend_together_rl_time_start, R.id.activity_create_friend_together_rl_time_end, R.id.activity_create_friend_together_rl_activity_city,
             R.id.activity_create_friend_together_rl_price, R.id.activity_create_friend_together_rl_complete, R.id.activity_create_friend_together_rl_enter_activities,
             R.id.activity_create_friend_together_rl_person_require, R.id.activity_create_friend_together_rl_activities_require,
@@ -181,30 +231,30 @@ public class CreateFriendTogetherActivity extends BaseActivity {
             case R.id.activity_create_friend_together_rl_back:
                 onBackPressed();
                 break;
-            case R.id.activity_create_friend_together_rl_edit_title:
-                final EditTitleDialog editTitleDialog = new EditTitleDialog(CreateFriendTogetherActivity.this);
-                editTitleDialog.show();
-                editTitleDialog.setOnReturnListener(new EditTitleDialog.OnReturnListener() {
-                    @Override
-                    public void onReturn(String title) {
-                        map.put("title", title);
-                        titleTv.setText(title);
-                        editTitleDialog.dismiss();
-                    }
-                });
-                break;
-            case R.id.activity_create_friend_together_rl_edit_content:
-                final EditContentDialog editContentDialog = new EditContentDialog(CreateFriendTogetherActivity.this);
-                editContentDialog.show();
-                editContentDialog.setOnReturnListener(new EditContentDialog.OnReturnListener() {
-                    @Override
-                    public void onReturn(String content) {
-                        map.put("content", content);
-                        contentTv.setText(content);
-                        editContentDialog.dismiss();
-                    }
-                });
-                break;
+//            case R.id.activity_create_friend_together_rl_edit_title:
+//                final EditTitleDialog editTitleDialog = new EditTitleDialog(CreateFriendTogetherActivity.this);
+//                editTitleDialog.show();
+//                editTitleDialog.setOnReturnListener(new EditTitleDialog.OnReturnListener() {
+//                    @Override
+//                    public void onReturn(String title) {
+//                        map.put("title", title);
+//                        titleTv.setText(title);
+//                        editTitleDialog.dismiss();
+//                    }
+//                });
+//                break;
+//            case R.id.activity_create_friend_together_rl_edit_content:
+//                final EditContentDialog editContentDialog = new EditContentDialog(CreateFriendTogetherActivity.this);
+//                editContentDialog.show();
+//                editContentDialog.setOnReturnListener(new EditContentDialog.OnReturnListener() {
+//                    @Override
+//                    public void onReturn(String content) {
+//                        map.put("content", content);
+//                        contentTv.setText(content);
+//                        editContentDialog.dismiss();
+//                    }
+//                });
+//                break;
             case R.id.activity_create_friend_together_rl_time_start:
                 new DatePickerDialog(CreateFriendTogetherActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
                 break;
@@ -297,12 +347,11 @@ public class CreateFriendTogetherActivity extends BaseActivity {
             List<String> scList = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
             Log.e("222", scList.get(0));
             Picasso.with(CreateFriendTogetherActivity.this).load("file://" + scList.get(0)).into(ivTitle);
-            path = ""+scList.get(0);
+            path = "" + scList.get(0);
             ivTitle.setVisibility(View.VISIBLE);
             tvFirstIv.setVisibility(View.VISIBLE);
             ivDelete.setVisibility(View.VISIBLE);
-            file = new File("" + scList.get(0));
-            Log.i("文件格式", file.toString());
+//            file = new File("" + scList.get(0));
         }
         if (requestCode == CITY_REQUEST && data != null) {
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
@@ -513,47 +562,101 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     }
 
     public void onComplete(final int state) {
-        Log.i("文件格式", file.toString());
         map.put("user_id", "7");
-        if ((map.size() == 178 && findPwd()) || (map.size() == 16 && !findPwd())) {
+        if ((map.size() == 17 && findPwd()) || (map.size() == 16 && !findPwd())) {
             String token = getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
-            ViseHttp.UPLOAD(NetConfig.createActivityUrl, new UCallback() {
+            Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
                 @Override
-                public void onProgress(long currentLength, long totalLength, float percent) {
+                public void subscribe(final ObservableEmitter<File> e) throws Exception {
+//                        File file = new File(images);
+                    Luban.with(CreateFriendTogetherActivity.this)
+                            .load(path)
+                            .ignoreBy(100)
+                            .filter(new CompressionPredicate() {
+                                @Override
+                                public boolean apply(String path) {
+                                    return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                }
+                            })
+                            .setCompressListener(new OnCompressListener() {
+                                @Override
+                                public void onStart() {
+                                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                }
 
-                }
+                                @Override
+                                public void onSuccess(File file) {
+                                    // TODO 压缩成功后调用，返回压缩后的图片文件
+                                    e.onNext(file);
+                                }
 
-                @Override
-                public void onFail(int errCode, String errMsg) {
-
-                }
-            }).addHeader("Content-Type","multipart/form-data").addParams(map)
-                    .addFile("file_img", file).request(new ACallback<String>() {
-                @Override
-                public void onSuccess(String data) {
-                    Log.i("123123",data);
-                    CreateFriendsTogetherModel model = new Gson().fromJson(data, CreateFriendsTogetherModel.class);
-                    if (model.getCode() == 200) {
-                        Log.i("hhh", "执行成功");
-                        popupWindow.dismiss();
-                        if (state == 0) {
-                            finish();
-                        } else {
-                            Intent it = new Intent(CreateFriendTogetherActivity.this,FriendTogetherAddContentActivity.class);
-                            it.putExtra("pfID",model.getObj().getActivity_id());
-                            startActivity(it);
-                            finish();
-                        }
-                    } else {
-                        toToast(CreateFriendTogetherActivity.this, model.getMessage());
-                    }
-                }
-
-                @Override
-                public void onFail(int errCode, String errMsg) {
-                    toToast(CreateFriendTogetherActivity.this, errMsg);
+                                @Override
+                                public void onError(Throwable e) {
+                                    // TODO 当压缩过程出现问题时调用
+                                }
+                            }).launch();
                 }
             });
+            Observer<File> observer = new Observer<File>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(File value) {
+                    ViseHttp.UPLOAD(NetConfig.createActivityUrl, new UCallback() {
+                        @Override
+                        public void onProgress(long currentLength, long totalLength, float percent) {
+
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    }).addHeader("Content-Type", "multipart/form-data").addParams(map)
+                            .addFile("file_img", value).request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            Log.i("123123", data);
+                            CreateFriendsTogetherModel model = new Gson().fromJson(data, CreateFriendsTogetherModel.class);
+                            if (model.getCode() == 200) {
+                                Log.i("hhh", "执行成功");
+                                popupWindow.dismiss();
+                                if (state == 0) {
+                                    finish();
+                                } else {
+                                    Intent it = new Intent(CreateFriendTogetherActivity.this, FriendTogetherAddContentActivity.class);
+                                    it.putExtra("pfID", model.getObj().getActivity_id());
+                                    startActivity(it);
+                                    finish();
+                                }
+                            } else {
+                                toToast(CreateFriendTogetherActivity.this, model.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+                            toToast(CreateFriendTogetherActivity.this, errMsg);
+                        }
+                    });
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            };
+            observable.observeOn(Schedulers.newThread())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(observer);
         } else {
             toToast(CreateFriendTogetherActivity.this, "请输入完整的创建活动信息");
             // 获取所有键值对对象的集合
@@ -588,6 +691,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
         Log.i("kkk", b + "");
         return b;
     }
+
     private File getUploadFile(Context context, String fileName) {
         String cachePath;
         if ((Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())

@@ -38,6 +38,7 @@
         android:layout_height="330px">
 
         <EditText
+            android:maxLength="30"
             android:id="@+id/dialog_edit_title_et_content"
             android:textColor="@color/black_333333"
             android:gravity="start"
