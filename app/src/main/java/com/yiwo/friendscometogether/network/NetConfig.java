@@ -107,4 +107,8 @@ public class NetConfig {
     public static String userDeleteIntercalationFocusUrl = "action/ac_article/Deletetheinsert";
     //队友插文列表
     public static String teamIntercalationListUrl = "action/ac_article/IntercalationList";
+    //设置插文是否展示
+    public static String intercalationShowUrl = "action/ac_article/Exhibition";
+    //设置屏蔽插文
+    public static String sheildIntercalationUrl = "action/ac_article/ShieldedArticles";
 }

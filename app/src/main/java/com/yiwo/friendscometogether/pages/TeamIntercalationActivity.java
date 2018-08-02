@@ -7,10 +7,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.TeamIntercalationAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.TeamIntercalationModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +35,7 @@ public class TeamIntercalationActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     private TeamIntercalationAdapter adapter;
+    private List<TeamIntercalationModel.ObjBean> mList;
 
     private String id = "";
 
@@ -50,17 +59,44 @@ public class TeamIntercalationActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(TeamIntercalationActivity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        List<String> data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        adapter = new TeamIntercalationAdapter(data);
-        recyclerView.setAdapter(adapter);
+        ViseHttp.POST(NetConfig.teamIntercalationListUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.teamIntercalationListUrl))
+                .addParam("formId", id)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                TeamIntercalationModel model = gson.fromJson(data, TeamIntercalationModel.class);
+                                mList = model.getObj();
+                                adapter = new TeamIntercalationAdapter(mList);
+                                recyclerView.setAdapter(adapter);
+                                adapter.setOnItemClickListener(new TeamIntercalationAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onClick(int type, int position) {
+                                        switch (type){
+                                            case 1:
+
+                                                break;
+                                            case 2:
+
+                                                break;
+                                        }
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 
