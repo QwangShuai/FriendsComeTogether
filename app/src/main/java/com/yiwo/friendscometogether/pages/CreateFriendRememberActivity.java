@@ -65,6 +65,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class CreateFriendRememberActivity extends BaseActivity {
 
@@ -588,9 +591,34 @@ public class CreateFriendRememberActivity extends BaseActivity {
             public void onClick(View view) {
                 Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
                     @Override
-                    public void subscribe(ObservableEmitter<File> e) throws Exception {
-                        File file = new File(images);
-                        e.onNext(file);
+                    public void subscribe(final ObservableEmitter<File> e) throws Exception {
+//                        File file = new File(images);
+                        Luban.with(CreateFriendRememberActivity.this)
+                                .load(images)
+                                .ignoreBy(100)
+                                .filter(new CompressionPredicate() {
+                                    @Override
+                                    public boolean apply(String path) {
+                                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                    }
+                                })
+                                .setCompressListener(new OnCompressListener() {
+                                    @Override
+                                    public void onStart() {
+                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                    }
+
+                                    @Override
+                                    public void onSuccess(File file) {
+                                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                                        e.onNext(file);
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        // TODO 当压缩过程出现问题时调用
+                                    }
+                                }).launch();
                     }
                 });
                 Observer<File> observer = new Observer<File>() {
@@ -657,9 +685,34 @@ public class CreateFriendRememberActivity extends BaseActivity {
             public void onClick(View view) {
                 Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
                     @Override
-                    public void subscribe(ObservableEmitter<File> e) throws Exception {
-                        File file = new File(images);
-                        e.onNext(file);
+                    public void subscribe(final ObservableEmitter<File> e) throws Exception {
+//                        File file = new File(images);
+                        Luban.with(CreateFriendRememberActivity.this)
+                                .load(images)
+                                .ignoreBy(100)
+                                .filter(new CompressionPredicate() {
+                                    @Override
+                                    public boolean apply(String path) {
+                                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                    }
+                                })
+                                .setCompressListener(new OnCompressListener() {
+                                    @Override
+                                    public void onStart() {
+                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                    }
+
+                                    @Override
+                                    public void onSuccess(File file) {
+                                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                                        e.onNext(file);
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        // TODO 当压缩过程出现问题时调用
+                                    }
+                                }).launch();
                     }
                 });
                 Observer<File> observer = new Observer<File>() {
@@ -726,9 +779,34 @@ public class CreateFriendRememberActivity extends BaseActivity {
             public void onClick(View view) {
                 Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
                     @Override
-                    public void subscribe(ObservableEmitter<File> e) throws Exception {
-                        File file = new File(images);
-                        e.onNext(file);
+                    public void subscribe(final ObservableEmitter<File> e) throws Exception {
+//                        File file = new File(images);
+                        Luban.with(CreateFriendRememberActivity.this)
+                                .load(images)
+                                .ignoreBy(100)
+                                .filter(new CompressionPredicate() {
+                                    @Override
+                                    public boolean apply(String path) {
+                                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                    }
+                                })
+                                .setCompressListener(new OnCompressListener() {
+                                    @Override
+                                    public void onStart() {
+                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                    }
+
+                                    @Override
+                                    public void onSuccess(File file) {
+                                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                                        e.onNext(file);
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        // TODO 当压缩过程出现问题时调用
+                                    }
+                                }).launch();
                     }
                 });
                 Observer<File> observer = new Observer<File>() {

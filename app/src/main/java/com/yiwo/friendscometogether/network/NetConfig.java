@@ -99,4 +99,10 @@ public class NetConfig {
     public static String intercalationLocationUrl = "action/ac_article/IntercalationPosition";
     //添加插文
     public static String insertIntercalationUrl = "action/ac_article/Intercalation";
+    //添加关注
+    public static String userFocusUrl = "action/ac_user/ExecutiveAttention";
+    //取消关注人
+    public static String userCancelFocusUrl = "action/ac_user/AbolishConcern";
+    //个人中心插文删除
+    public static String userDeleteIntercalationFocusUrl = "action/ac_article/Deletetheinsert";
 }

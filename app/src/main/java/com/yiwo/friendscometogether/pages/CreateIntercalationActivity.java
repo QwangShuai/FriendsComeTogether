@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -57,6 +58,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 import static com.vise.utils.io.IOUtil.copy;
 
@@ -83,6 +87,8 @@ public class CreateIntercalationActivity extends BaseActivity {
     private SpImp spImp;
     private String uid = "";
     private String id = "";
+
+    private List<File> files = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +173,7 @@ public class CreateIntercalationActivity extends BaseActivity {
             //获取选择器返回的数据
             List<String> pic = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
             for (int i = 0; i < pic.size(); i++) {
-                Log.i("333",pic.get(i));
+                Log.i("333", pic.get(i));
                 mList.add(new UserIntercalationPicModel(pic.get(i), ""));
             }
             adapter.notifyDataSetChanged();
@@ -193,12 +199,45 @@ public class CreateIntercalationActivity extends BaseActivity {
 
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
-            public void subscribe(ObservableEmitter<Map<String, File>> e) throws Exception {
+            public void subscribe(final ObservableEmitter<Map<String, File>> e) throws Exception {
                 Map<String, File> map = new HashMap<>();
-                for(int i = 0; i<mList.size(); i++){
-                    map.put("images["+i+"]", new File(mList.get(i).getPic()));
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < mList.size(); i++) {
+                    list.add(mList.get(i).getPic());
                 }
-                e.onNext(map);
+                Luban.with(CreateIntercalationActivity.this)
+                        .load(list)
+                        .ignoreBy(100)
+                        .filter(new CompressionPredicate() {
+                            @Override
+                            public boolean apply(String path) {
+                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                            }
+                        })
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                // TODO 压缩成功后调用，返回压缩后的图片文件
+                                files.add(file);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // TODO 当压缩过程出现问题时调用
+                            }
+                        }).launch();
+                if(files.size() == list.size()){
+                    for (int i = 0; i < files.size(); i++) {
+                        map.put("images[" + i + "]", files.get(i));
+                    }
+                    Log.e("222", map.size() + "");
+                    e.onNext(map);
+                }
             }
         });
         Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {
@@ -211,13 +250,13 @@ public class CreateIntercalationActivity extends BaseActivity {
             public void onNext(Map<String, File> value) {
 
                 String describe = "";
-                for(int i = 0; i<mList.size(); i++){
-                    describe = describe+mList.get(i).getDescribe()+"|";
+                for (int i = 0; i < mList.size(); i++) {
+                    describe = describe + mList.get(i).getDescribe() + "|";
                 }
                 Log.e("222", describe);
 
                 ViseHttp.UPLOAD(NetConfig.userRenewTheArticle)
-                        .addHeader("Content-Type","multipart/form-data")
+                        .addHeader("Content-Type", "multipart/form-data")
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
                         .addParam("title", etTitle.getText().toString())
                         .addParam("content", etContent.getText().toString())
@@ -229,8 +268,9 @@ public class CreateIntercalationActivity extends BaseActivity {
                             @Override
                             public void onSuccess(String data) {
                                 try {
+                                    Log.e("222", data);
                                     JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
+                                    if (jsonObject.getInt("code") == 200) {
                                         toToast(CreateIntercalationActivity.this, "创建成功");
                                         onBackPressed();
                                     }
@@ -260,104 +300,6 @@ public class CreateIntercalationActivity extends BaseActivity {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
-
-//        ViseHttp.POST(NetConfig.userRenewTheArticle)
-//                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
-//                .addParam("title", etTitle.getText().toString())
-//                .addParam("content", etContent.getText().toString())
-//                .addParam("id", id)
-//                .addParam("images", images)
-//                .addParam("uid", uid)
-//                .addParam("describe", "")
-//                .request(new ACallback<String>() {
-//                    @Override
-//                    public void onSuccess(String data) {
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(data);
-//                            if (jsonObject.getInt("code") == 200) {
-//                                toToast(CreateIntercalationActivity.this, jsonObject.getString("message"));
-//                                CreateIntercalationActivity.this.finish();
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFail(int errCode, String errMsg) {
-//
-//                    }
-//                });
-
-    }
-
-    public static Bitmap GetLocalOrNetBitmap(String url) {
-        Bitmap bitmap = null;
-        InputStream in = null;
-        BufferedOutputStream out = null;
-        try {
-            in = new BufferedInputStream(new URL(url).openStream(), 4*1024);
-            final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
-            out = new BufferedOutputStream(dataStream, 4*1024);
-            copy(in, out);
-            out.flush();
-            byte[] data = dataStream.toByteArray();
-            bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-            data = null;
-            return bitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * 压缩图片（质量压缩）
-     *
-     * @param bitmap
-     */
-    public static File compressImage(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        int options = 100;
-        while (baos.toByteArray().length / 1024 > 500) {  //循环判断如果压缩后图片是否大于500kb,大于继续压缩
-            baos.reset();//重置baos即清空baos
-            options -= 10;//每次都减少10
-            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
-            long length = baos.toByteArray().length;
-        }
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date date = new Date(System.currentTimeMillis());
-        String filename = format.format(date);
-        File file = new File(Environment.getExternalStorageDirectory(), filename + ".png");
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            try {
-                fos.write(baos.toByteArray());
-                fos.flush();
-                fos.close();
-            } catch (IOException e) {
-//                BAFLogger.e(TAG,e.getMessage());
-                e.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-//            BAFLogger.e(TAG,e.getMessage());
-            e.printStackTrace();
-        }
-        recycleBitmap(bitmap);
-        return file;
-    }
-
-
-    public static void recycleBitmap(Bitmap... bitmaps) {
-        if (bitmaps == null) {
-            return;
-        }
-        for (Bitmap bm : bitmaps) {
-            if (null != bm && !bm.isRecycled()) {
-                bm.recycle();
-            }
-        }
     }
 
     @Override

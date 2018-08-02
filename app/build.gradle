@@ -81,4 +81,5 @@ dependencies {
     compile 'com.github.donkingliang:ImageSelector:1.6.0'
     compile 'com.android.support:cardview-v7:26.+'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    implementation 'top.zibin:Luban:1.1.8'
 }

@@ -48,6 +48,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class InsertIntercalationActivity extends BaseActivity {
 
@@ -82,6 +85,8 @@ public class InsertIntercalationActivity extends BaseActivity {
 
     private SpImp spImp;
     private String uid = "";
+
+    private List<File> files = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,10 +266,43 @@ public class InsertIntercalationActivity extends BaseActivity {
             @Override
             public void subscribe(ObservableEmitter<Map<String, File>> e) throws Exception {
                 Map<String, File> map = new HashMap<>();
-                for(int i = 0; i<mList.size(); i++){
-                    map.put("images["+i+"]", new File(mList.get(i).getPic()));
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < mList.size(); i++) {
+                    list.add(mList.get(i).getPic());
                 }
-                e.onNext(map);
+                Luban.with(InsertIntercalationActivity.this)
+                        .load(list)
+                        .ignoreBy(100)
+                        .filter(new CompressionPredicate() {
+                            @Override
+                            public boolean apply(String path) {
+                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                            }
+                        })
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                // TODO 压缩成功后调用，返回压缩后的图片文件
+                                files.add(file);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // TODO 当压缩过程出现问题时调用
+                            }
+                        }).launch();
+                if(files.size() == list.size()){
+                    for (int i = 0; i < files.size(); i++) {
+                        map.put("images[" + i + "]", files.get(i));
+                    }
+                    Log.e("222", map.size() + "");
+                    e.onNext(map);
+                }
             }
         });
         Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {
@@ -295,6 +333,7 @@ public class InsertIntercalationActivity extends BaseActivity {
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
+                                Log.e("222", data);
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if(jsonObject.getInt("code") == 200){

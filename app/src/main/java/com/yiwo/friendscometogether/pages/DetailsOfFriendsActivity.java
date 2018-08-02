@@ -104,6 +104,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     RecyclerView recyclerView1;
     @BindView(R.id.activity_details_of_friends_iv_focus)
     ImageView ivFocus;
+    @BindView(R.id.activity_details_of_friends_ll_top_focus)
+    LinearLayout llTopFocus;
 
     private DetailsOfFriendsIntercalationAdapter adapter;
     private DetailsOfFriendsIntercalation1Adapter adapter1;
@@ -230,7 +232,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
     @OnClick({R.id.activity_details_of_friends_rl_back, R.id.activity_details_of_friends_ll_intercalation, R.id.activity_details_of_friends_ll_comment,
             R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star,
-            R.id.activity_details_of_friends_ll_person_content})
+            R.id.activity_details_of_friends_ll_person_content, R.id.activity_details_of_friends_ll_top_focus})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -344,6 +346,9 @@ public class DetailsOfFriendsActivity extends BaseActivity {
             case R.id.activity_details_of_friends_ll_person_content:
                 intent.setClass(DetailsOfFriendsActivity.this, OtherInformationActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.activity_details_of_friends_ll_top_focus:
+
                 break;
         }
     }
