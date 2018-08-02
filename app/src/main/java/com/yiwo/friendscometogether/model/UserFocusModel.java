@@ -11,7 +11,7 @@ public class UserFocusModel {
     /**
      * code : 200
      * message : 获取成功
-     * obj : [{"likeuserID":"1","userphone":"13029852605","username":"heihei","usersex":"0","upicurl":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","article_num":"1","like_num":"1","activity_id":"8","status":0}]
+     * obj : [{"lID":"2","likeuserID":"38","userphone":"18346038613","username":"18346038613","usersex":"0","upicurl":"","article_num":"0","like_num":"1","activity_id":"0","status":"0"}]
      */
 
     private int code;
@@ -44,17 +44,19 @@ public class UserFocusModel {
 
     public static class ObjBean {
         /**
-         * likeuserID : 1
-         * userphone : 13029852605
-         * username : heihei
+         * lID : 2
+         * likeuserID : 38
+         * userphone : 18346038613
+         * username : 18346038613
          * usersex : 0
-         * upicurl : http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg
-         * article_num : 1
+         * upicurl :
+         * article_num : 0
          * like_num : 1
-         * activity_id : 8
+         * activity_id : 0
          * status : 0
          */
 
+        private String lID;
         private String likeuserID;
         private String userphone;
         private String username;
@@ -63,7 +65,15 @@ public class UserFocusModel {
         private String article_num;
         private String like_num;
         private String activity_id;
-        private int status;
+        private String status;
+
+        public String getLID() {
+            return lID;
+        }
+
+        public void setLID(String lID) {
+            this.lID = lID;
+        }
 
         public String getLikeuserID() {
             return likeuserID;
@@ -129,11 +139,11 @@ public class UserFocusModel {
             this.activity_id = activity_id;
         }
 
-        public int getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        public void setStatus(int status) {
+        public void setStatus(String status) {
             this.status = status;
         }
     }

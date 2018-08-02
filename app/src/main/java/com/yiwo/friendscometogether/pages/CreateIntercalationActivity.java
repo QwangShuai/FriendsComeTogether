@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,6 +26,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.IntercalationAdapter;
 import com.yiwo.friendscometogether.adapter.MyPicturesAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -89,6 +91,8 @@ public class CreateIntercalationActivity extends BaseActivity {
     private String id = "";
 
     private List<File> files = new ArrayList<>();
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,8 +204,9 @@ public class CreateIntercalationActivity extends BaseActivity {
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
             public void subscribe(final ObservableEmitter<Map<String, File>> e) throws Exception {
-                Map<String, File> map = new HashMap<>();
-                List<String> list = new ArrayList<>();
+                dialog = WeiboDialogUtils.createLoadingDialog(CreateIntercalationActivity.this, "请等待...");
+                final Map<String, File> map = new HashMap<>();
+                final List<String> list = new ArrayList<>();
                 for (int i = 0; i < mList.size(); i++) {
                     list.add(mList.get(i).getPic());
                 }
@@ -224,6 +229,14 @@ public class CreateIntercalationActivity extends BaseActivity {
                             public void onSuccess(File file) {
                                 // TODO 压缩成功后调用，返回压缩后的图片文件
                                 files.add(file);
+                                Log.e("222", list.size() + "..."+files.size());
+                                if(files.size() == list.size()){
+                                    for (int i = 0; i < files.size(); i++) {
+                                        map.put("images[" + i + "]", files.get(i));
+                                    }
+                                    Log.e("222", map.size() + "");
+                                    e.onNext(map);
+                                }
                             }
 
                             @Override
@@ -231,13 +244,6 @@ public class CreateIntercalationActivity extends BaseActivity {
                                 // TODO 当压缩过程出现问题时调用
                             }
                         }).launch();
-                if(files.size() == list.size()){
-                    for (int i = 0; i < files.size(); i++) {
-                        map.put("images[" + i + "]", files.get(i));
-                    }
-                    Log.e("222", map.size() + "");
-                    e.onNext(map);
-                }
             }
         });
         Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {
@@ -272,6 +278,7 @@ public class CreateIntercalationActivity extends BaseActivity {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if (jsonObject.getInt("code") == 200) {
                                         toToast(CreateIntercalationActivity.this, "创建成功");
+                                        WeiboDialogUtils.closeDialog(dialog);
                                         onBackPressed();
                                     }
                                 } catch (JSONException e) {

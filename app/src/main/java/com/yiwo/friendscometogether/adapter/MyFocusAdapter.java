@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,11 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
 
     private Context context;
     private List<UserFocusModel.ObjBean> data;
+    private OnFocusCancelListener listener;
+
+    public void setOnFocusCancelListener(OnFocusCancelListener listener) {
+        this.listener = listener;
+    }
 
     public MyFocusAdapter(List<UserFocusModel.ObjBean> data) {
         this.data = data;
@@ -38,14 +44,24 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.ivAvatar);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        if (!TextUtils.isEmpty(data.get(position).getUpicurl())) {
+            Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.ivAvatar);
+        } else {
+            Picasso.with(context).load(R.mipmap.my_head).into(holder.ivAvatar);
+        }
         holder.tvNickname.setText("昵称: " + data.get(position).getUsername());
         Picasso.with(context).load(data.get(position).getUsersex().equals("0") ? R.mipmap.nan : R.mipmap.nv).into(holder.ivSex);
         holder.tvArticleNum.setText("文章: " + data.get(position).getArticle_num());
         holder.tvLikeNum.setText("粉丝: " + data.get(position).getLike_num());
         holder.tvActivityId.setText(data.get(position).getActivity_id().equals("0") ? "活动状态: 未参加活动" : "活动状态: 活动中");
-        holder.tv2.setText(data.get(position).getStatus() == 0 ? "已结束" : "进行中");
+        holder.tv2.setText(data.get(position).getStatus().equals("0") ? "已结束" : "进行中");
+        holder.tv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onCancel(position);
+            }
+        });
     }
 
     @Override
@@ -75,6 +91,10 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
             tv2 = itemView.findViewById(R.id.activity_my_focus_rv_tv_2);
             tv1 = itemView.findViewById(R.id.activity_my_focus_rv_tv_1);
         }
+    }
+
+    public interface OnFocusCancelListener {
+        void onCancel(int position);
     }
 
 }

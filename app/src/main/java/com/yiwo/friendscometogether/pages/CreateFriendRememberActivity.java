@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.pages;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -37,6 +38,7 @@ import com.yiwo.friendscometogether.custom.EditContentDialog;
 import com.yiwo.friendscometogether.custom.EditTitleDialog;
 import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
+import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.model.UserReleaseModel;
@@ -139,6 +141,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
     private String uid = "";
 
     private String images = "";
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -593,6 +597,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                     @Override
                     public void subscribe(final ObservableEmitter<File> e) throws Exception {
 //                        File file = new File(images);
+                        dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendRememberActivity.this, "请等待...");
                         Luban.with(CreateFriendRememberActivity.this)
                                 .load(images)
                                 .ignoreBy(100)
@@ -650,6 +655,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if (jsonObject.getInt("code") == 200) {
                                                 toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
+                                                WeiboDialogUtils.closeDialog(dialog);
                                                 onBackPressed();
                                             }
                                         } catch (JSONException e) {
@@ -687,6 +693,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                     @Override
                     public void subscribe(final ObservableEmitter<File> e) throws Exception {
 //                        File file = new File(images);
+                        dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendRememberActivity.this, "请等待...");
                         Luban.with(CreateFriendRememberActivity.this)
                                 .load(images)
                                 .ignoreBy(100)
@@ -744,6 +751,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if (jsonObject.getInt("code") == 200) {
                                                 toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
+                                                WeiboDialogUtils.closeDialog(dialog);
                                                 onBackPressed();
                                             }
                                         } catch (JSONException e) {
@@ -781,6 +789,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                     @Override
                     public void subscribe(final ObservableEmitter<File> e) throws Exception {
 //                        File file = new File(images);
+                        dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendRememberActivity.this, "请等待...");
                         Luban.with(CreateFriendRememberActivity.this)
                                 .load(images)
                                 .ignoreBy(100)
@@ -843,6 +852,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                                 Intent intent = new Intent();
                                                 intent.putExtra("id", userReleaseModel.getObj().getId()+"");
                                                 intent.setClass(CreateFriendRememberActivity.this, CreateIntercalationActivity.class);
+                                                WeiboDialogUtils.closeDialog(dialog);
                                                 startActivity(intent);
                                                 CreateFriendRememberActivity.this.finish();
                                             }

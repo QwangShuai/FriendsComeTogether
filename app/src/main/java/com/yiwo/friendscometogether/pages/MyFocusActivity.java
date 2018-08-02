@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,7 @@ public class MyFocusActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     private MyFocusAdapter adapter;
+    private List<UserFocusModel.ObjBean> mList;
 
     private SpImp spImp;
     private String uid = "";
@@ -60,7 +62,8 @@ public class MyFocusActivity extends BaseActivity {
         recyclerView.setLayoutManager(manager);
         ViseHttp.POST(NetConfig.userFocus)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocus))
-                .addParam("uid", uid)
+                .addParam("page", "1")
+                .addParam("userID", uid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -69,8 +72,47 @@ public class MyFocusActivity extends BaseActivity {
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 UserFocusModel userFocusModel = gson.fromJson(data, UserFocusModel.class);
-                                adapter = new MyFocusAdapter(userFocusModel.getObj());
+                                mList = userFocusModel.getObj();
+                                adapter = new MyFocusAdapter(mList);
                                 recyclerView.setAdapter(adapter);
+                                adapter.setOnFocusCancelListener(new MyFocusAdapter.OnFocusCancelListener() {
+                                    @Override
+                                    public void onCancel(final int position) {
+                                        toDialog(MyFocusActivity.this, "提示", "是否取消关注", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                ViseHttp.POST(NetConfig.userCancelFocusUrl)
+                                                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userCancelFocusUrl))
+                                                        .addParam("listId", mList.get(position).getLID())
+                                                        .request(new ACallback<String>() {
+                                                            @Override
+                                                            public void onSuccess(String data) {
+                                                                try {
+                                                                    JSONObject jsonObject1 = new JSONObject(data);
+                                                                    if(jsonObject1.getInt("code") == 200){
+                                                                        toToast(MyFocusActivity.this, "取消关注成功");
+                                                                        mList.remove(position);
+                                                                        adapter.notifyDataSetChanged();
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFail(int errCode, String errMsg) {
+
+                                                            }
+                                                        });
+                                            }
+                                        }, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
