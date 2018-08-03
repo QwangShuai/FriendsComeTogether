@@ -1,9 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.yiwo.friendscometogether.pages.MessageCenterDetailsActivity">
+    <RelativeLayout
+        android:id="@+id/activity_message_center_details_rl_top"
+        style="@style/rl_top_bar">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            style="@style/tv_top_title"
+            android:text="消息中心" />
+
+        <RelativeLayout
+            android:id="@+id/activity_message_center_details_rl_back"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <ImageView style="@style/iv_return" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:maxLines="2"
+                android:textSize="30px"
+                android:maxLength="30"
+                android:textColor="@color/black_333333"
+                android:layout_marginTop="30px"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:id="@+id/activity_message_center_details_title_tv"
+                android:text="这是一个标题"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/activity_message_center_details_pic_iv"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:layout_marginTop="20px"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="match_parent"
+                android:layout_height="332px" />
+            <TextView
+                android:id="@+id/activity_message_center_details_content_tv"
+                android:text="这是一个内容,这是一个内容,这是一个内容，这是一个内容，这是一个内容，这是一个内容，这是一个内容，这是一个内容这是一个内容，这是一个内容，这是一个内容这是一个内容，这是一个内容，"
+                android:textColor="@color/black_333333"
+                android:textSize="28px"
+                android:layout_marginTop="20px"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
