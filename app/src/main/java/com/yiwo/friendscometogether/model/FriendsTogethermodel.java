@@ -69,6 +69,16 @@ public class FriendsTogethermodel {
         private String upicurl;
         private String have_num;
         private String focusOn;
+        private String sign;
+
+        public String getSign() {
+            return sign;
+        }
+
+        public void setSign(String sign) {
+            this.sign = sign;
+        }
+
         private List<String> all_u_pic;
 
         public String getUsergrade() {

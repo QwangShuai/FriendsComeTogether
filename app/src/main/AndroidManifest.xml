@@ -127,7 +127,10 @@
                 <data android:scheme="wx77762a8eab365cf1" />
             </intent-filter>
         </activity>
-        <activity android:name=".pages.ArticleCommentActivity"></activity>
+        <activity android:name=".pages.ArticleCommentActivity" />
+        <activity android:name=".pages.SetActivity" />
+        <activity android:name=".pages.MessageViewActivity" />
+        <activity android:name=".pages.MessageCenterDetailsActivity"></activity>
     </application>
 
 </manifest>

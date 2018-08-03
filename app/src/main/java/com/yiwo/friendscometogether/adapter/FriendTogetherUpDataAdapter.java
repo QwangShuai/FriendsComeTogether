@@ -73,7 +73,12 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         if (!StringUtils.isEmpty(data.get(position).getUpicurl())) {
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
         }
-        holder.levelTv.setText(data.get(position).getUsergrade().equals("1") ? "签约领队" : "普通领队");
+        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
+            holder.levelTv.setText(data.get(position).getSign().equals("1") ? "签约领队" : "普通领队");
+        } else {
+            holder.levelTv.setText("暂无领队");
+        }
+
         holder.levelBg.setBackgroundResource(data.get(position).getUsergrade().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
         holder.personTv.setText(data.get(position).getHave_num() + "/" + data.get(position).getPfpeople());
         holder.focusOnIv.setImageResource(data.get(position).getFocusOn().equals("0") ? R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);

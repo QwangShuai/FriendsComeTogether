@@ -45,13 +45,13 @@ public class FocusOnLeaderModel {
          * attention : 1
          */
 
-        private int attention;
+        private String attention;
 
-        public int getAttention() {
+        public String getAttention() {
             return attention;
         }
 
-        public void setAttention(int attention) {
+        public void setAttention(String attention) {
             this.attention = attention;
         }
     }

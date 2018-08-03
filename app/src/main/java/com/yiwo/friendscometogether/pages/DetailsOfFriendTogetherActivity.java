@@ -114,7 +114,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         Intent intent = getIntent();
         pfID = intent.getStringExtra("pfID");
         String userID = spImp.getUID();
-        String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherDetailsUrl);
+        final String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherDetailsUrl);
         ViseHttp.POST(NetConfig.friendsTogetherDetailsUrl)
                 .addParam("app_key", token)
                 .addParam("pfID", pfID)
@@ -124,7 +124,12 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                     public void onSuccess(String data) {
                         Log.e("222", data);
                         model = new Gson().fromJson(data, FriendsTogetherDetailsModel.class);
-                        initView(model.getObj());
+                        if(model.getCode()==200){
+                            initView(model.getObj());
+                        } else {
+                            toToast(DetailsOfFriendTogetherActivity.this,model.getMessage());
+                        }
+
                     }
 
                     @Override
@@ -160,6 +165,12 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         manTv.setText("男生人数：" + model.getMan());
         participantsTv.setText("参加人员（" + model.getHave_num() + "/" + model.getPerson_num() + ")");
         focusOnLeaderIv.setImageResource(model.getAttention_captain().equals("0")?R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
+        if(!StringUtils.isEmpty(leaderID)&&!leaderID.equals("0")){
+            levelTv.setText(model.getIf_sign().equals("0")?"普通领队":"签约领队");
+        } else {
+            levelTv.setText("暂无领队");
+        }
+
         initPerson(model.getUser_list());
         initList(model.getInfo_list());
     }
@@ -281,6 +292,13 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                                 @Override
                                 public void onSuccess(String data) {
                                     FocusOnLeaderModel model = new Gson().fromJson(data,FocusOnLeaderModel.class);
+                                    if(model.getCode()==200){
+                                        if(model.getObj().getAttention().equals("0")){
+                                            focusOnLeaderIv.setImageResource(R.mipmap.focus_on_empty_y);
+                                        } else {
+                                            focusOnLeaderIv.setImageResource(R.mipmap.focus_on_y);
+                                        }
+                                    }
                                 }
 
                                 @Override

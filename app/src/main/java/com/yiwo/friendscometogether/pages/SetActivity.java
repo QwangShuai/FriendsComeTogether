@@ -6,13 +6,13 @@ import android.os.Bundle;
 import com.yiwo.friendscometogether.R;
 
 /**
- * 消息中心
+ * 设置
  */
-public class MessageCenterActivity extends AppCompatActivity {
+public class SetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message_center);
+        setContentView(R.layout.activity_set);
     }
 }

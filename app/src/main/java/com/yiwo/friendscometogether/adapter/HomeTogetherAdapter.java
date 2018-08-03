@@ -52,7 +52,12 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         if(!StringUtils.isEmpty(data.get(position).getUpicurl()))
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
         holder.bgRl.setBackgroundResource(data.get(position).getSign().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
-        holder.levelTv.setText(data.get(position).getSign().equals("1")?"普通领队":"签约领队");
+        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
+            holder.levelTv.setText(data.get(position).getSign().equals("0")?"普通领队":"签约领队");
+        } else {
+            holder.levelTv.setText("暂无领队");
+        }
+
         holder.titleTv.setText(data.get(position).getPftitle());
         holder.contentTv.setText(data.get(position).getPfcontent());
         holder.rl.setOnClickListener(new View.OnClickListener() {
