@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.CImageView;
 import com.yiwo.friendscometogether.model.HomeTogetherModel;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
+import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
@@ -43,12 +46,28 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         if(!StringUtils.isEmpty(data.get(position).getPfpic()))
             Picasso.with(context).load(data.get(position).getPfpic()).into(holder.picIv);
         if(!StringUtils.isEmpty(data.get(position).getUpicurl()))
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
-        holder.bgRl.setBackgroundResource(data.get(position).getCaptain().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
+        holder.bgRl.setBackgroundResource(data.get(position).getSign().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
+        holder.levelTv.setText(data.get(position).getSign().equals("1")?"普通领队":"签约领队");
+        holder.titleTv.setText(data.get(position).getPftitle());
+        holder.contentTv.setText(data.get(position).getPfcontent());
+        holder.rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(spImp.getUID().equals("0")){
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(context, DetailsOfFriendTogetherActivity.class);
+                    intent.putExtra("pfID", data.get(position).getPfID());
+                    context.startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -62,6 +81,8 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         TextView levelTv;
         RelativeLayout bgRl;
         CImageView headIv;
+        TextView contentTv;
+        RelativeLayout rl;
         public ViewHolder(View itemView) {
             super(itemView);
             bgRl = (itemView).findViewById(R.id.item_levelBg);
@@ -69,6 +90,8 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
             levelTv = (itemView).findViewById(R.id.levelTv);
             picIv = (itemView).findViewById(R.id.home_together_pic_iv);
             titleTv = (itemView).findViewById(R.id.home_together_title_tv);
+            contentTv = (itemView).findViewById(R.id.home_together_title_tv);
+            rl = (itemView).findViewById(R.id.home_together__item_rl);
         }
     }
 }

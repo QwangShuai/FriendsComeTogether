@@ -11,7 +11,7 @@ public class HomeTogetherModel {
     /**
      * code : 200
      * message : 操作成功!
-     * obj : [{"captain":"0","pftitle":"飞","pfcontent":"123123","pfID":"8","pfpic":"http://localhost/www/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","upicurl":""},{"captain":"1","pftitle":"飘","pfcontent":"123123","pfID":"1","pfpic":"http://localhost/www/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","upicurl":""}]
+     * obj : [{"sign":"0","username":"","usergrade":"0","captain":"0","pftitle":"哦嗖嗖嗖","pfcontent":"哦嗖嗖嗖","pfID":"104","pfpic":"http://localhost/www/uploads/xingcheng/20180802/20180802/d95ecae3fe60a4f5b9354d298b91490a.jpeg","upicurl":""}]
      */
 
     private int code;
@@ -44,20 +44,50 @@ public class HomeTogetherModel {
 
     public static class ObjBean {
         /**
+         * sign : 0
+         * username :
+         * usergrade : 0
          * captain : 0
-         * pftitle : 飞
-         * pfcontent : 123123
-         * pfID : 8
-         * pfpic : http://localhost/www/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg
+         * pftitle : 哦嗖嗖嗖
+         * pfcontent : 哦嗖嗖嗖
+         * pfID : 104
+         * pfpic : http://localhost/www/uploads/xingcheng/20180802/20180802/d95ecae3fe60a4f5b9354d298b91490a.jpeg
          * upicurl :
          */
 
+        private String sign;
+        private String username;
+        private String usergrade;
         private String captain;
         private String pftitle;
         private String pfcontent;
         private String pfID;
         private String pfpic;
         private String upicurl;
+
+        public String getSign() {
+            return sign;
+        }
+
+        public void setSign(String sign) {
+            this.sign = sign;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getUsergrade() {
+            return usergrade;
+        }
+
+        public void setUsergrade(String usergrade) {
+            this.usergrade = usergrade;
+        }
 
         public String getCaptain() {
             return captain;

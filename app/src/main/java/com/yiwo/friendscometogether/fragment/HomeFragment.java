@@ -33,12 +33,14 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.HomeHotAdapter;
+import com.yiwo.friendscometogether.adapter.HomeTogetherAdapter;
 import com.yiwo.friendscometogether.adapter.VideoAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
 import com.yiwo.friendscometogether.custom.ScalableCardHelper;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
+import com.yiwo.friendscometogether.model.HomeTogetherModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.ApplyActivity;
@@ -68,6 +70,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.mContext;
+
 /**
  * Created by Administrator on 2018/7/16.
  */
@@ -80,6 +84,8 @@ public class HomeFragment extends BaseFragment {
     RecyclerView home_hotRv;
     @BindView(R.id.home_hotVideoRv)
     RecyclerView home_hotVideoRv;
+    @BindView(R.id.home_hotTogetherRv)
+    RecyclerView home_hotTogetherRv;
     @BindView(R.id.locationRl)
     RelativeLayout locationRl;
     @BindView(R.id.cityTv)
@@ -93,6 +99,7 @@ public class HomeFragment extends BaseFragment {
     String latLongString = "";
     private HomeHotAdapter adapter;
     private VideoAdapter videoAdapter;
+    private HomeTogetherAdapter togetherAdapter;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -140,6 +147,22 @@ public class HomeFragment extends BaseFragment {
                     }
                 });
 
+        String tokens = getToken(NetConfig.BaseUrl + NetConfig.homeTogetherListUrl);
+        ViseHttp.POST(NetConfig.homeTogetherListUrl)
+                .addParam("app_key",tokens)
+                .addParam("page","1")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(String data) {
+                        HomeTogetherModel model = new Gson().fromJson(data,HomeTogetherModel.class);
+                        initTogetherList(model.getObj());
+                    }
+                });
     }
 
     public void initList(List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data) {
@@ -154,6 +177,7 @@ public class HomeFragment extends BaseFragment {
         adapter = new HomeHotAdapter(data);
         home_hotRv.setAdapter(adapter);
     }
+
     public void initVideoList(final List<HomeHotFriendsRememberModel.ObjBean.VideoBean> data) {
         LinearLayoutManager manager = new LinearLayoutManager(getContext()) {
             @Override
@@ -172,6 +196,20 @@ public class HomeFragment extends BaseFragment {
             }
         });
         cardHelper.attachToRecyclerView(home_hotVideoRv);
+    }
+
+    public void initTogetherList(List<HomeTogetherModel.ObjBean> data){
+        LinearLayoutManager manager = new LinearLayoutManager(getContext()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        home_hotTogetherRv.setLayoutManager(manager);
+//        home_hotTogetherRv.addItemDecoration();
+        togetherAdapter = new HomeTogetherAdapter(data);
+        home_hotTogetherRv.setAdapter(togetherAdapter);
     }
     @OnClick({R.id.locationRl,R.id.searchLl})
     public void OnClick(View v) {

@@ -88,6 +88,10 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     ImageView focusOnIv;
     @BindView(R.id.activity_details_of_friends_together_rl_back)
     RelativeLayout activity_details_of_friends_together_rl_back;
+    @BindView(R.id.activity_details_of_friends_together_ll_top_focus)
+    LinearLayout focusOnLeaderLl;
+    @BindView(R.id.activity_details_of_friends_together_iv_focus)
+    ImageView focusOnLeaderIv;
     private Unbinder unbinder;
     private ParticipantsItemAdapter adapter;
     private DetailsOfFriendsTogetherAdapter detailsOfFriendsTogetherAdapter;
@@ -185,7 +189,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     }
 
     @OnClick({R.id.details_applyTv, R.id.activity_details_of_friends_together_rl_back, R.id.activity_details_of_friends_together_ll_share,
-            R.id.activity_details_of_friends_together_ll_focus_on})
+            R.id.activity_details_of_friends_together_ll_focus_on,R.id.activity_details_of_friends_together_ll_top_focus})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.activity_details_of_friends_together_rl_back:
@@ -262,6 +266,9 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
 
                             }
                         });
+                break;
+            case R.id.activity_details_of_friends_together_ll_top_focus:
+
                 break;
         }
     }
