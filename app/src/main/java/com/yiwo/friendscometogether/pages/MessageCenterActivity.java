@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -59,9 +60,15 @@ public class MessageCenterActivity extends AppCompatActivity {
                 break;
             case R.id.hot_message_rl:
                 numTv.setVisibility(View.INVISIBLE);
+                Intent it = new Intent(MessageCenterActivity.this,MessageViewActivity.class);
+                it.putExtra("type","0");
+                startActivity(it);
                 break;
             case R.id.set_message_rl:
                 set_numTv.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(MessageCenterActivity.this,MessageViewActivity.class);
+                intent.putExtra("type","1");
+                startActivity(intent);
                 break;
         }
     }

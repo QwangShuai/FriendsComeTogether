@@ -1,15 +1,24 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.MessageViewModel;
+import com.yiwo.friendscometogether.pages.MessageCenterDetailsActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.StringUtils;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -38,7 +47,19 @@ public class MessageViewAdapter extends RecyclerView.Adapter<MessageViewAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.titleTv.setText(data.get(position).getMes_title());
+        if(!StringUtils.isEmpty(data.get(position).getMes_pic()))
+            Picasso.with(context).load(data.get(position).getMes_pic()).into(holder.picIv);
+        holder.contentTv.setText(data.get(position).getMes_message());
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(context, MessageCenterDetailsActivity.class);
+                it.putExtra("id","id");
+                context.startActivity(it);
 
+            }
+        });
     }
 
     @Override
@@ -47,8 +68,16 @@ public class MessageViewAdapter extends RecyclerView.Adapter<MessageViewAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView titleTv;
+        private ImageView picIv;
+        private TextView contentTv;
+        private LinearLayout ll;
         public ViewHolder(View itemView) {
             super(itemView);
+            titleTv = (itemView).findViewById(R.id.message_view_title_tv);
+            picIv = (itemView).findViewById(R.id.message_view_pic_iv);
+            contentTv = (itemView).findViewById(R.id.message_view_content_tv);
+            ll = (itemView).findViewById(R.id.item_ll);
         }
     }
 }
