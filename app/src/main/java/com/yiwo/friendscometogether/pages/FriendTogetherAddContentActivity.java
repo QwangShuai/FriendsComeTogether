@@ -181,8 +181,8 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
             public void subscribe(final ObservableEmitter<Map<String, File>> e) throws Exception {
-                Map<String, File> map = new HashMap<>();
-                List<String> list = new ArrayList<>();
+                final Map<String, File> map = new HashMap<>();
+                final List<String> list = new ArrayList<>();
                 for (int i = 0; i < mList.size(); i++) {
                     list.add(mList.get(i).getPic());
                 }
@@ -205,6 +205,13 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                             public void onSuccess(File file) {
                                 // TODO 压缩成功后调用，返回压缩后的图片文件
                                 files.add(file);
+                                if(files.size() == list.size()){
+                                    for (int i = 0; i < files.size(); i++) {
+                                        map.put("activity_files[" + i + "]", files.get(i));
+                                    }
+                                    Log.e("222", map.size() + "");
+                                    e.onNext(map);
+                                }
                             }
 
                             @Override
@@ -212,13 +219,6 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                                 // TODO 当压缩过程出现问题时调用
                             }
                         }).launch();
-                if(files.size() == list.size()){
-                    for (int i = 0; i < files.size(); i++) {
-                        map.put("activity_files[" + i + "]", files.get(i));
-                    }
-                    Log.e("222", map.size() + "");
-                    e.onNext(map);
-                }
             }
         });
         Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {

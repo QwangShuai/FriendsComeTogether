@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/home_together_rl"
+        android:layout_width="match_parent"
+        android:layout_height="372px">
+        <ImageView
+            android:id="@+id/home_together_pic_iv"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="372px" />
+        <RelativeLayout
+            android:background="@color/gray_101010"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="88px">
+            <TextView
+                android:id="@+id/home_together_title_tv"
+                android:layout_marginLeft="16px"
+                android:textSize="30px"
+                android:textColor="@color/white_ffffff"
+                android:layout_centerVertical="true"
+                android:text="  活动活动"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/home_together_content_tv"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="41px"
+        android:textSize="30px"
+        android:textColor="@color/black_333333"
+        android:text="开头讲个段子。在决定下笔写游记之前，我在朋友圈征集和酒有关旅行故事，很多人问我，要和酒有关的故事，还是要旅行故事？我说两者兼..."
+        android:layout_below="@+id/home_together_rl"
+        android:layout_width="530px"
+        android:layout_height="168px" />
+    <LinearLayout
+
+        android:layout_marginTop="44px"
+        android:layout_below="@+id/home_together_rl"
+        android:layout_marginRight="21px"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        android:layout_width="176px"
+        android:layout_height="186px">
+
+        <com.yiwo.friendscometogether.custom.CImageView
+            android:id="@+id/headIv"
+            android:layout_width="120px"
+            android:layout_height="120px"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_launcher" />
+        <RelativeLayout
+            android:id="@+id/item_levelBg"
+            android:background="@mipmap/level_red"
+            android:layout_width="match_parent"
+            android:layout_height="62px">
+
+            <TextView
+                android:id="@+id/levelTv"
+                android:layout_width="wrap_content"
+                android:layout_height="42px"
+                android:layout_marginLeft="46px"
+                android:layout_marginTop="20px"
+                android:text="签约领队"
+                android:textColor="@color/white_ffffff"
+                android:textSize="30px" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

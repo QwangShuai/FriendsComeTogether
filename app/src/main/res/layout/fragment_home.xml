@@ -139,6 +139,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
+            <View
+                android:layout_marginTop="34px"
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/black_f8f8f8"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="124px">
+
+                <ImageView
+                    android:layout_marginRight="9px"
+                    android:layout_toLeftOf="@+id/right_tv"
+                    android:layout_centerVertical="true"
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:src="@mipmap/cheers" />
+                <TextView
+                    android:id="@+id/right_tv"
+                    android:text="友来友聚"
+                    android:textSize="34px"
+                    android:textColor="@color/yellow_ff9d00"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/home_hotTogetherRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
