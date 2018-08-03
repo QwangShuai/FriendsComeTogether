@@ -87,6 +87,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:layout_marginRight="40px"
+                android:layout_alignParentRight="true"
+                android:id="@+id/activity_article_comment_rv_tv_reply"
+                android:layout_marginTop="10px"
+                android:textColor="#333333"
+                android:textSize="24px"
+                android:text="回复"
+                android:layout_below="@+id/activity_article_comment_rv_tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </RelativeLayout>
 
     </LinearLayout>

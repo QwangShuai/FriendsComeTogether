@@ -25,6 +25,11 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
 
     private Context context;
     private List<ArticleCommentListModel.ObjBean> data;
+    private OnReplyListener listener;
+
+    public void setOnReplyListener(OnReplyListener listener){
+        this.listener = listener;
+    }
 
     public ArticleCommentAdapter(List<ArticleCommentListModel.ObjBean> data) {
         this.data = data;
@@ -40,7 +45,7 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         if (TextUtils.isEmpty(data.get(position).getUserpic())) {
             Picasso.with(context).load(R.mipmap.my_head).into(holder.ivAvatar);
         } else {
@@ -60,6 +65,12 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
         }else {
             holder.recyclerView.setVisibility(View.GONE);
         }
+        holder.tvReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onReply(data.get(position).getFcID());
+            }
+        });
     }
 
     @Override
@@ -75,6 +86,7 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
         private TextView tvContent;
         private TextView tvTime;
         private RecyclerView recyclerView;
+        private TextView tvReply;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -84,7 +96,12 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
             tvContent = itemView.findViewById(R.id.activity_article_comment_rv_tv_content);
             tvTime = itemView.findViewById(R.id.activity_article_comment_rv_tv_time);
             recyclerView = itemView.findViewById(R.id.activity_article_comment_rv_rv);
+            tvReply = itemView.findViewById(R.id.activity_article_comment_rv_tv_reply);
         }
+    }
+
+    public interface OnReplyListener{
+        void onReply(String id);
     }
 
 }

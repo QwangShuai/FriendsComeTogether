@@ -117,4 +117,6 @@ public class NetConfig {
     public static String articleCommentListUrl = "action/ac_article/ReviewList";
     //首页友聚
     public static String homeTogetherListUrl = "action/ac_activity/index_activity";
+    //回复评论
+    public static String replyCommentUrl = "action/ac_article/Reply";
 }
