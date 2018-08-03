@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ import com.yiwo.friendscometogether.pages.ApplyActivity;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
+import com.yiwo.friendscometogether.pages.MessageCenterActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.UserUtils;
@@ -81,6 +83,8 @@ public class HomeFragment extends BaseFragment {
     View rootView;
     @BindView(R.id.fragment_home_banner)
     Banner banner;
+    @BindView(R.id.messageIv)
+    ImageView messageIv;
     @BindView(R.id.home_hotRv)
     RecyclerView home_hotRv;
     @BindView(R.id.home_hotVideoRv)
@@ -91,6 +95,8 @@ public class HomeFragment extends BaseFragment {
     RelativeLayout locationRl;
     @BindView(R.id.cityTv)
     TextView cityTv;
+    @BindView(R.id.home_numTv)
+    TextView home_numTv;
     @BindView(R.id.searchLl)
     LinearLayout searchLl;
     private LocationManager locationManager;
@@ -212,7 +218,7 @@ public class HomeFragment extends BaseFragment {
         togetherAdapter = new HomeTogetherAdapter(data);
         home_hotTogetherRv.setAdapter(togetherAdapter);
     }
-    @OnClick({R.id.locationRl,R.id.searchLl})
+    @OnClick({R.id.locationRl,R.id.searchLl,R.id.messageIv})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.locationRl:
@@ -227,6 +233,10 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.searchLl:
                 getActivity().startActivity(new Intent(getActivity(), SearchActivity.class));
+                break;
+            case R.id.messageIv:
+                home_numTv.setVisibility(View.INVISIBLE);
+                getActivity().startActivity(new Intent(getActivity(), MessageCenterActivity.class));
                 break;
         }
     }

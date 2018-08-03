@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black_f8f8f8"
     tools:context="com.yiwo.friendscometogether.pages.MessageViewActivity">
+    <RelativeLayout
+        android:id="@+id/activity_message_view_rl_top"
+        style="@style/rl_top_bar">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            style="@style/tv_top_title"
+            android:text="消息中心" />
+
+        <RelativeLayout
+            android:id="@+id/activity_message_view_rl_back"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <ImageView style="@style/iv_return" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_message_view_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>
