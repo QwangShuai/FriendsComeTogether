@@ -119,4 +119,6 @@ public class NetConfig {
     public static String homeTogetherListUrl = "action/ac_activity/index_activity";
     //回复评论
     public static String replyCommentUrl = "action/ac_article/Reply";
+    //关注领队
+    public static String focusOnLeaderUrl = "action/ac_user/attention_captain";
 }

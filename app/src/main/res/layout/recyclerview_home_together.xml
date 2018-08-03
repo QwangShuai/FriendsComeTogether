@@ -40,7 +40,7 @@
         android:layout_width="530px"
         android:layout_height="168px" />
     <LinearLayout
-
+        android:id="@+id/diver"
         android:layout_marginTop="44px"
         android:layout_below="@+id/home_together_rl"
         android:layout_marginRight="21px"
@@ -72,4 +72,11 @@
                 android:textSize="30px" />
         </RelativeLayout>
     </LinearLayout>
+    <View
+        android:layout_marginTop="28px"
+        android:layout_marginBottom="31px"
+        android:layout_below="@+id/diver"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_e5e5e5" />
 </RelativeLayout>

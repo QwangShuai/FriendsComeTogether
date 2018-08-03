@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -207,7 +208,7 @@ public class HomeFragment extends BaseFragment {
         };
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         home_hotTogetherRv.setLayoutManager(manager);
-//        home_hotTogetherRv.addItemDecoration();
+//        home_hotTogetherRv.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         togetherAdapter = new HomeTogetherAdapter(data);
         home_hotTogetherRv.setAdapter(togetherAdapter);
     }

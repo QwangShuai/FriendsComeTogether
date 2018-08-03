@@ -28,6 +28,7 @@ import com.yiwo.friendscometogether.adapter.DetailsOfFriendsTogetherAdapter;
 import com.yiwo.friendscometogether.adapter.FriendTogetherUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.ParticipantsItemAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.FriendsTogetherDetailsModel;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
@@ -98,7 +99,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     SpImp spImp;
     FriendsTogetherDetailsModel model;
     String pfID;
-
+    String leaderID = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +136,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     }
 
     public void initView(FriendsTogetherDetailsModel.ObjBean model) {
+        if(!StringUtils.isEmpty(model.getCaptain()))
+            leaderID = model.getCaptain();
         if (!StringUtils.isEmpty(model.getShow_pic())) {
             Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getShow_pic()).into(titleIv);
         }
@@ -156,6 +159,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         womanTv.setText("女生人数：" + model.getWoman());
         manTv.setText("男生人数：" + model.getMan());
         participantsTv.setText("参加人员（" + model.getHave_num() + "/" + model.getPerson_num() + ")");
+        focusOnLeaderIv.setImageResource(model.getAttention_captain().equals("0")?R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
         initPerson(model.getUser_list());
         initList(model.getInfo_list());
     }
@@ -268,7 +272,25 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                         });
                 break;
             case R.id.activity_details_of_friends_together_ll_top_focus:
+                if (!StringUtils.isEmpty(leaderID)&&!leaderID.equals("0")){
+                    ViseHttp.POST(NetConfig.focusOnLeaderUrl)
+                            .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.focusOnLeaderUrl))
+                            .addParam("userID",spImp.getUID())
+                            .addParam("attention_userID",leaderID)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    FocusOnLeaderModel model = new Gson().fromJson(data,FocusOnLeaderModel.class);
+                                }
 
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                } else {
+                    toToast(DetailsOfFriendTogetherActivity.this,"暂无领队");
+                }
                 break;
         }
     }
