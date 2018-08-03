@@ -62,6 +62,12 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
             holder.recyclerView.setLayoutManager(manager);
             ArticleCommentCommentAdapter adapter = new ArticleCommentCommentAdapter(data.get(position).getPic());
             holder.recyclerView.setAdapter(adapter);
+            adapter.setOnReplyCommentListener(new ArticleCommentCommentAdapter.OnReplyCommentListener() {
+                @Override
+                public void onReplyComment(String ID) {
+                    listener.onReply(ID);
+                }
+            });
         }else {
             holder.recyclerView.setVisibility(View.GONE);
         }

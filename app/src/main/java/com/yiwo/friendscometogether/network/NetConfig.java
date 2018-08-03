@@ -121,4 +121,6 @@ public class NetConfig {
     public static String replyCommentUrl = "action/ac_article/Reply";
     //关注领队
     public static String focusOnLeaderUrl = "action/ac_user/attention_captain";
+    //订单列表
+    public static String myOrderListUrl = "action/ac_order/my_order";
 }

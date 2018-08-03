@@ -131,7 +131,7 @@ public class ArticleCommentActivity extends BaseActivity {
                                 adapter.setOnReplyListener(new ArticleCommentAdapter.OnReplyListener() {
                                     @Override
                                     public void onReply(String id) {
-                                        showPopupCommnet(1);
+                                        showPopupCommnet(1, id);
                                     }
                                 });
                             }
@@ -239,7 +239,7 @@ public class ArticleCommentActivity extends BaseActivity {
      * show comment popupwindow（弹出发表评论的popupWindow）
      */
     @SuppressLint("WrongConstant")
-    private void showPopupCommnet(final int type) {// pe表示是评论还是举报1.代表评论。2.代表举报
+    private void showPopupCommnet(final int type, final String id) {// pe表示是评论还是举报1.代表评论。2.代表举报
         View view = LayoutInflater.from(ArticleCommentActivity.this).inflate(
                 R.layout.comment_popupwindow, null);
         ScreenAdapterTools.getInstance().loadView(view);
@@ -298,7 +298,32 @@ public class ArticleCommentActivity extends BaseActivity {
                 if(TextUtils.isEmpty(inputComment.getText().toString())){
                     toToast(ArticleCommentActivity.this, "请输入评论内容");
                 }else {
-                    
+                    ViseHttp.POST(NetConfig.replyCommentUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.replyCommentUrl))
+                            .addParam("commentid", id)
+                            .addParam("first_fcID", id)
+                            .addParam("ArticleId", fmID)
+                            .addParam("fctitle", inputComment.getText().toString())
+                            .addParam("uid", uid)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            toToast(ArticleCommentActivity.this, "回复成功");
+                                            popupWindowhf.dismiss();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
                 }
             }
         });

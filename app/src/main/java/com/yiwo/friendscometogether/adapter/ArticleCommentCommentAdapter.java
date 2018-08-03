@@ -21,6 +21,11 @@ public class ArticleCommentCommentAdapter extends RecyclerView.Adapter<ArticleCo
 
     private Context context;
     private List<ArticleCommentListModel.ObjBean.PicBean> data;
+    private OnReplyCommentListener listener;
+
+    public void setOnReplyCommentListener(OnReplyCommentListener listener){
+        this.listener = listener;
+    }
 
     public ArticleCommentCommentAdapter(List<ArticleCommentListModel.ObjBean.PicBean> data) {
         this.data = data;
@@ -36,8 +41,14 @@ public class ArticleCommentCommentAdapter extends RecyclerView.Adapter<ArticleCo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tv.setText(data.get(position).getFctitle());
+        holder.tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onReplyComment(data.get(position).getFcID());
+            }
+        });
     }
 
     @Override
@@ -53,6 +64,10 @@ public class ArticleCommentCommentAdapter extends RecyclerView.Adapter<ArticleCo
             super(itemView);
             tv = itemView.findViewById(R.id.activity_article_comment_rv_rv_tv);
         }
+    }
+
+    public interface OnReplyCommentListener{
+        void onReplyComment(String ID);
     }
 
 }
