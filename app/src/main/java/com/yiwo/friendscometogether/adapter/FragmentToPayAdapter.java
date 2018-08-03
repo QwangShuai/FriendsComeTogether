@@ -3,13 +3,18 @@ package com.yiwo.friendscometogether.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.PayFragmentModel;
 import com.yiwo.friendscometogether.pages.DetailsToBePaidActivity;
 
 import java.util.List;
@@ -21,9 +26,9 @@ import java.util.List;
 public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<PayFragmentModel.ObjBean> data;
 
-    public FragmentToPayAdapter(List<String> data) {
+    public FragmentToPayAdapter(List<PayFragmentModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -46,6 +51,14 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
                 context.startActivity(intent);
             }
         });
+        holder.tvTitle.setText(data.get(position).getTitle());
+        if (!TextUtils.isEmpty(data.get(position).getPf_pic())) {
+            Picasso.with(context).load(data.get(position).getPf_pic()).into(holder.iv);
+        }
+        holder.tvContent.setText(data.get(position).getInfo());
+        holder.tvTime.setText("行程时间: " + data.get(position).getTime_info());
+        holder.tvPeopleNum.setText("参加人数: " + data.get(position).getJoin_num());
+        holder.tvPrice.setText("合计费用: " + data.get(position).getOpaymoney());
     }
 
     @Override
@@ -56,10 +69,22 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private RelativeLayout rlDetails;
+        private TextView tvTitle;
+        private ImageView iv;
+        private TextView tvContent;
+        private TextView tvTime;
+        private TextView tvPeopleNum;
+        private TextView tvPrice;
 
         public ViewHolder(View itemView) {
             super(itemView);
             rlDetails = itemView.findViewById(R.id.fragment_to_pay_rv_rl_details);
+            tvTitle = itemView.findViewById(R.id.fragment_to_pay_rv_tv_title);
+            iv = itemView.findViewById(R.id.fragment_to_pay_rv_iv);
+            tvContent = itemView.findViewById(R.id.fragment_to_pay_rv_tv_content);
+            tvTime = itemView.findViewById(R.id.fragment_to_pay_rv_tv_time);
+            tvPeopleNum = itemView.findViewById(R.id.fragment_to_pay_rv_tv_people_num);
+            tvPrice = itemView.findViewById(R.id.fragment_to_pay_rv_tv_price);
         }
     }
 

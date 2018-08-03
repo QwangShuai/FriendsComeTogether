@@ -10,6 +10,22 @@
             android:text="我的"
             style="@style/tv_top_title" />
 
+        <RelativeLayout
+            android:id="@+id/fragment_my_set"
+            android:layout_alignParentRight="true"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="@color/white_ffffff"
+                android:textSize="28px"
+                android:text="设置"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <ScrollView
