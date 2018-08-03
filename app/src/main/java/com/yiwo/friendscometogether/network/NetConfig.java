@@ -111,4 +111,8 @@ public class NetConfig {
     public static String intercalationShowUrl = "action/ac_article/Exhibition";
     //设置屏蔽插文
     public static String sheildIntercalationUrl = "action/ac_article/ShieldedArticles";
+    //文章评论
+    public static String articleCommentUrl = "action/ac_article/ArticleReviews";
+    //文章评论列表
+    public static String articleCommentListUrl = "action/ac_article/ReviewList";
 }

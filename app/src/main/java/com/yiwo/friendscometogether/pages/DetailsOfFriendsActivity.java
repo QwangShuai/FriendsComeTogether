@@ -247,7 +247,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.activity_details_of_friends_ll_comment:
-                intent.setClass(DetailsOfFriendsActivity.this, MyCommentActivity.class);
+                intent.setClass(DetailsOfFriendsActivity.this, ArticleCommentActivity.class);
+                intent.putExtra("id", fmID);
                 startActivity(intent);
                 break;
             case R.id.activity_details_of_friends_ll_share:
