@@ -9,11 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FragmentReturnPriceAdapter;
+import com.yiwo.friendscometogether.adapter.FragmentToCommentAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.base.OrderBaseFragment;
+import com.yiwo.friendscometogether.model.CommentFragmentModel;
+import com.yiwo.friendscometogether.model.ReturnPriceFragmentModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.TokenUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +43,10 @@ public class ReturnPriceFragment extends OrderBaseFragment {
     RecyclerView recyclerView;
 
     private FragmentReturnPriceAdapter adapter;
+    private List<ReturnPriceFragmentModel.ObjBean> mList;
+
+    private SpImp spImp;
+    private String uid = "";
 
     @Override
     public View initView() {
@@ -38,6 +54,7 @@ public class ReturnPriceFragment extends OrderBaseFragment {
         ScreenAdapterTools.getInstance().loadView(view);
 
         ButterKnife.bind(this, view);
+        spImp = new SpImp(getContext());
 
         return view;
     }
@@ -49,20 +66,38 @@ public class ReturnPriceFragment extends OrderBaseFragment {
 
     private void initData1() {
 
+        uid = spImp.getUID();
+
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        List<String> data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        adapter = new FragmentReturnPriceAdapter(data);
-        recyclerView.setAdapter(adapter);
+        ViseHttp.POST(NetConfig.myOrderListUrl)
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.myOrderListUrl))
+                .addParam("page", "1")
+                .addParam("userID", uid)
+                .addParam("type", "4")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                ReturnPriceFragmentModel model = gson.fromJson(data, ReturnPriceFragmentModel.class);
+                                mList = model.getObj();
+                                adapter = new FragmentReturnPriceAdapter(mList);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 }

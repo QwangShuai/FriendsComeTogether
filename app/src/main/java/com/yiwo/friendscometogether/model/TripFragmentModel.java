@@ -6,12 +6,12 @@ import java.util.List;
  * Created by Administrator on 2018/8/3.
  */
 
-public class PayFragmentModel {
+public class TripFragmentModel {
 
     /**
      * code : 200
      * message : 获取成功
-     * obj : [{"oID":"57","title":"登峨眉山！","info":"登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！","join_num":"1","pf_pic":"http://47.92.136.19/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg","opaymoney":"1.00","opaytype":"5","opayout":"0","price_type":"自费","time_info":"2018.07.30-2018.08.01","status":"已取消","order_type":"7"},{"oID":"52","title":"登峨眉山！","info":"登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！","join_num":"1","pf_pic":"http://47.92.136.19/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg","opaymoney":"1.00","opaytype":"1","opayout":"0","price_type":"自费","time_info":"2018.07.30-2018.08.01","status":"待支付","order_type":"1"}]
+     * obj : [{"oID":"53","title":"洱海10天游","info":"洱海10天游洱海10天游洱海10天游","join_num":"1","pf_pic":"http://47.92.136.19/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg","opaymoney":"1.00","opaytype":"2","opayout":"0","price_type":"自费","time_info":"2018.09.01-2018.09.04","status":"待行程","order_type":"2"}]
      */
 
     private int code;
@@ -44,18 +44,18 @@ public class PayFragmentModel {
 
     public static class ObjBean {
         /**
-         * oID : 57
-         * title : 登峨眉山！
-         * info : 登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！登峨眉山！
+         * oID : 53
+         * title : 洱海10天游
+         * info : 洱海10天游洱海10天游洱海10天游
          * join_num : 1
          * pf_pic : http://47.92.136.19/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg
          * opaymoney : 1.00
-         * opaytype : 5
+         * opaytype : 2
          * opayout : 0
          * price_type : 自费
-         * time_info : 2018.07.30-2018.08.01
-         * status : 已取消
-         * order_type : 7
+         * time_info : 2018.09.01-2018.09.04
+         * status : 待行程
+         * order_type : 2
          */
 
         private String oID;

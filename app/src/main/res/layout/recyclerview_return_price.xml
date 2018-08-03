@@ -14,6 +14,7 @@
         android:layout_height="78px">
 
         <TextView
+            android:id="@+id/fragment_return_price_rv_tv_title"
             android:layout_marginLeft="40px"
             android:layout_centerVertical="true"
             android:textColor="#333333"
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/fragment_return_price_rv_tv_status"
             android:layout_marginRight="40px"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -94,6 +96,7 @@
         android:layout_height="80px">
 
         <TextView
+            android:id="@+id/fragment_return_price_rv_tv_price_details"
             android:layout_marginLeft="40px"
             android:layout_centerVertical="true"
             android:textColor="@color/black_333333"
@@ -103,6 +106,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/fragment_return_price_rv_tv_price"
             android:layout_marginRight="40px"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

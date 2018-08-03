@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.model.PayFragmentModel;
+import com.yiwo.friendscometogether.model.AllOrderFragmentModel;
 import com.yiwo.friendscometogether.pages.DetailsToBePaidActivity;
 
 import java.util.List;
@@ -23,19 +23,19 @@ import java.util.List;
  * Created by Administrator on 2018/7/18.
  */
 
-public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdapter.ViewHolder> {
+public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrderAdapter.ViewHolder> {
 
     private Context context;
-    private List<PayFragmentModel.ObjBean> data;
+    private List<AllOrderFragmentModel.ObjBean> data;
 
-    public FragmentToPayAdapter(List<PayFragmentModel.ObjBean> data) {
+    public FragmentAllOrderAdapter(List<AllOrderFragmentModel.ObjBean> data) {
         this.data = data;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_to_pay, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_all_order, parent, false);
         ScreenAdapterTools.getInstance().loadView(view);
         ViewHolder holder = new ViewHolder(view);
         return holder;
@@ -61,10 +61,6 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
         holder.tvPrice.setText("合计费用: " + data.get(position).getOpaymoney());
         holder.tvPriceDetails.setText(data.get(position).getPrice_type());
         holder.tvStatus.setText(data.get(position).getStatus());
-        if(data.get(position).getOrder_type().equals("7")){
-            holder.tvInvitation.setVisibility(View.GONE);
-            holder.tvPay.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -83,24 +79,36 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
         private TextView tvPrice;
         private TextView tvPriceDetails;
         private TextView tvStatus;
-        private TextView tvPay;
-        private TextView tvCancelTrip;
         private TextView tvInvitation;
+        private TextView tvCancelTrip;
+        private TextView tvDeleteTrip;
+        private TextView tvToTrip;
+        private TextView tvTriping;
+        private TextView tvComment;
+        private TextView tvPay;
+        private TextView tvOkReturn;
+        private TextView tvReturning;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            rlDetails = itemView.findViewById(R.id.fragment_to_pay_rv_rl_details);
-            tvTitle = itemView.findViewById(R.id.fragment_to_pay_rv_tv_title);
-            iv = itemView.findViewById(R.id.fragment_to_pay_rv_iv);
-            tvContent = itemView.findViewById(R.id.fragment_to_pay_rv_tv_content);
-            tvTime = itemView.findViewById(R.id.fragment_to_pay_rv_tv_time);
-            tvPeopleNum = itemView.findViewById(R.id.fragment_to_pay_rv_tv_people_num);
-            tvPrice = itemView.findViewById(R.id.fragment_to_pay_rv_tv_price);
-            tvPriceDetails = itemView.findViewById(R.id.fragment_to_pay_rv_tv_price_details);
-            tvStatus = itemView.findViewById(R.id.fragment_to_pay_rv_tv_status);
-            tvPay = itemView.findViewById(R.id.fragment_to_pay_rv_tv_payment);
-            tvCancelTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_cancle_trip);
+            rlDetails = itemView.findViewById(R.id.fragment_all_order_rv_rl_details);
+            tvTitle = itemView.findViewById(R.id.fragment_all_order_rv_tv_title);
+            iv = itemView.findViewById(R.id.fragment_all_order_rv_iv);
+            tvContent = itemView.findViewById(R.id.fragment_all_order_rv_tv_content);
+            tvTime = itemView.findViewById(R.id.fragment_all_order_rv_tv_time);
+            tvPeopleNum = itemView.findViewById(R.id.fragment_all_order_rv_tv_people_num);
+            tvPrice = itemView.findViewById(R.id.fragment_all_order_rv_tv_price);
+            tvPriceDetails = itemView.findViewById(R.id.fragment_all_order_rv_tv_price_details);
+            tvStatus = itemView.findViewById(R.id.fragment_all_order_rv_tv_status);
             tvInvitation = itemView.findViewById(R.id.fragment_to_pay_rv_tv_invitation);
+            tvCancelTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_cancle_trip);
+            tvDeleteTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_delete_trip);
+            tvToTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_to_trip);
+            tvTriping = itemView.findViewById(R.id.fragment_to_pay_rv_tv_triping);
+            tvComment = itemView.findViewById(R.id.fragment_to_pay_rv_tv_comment);
+            tvPay = itemView.findViewById(R.id.fragment_to_pay_rv_tv_payment);
+            tvOkReturn = itemView.findViewById(R.id.fragment_to_pay_rv_tv_ok_return);
+            tvReturning = itemView.findViewById(R.id.fragment_to_pay_rv_tv_returning);
         }
     }
 

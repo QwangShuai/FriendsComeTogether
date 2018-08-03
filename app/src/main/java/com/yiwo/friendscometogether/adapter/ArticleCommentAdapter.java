@@ -65,7 +65,7 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
             adapter.setOnReplyCommentListener(new ArticleCommentCommentAdapter.OnReplyCommentListener() {
                 @Override
                 public void onReplyComment(String ID) {
-                    listener.onReply(ID);
+                    listener.onReply(position, ID);
                 }
             });
         }else {
@@ -74,7 +74,7 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
         holder.tvReply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onReply(data.get(position).getFcID());
+                listener.onReply(position, data.get(position).getFcID());
             }
         });
     }
@@ -107,7 +107,7 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
     }
 
     public interface OnReplyListener{
-        void onReply(String id);
+        void onReply(int position, String id);
     }
 
 }

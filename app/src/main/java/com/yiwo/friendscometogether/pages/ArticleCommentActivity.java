@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -130,8 +131,8 @@ public class ArticleCommentActivity extends BaseActivity {
                                 recyclerView.setAdapter(adapter);
                                 adapter.setOnReplyListener(new ArticleCommentAdapter.OnReplyListener() {
                                     @Override
-                                    public void onReply(String id) {
-                                        showPopupCommnet(1, id);
+                                    public void onReply(int position, String id) {
+                                        showPopupCommnet(1, id, mList.get(position).getFcID());
                                     }
                                 });
                             }
@@ -182,6 +183,7 @@ public class ArticleCommentActivity extends BaseActivity {
                             if (jsonObject.getInt("code") == 200) {
                                 toToast(ArticleCommentActivity.this, "评论成功");
                                 etComment.setText(null);
+                                reload();
 //                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //                                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                             }
@@ -239,7 +241,7 @@ public class ArticleCommentActivity extends BaseActivity {
      * show comment popupwindow（弹出发表评论的popupWindow）
      */
     @SuppressLint("WrongConstant")
-    private void showPopupCommnet(final int type, final String id) {// pe表示是评论还是举报1.代表评论。2.代表举报
+    private void showPopupCommnet(final int type, final String id, final String fcid) {// pe表示是评论还是举报1.代表评论。2.代表举报
         View view = LayoutInflater.from(ArticleCommentActivity.this).inflate(
                 R.layout.comment_popupwindow, null);
         ScreenAdapterTools.getInstance().loadView(view);
@@ -305,6 +307,7 @@ public class ArticleCommentActivity extends BaseActivity {
                             .addParam("ArticleId", fmID)
                             .addParam("fctitle", inputComment.getText().toString())
                             .addParam("uid", uid)
+                            .addParam("oneID", fcid)
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {
@@ -312,6 +315,7 @@ public class ArticleCommentActivity extends BaseActivity {
                                         JSONObject jsonObject = new JSONObject(data);
                                         if(jsonObject.getInt("code") == 200){
                                             toToast(ArticleCommentActivity.this, "回复成功");
+                                            reload();
                                             popupWindowhf.dismiss();
                                         }
                                     } catch (JSONException e) {
@@ -333,6 +337,35 @@ public class ArticleCommentActivity extends BaseActivity {
                 popupWindowhf.dismiss();
             }
         });
+    }
+
+    private void reload (){
+        ViseHttp.POST(NetConfig.articleCommentListUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleCommentListUrl))
+                .addParam("fmID", fmID)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                ArticleCommentListModel model = gson.fromJson(data, ArticleCommentListModel.class);
+                                mList.clear();
+                                mList.addAll(model.getObj());
+                                adapter.notifyDataSetChanged();
+                                Log.e("222", "刷新页面");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
 
 }

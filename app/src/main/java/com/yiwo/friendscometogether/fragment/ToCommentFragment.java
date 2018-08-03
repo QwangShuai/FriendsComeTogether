@@ -8,11 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FragmentToCommentAdapter;
+import com.yiwo.friendscometogether.adapter.FragmentToTripAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.base.OrderBaseFragment;
+import com.yiwo.friendscometogether.model.CommentFragmentModel;
+import com.yiwo.friendscometogether.model.TripFragmentModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.TokenUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +42,10 @@ public class ToCommentFragment extends OrderBaseFragment {
     RecyclerView recyclerView;
 
     private FragmentToCommentAdapter adapter;
+    private List<CommentFragmentModel.ObjBean> mList;
+
+    private SpImp spImp;
+    private String uid = "";
 
     @Override
     public View initView() {
@@ -37,6 +53,7 @@ public class ToCommentFragment extends OrderBaseFragment {
         ScreenAdapterTools.getInstance().loadView(view);
 
         ButterKnife.bind(this, view);
+        spImp = new SpImp(getContext());
 
         return view;
     }
@@ -48,21 +65,38 @@ public class ToCommentFragment extends OrderBaseFragment {
 
     private void initData1() {
 
+        uid = spImp.getUID();
+
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        List<String> data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        adapter = new FragmentToCommentAdapter(data);
-        recyclerView.setAdapter(adapter);
+        ViseHttp.POST(NetConfig.myOrderListUrl)
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.myOrderListUrl))
+                .addParam("page", "1")
+                .addParam("userID", uid)
+                .addParam("type", "3")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                CommentFragmentModel model = gson.fromJson(data, CommentFragmentModel.class);
+                                mList = model.getObj();
+                                adapter = new FragmentToCommentAdapter(mList);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 }
