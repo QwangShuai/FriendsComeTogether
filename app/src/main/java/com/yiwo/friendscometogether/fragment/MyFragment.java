@@ -36,6 +36,7 @@ import com.yiwo.friendscometogether.pages.MyInformationActivity;
 import com.yiwo.friendscometogether.pages.MyIntercalationActivity;
 import com.yiwo.friendscometogether.pages.MyOrderActivity;
 import com.yiwo.friendscometogether.pages.MyPicturesActivity;
+import com.yiwo.friendscometogether.pages.SetActivity;
 import com.yiwo.friendscometogether.pages.StartActiveActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 
@@ -264,6 +265,8 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.fragment_my_set:
                 //跳转设置页面
+                intent.setClass(getContext(), SetActivity.class);
+                startActivity(intent);
                 break;
         }
     }
