@@ -28,6 +28,16 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
     private Context context;
     private List<PayFragmentModel.ObjBean> data;
     private OnPayListener listener;
+    private OnCancelListener listener1;
+    private OnDeleteListener listener2;
+
+    public void setOnDeleteListener(OnDeleteListener listener2){
+        this.listener2 = listener2;
+    }
+
+    public void setOnCancelListener(OnCancelListener listener1){
+        this.listener1 = listener1;
+    }
 
     public void setOnPayListener(OnPayListener listener){
         this.listener = listener;
@@ -68,13 +78,30 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
         holder.tvPriceDetails.setText(data.get(position).getPrice_type());
         holder.tvStatus.setText(data.get(position).getStatus());
         if(data.get(position).getOrder_type().equals("7")){
-            holder.tvInvitation.setVisibility(View.GONE);
             holder.tvPay.setVisibility(View.GONE);
+            holder.tvCancelTrip.setVisibility(View.GONE);
+            holder.tvDeleteTrip.setVisibility(View.VISIBLE);
+        }else {
+            holder.tvDeleteTrip.setVisibility(View.GONE);
+            holder.tvPay.setVisibility(View.VISIBLE);
+            holder.tvCancelTrip.setVisibility(View.VISIBLE);
         }
         holder.tvPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onPay(position);
+            }
+        });
+        holder.tvCancelTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener1.onCancel(position);
+            }
+        });
+        holder.tvDeleteTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener2.onDelete(position);
             }
         });
     }
@@ -97,7 +124,7 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
         private TextView tvStatus;
         private TextView tvPay;
         private TextView tvCancelTrip;
-        private TextView tvInvitation;
+        private TextView tvDeleteTrip;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -112,12 +139,20 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
             tvStatus = itemView.findViewById(R.id.fragment_to_pay_rv_tv_status);
             tvPay = itemView.findViewById(R.id.fragment_to_pay_rv_tv_payment);
             tvCancelTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_cancle_trip);
-            tvInvitation = itemView.findViewById(R.id.fragment_to_pay_rv_tv_invitation);
+            tvDeleteTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_delete_trip);
         }
     }
 
     public interface OnPayListener{
         void onPay(int position);
+    }
+
+    public interface OnCancelListener{
+        void onCancel(int position);
+    }
+
+    public interface OnDeleteListener{
+        void onDelete(int position);
     }
 
 }

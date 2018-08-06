@@ -68,9 +68,8 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
         holder.tvPriceDetails.setText(data.get(position).getPrice_type());
         holder.tvStatus.setText(data.get(position).getStatus());
         if(data.get(position).getOrder_type().equals("7")){
-            holder.tvInvitation.setVisibility(View.GONE);
-            holder.tvCancelTrip.setVisibility(View.VISIBLE);
-            holder.tvDeleteTrip.setVisibility(View.GONE);
+            holder.tvCancelTrip.setVisibility(View.GONE);
+            holder.tvDeleteTrip.setVisibility(View.VISIBLE);
             holder.tvToTrip.setVisibility(View.GONE);
             holder.tvTriping.setVisibility(View.GONE);
             holder.tvComment.setVisibility(View.GONE);
@@ -78,7 +77,6 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             holder.tvOkReturn.setVisibility(View.GONE);
             holder.tvReturning.setVisibility(View.GONE);
         }else if(data.get(position).getOrder_type().equals("6")){
-            holder.tvInvitation.setVisibility(View.GONE);
             holder.tvCancelTrip.setVisibility(View.GONE);
             holder.tvDeleteTrip.setVisibility(View.GONE);
             holder.tvToTrip.setVisibility(View.GONE);
@@ -88,7 +86,6 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             holder.tvOkReturn.setVisibility(View.GONE);
             holder.tvReturning.setVisibility(View.GONE);
         }else if(data.get(position).getOrder_type().equals("5")){
-            holder.tvInvitation.setVisibility(View.GONE);
             holder.tvCancelTrip.setVisibility(View.GONE);
             holder.tvDeleteTrip.setVisibility(View.VISIBLE);
             holder.tvToTrip.setVisibility(View.GONE);
@@ -98,7 +95,6 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             holder.tvOkReturn.setVisibility(View.VISIBLE);
             holder.tvReturning.setVisibility(View.GONE);
         }else if(data.get(position).getOrder_type().equals("4")){
-            holder.tvInvitation.setVisibility(View.GONE);
             holder.tvCancelTrip.setVisibility(View.GONE);
             holder.tvDeleteTrip.setVisibility(View.VISIBLE);
             holder.tvToTrip.setVisibility(View.GONE);
@@ -108,7 +104,6 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             holder.tvOkReturn.setVisibility(View.GONE);
             holder.tvReturning.setVisibility(View.VISIBLE);
         }else if(data.get(position).getOrder_type().equals("3")){
-            holder.tvInvitation.setVisibility(View.GONE);
             holder.tvCancelTrip.setVisibility(View.GONE);
             holder.tvDeleteTrip.setVisibility(View.VISIBLE);
             holder.tvToTrip.setVisibility(View.GONE);
@@ -118,7 +113,6 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             holder.tvOkReturn.setVisibility(View.GONE);
             holder.tvReturning.setVisibility(View.GONE);
         }else if(data.get(position).getOrder_type().equals("2")){
-            holder.tvInvitation.setVisibility(View.VISIBLE);
             holder.tvCancelTrip.setVisibility(View.VISIBLE);
             holder.tvDeleteTrip.setVisibility(View.GONE);
             holder.tvToTrip.setVisibility(View.VISIBLE);
@@ -128,7 +122,6 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             holder.tvOkReturn.setVisibility(View.GONE);
             holder.tvReturning.setVisibility(View.GONE);
         }else if(data.get(position).getOrder_type().equals("1")){
-            holder.tvInvitation.setVisibility(View.VISIBLE);
             holder.tvCancelTrip.setVisibility(View.VISIBLE);
             holder.tvDeleteTrip.setVisibility(View.GONE);
             holder.tvToTrip.setVisibility(View.GONE);
@@ -162,7 +155,6 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
         private TextView tvPrice;
         private TextView tvPriceDetails;
         private TextView tvStatus;
-        private TextView tvInvitation;
         private TextView tvCancelTrip;
         private TextView tvDeleteTrip;
         private TextView tvToTrip;
@@ -183,7 +175,6 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             tvPrice = itemView.findViewById(R.id.fragment_all_order_rv_tv_price);
             tvPriceDetails = itemView.findViewById(R.id.fragment_all_order_rv_tv_price_details);
             tvStatus = itemView.findViewById(R.id.fragment_all_order_rv_tv_status);
-            tvInvitation = itemView.findViewById(R.id.fragment_to_pay_rv_tv_invitation);
             tvCancelTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_cancle_trip);
             tvDeleteTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_delete_trip);
             tvToTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_to_trip);

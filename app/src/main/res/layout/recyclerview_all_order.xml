@@ -136,17 +136,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/fragment_to_pay_rv_tv_invitation"
-                android:background="@drawable/bg_fragment_to_pay_cancle"
-                android:layout_marginRight="40px"
-                android:gravity="center"
-                android:textSize="24px"
-                android:textColor="@color/black_333333"
-                android:text="邀请"
-                android:layout_width="120px"
-                android:layout_height="44px" />
-
-            <TextView
                 android:id="@+id/fragment_to_pay_rv_tv_cancle_trip"
                 android:background="@drawable/bg_fragment_to_pay_cancle"
                 android:layout_marginRight="40px"
