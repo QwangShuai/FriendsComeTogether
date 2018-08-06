@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.CommentFragmentModel;
+import com.yiwo.friendscometogether.pages.DetailsToBePaidActivity;
 import com.yiwo.friendscometogether.pages.DetailsToCommentActivity;
 
 import java.util.List;
@@ -42,12 +43,13 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.rlDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(context, DetailsToCommentActivity.class);
+                intent.setClass(context, DetailsToBePaidActivity.class);
+                intent.putExtra("order_id", data.get(position).getOID());
                 context.startActivity(intent);
             }
         });

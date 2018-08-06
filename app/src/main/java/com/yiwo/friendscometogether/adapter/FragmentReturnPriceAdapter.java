@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.ReturnPriceFragmentModel;
+import com.yiwo.friendscometogether.pages.DetailsToBePaidActivity;
 import com.yiwo.friendscometogether.pages.DetailsToReturnPriceActivity;
 
 import java.util.List;
@@ -42,12 +43,13 @@ public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentRet
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.rlDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(context, DetailsToReturnPriceActivity.class);
+                intent.setClass(context, DetailsToBePaidActivity.class);
+                intent.putExtra("order_id", data.get(position).getOID());
                 context.startActivity(intent);
             }
         });

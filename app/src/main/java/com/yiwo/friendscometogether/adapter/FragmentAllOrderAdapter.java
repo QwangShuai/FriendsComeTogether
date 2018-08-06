@@ -53,6 +53,7 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(context, DetailsToBePaidActivity.class);
+                intent.putExtra("order_id", data.get(position).getOID());
                 context.startActivity(intent);
             }
         });

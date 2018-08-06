@@ -135,4 +135,8 @@ public class NetConfig {
     public static String initiativesListUrl = "action/ac_activity/activity_list";
     //参加的活动
     public static String activitiesAttendedUrl = "action/ac_activity/activity_join";
+    //取消订单行程
+    public static String cancelOrderTripUrl = "action/ac_order/order_out";
+    //删除订单行程
+    public static String deleteOrderTripUrl = "action/ac_order/del_order";
 }
