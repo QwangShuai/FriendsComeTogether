@@ -48,6 +48,7 @@ import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
@@ -141,7 +142,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     File file;
     private static final int REQUEST_CODE = 0x00000011;
     private static final int CITY_REQUEST = 1;
-
+    private SpImp spImp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,7 +150,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
-
+        spImp = new SpImp(this);
         Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
@@ -562,7 +563,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     }
 
     public void onComplete(final int state) {
-        map.put("user_id", "7");
+        map.put("user_id", spImp.getUID());
         if ((map.size() == 17 && findPwd()) || (map.size() == 16 && !findPwd())) {
             String token = getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
             Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {

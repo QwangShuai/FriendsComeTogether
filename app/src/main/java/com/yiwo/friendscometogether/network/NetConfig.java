@@ -139,4 +139,6 @@ public class NetConfig {
     public static String cancelOrderTripUrl = "action/ac_order/order_out";
     //删除订单行程
     public static String deleteOrderTripUrl = "action/ac_order/del_order";
+    //取消活动
+    public static String cancleActivityUrl = "action/ac_activity/activity_cancel";
 }

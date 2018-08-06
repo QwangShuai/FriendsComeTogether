@@ -3,15 +3,20 @@ package com.yiwo.friendscometogether.pages;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.StartActiveAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.InitiativesModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +33,7 @@ public class StartActiveActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     private StartActiveAdapter adapter;
-
+    private SpImp spImp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,27 +41,36 @@ public class StartActiveActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
-
-        initData();
+        spImp = new SpImp(this);
+        init();
 
     }
     public void init(){
-//        ViseHttp.POST(NetConfig.initiativesListUrl)
+        Log.i("id",spImp.getUID());
+        ViseHttp.POST(NetConfig.initiativesListUrl)
+                .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.initiativesListUrl))
+                .addParam("page","1")
+                .addParam("user_id",spImp.getUID())
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.i("98521",data);
+                        InitiativesModel model = new Gson().fromJson(data,InitiativesModel.class);
+                        if (model.getCode()==200){
+                            initData(model.getObj());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
-    private void initData() {
+    private void initData(List<InitiativesModel.ObjBean> data) {
         LinearLayoutManager manager = new LinearLayoutManager(StartActiveActivity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        List<String> data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
         adapter = new StartActiveAdapter(data);
         recyclerView.setAdapter(adapter);
 
