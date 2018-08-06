@@ -27,6 +27,11 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
 
     private Context context;
     private List<AllOrderFragmentModel.ObjBean> data;
+    private OnPayListener listener;
+
+    public void setOnPayListener(OnPayListener listener){
+        this.listener = listener;
+    }
 
     public FragmentAllOrderAdapter(List<AllOrderFragmentModel.ObjBean> data) {
         this.data = data;
@@ -42,7 +47,7 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.rlDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +66,83 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
         holder.tvPrice.setText("合计费用: " + data.get(position).getOpaymoney());
         holder.tvPriceDetails.setText(data.get(position).getPrice_type());
         holder.tvStatus.setText(data.get(position).getStatus());
+        if(data.get(position).getOrder_type().equals("7")){
+            holder.tvInvitation.setVisibility(View.GONE);
+            holder.tvCancelTrip.setVisibility(View.VISIBLE);
+            holder.tvDeleteTrip.setVisibility(View.GONE);
+            holder.tvToTrip.setVisibility(View.GONE);
+            holder.tvTriping.setVisibility(View.GONE);
+            holder.tvComment.setVisibility(View.GONE);
+            holder.tvPay.setVisibility(View.GONE);
+            holder.tvOkReturn.setVisibility(View.GONE);
+            holder.tvReturning.setVisibility(View.GONE);
+        }else if(data.get(position).getOrder_type().equals("6")){
+            holder.tvInvitation.setVisibility(View.GONE);
+            holder.tvCancelTrip.setVisibility(View.GONE);
+            holder.tvDeleteTrip.setVisibility(View.GONE);
+            holder.tvToTrip.setVisibility(View.GONE);
+            holder.tvTriping.setVisibility(View.VISIBLE);
+            holder.tvComment.setVisibility(View.GONE);
+            holder.tvPay.setVisibility(View.GONE);
+            holder.tvOkReturn.setVisibility(View.GONE);
+            holder.tvReturning.setVisibility(View.GONE);
+        }else if(data.get(position).getOrder_type().equals("5")){
+            holder.tvInvitation.setVisibility(View.GONE);
+            holder.tvCancelTrip.setVisibility(View.GONE);
+            holder.tvDeleteTrip.setVisibility(View.VISIBLE);
+            holder.tvToTrip.setVisibility(View.GONE);
+            holder.tvTriping.setVisibility(View.GONE);
+            holder.tvComment.setVisibility(View.GONE);
+            holder.tvPay.setVisibility(View.GONE);
+            holder.tvOkReturn.setVisibility(View.VISIBLE);
+            holder.tvReturning.setVisibility(View.GONE);
+        }else if(data.get(position).getOrder_type().equals("4")){
+            holder.tvInvitation.setVisibility(View.GONE);
+            holder.tvCancelTrip.setVisibility(View.GONE);
+            holder.tvDeleteTrip.setVisibility(View.VISIBLE);
+            holder.tvToTrip.setVisibility(View.GONE);
+            holder.tvTriping.setVisibility(View.GONE);
+            holder.tvComment.setVisibility(View.GONE);
+            holder.tvPay.setVisibility(View.GONE);
+            holder.tvOkReturn.setVisibility(View.GONE);
+            holder.tvReturning.setVisibility(View.VISIBLE);
+        }else if(data.get(position).getOrder_type().equals("3")){
+            holder.tvInvitation.setVisibility(View.GONE);
+            holder.tvCancelTrip.setVisibility(View.GONE);
+            holder.tvDeleteTrip.setVisibility(View.VISIBLE);
+            holder.tvToTrip.setVisibility(View.GONE);
+            holder.tvTriping.setVisibility(View.GONE);
+            holder.tvComment.setVisibility(View.VISIBLE);
+            holder.tvPay.setVisibility(View.GONE);
+            holder.tvOkReturn.setVisibility(View.GONE);
+            holder.tvReturning.setVisibility(View.GONE);
+        }else if(data.get(position).getOrder_type().equals("2")){
+            holder.tvInvitation.setVisibility(View.VISIBLE);
+            holder.tvCancelTrip.setVisibility(View.VISIBLE);
+            holder.tvDeleteTrip.setVisibility(View.GONE);
+            holder.tvToTrip.setVisibility(View.VISIBLE);
+            holder.tvTriping.setVisibility(View.GONE);
+            holder.tvComment.setVisibility(View.GONE);
+            holder.tvPay.setVisibility(View.GONE);
+            holder.tvOkReturn.setVisibility(View.GONE);
+            holder.tvReturning.setVisibility(View.GONE);
+        }else if(data.get(position).getOrder_type().equals("1")){
+            holder.tvInvitation.setVisibility(View.VISIBLE);
+            holder.tvCancelTrip.setVisibility(View.VISIBLE);
+            holder.tvDeleteTrip.setVisibility(View.GONE);
+            holder.tvToTrip.setVisibility(View.GONE);
+            holder.tvTriping.setVisibility(View.GONE);
+            holder.tvComment.setVisibility(View.GONE);
+            holder.tvPay.setVisibility(View.VISIBLE);
+            holder.tvOkReturn.setVisibility(View.GONE);
+            holder.tvReturning.setVisibility(View.GONE);
+        }
+        holder.tvPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onPay(position);
+            }
+        });
     }
 
     @Override
@@ -110,6 +192,10 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
             tvOkReturn = itemView.findViewById(R.id.fragment_to_pay_rv_tv_ok_return);
             tvReturning = itemView.findViewById(R.id.fragment_to_pay_rv_tv_returning);
         }
+    }
+
+    public interface OnPayListener{
+        void onPay(int position);
     }
 
 }

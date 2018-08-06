@@ -27,6 +27,11 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
 
     private Context context;
     private List<PayFragmentModel.ObjBean> data;
+    private OnPayListener listener;
+
+    public void setOnPayListener(OnPayListener listener){
+        this.listener = listener;
+    }
 
     public FragmentToPayAdapter(List<PayFragmentModel.ObjBean> data) {
         this.data = data;
@@ -42,12 +47,13 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.rlDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(context, DetailsToBePaidActivity.class);
+                intent.putExtra("order_id", data.get(position).getOID());
                 context.startActivity(intent);
             }
         });
@@ -65,6 +71,12 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
             holder.tvInvitation.setVisibility(View.GONE);
             holder.tvPay.setVisibility(View.GONE);
         }
+        holder.tvPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onPay(position);
+            }
+        });
     }
 
     @Override
@@ -102,6 +114,10 @@ public class FragmentToPayAdapter extends RecyclerView.Adapter<FragmentToPayAdap
             tvCancelTrip = itemView.findViewById(R.id.fragment_to_pay_rv_tv_cancle_trip);
             tvInvitation = itemView.findViewById(R.id.fragment_to_pay_rv_tv_invitation);
         }
+    }
+
+    public interface OnPayListener{
+        void onPay(int position);
     }
 
 }

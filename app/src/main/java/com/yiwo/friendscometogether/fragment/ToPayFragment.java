@@ -85,6 +85,12 @@ public class ToPayFragment extends OrderBaseFragment {
                                 mList = model.getObj();
                                 adapter = new FragmentToPayAdapter(mList);
                                 recyclerView.setAdapter(adapter);
+                                adapter.setOnPayListener(new FragmentToPayAdapter.OnPayListener() {
+                                    @Override
+                                    public void onPay(int position) {
+
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

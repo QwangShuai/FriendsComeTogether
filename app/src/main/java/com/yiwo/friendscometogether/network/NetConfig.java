@@ -129,4 +129,6 @@ public class NetConfig {
     public static String historicalFeedBackUrl = "action/ac_user/feedbackList";
     //提交意见反馈
     public static String submitFeedBackUrl = "action/ac_user/feedback";
+    //订单详情
+    public static String detailsOrderUrl = "action/ac_order/order_detail";
 }
