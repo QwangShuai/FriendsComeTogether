@@ -24,7 +24,7 @@
         android:layout_below="@+id/dialog_edit_content_rl_close"
         android:textSize="32px"
         android:textColor="@color/black_333333"
-        android:text="活动内容"
+        android:text="取消原因"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -35,19 +35,20 @@
         android:layout_marginLeft="40px"
         android:layout_below="@+id/dialog_edit_content_tv"
         android:layout_width="520px"
-        android:layout_height="530px">
+        android:layout_height="330px">
 
         <EditText
+            android:maxLength="200"
             android:id="@+id/dialog_edit_content_et_content"
             android:textColor="@color/black_333333"
             android:gravity="start"
             android:textSize="28px"
-            android:hint="请输入活动内容"
+            android:hint="请输入取消原因"
             android:background="@null"
             android:layout_marginLeft="20px"
             android:layout_marginTop="20px"
             android:layout_width="479px"
-            android:layout_height="440px" />
+            android:layout_height="240px" />
 
         <TextView
             android:layout_marginTop="10px"
@@ -55,7 +56,7 @@
             android:layout_alignParentRight="true"
             android:textColor="#CACACA"
             android:textSize="28px"
-            android:text="0/2000"
+            android:text="0/200"
             android:id="@+id/dialog_edit_title_tv_text_num"
             android:layout_below="@+id/dialog_edit_content_et_content"
             android:layout_width="wrap_content"

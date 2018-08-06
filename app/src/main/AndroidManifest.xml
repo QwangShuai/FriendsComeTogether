@@ -133,7 +133,8 @@
         <activity android:name=".pages.MessageCenterDetailsActivity" />
         <activity android:name=".pages.UserAgreementActivity" />
         <activity android:name=".pages.UpdateActivity" />
-        <activity android:name=".pages.FeedbackActivity"></activity>
+        <activity android:name=".pages.FeedbackActivity" />
+        <activity android:name=".pages.EditorFriendTogetherActivity"></activity>
     </application>
 
 </manifest>

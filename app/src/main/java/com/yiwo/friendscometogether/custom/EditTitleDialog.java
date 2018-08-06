@@ -32,9 +32,6 @@ public class EditTitleDialog extends Dialog {
     private RelativeLayout rlClose;
     private Button btnOk;
     CharSequence ss = "";
-    public void setOnReturnListener(OnReturnListener listener){
-        this.listener = listener;
-    }
 
     public EditTitleDialog(@NonNull Context context, OnReturnListener onReturnListener) {
         super(context);
@@ -82,6 +79,7 @@ public class EditTitleDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 listener.onReturn(etTitle.getText().toString());
+                dismiss();
             }
         });
         rlClose.setOnClickListener(new View.OnClickListener() {
