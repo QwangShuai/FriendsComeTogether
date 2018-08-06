@@ -125,4 +125,8 @@ public class NetConfig {
     public static String myOrderListUrl = "action/ac_order/my_order";
     //消息列表
     public static String messageListUrl = "action/ac_activity/add_activity";
+    //历史意见反馈
+    public static String historicalFeedBackUrl = "action/ac_user/feedbackList";
+    //提交意见反馈
+    public static String submitFeedBackUrl = "action/ac_user/feedback";
 }

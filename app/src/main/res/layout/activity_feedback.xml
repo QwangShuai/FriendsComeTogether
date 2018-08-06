@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_ffffff"
     tools:context="com.yiwo.friendscometogether.pages.FeedbackActivity">
+    <RelativeLayout
+        android:id="@+id/activity_feedback_rl_top"
+        style="@style/rl_top_bar">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            style="@style/tv_top_title"
+            android:text="意见反馈" />
+
+        <RelativeLayout
+            android:id="@+id/activity_feedback_rl_back"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <ImageView style="@style/iv_return" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <TextView
+        android:layout_marginTop="20px"
+        android:layout_marginLeft="32px"
+        android:textSize="36px"
+        android:textColor="@color/black_333333"
+        android:text="意见反馈"
+        android:layout_width="wrap_content"
+        android:layout_height="50px" />
+    <EditText
+        android:id="@+id/activity_feedback_et_content"
+        android:textSize="26px"
+        android:hint="请填写你的建议，感谢您的支持"
+        android:layout_marginTop="20px"
+        android:paddingLeft="32px"
+        android:paddingRight="32px"
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="68px" />
+    <Button
+        android:id="@+id/activity_feedback_bt_submit"
+        android:layout_marginTop="20px"
+        android:layout_marginRight="32px"
+        android:layout_gravity="right"
+        android:textSize="26px"
+        android:padding="0px"
+        android:background="@color/yellow_ff9d00"
+        android:textColor="@color/white_ffffff"
+        android:text="提交"
+        android:layout_width="130px"
+        android:layout_height="60px" />
+    <View
+        android:layout_marginTop="20px"
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/black_f8f8f8" />
+    <RelativeLayout
+        android:layout_marginTop="20px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_feedback_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>
