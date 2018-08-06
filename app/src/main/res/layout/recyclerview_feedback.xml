@@ -21,7 +21,7 @@
             android:id="@+id/recyclerview_feedback_reply_bt"
             android:textSize="26px"
             android:padding="0px"
-            android:background="@color/yellow_ff9d00"
+            android:background="@drawable/bg_btn"
             android:text="回复"
             android:textColor="@color/white_ffffff"
             android:layout_width="130px"

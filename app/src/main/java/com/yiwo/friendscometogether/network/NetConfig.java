@@ -131,4 +131,8 @@ public class NetConfig {
     public static String submitFeedBackUrl = "action/ac_user/feedback";
     //订单详情
     public static String detailsOrderUrl = "action/ac_order/order_detail";
+    //发起的活动
+    public static String initiativesListUrl = "action/ac_activity/activity_list";
+    //参加的活动
+    public static String activitiesAttendedUrl = "action/ac_activity/activity_join";
 }

@@ -6,10 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.vise.xsnow.http.ViseHttp;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.StartActiveAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.network.NetConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +40,10 @@ public class StartActiveActivity extends BaseActivity {
         initData();
 
     }
-
+    public void init(){
+//        ViseHttp.POST(NetConfig.initiativesListUrl)
+    }
     private void initData() {
-
         LinearLayoutManager manager = new LinearLayoutManager(StartActiveActivity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);

@@ -36,7 +36,7 @@ public class EditTitleDialog extends Dialog {
         this.listener = listener;
     }
 
-    public EditTitleDialog(@NonNull Context context) {
+    public EditTitleDialog(@NonNull Context context, OnReturnListener onReturnListener) {
         super(context);
         this.context = context;
         this.listener = listener;
@@ -75,7 +75,7 @@ public class EditTitleDialog extends Dialog {
 
             @Override
             public void afterTextChanged(Editable s) {
-                lengthTv.setText(s.length()+"/30");
+                lengthTv.setText(s.length()+"/200");
             }
         });
         btnOk.setOnClickListener(new View.OnClickListener() {

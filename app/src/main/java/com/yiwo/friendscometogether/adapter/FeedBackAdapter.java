@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.custom.EditTitleDialog;
 import com.yiwo.friendscometogether.model.FeedBackModel;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.StringUtils;
 
 import java.util.List;
 
@@ -24,7 +27,7 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.ViewHo
     private List<FeedBackModel.ObjBean> data;
     SpImp spImp;
 
-    public FeedBackAdapter(Context context,List<FeedBackModel.ObjBean> data){
+    public FeedBackAdapter(List<FeedBackModel.ObjBean> data){
         this.data = data;
     }
 
@@ -43,12 +46,21 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.ViewHo
         holder.contentTv.setText(data.get(position).getBacktitle());
         holder.replyTv.setText(data.get(position).getFtitle()+"【"+data.get(position).getBacktime()
                 +"】");
-        holder.replyBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        holder.replyBt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EditTitleDialog dialog = new EditTitleDialog(context, new EditTitleDialog.OnReturnListener() {
+//                    @Override
+//                    public void onReturn(String title) {
+//                        if(StringUtils.isEmpty(title)){
+//                            Toast.makeText(context,"回复内容为空",Toast.LENGTH_LONG).show();
+//                        } else {
+//
+//                        }
+//                    }
+//                });
+//            }
+//        });
     }
 
     @Override

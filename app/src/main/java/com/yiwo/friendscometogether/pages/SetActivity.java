@@ -45,7 +45,8 @@ public class SetActivity extends BaseActivity {
                 startActivity(new Intent(SetActivity.this,UpdateActivity.class));
                 break;
             case R.id.activity_set_rl_feedback:
-                toToast(this,"意见反馈");
+//                toToast(this,"意见反馈");
+                startActivity(new Intent(SetActivity.this,FeedbackActivity.class));
                 break;
             case R.id.activity_set_rl_clear_cache:
 

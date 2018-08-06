@@ -50,7 +50,7 @@
         android:layout_gravity="right"
         android:textSize="26px"
         android:padding="0px"
-        android:background="@color/yellow_ff9d00"
+        android:background="@drawable/bg_btn"
         android:textColor="@color/white_ffffff"
         android:text="提交"
         android:layout_width="130px"
@@ -60,6 +60,14 @@
         android:layout_width="match_parent"
         android:layout_height="20px"
         android:background="@color/black_f8f8f8" />
+    <TextView
+        android:layout_marginTop="20px"
+        android:layout_marginLeft="32px"
+        android:textSize="36px"
+        android:textColor="@color/black_333333"
+        android:text="历史反馈"
+        android:layout_width="wrap_content"
+        android:layout_height="50px" />
     <RelativeLayout
         android:layout_marginTop="20px"
         android:layout_width="match_parent"
