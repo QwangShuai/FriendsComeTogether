@@ -11,6 +11,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by Administrator on 2017/11/3.
+ * 图片Card
  */
 
 public class ScalableCardHelper {

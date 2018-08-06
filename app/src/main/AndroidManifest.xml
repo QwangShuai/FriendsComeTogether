@@ -130,7 +130,9 @@
         <activity android:name=".pages.ArticleCommentActivity" />
         <activity android:name=".pages.SetActivity" />
         <activity android:name=".pages.MessageViewActivity" />
-        <activity android:name=".pages.MessageCenterDetailsActivity"></activity>
+        <activity android:name=".pages.MessageCenterDetailsActivity" />
+        <activity android:name=".pages.UserAgreementActivity" />
+        <activity android:name=".pages.UpdateActivity"></activity>
     </application>
 
 </manifest>

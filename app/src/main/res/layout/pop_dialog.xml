@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="700px"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="700px"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sp_pop_dialog"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="是否退出"
+                android:id="@+id/tv_pop_dialog_0_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_margin="20px"
+                android:gravity="center"
+                android:textColor="@color/black_252323"
+                android:textSize="40px" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_pop_dialog_0_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/sl_pop_dialog_l"
+                android:clickable="true">
+
+                <TextView
+                    android:text="否"
+                    android:id="@+id/tv_pop_dialog_0_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/blue_2681fc"
+                    android:textSize="30px" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_pop_dialog_0_sure"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/sl_pop_dialog_r"
+                android:clickable="true">
+
+                <TextView
+                    android:text="是"
+                    android:id="@+id/tv_pop_dialog_0_sure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/blue_2681fc"
+                    android:textSize="30px" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
