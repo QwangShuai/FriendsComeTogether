@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,7 +55,9 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             holder.titleTv.setText(data.get(position).getFmtitle());
         Log.i("00000000",data.get(position).getFmcomment());
             holder.contentTv.setText(data.get(position).getFmcontent()+"");
-            Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
+            if(!TextUtils.isEmpty(data.get(position).getUpicurl())){
+                Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
+            }
             holder.timeTv.setText(data.get(position).getFmtime());
             holder.viewsTv.setText(data.get(position).getFmlook());
             holder.messageTv.setText(data.get(position).getFmcomment());
