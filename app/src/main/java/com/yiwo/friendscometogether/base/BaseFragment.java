@@ -42,7 +42,7 @@ public class BaseFragment extends Fragment {
         titles.add("活动介绍活动介绍活动介绍活动介绍");
 
         //设置banner样式
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
@@ -50,7 +50,7 @@ public class BaseFragment extends Fragment {
         //设置banner动画效果
         banner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
-        banner.setBannerTitles(titles);
+//        banner.setBannerTitles(titles);
         //设置自动轮播，默认为true
         banner.isAutoPlay(true);
         //设置轮播时间

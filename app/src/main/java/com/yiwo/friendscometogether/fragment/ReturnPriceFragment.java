@@ -1,5 +1,7 @@
 package com.yiwo.friendscometogether.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
@@ -87,6 +90,51 @@ public class ReturnPriceFragment extends OrderBaseFragment {
                                 mList = model.getObj();
                                 adapter = new FragmentReturnPriceAdapter(mList);
                                 recyclerView.setAdapter(adapter);
+                                adapter.setOnDeleteListener(new FragmentReturnPriceAdapter.OnDeleteListener() {
+                                    @Override
+                                    public void onDelete(final int position) {
+                                        AlertDialog.Builder normalDialog = new AlertDialog.Builder(getContext());
+                                        normalDialog.setIcon(R.mipmap.ic_launcher);
+                                        normalDialog.setTitle("提示");
+                                        normalDialog.setMessage("是否删除行程");
+                                        normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                ViseHttp.POST(NetConfig.deleteOrderTripUrl)
+                                                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.deleteOrderTripUrl))
+                                                        .addParam("order_id", mList.get(position).getOID())
+                                                        .request(new ACallback<String>() {
+                                                            @Override
+                                                            public void onSuccess(String data) {
+                                                                try {
+                                                                    JSONObject jsonObject1 = new JSONObject(data);
+                                                                    if(jsonObject1.getInt("code") == 200){
+                                                                        Toast.makeText(getContext(), "删除行程成功", Toast.LENGTH_SHORT).show();
+                                                                        mList.remove(position);
+                                                                        adapter.notifyDataSetChanged();
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFail(int errCode, String errMsg) {
+
+                                                            }
+                                                        });
+                                            }
+                                        });
+                                        normalDialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                        // 显示
+                                        normalDialog.show();
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

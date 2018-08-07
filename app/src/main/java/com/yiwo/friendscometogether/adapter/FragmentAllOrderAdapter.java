@@ -28,6 +28,16 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
     private Context context;
     private List<AllOrderFragmentModel.ObjBean> data;
     private OnPayListener listener;
+    private OnCancelListener listener1;
+    private OnDeleteListener listener2;
+
+    public void setOnDeleteListener(OnDeleteListener listener2){
+        this.listener2 = listener2;
+    }
+
+    public void setOnCancelListener(OnCancelListener listener1){
+        this.listener1 = listener1;
+    }
 
     public void setOnPayListener(OnPayListener listener){
         this.listener = listener;
@@ -137,6 +147,18 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
                 listener.onPay(position);
             }
         });
+        holder.tvCancelTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener1.onCancel(position);
+            }
+        });
+        holder.tvDeleteTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener2.onDelete(position);
+            }
+        });
     }
 
     @Override
@@ -188,6 +210,14 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
 
     public interface OnPayListener{
         void onPay(int position);
+    }
+
+    public interface OnCancelListener{
+        void onCancel(int position);
+    }
+
+    public interface OnDeleteListener{
+        void onDelete(int position);
     }
 
 }

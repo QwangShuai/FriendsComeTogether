@@ -27,6 +27,11 @@ public class FragmentToTripAdapter extends RecyclerView.Adapter<FragmentToTripAd
 
     private Context context;
     private List<TripFragmentModel.ObjBean> data;
+    private OnCancelListener listener;
+
+    public void setOnCancelListener(OnCancelListener listener){
+        this.listener = listener;
+    }
 
     public FragmentToTripAdapter(List<TripFragmentModel.ObjBean> data) {
         this.data = data;
@@ -62,6 +67,12 @@ public class FragmentToTripAdapter extends RecyclerView.Adapter<FragmentToTripAd
         holder.tvPeopleNum.setText("参加人数: " + data.get(position).getJoin_num());
         holder.tvPriceDetails.setText(data.get(position).getPrice_type());
         holder.tvPrice.setText("合计费用: " + data.get(position).getOpaymoney());
+        holder.tvCancelTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onCancel(position);
+            }
+        });
     }
 
     @Override
@@ -80,6 +91,7 @@ public class FragmentToTripAdapter extends RecyclerView.Adapter<FragmentToTripAd
         private TextView tvPeopleNum;
         private TextView tvPriceDetails;
         private TextView tvPrice;
+        private TextView tvCancelTrip;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -92,7 +104,12 @@ public class FragmentToTripAdapter extends RecyclerView.Adapter<FragmentToTripAd
             tvPeopleNum = itemView.findViewById(R.id.fragment_to_trip_rv_tv_people_num);
             tvPriceDetails = itemView.findViewById(R.id.fragment_to_trip_rv_tv_price_details);
             tvPrice = itemView.findViewById(R.id.fragment_to_trip_rv_tv_price);
+            tvCancelTrip = itemView.findViewById(R.id.fragment_to_trip_rv_tv_cancle_trip);
         }
+    }
+
+    public interface OnCancelListener{
+        void onCancel(int position);
     }
 
 }

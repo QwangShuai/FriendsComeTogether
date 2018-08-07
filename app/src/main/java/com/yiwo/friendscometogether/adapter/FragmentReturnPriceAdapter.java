@@ -28,6 +28,11 @@ public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentRet
 
     private Context context;
     private List<ReturnPriceFragmentModel.ObjBean> data;
+    private OnDeleteListener listener;
+
+    public void setOnDeleteListener(OnDeleteListener listener){
+        this.listener = listener;
+    }
 
     public FragmentReturnPriceAdapter(List<ReturnPriceFragmentModel.ObjBean> data) {
         this.data = data;
@@ -68,6 +73,12 @@ public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentRet
         }else if(data.get(position).getOrder_type().equals("4")){
             holder.tvPay.setText("退款中");
         }
+        holder.tvDeleteTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onDelete(position);
+            }
+        });
     }
 
     @Override
@@ -87,7 +98,7 @@ public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentRet
         private TextView tvPriceDetails;
         private TextView tvPrice;
         private TextView tvPay;
-        private TextView tvCancelTrip;
+        private TextView tvDeleteTrip;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -101,8 +112,12 @@ public class FragmentReturnPriceAdapter extends RecyclerView.Adapter<FragmentRet
             tvPriceDetails = itemView.findViewById(R.id.fragment_return_price_rv_tv_price_details);
             tvPrice = itemView.findViewById(R.id.fragment_return_price_rv_tv_price);
             tvPay = itemView.findViewById(R.id.fragment_return_price_rv_tv_payment);
-            tvCancelTrip = itemView.findViewById(R.id.fragment_return_price_rv_tv_cancle_trip);
+            tvDeleteTrip = itemView.findViewById(R.id.fragment_return_price_rv_tv_cancle_trip);
         }
+    }
+
+    public interface OnDeleteListener{
+        void onDelete(int position);
     }
 
 }

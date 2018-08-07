@@ -56,8 +56,6 @@ public class DetailsToBePaidActivity extends BaseActivity {
     TextView tvPayTime;
     @BindView(R.id.activity_details_to_pay_tv_pay_ok_time)
     TextView tvOkTime;
-    @BindView(R.id.details_to_pay_rv_tv_invitation)
-    TextView tvInvitation;
     @BindView(R.id.details_to_pay_rv_tv_cancle_trip)
     TextView tvCancelTrip;
     @BindView(R.id.details_to_pay_rv_tv_delete_trip)
@@ -142,11 +140,9 @@ public class DetailsToBePaidActivity extends BaseActivity {
                                     tvDeleteTrip.setVisibility(View.VISIBLE);
                                     tvComment.setVisibility(View.VISIBLE);
                                 }else if(model.getObj().getOrder_type().equals("2")){
-                                    tvInvitation.setVisibility(View.VISIBLE);
                                     tvCancelTrip.setVisibility(View.VISIBLE);
                                     tvToTrip.setVisibility(View.VISIBLE);
                                 }else if(model.getObj().getOrder_type().equals("1")){
-                                    tvInvitation.setVisibility(View.VISIBLE);
                                     tvCancelTrip.setVisibility(View.VISIBLE);
                                     tvPay.setVisibility(View.VISIBLE);
                                 }

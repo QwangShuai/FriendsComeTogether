@@ -28,6 +28,11 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
 
     private Context context;
     private List<CommentFragmentModel.ObjBean> data;
+    private OnDeleteListener listener;
+
+    public void setOnDeleteListener(OnDeleteListener listener){
+        this.listener = listener;
+    }
 
     public FragmentToCommentAdapter(List<CommentFragmentModel.ObjBean> data) {
         this.data = data;
@@ -66,12 +71,18 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
         if(data.get(position).getOrder_type().equals("6")){
             holder.tvTriping.setVisibility(View.VISIBLE);
             holder.tvComment.setVisibility(View.GONE);
-            holder.tvCancelTrip.setVisibility(View.GONE);
+            holder.tvDeleteTrip.setVisibility(View.GONE);
         }else if(data.get(position).getOrder_type().equals("3")){
             holder.tvTriping.setVisibility(View.GONE);
             holder.tvComment.setVisibility(View.VISIBLE);
-            holder.tvCancelTrip.setVisibility(View.VISIBLE);
+            holder.tvDeleteTrip.setVisibility(View.VISIBLE);
         }
+        holder.tvDeleteTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onDelete(position);
+            }
+        });
     }
 
     @Override
@@ -92,7 +103,7 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
         private TextView tvPrice;
         private TextView tvTriping;
         private TextView tvComment;
-        private TextView tvCancelTrip;
+        private TextView tvDeleteTrip;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -107,8 +118,12 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
             tvPrice = itemView.findViewById(R.id.fragment_to_comment_rv_tv_price);
             tvTriping = itemView.findViewById(R.id.fragment_to_comment_rv_tv_triping);
             tvComment = itemView.findViewById(R.id.fragment_to_comment_rv_tv_payment);
-            tvCancelTrip = itemView.findViewById(R.id.fragment_to_comment_rv_tv_cancle_trip);
+            tvDeleteTrip = itemView.findViewById(R.id.fragment_to_comment_rv_tv_cancle_trip);
         }
+    }
+
+    public interface OnDeleteListener{
+        void onDelete(int position);
     }
 
 }

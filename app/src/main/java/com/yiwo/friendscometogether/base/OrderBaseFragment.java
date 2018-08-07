@@ -73,7 +73,7 @@ public abstract class OrderBaseFragment extends Fragment {
         }
         Log.d("TAG", getClass().getName() + "->initData()");
         initData();
-        isFirst = false;
+//        isFirst = false;
     }
 
     //do something
