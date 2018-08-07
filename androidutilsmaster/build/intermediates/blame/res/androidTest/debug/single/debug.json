@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_ic_error.png.flat",
+        "source": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_error.png"
+    },
+    {
+        "merged": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_live_default.png.flat",
+        "source": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\live_default.png"
+    },
+    {
+        "merged": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_ic_empty.png.flat",
+        "source": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_empty.png"
+    },
+    {
+        "merged": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4_drop_down_list_arrow.png.flat",
+        "source": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\drop_down_list_arrow.png"
+    },
+    {
+        "merged": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_drop_down_list_footer.xml.flat",
+        "source": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\bundles\\debug\\res\\layout\\drop_down_list_footer.xml"
+    },
+    {
+        "merged": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_ic_stub.png.flat",
+        "source": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_stub.png"
+    },
+    {
+        "merged": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_drop_down_list_header.xml.flat",
+        "source": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\bundles\\debug\\res\\layout\\drop_down_list_header.xml"
+    },
+    {
+        "merged": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4_drop_down_list_arrow.png.flat",
+        "source": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\androidutilsmaster\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\drop_down_list_arrow.png"
+    }
+]
