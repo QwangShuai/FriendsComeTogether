@@ -141,6 +141,7 @@
         android:layout_height="90px">
 
         <RelativeLayout
+            android:id="@+id/recyclerview_start_active_rl_editor_activity"
             android:layout_weight="1"
             android:layout_width="0px"
             android:layout_height="match_parent">

@@ -58,6 +58,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         spImp = new SpImp(context);
         iv = (ImageView) v.findViewById(R.id.item_pic);
         ScreenAdapterTools.getInstance().loadView(view);
+        ScreenAdapterTools.getInstance().loadView(v);
         FriendTogetherUpDataAdapter.ViewHolder holder = new FriendTogetherUpDataAdapter.ViewHolder(view);
         return holder;
     }
