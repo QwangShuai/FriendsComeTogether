@@ -1,5 +1,7 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,17 +9,24 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.DetailsOrderModel;
+import com.yiwo.friendscometogether.model.OrderToPayModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.network.UMConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.TokenUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,6 +86,8 @@ public class DetailsToBePaidActivity extends BaseActivity {
     private String uid = "";
     private String orderId = "";
 
+    private IWXAPI api;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +95,7 @@ public class DetailsToBePaidActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
+        api = WXAPIFactory.createWXAPI(DetailsToBePaidActivity.this, null);
         spImp = new SpImp(DetailsToBePaidActivity.this);
 
         initData();
@@ -127,7 +139,7 @@ public class DetailsToBePaidActivity extends BaseActivity {
                                 tvPayTime.setText("付款时间: " + model.getObj().getPay_time());
                                 tvOkTime.setText("成交时间: " + model.getObj().getOver_time());
                                 if(model.getObj().getOrder_type().equals("7")){
-                                    tvCancelTrip.setVisibility(View.VISIBLE);
+                                    tvDeleteTrip.setVisibility(View.VISIBLE);
                                 }else if(model.getObj().getOrder_type().equals("6")){
                                     tvTriping.setVisibility(View.VISIBLE);
                                 }else if(model.getObj().getOrder_type().equals("5")){
@@ -160,11 +172,119 @@ public class DetailsToBePaidActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.activity_details_to_pay_rl_back})
+    @OnClick({R.id.activity_details_to_pay_rl_back, R.id.details_to_pay_rv_tv_cancle_trip, R.id.details_to_pay_rv_tv_delete_trip, R.id.details_to_pay_rv_tv_payment})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_details_to_pay_rl_back:
                 onBackPressed();
+                break;
+            case R.id.details_to_pay_rv_tv_cancle_trip:
+                AlertDialog.Builder normalDialog = new AlertDialog.Builder(DetailsToBePaidActivity.this);
+                normalDialog.setIcon(R.mipmap.ic_launcher);
+                normalDialog.setTitle("提示");
+                normalDialog.setMessage("是否取消行程");
+                normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ViseHttp.POST(NetConfig.cancelOrderTripUrl)
+                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.cancelOrderTripUrl))
+                                .addParam("order_id", orderId)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject1 = new JSONObject(data);
+                                            if(jsonObject1.getInt("code") == 200){
+                                                Toast.makeText(DetailsToBePaidActivity.this, "取消行程成功", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                });
+                normalDialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                // 显示
+                normalDialog.show();
+                break;
+            case R.id.details_to_pay_rv_tv_delete_trip:
+                AlertDialog.Builder normalDialog1 = new AlertDialog.Builder(DetailsToBePaidActivity.this);
+                normalDialog1.setIcon(R.mipmap.ic_launcher);
+                normalDialog1.setTitle("提示");
+                normalDialog1.setMessage("是否删除行程");
+                normalDialog1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ViseHttp.POST(NetConfig.deleteOrderTripUrl)
+                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.deleteOrderTripUrl))
+                                .addParam("order_id", orderId)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject1 = new JSONObject(data);
+                                            if(jsonObject1.getInt("code") == 200){
+                                                Toast.makeText(DetailsToBePaidActivity.this, "删除行程成功", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                });
+                normalDialog1.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                // 显示
+                normalDialog1.show();
+                break;
+            case R.id.details_to_pay_rv_tv_payment:
+                ViseHttp.POST(NetConfig.orderToPayUrl)
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.orderToPayUrl))
+                        .addParam("order_id", orderId)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject pay = new JSONObject(data);
+                                    if(pay.getInt("code") == 200){
+                                        Gson gson1 = new Gson();
+                                        OrderToPayModel model1 = gson1.fromJson(data, OrderToPayModel.class);
+                                        wxPay(model1.getObj());
+                                        finish();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
         }
     }
@@ -174,4 +294,19 @@ public class DetailsToBePaidActivity extends BaseActivity {
         super.onBackPressed();
         DetailsToBePaidActivity.this.finish();
     }
+
+    public void wxPay(OrderToPayModel.ObjBean model){
+        api.registerApp(UMConfig.WECHAT_APPID);
+        PayReq req = new PayReq();
+        req.appId = model.getAppId();
+        req.partnerId = model.getPartnerId();
+        req.prepayId = model.getPrepayId();
+        req.nonceStr = model.getNonceStr();
+        req.timeStamp = model.getTimestamp()+"";
+        req.packageValue = model.getPackageX();
+        req.sign = model.getSign();
+        req.extData = "app data";
+        api.sendReq(req);
+    }
+
 }

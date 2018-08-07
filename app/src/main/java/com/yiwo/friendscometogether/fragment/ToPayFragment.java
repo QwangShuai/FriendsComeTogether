@@ -9,14 +9,20 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FragmentToPayAdapter;
 import com.yiwo.friendscometogether.base.OrderBaseFragment;
+import com.yiwo.friendscometogether.model.OrderToPayModel;
 import com.yiwo.friendscometogether.model.PayFragmentModel;
+import com.yiwo.friendscometogether.model.Paymodel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.network.UMConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 
@@ -43,12 +49,15 @@ public class ToPayFragment extends OrderBaseFragment {
     private SpImp spImp;
     private String uid = "";
 
+    private IWXAPI api;
+
     @Override
     public View initView() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_to_pay, null);
         ScreenAdapterTools.getInstance().loadView(view);
 
         ButterKnife.bind(this, view);
+        api = WXAPIFactory.createWXAPI(getContext(), null);
         spImp = new SpImp(getContext());
 
         return view;
@@ -78,14 +87,37 @@ public class ToPayFragment extends OrderBaseFragment {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
-                                PayFragmentModel model = gson.fromJson(data, PayFragmentModel.class);
+                                final PayFragmentModel model = gson.fromJson(data, PayFragmentModel.class);
                                 mList = model.getObj();
                                 adapter = new FragmentToPayAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
                                 adapter.setOnPayListener(new FragmentToPayAdapter.OnPayListener() {
                                     @Override
                                     public void onPay(int position) {
-                                        
+                                        ViseHttp.POST(NetConfig.orderToPayUrl)
+                                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.orderToPayUrl))
+                                                .addParam("order_id", mList.get(position).getOID())
+                                                .request(new ACallback<String>() {
+                                                    @Override
+                                                    public void onSuccess(String data) {
+                                                        try {
+                                                            JSONObject pay = new JSONObject(data);
+                                                            if(pay.getInt("code") == 200){
+                                                                Gson gson1 = new Gson();
+                                                                OrderToPayModel model1 = gson1.fromJson(data, OrderToPayModel.class);
+                                                                wxPay(model1.getObj());
+                                                                getActivity().finish();
+                                                            }
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFail(int errCode, String errMsg) {
+
+                                                    }
+                                                });
                                     }
                                 });
                                 adapter.setOnCancelListener(new FragmentToPayAdapter.OnCancelListener() {
@@ -192,4 +224,19 @@ public class ToPayFragment extends OrderBaseFragment {
                 });
 
     }
+
+    public void wxPay(OrderToPayModel.ObjBean model){
+        api.registerApp(UMConfig.WECHAT_APPID);
+        PayReq req = new PayReq();
+        req.appId = model.getAppId();
+        req.partnerId = model.getPartnerId();
+        req.prepayId = model.getPrepayId();
+        req.nonceStr = model.getNonceStr();
+        req.timeStamp = model.getTimestamp()+"";
+        req.packageValue = model.getPackageX();
+        req.sign = model.getSign();
+        req.extData = "app data";
+        api.sendReq(req);
+    }
+
 }
