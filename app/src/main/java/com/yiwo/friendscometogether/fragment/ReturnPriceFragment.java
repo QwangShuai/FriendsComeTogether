@@ -88,7 +88,7 @@ public class ReturnPriceFragment extends OrderBaseFragment {
                                 Gson gson = new Gson();
                                 ReturnPriceFragmentModel model = gson.fromJson(data, ReturnPriceFragmentModel.class);
                                 mList = model.getObj();
-                                adapter = new FragmentReturnPriceAdapter(mList);
+                                adapter = new FragmentReturnPriceAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
                                 adapter.setOnDeleteListener(new FragmentReturnPriceAdapter.OnDeleteListener() {
                                     @Override

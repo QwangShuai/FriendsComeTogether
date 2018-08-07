@@ -88,7 +88,7 @@ public class ToTripFragment extends OrderBaseFragment {
                                 Gson gson = new Gson();
                                 TripFragmentModel model = gson.fromJson(data, TripFragmentModel.class);
                                 mList = model.getObj();
-                                adapter = new FragmentToTripAdapter(mList);
+                                adapter = new FragmentToTripAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
                                 adapter.setOnCancelListener(new FragmentToTripAdapter.OnCancelListener() {
                                     @Override

@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -28,14 +29,16 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
 
     private Context context;
     private List<CommentFragmentModel.ObjBean> data;
+    private Activity activity;
     private OnDeleteListener listener;
 
     public void setOnDeleteListener(OnDeleteListener listener){
         this.listener = listener;
     }
 
-    public FragmentToCommentAdapter(List<CommentFragmentModel.ObjBean> data) {
+    public FragmentToCommentAdapter(List<CommentFragmentModel.ObjBean> data, Activity activity) {
         this.data = data;
+        this.activity = activity;
     }
 
     @Override
@@ -56,6 +59,7 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
                 intent.setClass(context, DetailsToBePaidActivity.class);
                 intent.putExtra("order_id", data.get(position).getOID());
                 context.startActivity(intent);
+                activity.finish();
             }
         });
         holder.tvTitle.setText(data.get(position).getTitle());

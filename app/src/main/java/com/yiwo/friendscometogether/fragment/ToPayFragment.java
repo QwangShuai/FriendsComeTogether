@@ -80,12 +80,12 @@ public class ToPayFragment extends OrderBaseFragment {
                                 Gson gson = new Gson();
                                 PayFragmentModel model = gson.fromJson(data, PayFragmentModel.class);
                                 mList = model.getObj();
-                                adapter = new FragmentToPayAdapter(mList);
+                                adapter = new FragmentToPayAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
                                 adapter.setOnPayListener(new FragmentToPayAdapter.OnPayListener() {
                                     @Override
                                     public void onPay(int position) {
-
+                                        
                                     }
                                 });
                                 adapter.setOnCancelListener(new FragmentToPayAdapter.OnCancelListener() {

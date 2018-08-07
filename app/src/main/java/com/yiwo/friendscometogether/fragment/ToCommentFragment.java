@@ -80,7 +80,7 @@ public class ToCommentFragment extends OrderBaseFragment {
                                 Gson gson = new Gson();
                                 CommentFragmentModel model = gson.fromJson(data, CommentFragmentModel.class);
                                 mList = model.getObj();
-                                adapter = new FragmentToCommentAdapter(mList);
+                                adapter = new FragmentToCommentAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
                                 adapter.setOnDeleteListener(new FragmentToCommentAdapter.OnDeleteListener() {
                                     @Override

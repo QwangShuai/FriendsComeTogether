@@ -11,8 +11,10 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.adapter.ArticleCommentAdapter;
 import com.yiwo.friendscometogether.adapter.MyCommentAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.ArticleCommentListModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 
@@ -34,6 +36,7 @@ public class MyCommentActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     private MyCommentAdapter adapter;
+    private List<ArticleCommentListModel.ObjBean> mList;
 
     private SpImp spImp;
     private String uid = "";
@@ -59,14 +62,19 @@ public class MyCommentActivity extends BaseActivity {
         recyclerView.setLayoutManager(manager);
         ViseHttp.POST(NetConfig.userComment)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userComment))
-                .addParam("uid", uid)
+                .addParam("userID", uid)
+                .addParam("page", "1")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
+                                ArticleCommentListModel model = gson.fromJson(data, ArticleCommentListModel.class);
+                                mList = model.getObj();
+                                adapter = new MyCommentAdapter(mList);
+                                recyclerView.setAdapter(adapter);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -78,18 +86,6 @@ public class MyCommentActivity extends BaseActivity {
 
                     }
                 });
-        List<String> data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        adapter = new MyCommentAdapter(data);
-        recyclerView.setAdapter(adapter);
 
     }
 

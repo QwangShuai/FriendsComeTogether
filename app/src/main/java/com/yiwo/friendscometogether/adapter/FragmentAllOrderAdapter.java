@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,7 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
 
     private Context context;
     private List<AllOrderFragmentModel.ObjBean> data;
+    private Activity activity;
     private OnPayListener listener;
     private OnCancelListener listener1;
     private OnDeleteListener listener2;
@@ -43,8 +45,9 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
         this.listener = listener;
     }
 
-    public FragmentAllOrderAdapter(List<AllOrderFragmentModel.ObjBean> data) {
+    public FragmentAllOrderAdapter(List<AllOrderFragmentModel.ObjBean> data, Activity activity) {
         this.data = data;
+        this.activity = activity;
     }
 
     @Override
@@ -65,6 +68,7 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
                 intent.setClass(context, DetailsToBePaidActivity.class);
                 intent.putExtra("order_id", data.get(position).getOID());
                 context.startActivity(intent);
+                activity.finish();
             }
         });
         holder.tvTitle.setText(data.get(position).getTitle());

@@ -82,7 +82,7 @@ public class AllOrderFragment extends OrderBaseFragment {
                                 Gson gson = new Gson();
                                 AllOrderFragmentModel model = gson.fromJson(data, AllOrderFragmentModel.class);
                                 mList = model.getObj();
-                                adapter = new FragmentAllOrderAdapter(mList);
+                                adapter = new FragmentAllOrderAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
                                 adapter.setOnCancelListener(new FragmentAllOrderAdapter.OnCancelListener() {
                                     @Override

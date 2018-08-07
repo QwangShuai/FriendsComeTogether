@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -27,14 +28,16 @@ public class FragmentToTripAdapter extends RecyclerView.Adapter<FragmentToTripAd
 
     private Context context;
     private List<TripFragmentModel.ObjBean> data;
+    private Activity activity;
     private OnCancelListener listener;
 
     public void setOnCancelListener(OnCancelListener listener){
         this.listener = listener;
     }
 
-    public FragmentToTripAdapter(List<TripFragmentModel.ObjBean> data) {
+    public FragmentToTripAdapter(List<TripFragmentModel.ObjBean> data, Activity activity) {
         this.data = data;
+        this.activity = activity;
     }
 
     @Override
@@ -55,6 +58,7 @@ public class FragmentToTripAdapter extends RecyclerView.Adapter<FragmentToTripAd
                 intent.setClass(context, DetailsToBePaidActivity.class);
                 intent.putExtra("order_id", data.get(position).getOID());
                 context.startActivity(intent);
+                activity.finish();
             }
         });
         holder.tvTitle.setText(data.get(position).getTitle());
