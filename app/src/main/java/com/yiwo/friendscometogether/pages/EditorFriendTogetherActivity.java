@@ -25,8 +25,10 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.EditorFriendRememberAdapter;
+import com.yiwo.friendscometogether.adapter.EditorFriendTogetherAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.EditorFriendRememberModel;
+import com.yiwo.friendscometogether.model.GetEditorFriendTogetherModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 
 import org.json.JSONException;
@@ -61,8 +63,8 @@ public class EditorFriendTogetherActivity extends BaseActivity {
     @BindView(R.id.activity_editor_friend_together_tv_add)
     TextView tvAdd;
 
-    private EditorFriendRememberAdapter adapter;
-    private List<EditorFriendRememberModel.ObjBean.RenewListBean> mList;
+    private EditorFriendTogetherAdapter adapter;
+    private List<GetEditorFriendTogetherModel.ObjBean.TitleListBean> mList;
 
     private String id = "";
 
@@ -81,9 +83,9 @@ public class EditorFriendTogetherActivity extends BaseActivity {
     private void initData() {
         Intent intent = getIntent();
         id = intent.getStringExtra("pfID");
-        ViseHttp.POST(NetConfig.editorFriendRememberUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.editorFriendRememberUrl))
-                .addParam("id", id)
+        ViseHttp.POST(NetConfig.getEditorFriendTogetherUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getEditorFriendTogetherUrl))
+                .addParam("activity_id", id)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -91,19 +93,19 @@ public class EditorFriendTogetherActivity extends BaseActivity {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
-                                EditorFriendRememberModel model = gson.fromJson(data, EditorFriendRememberModel.class);
-                                tvTitle.setText(model.getObj().getFriendsList().getFmtitle());
-                                Picasso.with(EditorFriendTogetherActivity.this).load(model.getObj().getFriendsList().getFmpic()).into(ivTitle);
-                                tvStart.setText("开始时间: " + model.getObj().getFriendsList().getFmgotime());
-                                tvEnd.setText("结束时间: " + model.getObj().getFriendsList().getFmendtime());
-                                tvPrice.setText("人均费用: " + model.getObj().getFriendsList().getPercapitacost());
-                                tvBrowseNum.setText("浏览: " + model.getObj().getFriendsList().getFmlook());
-                                tvFocusNum.setText("关注: " + model.getObj().getFriendsList().getFmfavorite());
+                                GetEditorFriendTogetherModel model = gson.fromJson(data, GetEditorFriendTogetherModel.class);
+                                tvTitle.setText(model.getObj().getPftitle());
+                                Picasso.with(EditorFriendTogetherActivity.this).load(model.getObj().getPfpic()).into(ivTitle);
+                                tvStart.setText("开始时间: " + model.getObj().getPfgotime());
+                                tvEnd.setText("结束时间: " + model.getObj().getPfendtime());
+                                tvPrice.setText("人均费用: " + model.getObj().getPfspend());
+//                                tvBrowseNum.setText("浏览: " + model.getObj().get);
+//                                tvFocusNum.setText("关注: " + model.getObj().getFriendsList().getFmfavorite());
                                 LinearLayoutManager manager = new LinearLayoutManager(EditorFriendTogetherActivity.this);
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
-                                mList = model.getObj().getRenewList();
-                                adapter = new EditorFriendRememberAdapter(model.getObj().getRenewList());
+                                mList = model.getObj().getTitle_list();
+                                adapter = new EditorFriendTogetherAdapter(model.getObj().getTitle_list());
                                 recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
                                 recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
                                 recyclerView.setAdapter(adapter);
@@ -137,7 +139,7 @@ public class EditorFriendTogetherActivity extends BaseActivity {
 //                Toast.makeText(EditorFriendtogetherActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
                 ViseHttp.POST(NetConfig.deleteRenewUrl)
                         .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteRenewUrl))
-                        .addParam("id", mList.get(adapterPosition).getFfID())
+                        .addParam("id", mList.get(adapterPosition).getId())
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
