@@ -143,4 +143,12 @@ public class NetConfig {
     public static String cancleActivityUrl = "action/ac_activity/activity_cancel";
     //订单去支付
     public static String orderToPayUrl = "action/ac_order/go_pay";
+    //获取修改活动页面
+    public static String getEditorFriendTogetherUrl = "action/ac_activity/get_activity_info";
+    //修改主活动信息
+    public static String editorFriendTogetherUrl = "action/ac_activity/update_activity";
+    //删除活动子标题全部内容
+    public static String deleteFriendTogetherSubtitleContentUrl = "action/ac_activity/get_activity_info";
+    //修改活动子标题信息
+    public static String editorFriendTogetherSubtitleContentUrl = "action/ac_activity/update_activity_info";
 }

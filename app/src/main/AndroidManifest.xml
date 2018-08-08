@@ -136,7 +136,8 @@
         <activity android:name=".pages.FeedbackActivity" />
         <activity android:name=".pages.EditorFriendTogetherActivity" />
         <activity android:name=".pages.ActiveEvaluationActivity" />
-        <activity android:name=".pages.OrderCommentActivity"></activity>
+        <activity android:name=".pages.OrderCommentActivity" />
+        <activity android:name=".pages.EditorFriendTogetherSubTitleContentActivity"></activity>
     </application>
 
 </manifest>
