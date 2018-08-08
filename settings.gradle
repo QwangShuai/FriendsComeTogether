@@ -1,1 +1,1 @@
-include ':app', ':androidnetworkmaster', ':uikit', ':androidutilsmaster'
+include ':app'
