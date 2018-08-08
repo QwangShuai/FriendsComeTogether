@@ -172,8 +172,10 @@ public class DetailsToBePaidActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.activity_details_to_pay_rl_back, R.id.details_to_pay_rv_tv_cancle_trip, R.id.details_to_pay_rv_tv_delete_trip, R.id.details_to_pay_rv_tv_payment})
+    @OnClick({R.id.activity_details_to_pay_rl_back, R.id.details_to_pay_rv_tv_cancle_trip, R.id.details_to_pay_rv_tv_delete_trip, R.id.details_to_pay_rv_tv_payment,
+            R.id.details_to_pay_rv_tv_comment})
     public void onClick(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.activity_details_to_pay_rl_back:
                 onBackPressed();
@@ -285,6 +287,11 @@ public class DetailsToBePaidActivity extends BaseActivity {
 
                             }
                         });
+                break;
+            case R.id.details_to_pay_rv_tv_comment:
+                intent.setClass(DetailsToBePaidActivity.this, OrderCommentActivity.class);
+                intent.putExtra("orderid", orderId);
+                startActivity(intent);
                 break;
         }
     }

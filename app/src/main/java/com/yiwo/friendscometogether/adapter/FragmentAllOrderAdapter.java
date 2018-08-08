@@ -17,6 +17,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.AllOrderFragmentModel;
 import com.yiwo.friendscometogether.pages.DetailsToBePaidActivity;
+import com.yiwo.friendscometogether.pages.OrderCommentActivity;
 
 import java.util.List;
 
@@ -69,6 +70,15 @@ public class FragmentAllOrderAdapter extends RecyclerView.Adapter<FragmentAllOrd
                 intent.putExtra("order_id", data.get(position).getOID());
                 context.startActivity(intent);
                 activity.finish();
+            }
+        });
+        holder.tvComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(context, OrderCommentActivity.class);
+                intent.putExtra("orderid", data.get(position).getOID());
+                context.startActivity(intent);
             }
         });
         holder.tvTitle.setText(data.get(position).getTitle());

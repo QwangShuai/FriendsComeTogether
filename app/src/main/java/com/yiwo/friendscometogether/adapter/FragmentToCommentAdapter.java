@@ -18,6 +18,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.CommentFragmentModel;
 import com.yiwo.friendscometogether.pages.DetailsToBePaidActivity;
 import com.yiwo.friendscometogether.pages.DetailsToCommentActivity;
+import com.yiwo.friendscometogether.pages.OrderCommentActivity;
 
 import java.util.List;
 
@@ -85,6 +86,15 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
             @Override
             public void onClick(View view) {
                 listener.onDelete(position);
+            }
+        });
+        holder.tvComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(context, OrderCommentActivity.class);
+                intent.putExtra("orderid", data.get(position).getOID());
+                context.startActivity(intent);
             }
         });
     }

@@ -82,14 +82,4 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.+'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     implementation 'top.zibin:Luban:1.1.8'
-    compile 'com.netease.nimlib:basesdk:5.1.1'
-    compile 'com.netease.nimlib:nrtc:5.1.1'
-    // 音视频需要
-    compile 'com.netease.nimlib:avchat:5.1.1'
-    // 聊天室需要
-    compile 'com.netease.nimlib:chatroom:5.1.1'
-    // 互动白板服务需要
-    compile 'com.netease.nimlib:rts:5.1.1'
-    // 全文检索服务需要
-    compile 'com.netease.nimlib:lucene:5.1.1'
 }

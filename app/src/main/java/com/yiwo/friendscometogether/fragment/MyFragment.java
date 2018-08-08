@@ -182,53 +182,108 @@ public class MyFragment extends BaseFragment {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.fragment_my_ll_look_more:
-                intent.setClass(getContext(), MyOrderActivity.class);
-                intent.putExtra("position", 0);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.putExtra("position", 0);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_ll_to_pay:
-                intent.setClass(getContext(), MyOrderActivity.class);
-                intent.putExtra("position", 1);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.putExtra("position", 1);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_ll_to_trip:
-                intent.setClass(getContext(), MyOrderActivity.class);
-                intent.putExtra("position", 2);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.putExtra("position", 2);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_ll_to_comment:
-                intent.setClass(getContext(), MyOrderActivity.class);
-                intent.putExtra("position", 3);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.putExtra("position", 3);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_ll_return_price:
-                intent.setClass(getContext(), MyOrderActivity.class);
-                intent.putExtra("position", 4);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyOrderActivity.class);
+                    intent.putExtra("position", 4);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_rl_focus:
-                intent.setClass(getContext(), MyFocusActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyFocusActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_rl_collection:
-                intent.setClass(getContext(), MyCollectionActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyCollectionActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_rl_comment:
-                intent.setClass(getContext(), MyCommentActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyCommentActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_rl_history:
-                intent.setClass(getContext(), LookHistoryActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), LookHistoryActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_ll_draft:
-                intent.setClass(getContext(), MyDraftActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyDraftActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_ll_create_friend_remember:
-                intent.setClass(getContext(), CreateFriendRememberActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), CreateFriendRememberActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_person_set:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
@@ -240,33 +295,68 @@ public class MyFragment extends BaseFragment {
                 }
                 break;
             case R.id.fragment_my_ll_my_friend_remember:
-                intent.setClass(getContext(), MyFriendRememberActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyFriendRememberActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_ll_my_intercalation:
-                intent.setClass(getContext(), MyIntercalationActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyIntercalationActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_rl_initiating_activities:
-                intent.setClass(getContext(), StartActiveActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), StartActiveActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_rl_join_activitys:
-                intent.setClass(getContext(), JoinActiveActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), JoinActiveActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_rl_picture:
-                intent.setClass(getContext(), MyPicturesActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyPicturesActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_rl_create_activity:
-                intent.setClass(getContext(), CreateFriendTogetherActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), CreateFriendTogetherActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fragment_my_set:
                 //跳转设置页面
-                intent.setClass(getContext(), SetActivity.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), SetActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

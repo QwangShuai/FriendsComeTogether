@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.Request;
@@ -26,6 +27,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateIntercalationActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
+import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -42,6 +44,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2018/7/16.
@@ -54,6 +57,8 @@ public class FriendsRememberFragment extends BaseFragment {
     Banner banner;
     @BindView(R.id.fragment_friend_remember_rv)
     RecyclerView recyclerView;
+    @BindView(R.id.searchLl)
+    LinearLayout llSearch;
 
     private FriendRememberUpDataAdapter adapter;
 
@@ -115,6 +120,17 @@ public class FriendsRememberFragment extends BaseFragment {
         adapter = new FriendRememberUpDataAdapter(data);
         recyclerView.setAdapter(adapter);
 
+    }
+
+    @OnClick({R.id.searchLl})
+    public void onClick(View view){
+        Intent intent = new Intent();
+        switch (view.getId()){
+            case R.id.searchLl:
+                intent.setClass(getContext(), SearchActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
 }
