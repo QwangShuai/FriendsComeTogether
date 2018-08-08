@@ -52,7 +52,7 @@
             android:layout_marginRight="21px"
             android:orientation="vertical"
             android:layout_alignParentRight="true"
-            android:layout_width="176px"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -99,6 +99,8 @@
                 </LinearLayout>
             </LinearLayout>
             <RelativeLayout
+                android:layout_marginRight="102px"
+                android:layout_alignParentRight="true"
                 android:id="@+id/levelBg"
                 android:background="@mipmap/level_bg"
                 android:layout_width="107px"
@@ -116,6 +118,8 @@
                     android:text="LV0"/>
             </RelativeLayout>
             <TextView
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="32px"
                 android:layout_below="@+id/recyclerview_fragment_friend_together_ll_person_content"
                 android:layout_gravity="center"
                 android:textColor="@color/black_333333"

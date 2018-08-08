@@ -43,12 +43,12 @@ public class ApplyActivity extends BaseActivity {
     TextView apply_phone_tv;
     @BindView(R.id.apply_title_tv)
     TextView apply_title_tv;
-    @BindView(R.id.apply_sex_tv)
-    TextView apply_sex_tv;
-    @BindView(R.id.apply_age_et)
-    EditText apply_age_et;
-    @BindView(R.id.apply_marriage_et)
-    EditText apply_marriage_et;
+//    @BindView(R.id.apply_sex_tv)
+//    TextView apply_sex_tv;
+//    @BindView(R.id.apply_age_et)
+//    EditText apply_age_et;
+//    @BindView(R.id.apply_marriage_et)
+//    EditText apply_marriage_et;
     @BindView(R.id.apply_num_et)
     EditText apply_num_et;
     @BindView(R.id.apply_time_tv)
@@ -82,36 +82,36 @@ public class ApplyActivity extends BaseActivity {
         getShowView();
     }
 
-    @OnClick({R.id.activity_apply_rl_back,R.id.apply_sex_tv,R.id.apply_btn})
+    @OnClick({R.id.activity_apply_rl_back,R.id.apply_btn})//,R.id.apply_sex_tv
     public void OnClick(View v){
         switch (v.getId()){
             case R.id.activity_apply_rl_back:
                 finish();
                 break;
-            case R.id.apply_sex_tv:
-                final String[] items = { "男","女" };
-
-                AlertDialog.Builder singleChoiceDialog =
-                        new AlertDialog.Builder(ApplyActivity.this);
-                singleChoiceDialog.setTitle("请选择性别");
-                // 第二个参数是默认选项，此处设置为0
-                singleChoiceDialog.setSingleChoiceItems(items, 0,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                yourChoice = items[which];
-                            }
-                        });
-                singleChoiceDialog.setPositiveButton("确定",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                apply_sex_tv.setText(yourChoice);
-                                yourChoice = "男";
-                            }
-                        });
-                singleChoiceDialog.show();
-                break;
+//            case R.id.apply_sex_tv:
+//                final String[] items = { "男","女" };
+//
+//                AlertDialog.Builder singleChoiceDialog =
+//                        new AlertDialog.Builder(ApplyActivity.this);
+//                singleChoiceDialog.setTitle("请选择性别");
+//                // 第二个参数是默认选项，此处设置为0
+//                singleChoiceDialog.setSingleChoiceItems(items, 0,
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                yourChoice = items[which];
+//                            }
+//                        });
+//                singleChoiceDialog.setPositiveButton("确定",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                apply_sex_tv.setText(yourChoice);
+//                                yourChoice = "男";
+//                            }
+//                        });
+//                singleChoiceDialog.show();
+//                break;
             case R.id.apply_btn:
                 apply();
                 break;
@@ -175,11 +175,15 @@ public class ApplyActivity extends BaseActivity {
         String toast = "报名成功";
         if(user_id.equals("0")){
             startActivity(new Intent(ApplyActivity.this,LoginActivity.class));
-        }else if(Integer.valueOf(apply_age_et.getText().toString())>100){
-            toast = "您输入的年龄过高";
-        } else if(StringUtils.isEmpty(apply_marriage_et.getText().toString())){
-            toast = "婚姻状况为空";
-        } else {
+        } else if(!StringUtils.isPhoneNumberValid(apply_phone_tv.getText().toString())){
+           toast = "请输入正确的手机号";
+        }
+//        else if(Integer.valueOf(apply_age_et.getText().toString())>100){
+//            toast = "您输入的年龄过高";
+//        } else if(StringUtils.isEmpty(apply_marriage_et.getText().toString())){
+//            toast = "婚姻状况为空";
+//        }
+        else {
             String num ="1";
             if(StringUtils.isEmpty(apply_num_et.getText().toString())){
                 num = apply_num_et.getText().toString();
@@ -188,9 +192,10 @@ public class ApplyActivity extends BaseActivity {
                     .addParam("user_id",user_id)
                     .addParam("num",num)
                     .addParam("pfid",pfID)
+                    .addParam("phone",apply_phone_tv.getText().toString())
                     .addParam("need_paytype",payState+"")
-                    .addParam("join_age",apply_age_et.getText().toString())
-                    .addParam("join_marry",apply_marriage_et.getText().toString())
+//                    .addParam("join_age",apply_age_et.getText().toString())
+//                    .addParam("join_marry",apply_marriage_et.getText().toString())
                     .request(new ACallback<String>() {
                         @Override
                         public void onFail(int errCode, String errMsg) {
