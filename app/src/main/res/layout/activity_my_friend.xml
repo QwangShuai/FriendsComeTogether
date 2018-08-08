@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yiwo.friendscometogether.pages.MyFriendActivity">
+
+    <RelativeLayout
+        android:id="@+id/activity_my_friend_rl_top"
+        style="@style/rl_top_bar">
+
+        <TextView
+            android:text="我的好友"
+            style="@style/tv_top_title" />
+
+        <RelativeLayout
+            android:id="@+id/activity_my_friend_rl_back"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_return" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <fragment
+        android:layout_below="@+id/activity_my_friend_rl_top"
+        android:id="@+id/contact_list_fragment"
+        android:name="com.netease.nim.uikit.business.contact.ContactsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </fragment>
+
+</RelativeLayout>
