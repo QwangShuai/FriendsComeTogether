@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\git\\FriendsComeTogether\\uikit\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+            "outputFile": "E:\\Users\\Administrator\\GitHub\\FriendsComeTogether\\uikit\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\c0f29bf362181c302e203e1ba5833da6\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",

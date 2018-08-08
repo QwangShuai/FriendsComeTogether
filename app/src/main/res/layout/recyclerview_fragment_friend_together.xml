@@ -48,37 +48,75 @@
             android:layout_width="520px"
             android:layout_height="50px">
         </LinearLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_marginRight="21px"
             android:orientation="vertical"
             android:layout_alignParentRight="true"
             android:layout_width="176px"
             android:layout_height="match_parent">
 
-            <com.yiwo.friendscometogether.custom.CImageView
-                android:id="@+id/headIv"
-                android:layout_width="140px"
-                android:layout_height="140px"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="26px"
-                android:src="@mipmap/ic_launcher" />
+            <LinearLayout
+                android:layout_marginTop="13px"
+                android:id="@+id/recyclerview_fragment_friend_together_ll_person_content"
+                android:layout_marginRight="32px"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.yiwo.friendscometogether.custom.CImageView
+                    android:id="@+id/headIv"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_width="140px"
+                    android:layout_height="140px" />
+
+
+                <LinearLayout
+                    android:id="@+id/recyclerview_fragment_friend_together_ll_top_focus"
+                    android:layout_marginTop="10px"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/recyclerview_fragment_friend_together_iv_focus"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/focus_on_empty_y"
+                        android:layout_width="26px"
+                        android:layout_height="24px" />
+
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="24px"
+                        android:text="关注"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33px" />
+
+                </LinearLayout>
+            </LinearLayout>
             <RelativeLayout
-                android:id="@+id/item_levelBg"
-                android:background="@mipmap/level_red"
-                android:layout_width="match_parent"
-                android:layout_height="62px">
+                android:id="@+id/levelBg"
+                android:background="@mipmap/level_bg"
+                android:layout_width="107px"
+                android:layout_height="30px">
 
                 <TextView
                     android:id="@+id/levelTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="42px"
-                    android:layout_marginLeft="46px"
-                    android:layout_marginTop="16px"
-                    android:text="签约领队"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="19px"
+                    android:textSize="20px"
                     android:textColor="@color/white_ffffff"
-                    android:textSize="30px" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LV0"/>
             </RelativeLayout>
             <TextView
+                android:layout_below="@+id/recyclerview_fragment_friend_together_ll_person_content"
                 android:layout_gravity="center"
                 android:textColor="@color/black_333333"
                 android:layout_marginTop="12px"
@@ -87,7 +125,7 @@
                 android:text="参与人数：3/10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
     <View
         android:layout_width="match_parent"

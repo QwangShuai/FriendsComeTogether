@@ -20,11 +20,13 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
+import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
@@ -74,15 +76,50 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         if (!StringUtils.isEmpty(data.get(position).getUpicurl())) {
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
         }
-        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
-            holder.levelTv.setText(data.get(position).getSign().equals("1") ? "签约领队" : "普通领队");
-        } else {
-            holder.levelTv.setText("暂无领队");
-        }
+//        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
+//            holder.levelTv.setText(data.get(position).getSign().equals("1") ? "签约领队" : "普通领队");
+//        } else {
+//            holder.levelTv.setText("暂无领队");
+//        }
 
-        holder.levelBg.setBackgroundResource(data.get(position).getUsergrade().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
-        holder.personTv.setText(data.get(position).getHave_num() + "/" + data.get(position).getPfpeople());
+//        holder.levelBg.setBackgroundResource(data.get(position).getUsergrade().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
+        holder.personTv.setText("参与人数："+data.get(position).getHave_num() + "/" + data.get(position).getPfpeople());
         holder.focusOnIv.setImageResource(data.get(position).getFocusOn().equals("0") ? R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
+        holder.focusOnll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViseHttp.POST(NetConfig.focusOnLeaderUrl)
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.focusOnLeaderUrl))
+                        .addParam("userID",spImp.getUID())
+                        .addParam("attention_userID",data.get(position).getCaptain())
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                FocusOnLeaderModel model = new Gson().fromJson(data,FocusOnLeaderModel.class);
+                                if(model.getCode()==200){
+                                    if(model.getObj().getAttention().equals("0")){
+                                        holder.focusOnLeaderIv.setImageResource(R.mipmap.focus_on_empty_y);
+                                    } else {
+                                        holder.focusOnLeaderIv.setImageResource(R.mipmap.focus_on_y);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+        });
+        holder.personll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(context, OtherInformationActivity.class);
+                it.putExtra("id",data.get(position).getCaptain());
+                context.startActivity(it);
+            }
+        });
         holder.focus_on_activitiesLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,6 +197,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView picIv;
+        private ImageView focusOnLeaderIv;
         private TextView titleTv;
         private TextView contentTv;
         private LinearLayout vessel;
@@ -172,6 +210,8 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         private LinearLayout consult_leaderLl;
         private LinearLayout focus_on_activitiesLl;
         private LinearLayout ll;
+        private LinearLayout personll;
+        private LinearLayout focusOnll;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -188,6 +228,9 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             consult_leaderLl = (itemView).findViewById(R.id.consult_leaderLl);
             focus_on_activitiesLl = (itemView).findViewById(R.id.focus_on_activitiesLl);
             ll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll);
+            personll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll_person_content);
+            focusOnll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll_top_focus);
+            focusOnLeaderIv = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_iv_focus);
         }
     }
 }

@@ -7,18 +7,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.CImageView;
+import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.HomeTogetherModel;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
+import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
+import com.yiwo.friendscometogether.utils.TokenUtils;
 
 import java.util.List;
 
@@ -46,17 +54,17 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         if(!StringUtils.isEmpty(data.get(position).getPfpic()))
             Picasso.with(context).load(data.get(position).getPfpic()).into(holder.picIv);
         if(!StringUtils.isEmpty(data.get(position).getUpicurl()))
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
         holder.bgRl.setBackgroundResource(data.get(position).getSign().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
-        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
-            holder.levelTv.setText(data.get(position).getSign().equals("0")?"普通领队":"签约领队");
-        } else {
-            holder.levelTv.setText("暂无领队");
-        }
+//        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
+//            holder.levelTv.setText(data.get(position).getSign().equals("0")?"普通领队":"签约领队");
+//        } else {
+//            holder.levelTv.setText("暂无领队");
+//        }
 
         holder.titleTv.setText(data.get(position).getPftitle());
         holder.contentTv.setText(data.get(position).getPfcontent());

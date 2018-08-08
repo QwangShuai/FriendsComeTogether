@@ -152,7 +152,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         if (!model.getCaptain().equals("0")) {
             if (!StringUtils.isEmpty(model.getCapttain_pic())) {
                 Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getCapttain_pic()).into(headIv);
-                levelTv.setText(model.getIf_sign().equals("1") ? "签约领队" : "普通领队");
+//                levelTv.setText(model.getIf_sign().equals("1") ? "签约领队" : "普通领队");
             }
         }
         Log.i("qwe", model.getAttention());
@@ -165,11 +165,11 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         manTv.setText("男生人数：" + model.getMan());
         participantsTv.setText("参加人员（" + model.getHave_num() + "/" + model.getPerson_num() + ")");
         focusOnLeaderIv.setImageResource(model.getAttention_captain().equals("0")?R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
-        if(!StringUtils.isEmpty(leaderID)&&!leaderID.equals("0")){
-            levelTv.setText(model.getIf_sign().equals("0")?"普通领队":"签约领队");
-        } else {
-            levelTv.setText("暂无领队");
-        }
+//        if(!StringUtils.isEmpty(leaderID)&&!leaderID.equals("0")){
+//            levelTv.setText(model.getIf_sign().equals("0")?"普通领队":"签约领队");
+//        } else {
+//            levelTv.setText("暂无领队");
+//        }
 
         initPerson(model.getUser_list());
         initList(model.getInfo_list());
@@ -204,7 +204,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     }
 
     @OnClick({R.id.details_applyTv, R.id.activity_details_of_friends_together_rl_back, R.id.activity_details_of_friends_together_ll_share,
-            R.id.activity_details_of_friends_together_ll_focus_on,R.id.activity_details_of_friends_together_ll_top_focus})
+            R.id.activity_details_of_friends_together_ll_focus_on,R.id.activity_details_of_friends_together_ll_top_focus,
+            R.id.activity_details_of_friends_together_ll_person_content})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.activity_details_of_friends_together_rl_back:
@@ -309,6 +310,12 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 } else {
                     toToast(DetailsOfFriendTogetherActivity.this,"暂无领队");
                 }
+                break;
+            case R.id.activity_details_of_friends_together_ll_person_content:
+                toToast(this,"这是领队的ID"+model.getObj().getCaptain());
+                Intent it = new Intent(this,OtherInformationActivity.class);
+                it.putExtra("id",model.getObj().getCaptain());
+                startActivity(it);
                 break;
         }
     }
