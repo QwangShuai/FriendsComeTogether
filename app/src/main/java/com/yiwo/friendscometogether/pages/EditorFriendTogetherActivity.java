@@ -137,9 +137,9 @@ public class EditorFriendTogetherActivity extends BaseActivity {
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
 //                Toast.makeText(EditorFriendtogetherActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
-                ViseHttp.POST(NetConfig.deleteRenewUrl)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteRenewUrl))
-                        .addParam("id", mList.get(adapterPosition).getId())
+                ViseHttp.POST(NetConfig.deleteFriendTogetherSubtitleContentUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteFriendTogetherSubtitleContentUrl))
+                        .addParam("title_id", mList.get(adapterPosition).getId())
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
@@ -192,8 +192,8 @@ public class EditorFriendTogetherActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_editor_friend_together_tv_add:
-                intent.setClass(EditorFriendTogetherActivity.this, CreateIntercalationActivity.class);
-                intent.putExtra("id", id);
+                intent.setClass(EditorFriendTogetherActivity.this, FriendTogetherAddContentActivity.class);
+                intent.putExtra("pfID", id);
                 startActivity(intent);
                 onBackPressed();
                 break;

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100px">
+    android:layout_height="100px"
+    android:id="@+id/activity_editor_friend_together_rv_rl">
 
     <TextView
         android:layout_marginTop="24px"

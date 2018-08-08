@@ -148,7 +148,8 @@ public class NetConfig {
     //修改主活动信息
     public static String editorFriendTogetherUrl = "action/ac_activity/update_activity";
     //删除活动子标题全部内容
-    public static String deleteFriendTogetherSubtitleContentUrl = "action/ac_activity/get_activity_info";
+    public static String deleteFriendTogetherSubtitleContentUrl = "action/ac_activity/del" +
+            "_activity_info";
     //修改活动子标题信息
     public static String editorFriendTogetherSubtitleContentUrl = "action/ac_activity/update_activity_info";
 }

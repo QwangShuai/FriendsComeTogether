@@ -201,7 +201,11 @@ public class ApplyActivity extends BaseActivity {
                         public void onSuccess(String data) {
                             Log.i("123654",data);
                             Paymodel paymodel = new Gson().fromJson(data,Paymodel.class);
-                            wxPay(paymodel.getObj());
+                            if(paymodel.getCode()==200){
+                                wxPay(paymodel.getObj());
+                            } else {
+
+                            }
                         }
                     });
 
