@@ -31,6 +31,7 @@ import com.yiwo.friendscometogether.pages.MyCollectionActivity;
 import com.yiwo.friendscometogether.pages.MyCommentActivity;
 import com.yiwo.friendscometogether.pages.MyDraftActivity;
 import com.yiwo.friendscometogether.pages.MyFocusActivity;
+import com.yiwo.friendscometogether.pages.MyFriendActivity;
 import com.yiwo.friendscometogether.pages.MyFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.MyInformationActivity;
 import com.yiwo.friendscometogether.pages.MyIntercalationActivity;
@@ -104,6 +105,8 @@ public class MyFragment extends BaseFragment {
     RelativeLayout rlCreateActivity;
     @BindView(R.id.fragment_my_set)
     RelativeLayout rlSet;
+    @BindView(R.id.fragment_my_rl_my_friend)
+    RelativeLayout rlFriend;
 
     private SpImp spImp;
     private String uid = "";
@@ -177,7 +180,7 @@ public class MyFragment extends BaseFragment {
             R.id.fragment_my_rl_focus, R.id.fragment_my_rl_collection, R.id.fragment_my_rl_comment, R.id.fragment_my_rl_history, R.id.fragment_my_ll_draft,
             R.id.fragment_my_ll_create_friend_remember, R.id.fragment_my_person_set, R.id.fragment_my_ll_my_friend_remember, R.id.fragment_my_ll_my_intercalation,
             R.id.fragment_my_rl_initiating_activities, R.id.fragment_my_rl_join_activitys, R.id.fragment_my_rl_picture,R.id.fragment_my_rl_create_activity,
-            R.id.fragment_my_set})
+            R.id.fragment_my_set, R.id.fragment_my_rl_my_friend})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -352,6 +355,15 @@ public class MyFragment extends BaseFragment {
                 //跳转设置页面
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
                     intent.setClass(getContext(), SetActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.fragment_my_rl_my_friend:
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyFriendActivity.class);
                     startActivity(intent);
                 } else {
                     intent.setClass(getContext(), LoginActivity.class);
