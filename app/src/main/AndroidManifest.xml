@@ -209,7 +209,8 @@
             android:process=":core" />
 
         <activity android:name=".pages.MyFriendActivity" />
-        <activity android:name=".pages.EditorMainFriendTogetherActivity"></activity>
+        <activity android:name=".pages.EditorMainFriendTogetherActivity" />
+        <activity android:name=".pages.SearchListActivity"></activity>
     </application>
 
 </manifest>

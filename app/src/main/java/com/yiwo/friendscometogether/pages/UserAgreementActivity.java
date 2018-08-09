@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.network.NetConfig;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +51,7 @@ public class UserAgreementActivity extends AppCompatActivity {
             webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
         }
-        webView.loadUrl("https://www.baidu.com/");
+        webView.loadUrl(NetConfig.userAgreementUrl);
     }
 
     @OnClick({R.id.activity_user_agreement_rl_back})

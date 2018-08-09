@@ -201,7 +201,7 @@ public class EditorFriendTogetherActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_editor_friend_together_rl:
-                intent.setClass(EditorFriendTogetherActivity.this, CreateFriendTogetherActivity.class);
+                intent.setClass(EditorFriendTogetherActivity.this, EditorMainFriendTogetherActivity.class);
                 intent.putExtra("bean", (Serializable)bean);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("pfID",id);
