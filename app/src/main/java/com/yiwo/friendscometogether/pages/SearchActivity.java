@@ -41,7 +41,7 @@ public class SearchActivity extends BaseActivity {
                         .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.searchFriendTogetherUrl))
                         .addParam("page","1")
                         .addParam("activity_name",s)
-                        .addParam("userID","7")
+                        .addParam("type","1")
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
