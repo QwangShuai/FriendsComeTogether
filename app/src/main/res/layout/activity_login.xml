@@ -10,6 +10,7 @@
     <RelativeLayout style="@style/rl_top_bar">
 
         <RelativeLayout
+            android:layout_width="100px"
             android:id="@+id/rl_set_return"
             style="@style/rl_return">
 

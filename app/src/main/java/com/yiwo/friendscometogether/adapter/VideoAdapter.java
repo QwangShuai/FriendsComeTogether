@@ -1,17 +1,20 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
+import com.yiwo.friendscometogether.pages.VideoActivity;
 
 import java.util.List;
 
@@ -35,9 +38,19 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(VideoAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(VideoAdapter.ViewHolder holder, final int position) {
         Picasso.with(context).load(data.get(position).getImg()).into(holder.videoIv);
         holder.videoTv.setText(data.get(position).getVname());
+        holder.videoRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(context, VideoActivity.class);
+                it.putExtra("videoUrl",data.get(position).getVurl());
+                it.putExtra("title",data.get(position).getVname());
+                it.putExtra("picUrl",data.get(position).getImg());
+                context.startActivity(it);
+            }
+        });
     }
 
     @Override
@@ -47,10 +60,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView videoIv;
         TextView videoTv;
+        RelativeLayout videoRl;
         public ViewHolder(View itemView) {
             super(itemView);
             videoIv = (itemView).findViewById(R.id.home_hot_video_iv);
             videoTv = (itemView).findViewById(R.id.home_hot_video_tv);
+            videoRl = (itemView).findViewById(R.id.home_hot_video_rl);
         }
     }
 }
