@@ -156,4 +156,6 @@ public class NetConfig {
     public static String userAgreementUrl = "http://47.92.136.19/index.php/action/ac_public/user_agreement";
     //获取用户的活动列表
     public static String userActiveListUrl = "action/ac_article/ActivityList";
+    //显示实名认证信息
+    public static String userRealNameInfoUrl = "action/ac_user/Realdisplay";
 }

@@ -84,6 +84,8 @@ public class RealNameActivity extends BaseActivity {
 
         uid = spImp.getUID();
 
+
+
     }
 
     @OnClick({R.id.activity_real_name_rl_back, R.id.activity_real_name_rl_id_1, R.id.activity_real_name_rl_id_2, R.id.activity_real_name_rl_complete})

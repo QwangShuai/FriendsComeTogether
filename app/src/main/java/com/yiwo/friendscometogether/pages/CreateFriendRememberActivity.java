@@ -124,6 +124,10 @@ public class CreateFriendRememberActivity extends BaseActivity {
     RelativeLayout rlActiveTitle;
     @BindView(R.id.activity_create_friend_remember_tv_active_title)
     TextView tvActiveTitle;
+    @BindView(R.id.activity_create_friend_remember_rl_is_intercalation)
+    RelativeLayout rlIsIntercalation;
+    @BindView(R.id.activity_create_friend_remember_tv_is_intercalation)
+    TextView tvIsIntercalation;
 
     private int mYear;
     private int mMonth;
@@ -154,6 +158,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
     private String yourChoiceActiveId = "";
     private String yourChoiceActiveName = "";
     private List<UserActiveListModel.ObjBean> activeList;
+
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -310,11 +316,12 @@ public class CreateFriendRememberActivity extends BaseActivity {
         }
     };
 
+    private String yourChoice = "";
     @OnClick({R.id.activity_create_friend_remember_rl_back, R.id.activity_create_friend_remember_rl_edit_title, R.id.activity_create_friend_remember_rl_edit_content,
             R.id.activity_create_friend_remember_rl_time_start, R.id.activity_create_friend_remember_rl_time_end, R.id.activity_create_friend_remember_rl_activity_city,
             R.id.activity_create_friend_remember_rl_price, R.id.activity_create_friend_remember_rl_complete, R.id.activity_create_friend_remember_rl_set_password,
             R.id.activity_create_friend_remember_iv_add, R.id.activity_create_friend_remember_iv_delete, R.id.activity_create_friend_remember_rl_label,
-            R.id.activity_create_friend_remember_rl_active_title})
+            R.id.activity_create_friend_remember_rl_active_title, R.id.activity_create_friend_remember_rl_is_intercalation})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_create_friend_remember_rl_back:
@@ -368,7 +375,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendRememberActivity.this, new SetPasswordDialog.SetPasswordListener() {
                     @Override
                     public void setActivityText(String s) {
-
+                        password = s;
                     }
                 });
                 setPasswordDialog.show();
@@ -447,6 +454,34 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 }else {
                     toToast(CreateFriendRememberActivity.this, "暂无活动");
                 }
+                break;
+            case R.id.activity_create_friend_remember_rl_is_intercalation:
+                final String[] items1 = { "是","否" };
+
+                AlertDialog.Builder singleChoiceDialog1 =
+                        new AlertDialog.Builder(CreateFriendRememberActivity.this);
+                singleChoiceDialog1.setTitle("请选择是否允许队友插文");
+                // 第二个参数是默认选项，此处设置为0
+                singleChoiceDialog1.setSingleChoiceItems(items1, 0,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                yourChoice = items1[which];
+                            }
+                        });
+                singleChoiceDialog1.setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(TextUtils.isEmpty(yourChoice)){
+                                    tvIsIntercalation.setText("是");
+                                }else {
+                                    tvIsIntercalation.setText(yourChoice);
+                                    yourChoice = "";
+                                }
+                            }
+                        });
+                singleChoiceDialog1.show();
                 break;
         }
     }
@@ -703,6 +738,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                 .addParam("fmendtime", tvTimeEnd.getText().toString())
                                 .addParam("percapitacost", etPrice.getText().toString())
                                 .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                                .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
+                                .addParam("accesspassword", password)
                                 .addParam("type", "0")
                                 .addFile("fmpic", value)
                                 .request(new ACallback<String>() {
@@ -799,6 +836,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                 .addParam("fmendtime", tvTimeEnd.getText().toString())
                                 .addParam("percapitacost", etPrice.getText().toString())
                                 .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                                .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
+                                .addParam("accesspassword", password)
                                 .addParam("type", "1")
                                 .addFile("fmpic", value)
                                 .request(new ACallback<String>() {
@@ -895,6 +934,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                 .addParam("fmendtime", tvTimeEnd.getText().toString())
                                 .addParam("percapitacost", etPrice.getText().toString())
                                 .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                                .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
+                                .addParam("accesspassword", password)
                                 .addParam("type", "0")
                                 .addFile("fmpic", value)
                                 .request(new ACallback<String>() {
