@@ -40,6 +40,7 @@ import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.JsonBean;
+import com.yiwo.friendscometogether.model.UserActiveListModel;
 import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.model.UserReleaseModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -152,6 +153,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
     private String[] activeName;
     private String yourChoiceActiveId = "";
     private String yourChoiceActiveName = "";
+    private List<UserActiveListModel.ObjBean> activeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,6 +216,36 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                 for (int i = 0; i < userLabelModel.getObj().size(); i++) {
                                     itemId[i] = userLabelModel.getObj().get(i).getLID();
                                     itemName[i] = userLabelModel.getObj().get(i).getLname();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
+        ViseHttp.POST(NetConfig.userActiveListUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userActiveListUrl))
+                .addParam("uid", uid)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                UserActiveListModel model = gson.fromJson(data, UserActiveListModel.class);
+                                activeList = model.getObj();
+                                activeId = new String[model.getObj().size()];
+                                activeName = new String[model.getObj().size()];
+                                for (int i = 0; i < model.getObj().size(); i++) {
+                                    activeId[i] = model.getObj().get(i).getPfID();
+                                    activeName[i] = model.getObj().get(i).getPftitle();
                                 }
                             }
                         } catch (JSONException e) {
@@ -385,6 +417,36 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 break;
             case R.id.activity_create_friend_remember_rl_active_title:
                 //活动标题
+                if(activeList.size()>0){
+                    AlertDialog.Builder singleChoiceDialog1 =
+                            new AlertDialog.Builder(CreateFriendRememberActivity.this);
+                    singleChoiceDialog1.setTitle("请选择活动标题");
+                    // 第二个参数是默认选项，此处设置为0
+                    singleChoiceDialog1.setSingleChoiceItems(activeName, 0,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    yourChoiceActiveName = activeName[which];
+                                    yourChoiceActiveId = activeId[which];
+                                }
+                            });
+                    singleChoiceDialog1.setPositiveButton("确定",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (TextUtils.isEmpty(yourChoiceActiveName)) {
+                                        tvActiveTitle.setText(activeName[0]);
+                                        yourChoiceActiveId = activeId[0];
+                                    } else {
+                                        tvActiveTitle.setText(yourChoiceActiveName);
+                                        yourChoiceActiveName = "";
+                                    }
+                                }
+                            });
+                    singleChoiceDialog1.show();
+                }else {
+                    toToast(CreateFriendRememberActivity.this, "暂无活动");
+                }
                 break;
         }
     }
@@ -640,7 +702,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                 .addParam("fmgotime", tvTimeStart.getText().toString())
                                 .addParam("fmendtime", tvTimeEnd.getText().toString())
                                 .addParam("percapitacost", etPrice.getText().toString())
-                                .addParam("activity_id", "0")
+                                .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
                                 .addParam("type", "0")
                                 .addFile("fmpic", value)
                                 .request(new ACallback<String>() {
@@ -736,7 +798,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                 .addParam("fmgotime", tvTimeStart.getText().toString())
                                 .addParam("fmendtime", tvTimeEnd.getText().toString())
                                 .addParam("percapitacost", etPrice.getText().toString())
-                                .addParam("activity_id", "0")
+                                .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
                                 .addParam("type", "1")
                                 .addFile("fmpic", value)
                                 .request(new ACallback<String>() {
@@ -832,7 +894,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                 .addParam("fmgotime", tvTimeStart.getText().toString())
                                 .addParam("fmendtime", tvTimeEnd.getText().toString())
                                 .addParam("percapitacost", etPrice.getText().toString())
-                                .addParam("activity_id", "0")
+                                .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
                                 .addParam("type", "0")
                                 .addFile("fmpic", value)
                                 .request(new ACallback<String>() {
