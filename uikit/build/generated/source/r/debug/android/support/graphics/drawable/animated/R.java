@@ -8,15 +8,15 @@ package android.support.graphics.drawable.animated;
 
 public final class R {
     public static final class attr {
-        public static int font = 0x7f04009b;
-        public static int fontProviderAuthority = 0x7f04009d;
-        public static int fontProviderCerts = 0x7f04009e;
-        public static int fontProviderFetchStrategy = 0x7f04009f;
-        public static int fontProviderFetchTimeout = 0x7f0400a0;
-        public static int fontProviderPackage = 0x7f0400a1;
-        public static int fontProviderQuery = 0x7f0400a2;
-        public static int fontStyle = 0x7f0400a3;
-        public static int fontWeight = 0x7f0400a4;
+        public static int font = 0x7f040095;
+        public static int fontProviderAuthority = 0x7f040097;
+        public static int fontProviderCerts = 0x7f040098;
+        public static int fontProviderFetchStrategy = 0x7f040099;
+        public static int fontProviderFetchTimeout = 0x7f04009a;
+        public static int fontProviderPackage = 0x7f04009b;
+        public static int fontProviderQuery = 0x7f04009c;
+        public static int fontStyle = 0x7f04009d;
+        public static int fontWeight = 0x7f04009e;
     }
     public static final class bool {
         public static int abc_action_bar_embed_tabs = 0x7f050001;
@@ -69,26 +69,26 @@ public final class R {
         public static int action_image = 0x7f0c0012;
         public static int action_text = 0x7f0c0019;
         public static int actions = 0x7f0c001b;
-        public static int async = 0x7f0c0026;
-        public static int blocking = 0x7f0c002c;
-        public static int chronometer = 0x7f0c003d;
-        public static int forever = 0x7f0c0089;
-        public static int icon = 0x7f0c0090;
-        public static int icon_group = 0x7f0c0091;
-        public static int info = 0x7f0c009f;
-        public static int italic = 0x7f0c00a3;
-        public static int line1 = 0x7f0c00af;
-        public static int line3 = 0x7f0c00b0;
-        public static int normal = 0x7f0c00f2;
-        public static int notification_background = 0x7f0c00f3;
-        public static int notification_main_column = 0x7f0c00f4;
-        public static int notification_main_column_container = 0x7f0c00f5;
-        public static int right_icon = 0x7f0c0127;
-        public static int right_side = 0x7f0c0128;
-        public static int text = 0x7f0c0184;
-        public static int text2 = 0x7f0c0185;
-        public static int time = 0x7f0c0190;
-        public static int title = 0x7f0c0195;
+        public static int async = 0x7f0c0027;
+        public static int blocking = 0x7f0c002d;
+        public static int chronometer = 0x7f0c003e;
+        public static int forever = 0x7f0c0088;
+        public static int icon = 0x7f0c008e;
+        public static int icon_group = 0x7f0c008f;
+        public static int info = 0x7f0c009d;
+        public static int italic = 0x7f0c00a0;
+        public static int line1 = 0x7f0c00ac;
+        public static int line3 = 0x7f0c00ad;
+        public static int normal = 0x7f0c00ef;
+        public static int notification_background = 0x7f0c00f0;
+        public static int notification_main_column = 0x7f0c00f1;
+        public static int notification_main_column_container = 0x7f0c00f2;
+        public static int right_icon = 0x7f0c0123;
+        public static int right_side = 0x7f0c0124;
+        public static int text = 0x7f0c017f;
+        public static int text2 = 0x7f0c0180;
+        public static int time = 0x7f0c018b;
+        public static int title = 0x7f0c0190;
     }
     public static final class integer {
         public static int status_bar_notification_info_maxnum = 0x7f0d000a;
@@ -114,14 +114,14 @@ public final class R {
         public static int Widget_Compat_NotificationActionText = 0x7f160185;
     }
     public static final class styleable {
-        public static int[] FontFamily = { 0x7f04009d, 0x7f04009e, 0x7f04009f, 0x7f0400a0, 0x7f0400a1, 0x7f0400a2 };
+        public static int[] FontFamily = { 0x7f040097, 0x7f040098, 0x7f040099, 0x7f04009a, 0x7f04009b, 0x7f04009c };
         public static int FontFamily_fontProviderAuthority = 0;
         public static int FontFamily_fontProviderCerts = 1;
         public static int FontFamily_fontProviderFetchStrategy = 2;
         public static int FontFamily_fontProviderFetchTimeout = 3;
         public static int FontFamily_fontProviderPackage = 4;
         public static int FontFamily_fontProviderQuery = 5;
-        public static int[] FontFamilyFont = { 0x7f04009b, 0x7f0400a3, 0x7f0400a4 };
+        public static int[] FontFamilyFont = { 0x7f040095, 0x7f04009d, 0x7f04009e };
         public static int FontFamilyFont_font = 0;
         public static int FontFamilyFont_fontStyle = 1;
         public static int FontFamilyFont_fontWeight = 2;
