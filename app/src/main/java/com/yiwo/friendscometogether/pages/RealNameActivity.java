@@ -10,12 +10,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.donkingliang.imageselector.utils.ImageSelector;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.UserRealNameInfoModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 
@@ -53,8 +55,6 @@ public class RealNameActivity extends BaseActivity {
     RelativeLayout rlComplete;
     @BindView(R.id.activity_real_name_et_name)
     EditText etName;
-    @BindView(R.id.activity_real_name_et_phonenum)
-    EditText etPhoneNum;
     @BindView(R.id.activity_real_name_et_idnum)
     EditText etIdNum;
 
@@ -84,7 +84,38 @@ public class RealNameActivity extends BaseActivity {
 
         uid = spImp.getUID();
 
+        ViseHttp.POST(NetConfig.userRealNameInfoUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userRealNameInfoUrl))
+                .addParam("uid", uid)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                UserRealNameInfoModel model = gson.fromJson(data, UserRealNameInfoModel.class);
+                                if(model.getObj().getUsercodeok().equals("0")){
 
+                                }else {
+                                    etName.setText(model.getObj().getUsertruename());
+                                    etIdNum.setText(model.getObj().getUsercodenum());
+                                    Picasso.with(RealNameActivity.this).load(model.getObj().getUsercode()).into(ivId1);
+                                    Picasso.with(RealNameActivity.this).load(model.getObj().getUsercodeback()).into(ivId2);
+                                    ivId1.setVisibility(View.VISIBLE);
+                                    ivId2.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 
@@ -120,7 +151,7 @@ public class RealNameActivity extends BaseActivity {
 
     private void onComplete() {
 
-        if(TextUtils.isEmpty(etName.getText().toString())||TextUtils.isEmpty(etPhoneNum.getText().toString())||TextUtils.isEmpty(etIdNum.getText().toString())||
+        if(TextUtils.isEmpty(etName.getText().toString())||TextUtils.isEmpty(etIdNum.getText().toString())||
                 TextUtils.isEmpty(userImg)||TextUtils.isEmpty(userImgBack)){
             toToast(RealNameActivity.this, "请完善信息");
         }else {
@@ -146,7 +177,6 @@ public class RealNameActivity extends BaseActivity {
                             .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.realNameUrl))
                             .addParam("uid", uid)
                             .addParam("name", etName.getText().toString())
-                            .addParam("tel", etPhoneNum.getText().toString())
                             .addParam("code", etIdNum.getText().toString())
                             .addFile("usercode", value.get(0))
                             .addFile("usercodeback", value.get(1))
