@@ -45,6 +45,7 @@ import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
+import com.yiwo.friendscometogether.model.GetEditorFriendTogetherModel;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -143,6 +144,8 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     private static final int REQUEST_CODE = 0x00000011;
     private static final int CITY_REQUEST = 1;
     private SpImp spImp;
+    String pfID = "";
+    GetEditorFriendTogetherModel.ObjBean bean = new GetEditorFriendTogetherModel.ObjBean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +164,19 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     }
 
     private void init() {
-
+        pfID = getIntent().getStringExtra("pfID");
+        bean = (GetEditorFriendTogetherModel.ObjBean) getIntent().getSerializableExtra("bean");
+        if(!StringUtils.isEmpty(pfID)){
+            etTitle.setText(bean.getPftitle());
+            etContent.setText(bean.getPfcontent());
+            ivAdd.setVisibility(View.INVISIBLE);
+            ivDelete.setVisibility(View.VISIBLE);
+            Picasso.with(this).load(bean.getPfpic()).into(ivTitle);
+            ivTitle.setVisibility(View.VISIBLE);
+            Log.i("14521",bean.getPfpic());
+            tvTimeStart.setText(bean.getPfgotime());
+            tvTimeEnd.setText(bean.getPfendtime());
+        }
         Observable.just("").subscribeOn(Schedulers.newThread()).subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {

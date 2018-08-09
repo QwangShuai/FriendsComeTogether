@@ -1,12 +1,13 @@
 package com.yiwo.friendscometogether.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2018/8/8.
  */
 
-public class GetEditorFriendTogetherModel {
+public class GetEditorFriendTogetherModel{
 
     /**
      * code : 200
@@ -42,7 +43,7 @@ public class GetEditorFriendTogetherModel {
         this.obj = obj;
     }
 
-    public static class ObjBean {
+    public static class ObjBean  implements Serializable {
         /**
          * pfpic : http://localhost/www/uploads/activity/20180719/20180719/11e73ef1b5e4809649c225afe7eb2501.jpg
          * pftitle : 泰山七日游

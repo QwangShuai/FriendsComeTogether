@@ -32,9 +32,6 @@ import com.yiwo.friendscometogether.utils.FTPTimeCount;
 import com.yiwo.friendscometogether.utils.TimeCount;
 
 
-/**
- * Created by 刘佳 on 2017/2/27.
- */
 public class MyApplication extends Application {
     public static String versionCode = "V1.0.1";
     // 注册获取验证码倒计时

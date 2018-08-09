@@ -71,6 +71,7 @@ public class ApplyActivity extends BaseActivity {
     private String if_pay="0";
     SpImp spImp;
     private IWXAPI api;
+    String toast = "请求支付";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,7 +173,6 @@ public class ApplyActivity extends BaseActivity {
     }
     public void apply(){
         String user_id = spImp.getUID();
-        String toast = "报名成功";
         if(user_id.equals("0")){
             startActivity(new Intent(ApplyActivity.this,LoginActivity.class));
         } else if(!StringUtils.isPhoneNumberValid(apply_phone_tv.getText().toString())){
@@ -208,8 +208,9 @@ public class ApplyActivity extends BaseActivity {
                             Paymodel paymodel = new Gson().fromJson(data,Paymodel.class);
                             if(paymodel.getCode()==200){
                                 wxPay(paymodel.getObj());
-                            } else {
-
+                            } else if(paymodel.getCode()==201){
+                                toast = "报名成功";
+                                finish();
                             }
                         }
                     });
@@ -229,5 +230,6 @@ public class ApplyActivity extends BaseActivity {
         req.sign = model.getSign();
         req.extData = "app data";
         api.sendReq(req);
+        finish();
     }
 }

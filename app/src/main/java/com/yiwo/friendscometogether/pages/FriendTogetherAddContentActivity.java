@@ -25,6 +25,9 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -241,7 +244,17 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
-                                Log.e("222", data);
+                                JSONObject obj = null;
+                                try {
+                                    obj = new JSONObject(data);
+                                    if(obj.getInt("code")==200){
+                                        toToast(FriendTogetherAddContentActivity.this,"内容添加成功");
+                                        finish();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
                             }
 
                             @Override
