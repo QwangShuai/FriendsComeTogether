@@ -1,15 +1,19 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.czp.searchmlist.mSearchLayout;
+import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.SearchListModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +49,18 @@ public class SearchActivity extends BaseActivity {
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
-                                Log.i("222222",data.toString());
+                                SearchListModel model = new Gson().fromJson(data,SearchListModel.class);
+                                if (model.getCode()==200){
+                                       if(model.getObj().size()==0){
+                                           toToast(SearchActivity.this,"暂无搜索结果");
+                                       } else {
+                                           Intent it = new Intent(SearchActivity.this,SearchListActivity.class);
+                                           it.putExtra("list", (Serializable) model.getObj());
+                                           it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                           startActivity(it);
+                                           finish();
+                                       }
+                                }
                             }
 
                             @Override

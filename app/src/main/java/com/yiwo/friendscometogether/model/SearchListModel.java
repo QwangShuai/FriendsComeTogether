@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Administrator on 2018/8/9.
  */
 
-public class SearchListModel implements Serializable {
+public class SearchListModel {
 
     /**
      *
@@ -44,7 +44,7 @@ public class SearchListModel implements Serializable {
         this.obj = obj;
     }
 
-    public static class ObjBean {
+    public static class ObjBean implements Serializable {
         /**
          * title : 删除测试
          * id : 109

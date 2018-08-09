@@ -13,7 +13,10 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.GetEditorFriendTogetherModel;
 import com.yiwo.friendscometogether.model.SearchListModel;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.EditorFriendTogetherSubTitleContentActivity;
+import com.yiwo.friendscometogether.pages.SearchListActivity;
 
 import java.util.List;
 
@@ -25,8 +28,9 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
 
     private Context context;
     private List<SearchListModel.ObjBean> data;
-
-    public SearchListAdapter(List<SearchListModel.ObjBean> data) {
+    private SearchListActivity ac;
+    public SearchListAdapter(List<SearchListModel.ObjBean> data,SearchListActivity ac) {
+        this.ac = ac;
         this.data = data;
     }
 
@@ -45,11 +49,16 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(context, EditorFriendTogetherSubTitleContentActivity.class);
-                it.putExtra("id",data.get(position).getId());
-                it.putExtra("title",data.get(position).getTitle());
-                it.putExtra("type",data.get(position).getType());
+                Intent it = new Intent();
+                if(data.get(position).getType().equals("1")){
+                    it.setClass(context, DetailsOfFriendTogetherActivity.class);
+                    it.putExtra("pfID",data.get(position).getId());
+                } else {
+                    it.setClass(context, DetailsOfFriendsActivity.class);
+                    it.putExtra("fmid",data.get(position).getId());
+                }
                 context.startActivity(it);
+                ac.finish();
             }
         });
     }
