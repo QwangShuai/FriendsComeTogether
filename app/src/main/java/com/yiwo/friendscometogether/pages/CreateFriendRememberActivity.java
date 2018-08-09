@@ -119,6 +119,10 @@ public class CreateFriendRememberActivity extends BaseActivity {
     TextView tvTitleNum;
     @BindView(R.id.activity_create_friend_remember_tv_content_num)
     TextView tvContentNum;
+    @BindView(R.id.activity_create_friend_remember_rl_active_title)
+    RelativeLayout rlActiveTitle;
+    @BindView(R.id.activity_create_friend_remember_tv_active_title)
+    TextView tvActiveTitle;
 
     private int mYear;
     private int mMonth;
@@ -143,6 +147,11 @@ public class CreateFriendRememberActivity extends BaseActivity {
     private String images = "";
 
     private Dialog dialog;
+
+    private String[] activeId;
+    private String[] activeName;
+    private String yourChoiceActiveId = "";
+    private String yourChoiceActiveName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -272,33 +281,16 @@ public class CreateFriendRememberActivity extends BaseActivity {
     @OnClick({R.id.activity_create_friend_remember_rl_back, R.id.activity_create_friend_remember_rl_edit_title, R.id.activity_create_friend_remember_rl_edit_content,
             R.id.activity_create_friend_remember_rl_time_start, R.id.activity_create_friend_remember_rl_time_end, R.id.activity_create_friend_remember_rl_activity_city,
             R.id.activity_create_friend_remember_rl_price, R.id.activity_create_friend_remember_rl_complete, R.id.activity_create_friend_remember_rl_set_password,
-            R.id.activity_create_friend_remember_iv_add, R.id.activity_create_friend_remember_iv_delete, R.id.activity_create_friend_remember_rl_label})
+            R.id.activity_create_friend_remember_iv_add, R.id.activity_create_friend_remember_iv_delete, R.id.activity_create_friend_remember_rl_label,
+            R.id.activity_create_friend_remember_rl_active_title})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_create_friend_remember_rl_back:
                 onBackPressed();
                 break;
             case R.id.activity_create_friend_remember_rl_edit_title:
-//                final EditTitleDialog editTitleDialog = new EditTitleDialog(CreateFriendRememberActivity.this);
-//                editTitleDialog.show();
-//                editTitleDialog.setOnReturnListener(new EditTitleDialog.OnReturnListener() {
-//                    @Override
-//                    public void onReturn(String title) {
-//                        tvTitle.setText(title);
-//                        editTitleDialog.dismiss();
-//                    }
-//                });
                 break;
             case R.id.activity_create_friend_remember_rl_edit_content:
-//                final EditContentDialog editContentDialog = new EditContentDialog(CreateFriendRememberActivity.this);
-//                editContentDialog.show();
-//                editContentDialog.setOnReturnListener(new EditContentDialog.OnReturnListener() {
-//                    @Override
-//                    public void onReturn(String content) {
-//                        tvContent.setText(content);
-//                        editContentDialog.dismiss();
-//                    }
-//                });
                 break;
             case R.id.activity_create_friend_remember_rl_time_start:
                 new DatePickerDialog(CreateFriendRememberActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
@@ -390,6 +382,9 @@ public class CreateFriendRememberActivity extends BaseActivity {
                             }
                         });
                 singleChoiceDialog.show();
+                break;
+            case R.id.activity_create_friend_remember_rl_active_title:
+                //活动标题
                 break;
         }
     }

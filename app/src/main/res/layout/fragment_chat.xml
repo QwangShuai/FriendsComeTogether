@@ -23,27 +23,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/et1"
-            android:hint="账号或好友id"
-            android:background="@null"
-            android:layout_width="match_parent"
-            android:layout_height="80px" />
-
-        <EditText
-            android:id="@+id/et2"
-            android:hint="密码"
-            android:background="@null"
-            android:layout_width="match_parent"
-            android:layout_height="80px" />
-
-    </LinearLayout>
-
     <fragment
         android:id="@+id/recent_contacts_fragment"
         android:name="com.netease.nim.uikit.business.recent.RecentContactsFragment"

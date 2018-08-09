@@ -43,10 +43,6 @@ public class ChatFragment extends BaseFragment{
     Button btn1;
     @BindView(R.id.btn2)
     Button btn2;
-    @BindView(R.id.et1)
-    EditText et1;
-    @BindView(R.id.et2)
-    EditText et2;
 
     private String account;
     private String token;
@@ -113,6 +109,12 @@ public class ChatFragment extends BaseFragment{
         String liaotianAccount = "ylyy13945060492";
         NimUIKit.setAccount(account);
         NimUIKit.startP2PSession(getContext(), liaotianAccount);
+    }
+
+    private void team() {
+        String liaotianAccount = "ylyy13945060492";
+        NimUIKit.setAccount(account);
+        NimUIKit.startTeamSession(getContext(), liaotianAccount);
     }
 
 }

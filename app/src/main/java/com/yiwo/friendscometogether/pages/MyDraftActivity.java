@@ -116,6 +116,9 @@ public class MyDraftActivity extends BaseActivity {
 //                Toast.makeText(MyDraftActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
                 switch (menuPosition){
                     case 0:
+                        //编辑友记
+                        break;
+                    case 1:
                         ViseHttp.POST(NetConfig.releaseDraftUrl)
                                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.releaseDraftUrl))
                                 .addParam("id", mList.get(adapterPosition).getFmID())
@@ -140,7 +143,7 @@ public class MyDraftActivity extends BaseActivity {
                                     }
                                 });
                         break;
-                    case 1:
+                    case 2:
                         ViseHttp.POST(NetConfig.deleteFriendRememberUrl)
                                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteFriendRememberUrl))
                                 .addParam("id", mList.get(adapterPosition).getFmID())
@@ -182,11 +185,19 @@ public class MyDraftActivity extends BaseActivity {
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
             SwipeMenuItem editItem = new SwipeMenuItem(MyDraftActivity.this)
                     .setBackgroundColor(Color.GRAY)
-                    .setText("发布")
+                    .setText("编辑")
                     .setTextColor(Color.WHITE)
                     .setWidth(width)
                     .setHeight(height);
             rightMenu.addMenuItem(editItem);// 添加菜单到右侧。
+
+            SwipeMenuItem sendItem = new SwipeMenuItem(MyDraftActivity.this)
+                    .setBackgroundColor(Color.parseColor("#ff9d00"))
+                    .setText("发布")
+                    .setTextColor(Color.WHITE)
+                    .setWidth(width)
+                    .setHeight(height);
+            rightMenu.addMenuItem(sendItem);// 添加菜单到右侧。
 
             SwipeMenuItem deleteItem = new SwipeMenuItem(MyDraftActivity.this)
                     .setBackgroundColor(Color.RED)
