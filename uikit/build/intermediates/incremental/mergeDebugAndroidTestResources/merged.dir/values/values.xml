@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+<resources xmlns:ns1="http://schemas.android.com/tools">
     <string-array name="letter_list">
         <item>↑</item>
         <item>\@</item>
@@ -61,28 +61,10 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-    <attr format="boolean" name="barrierAllowsGoneWidgets"/>
-    <attr format="enum" name="barrierDirection">
-        <enum name="left" value="0"/>
-        <enum name="right" value="1"/>
-        <enum name="top" value="2"/>
-        <enum name="bottom" value="3"/>
-        <enum name="start" value="5"/>
-        <enum name="end" value="6"/>
-    </attr>
-    <attr format="boolean" name="chainUseRtl"/>
     <attr format="reference" name="constraintSet"/>
-    <attr format="string" name="constraint_referenced_ids"/>
-    <attr format="reference" name="content"/>
     <attr format="reference" name="drawerArrowStyle"/>
-    <attr name="emptyVisibility">
-        <enum name="gone" value="0"/>
-        <enum name="invisible" value="1"/>
-    </attr>
     <attr format="dimension" name="height"/>
     <attr format="boolean" name="isLightTheme"/>
-    <attr format="boolean" name="layout_constrainedHeight"/>
-    <attr format="boolean" name="layout_constrainedWidth"/>
     <attr format="integer" name="layout_constraintBaseline_creator"/>
     <attr format="reference|enum" name="layout_constraintBaseline_toBaselineOf">
         <enum name="parent" value="0"/>
@@ -94,9 +76,6 @@
     <attr format="reference|enum" name="layout_constraintBottom_toTopOf">
         <enum name="parent" value="0"/>
     </attr>
-    <attr format="reference" name="layout_constraintCircle"/>
-    <attr format="integer" name="layout_constraintCircleAngle"/>
-    <attr format="dimension" name="layout_constraintCircleRadius"/>
     <attr format="string" name="layout_constraintDimensionRatio"/>
     <attr format="reference|enum" name="layout_constraintEnd_toEndOf">
         <enum name="parent" value="0"/>
@@ -110,15 +89,9 @@
     <attr name="layout_constraintHeight_default">
         <enum name="spread" value="0"/>
         <enum name="wrap" value="1"/>
-        <enum name="percent" value="2"/>
     </attr>
-    <attr format="dimension|enum" name="layout_constraintHeight_max">
-        <enum name="wrap" value="-2"/>
-    </attr>
-    <attr format="dimension|enum" name="layout_constraintHeight_min">
-        <enum name="wrap" value="-2"/>
-    </attr>
-    <attr format="float" name="layout_constraintHeight_percent"/>
+    <attr format="dimension" name="layout_constraintHeight_max"/>
+    <attr format="dimension" name="layout_constraintHeight_min"/>
     <attr format="float" name="layout_constraintHorizontal_bias"/>
     <attr format="enum" name="layout_constraintHorizontal_chainStyle">
         <enum name="spread" value="0"/>
@@ -163,15 +136,9 @@
     <attr name="layout_constraintWidth_default">
         <enum name="spread" value="0"/>
         <enum name="wrap" value="1"/>
-        <enum name="percent" value="2"/>
     </attr>
-    <attr format="dimension|enum" name="layout_constraintWidth_max">
-        <enum name="wrap" value="-2"/>
-    </attr>
-    <attr format="dimension|enum" name="layout_constraintWidth_min">
-        <enum name="wrap" value="-2"/>
-    </attr>
-    <attr format="float" name="layout_constraintWidth_percent"/>
+    <attr format="dimension" name="layout_constraintWidth_max"/>
+    <attr format="dimension" name="layout_constraintWidth_min"/>
     <attr format="dimension" name="layout_editor_absoluteX"/>
     <attr format="dimension" name="layout_editor_absoluteY"/>
     <attr format="dimension" name="layout_goneMarginBottom"/>
@@ -181,12 +148,10 @@
     <attr format="dimension" name="layout_goneMarginStart"/>
     <attr format="dimension" name="layout_goneMarginTop"/>
     <attr name="layout_optimizationLevel">
-        <flag name="none" value="0"/>
-        <flag name="standard" value="3"/> <!-- for now only direct & barriers -->
-        <flag name="direct" value="1"/>
-        <flag name="barrier" value="2"/>
-        <flag name="chains" value="4"/>
-        <flag name="dimensions" value="8"/>
+        <flag name="none" value="1"/>
+        <flag name="all" value="2"/>
+        <flag name="basic" value="4"/>
+        <flag name="chains" value="8"/>
     </attr>
     <attr format="string" name="title"/>
     <bool name="abc_action_bar_embed_tabs">true</bool>
@@ -369,8 +334,6 @@
             <enum name="multiply" value="14"/>
             
             <enum name="screen" value="15"/>
-            
-            <enum name="add" value="16"/>
         </attr></declare-styleable>
     <declare-styleable name="AppCompatSeekBar"><attr name="android:thumb"/><attr format="reference" name="tickMark"/><attr format="color" name="tickMarkTint"/><attr name="tickMarkTintMode">
             
@@ -466,12 +429,9 @@
             <enum name="multiply" value="14"/>
             
             <enum name="screen" value="15"/>
-            
-            <enum name="add" value="16"/>
         </attr></declare-styleable>
-    <declare-styleable name="ConstraintLayout_Layout"><attr name="android:orientation"/><attr name="android:minWidth"/><attr name="android:minHeight"/><attr name="android:maxWidth"/><attr name="android:maxHeight"/><attr name="layout_optimizationLevel"/><attr name="constraintSet"/><attr name="barrierDirection"/><attr name="barrierAllowsGoneWidgets"/><attr name="constraint_referenced_ids"/><attr name="chainUseRtl"/><attr name="layout_constraintCircle"/><attr name="layout_constraintCircleRadius"/><attr name="layout_constraintCircleAngle"/><attr name="layout_constraintGuide_begin"/><attr name="layout_constraintGuide_end"/><attr name="layout_constraintGuide_percent"/><attr name="layout_constraintLeft_toLeftOf"/><attr name="layout_constraintLeft_toRightOf"/><attr name="layout_constraintRight_toLeftOf"/><attr name="layout_constraintRight_toRightOf"/><attr name="layout_constraintTop_toTopOf"/><attr name="layout_constraintTop_toBottomOf"/><attr name="layout_constraintBottom_toTopOf"/><attr name="layout_constraintBottom_toBottomOf"/><attr name="layout_constraintBaseline_toBaselineOf"/><attr name="layout_constraintStart_toEndOf"/><attr name="layout_constraintStart_toStartOf"/><attr name="layout_constraintEnd_toStartOf"/><attr name="layout_constraintEnd_toEndOf"/><attr name="layout_goneMarginLeft"/><attr name="layout_goneMarginTop"/><attr name="layout_goneMarginRight"/><attr name="layout_goneMarginBottom"/><attr name="layout_goneMarginStart"/><attr name="layout_goneMarginEnd"/><attr name="layout_constrainedWidth"/><attr name="layout_constrainedHeight"/><attr name="layout_constraintHorizontal_bias"/><attr name="layout_constraintVertical_bias"/><attr name="layout_constraintWidth_default"/><attr name="layout_constraintHeight_default"/><attr name="layout_constraintWidth_min"/><attr name="layout_constraintWidth_max"/><attr name="layout_constraintWidth_percent"/><attr name="layout_constraintHeight_min"/><attr name="layout_constraintHeight_max"/><attr name="layout_constraintHeight_percent"/><attr name="layout_constraintLeft_creator"/><attr name="layout_constraintTop_creator"/><attr name="layout_constraintRight_creator"/><attr name="layout_constraintBottom_creator"/><attr name="layout_constraintBaseline_creator"/><attr name="layout_constraintDimensionRatio"/><attr name="layout_constraintHorizontal_weight"/><attr name="layout_constraintVertical_weight"/><attr name="layout_constraintHorizontal_chainStyle"/><attr name="layout_constraintVertical_chainStyle"/><attr name="layout_editor_absoluteX"/><attr name="layout_editor_absoluteY"/></declare-styleable>
-    <declare-styleable name="ConstraintLayout_placeholder"><attr name="emptyVisibility"/><attr name="content"/></declare-styleable>
-    <declare-styleable name="ConstraintSet"><attr name="android:orientation"/><attr name="android:id"/><attr name="android:visibility"/><attr name="android:alpha"/><attr name="android:elevation"/><attr name="android:rotation"/><attr name="android:rotationX"/><attr name="android:rotationY"/><attr name="android:scaleX"/><attr name="android:scaleY"/><attr name="android:transformPivotX"/><attr name="android:transformPivotY"/><attr name="android:translationX"/><attr name="android:translationY"/><attr name="android:translationZ"/><attr name="android:layout_width"/><attr name="android:layout_height"/><attr name="android:layout_marginStart"/><attr name="android:layout_marginBottom"/><attr name="android:layout_marginTop"/><attr name="android:layout_marginEnd"/><attr name="android:layout_marginLeft"/><attr name="android:layout_marginRight"/><attr name="layout_constraintCircle"/><attr name="layout_constraintCircleRadius"/><attr name="layout_constraintCircleAngle"/><attr name="layout_constraintGuide_begin"/><attr name="layout_constraintGuide_end"/><attr name="layout_constraintGuide_percent"/><attr name="layout_constraintLeft_toLeftOf"/><attr name="layout_constraintLeft_toRightOf"/><attr name="layout_constraintRight_toLeftOf"/><attr name="layout_constraintRight_toRightOf"/><attr name="layout_constraintTop_toTopOf"/><attr name="layout_constraintTop_toBottomOf"/><attr name="layout_constraintBottom_toTopOf"/><attr name="layout_constraintBottom_toBottomOf"/><attr name="layout_constraintBaseline_toBaselineOf"/><attr name="layout_constraintStart_toEndOf"/><attr name="layout_constraintStart_toStartOf"/><attr name="layout_constraintEnd_toStartOf"/><attr name="layout_constraintEnd_toEndOf"/><attr name="layout_goneMarginLeft"/><attr name="layout_goneMarginTop"/><attr name="layout_goneMarginRight"/><attr name="layout_goneMarginBottom"/><attr name="layout_goneMarginStart"/><attr name="layout_goneMarginEnd"/><attr name="layout_constrainedWidth"/><attr name="layout_constrainedHeight"/><attr name="layout_constraintHorizontal_bias"/><attr name="layout_constraintVertical_bias"/><attr name="layout_constraintWidth_default"/><attr name="layout_constraintHeight_default"/><attr name="layout_constraintWidth_min"/><attr name="layout_constraintWidth_max"/><attr name="layout_constraintWidth_percent"/><attr name="layout_constraintHeight_min"/><attr name="layout_constraintHeight_max"/><attr name="layout_constraintHeight_percent"/><attr name="layout_constraintLeft_creator"/><attr name="layout_constraintTop_creator"/><attr name="layout_constraintRight_creator"/><attr name="layout_constraintBottom_creator"/><attr name="layout_constraintBaseline_creator"/><attr name="layout_constraintDimensionRatio"/><attr name="layout_constraintHorizontal_weight"/><attr name="layout_constraintVertical_weight"/><attr name="layout_constraintHorizontal_chainStyle"/><attr name="layout_constraintVertical_chainStyle"/><attr name="layout_editor_absoluteX"/><attr name="layout_editor_absoluteY"/></declare-styleable>
+    <declare-styleable name="ConstraintLayout_Layout"><attr name="android:orientation"/><attr name="android:minWidth"/><attr name="android:minHeight"/><attr name="android:maxWidth"/><attr name="android:maxHeight"/><attr name="layout_optimizationLevel"/><attr name="constraintSet"/><attr name="layout_constraintGuide_begin"/><attr name="layout_constraintGuide_end"/><attr name="layout_constraintGuide_percent"/><attr name="layout_constraintLeft_toLeftOf"/><attr name="layout_constraintLeft_toRightOf"/><attr name="layout_constraintRight_toLeftOf"/><attr name="layout_constraintRight_toRightOf"/><attr name="layout_constraintTop_toTopOf"/><attr name="layout_constraintTop_toBottomOf"/><attr name="layout_constraintBottom_toTopOf"/><attr name="layout_constraintBottom_toBottomOf"/><attr name="layout_constraintBaseline_toBaselineOf"/><attr name="layout_constraintStart_toEndOf"/><attr name="layout_constraintStart_toStartOf"/><attr name="layout_constraintEnd_toStartOf"/><attr name="layout_constraintEnd_toEndOf"/><attr name="layout_goneMarginLeft"/><attr name="layout_goneMarginTop"/><attr name="layout_goneMarginRight"/><attr name="layout_goneMarginBottom"/><attr name="layout_goneMarginStart"/><attr name="layout_goneMarginEnd"/><attr name="layout_constraintHorizontal_bias"/><attr name="layout_constraintVertical_bias"/><attr name="layout_constraintWidth_default"/><attr name="layout_constraintHeight_default"/><attr name="layout_constraintWidth_min"/><attr name="layout_constraintWidth_max"/><attr name="layout_constraintHeight_min"/><attr name="layout_constraintHeight_max"/><attr name="layout_constraintLeft_creator"/><attr name="layout_constraintTop_creator"/><attr name="layout_constraintRight_creator"/><attr name="layout_constraintBottom_creator"/><attr name="layout_constraintBaseline_creator"/><attr name="layout_constraintDimensionRatio"/><attr name="layout_constraintHorizontal_weight"/><attr name="layout_constraintVertical_weight"/><attr name="layout_constraintHorizontal_chainStyle"/><attr name="layout_constraintVertical_chainStyle"/><attr name="layout_editor_absoluteX"/><attr name="layout_editor_absoluteY"/></declare-styleable>
+    <declare-styleable name="ConstraintSet"><attr name="android:orientation"/><attr name="android:id"/><attr name="android:visibility"/><attr name="android:alpha"/><attr name="android:elevation"/><attr name="android:rotationX"/><attr name="android:rotationY"/><attr name="android:scaleX"/><attr name="android:scaleY"/><attr name="android:transformPivotX"/><attr name="android:transformPivotY"/><attr name="android:translationX"/><attr name="android:translationY"/><attr name="android:translationZ"/><attr name="android:layout_width"/><attr name="android:layout_height"/><attr name="android:layout_marginStart"/><attr name="android:layout_marginBottom"/><attr name="android:layout_marginTop"/><attr name="android:layout_marginEnd"/><attr name="android:layout_marginLeft"/><attr name="android:layout_marginRight"/><attr name="layout_constraintGuide_begin"/><attr name="layout_constraintGuide_end"/><attr name="layout_constraintGuide_percent"/><attr name="layout_constraintLeft_toLeftOf"/><attr name="layout_constraintLeft_toRightOf"/><attr name="layout_constraintRight_toLeftOf"/><attr name="layout_constraintRight_toRightOf"/><attr name="layout_constraintTop_toTopOf"/><attr name="layout_constraintTop_toBottomOf"/><attr name="layout_constraintBottom_toTopOf"/><attr name="layout_constraintBottom_toBottomOf"/><attr name="layout_constraintBaseline_toBaselineOf"/><attr name="layout_constraintStart_toEndOf"/><attr name="layout_constraintStart_toStartOf"/><attr name="layout_constraintEnd_toStartOf"/><attr name="layout_constraintEnd_toEndOf"/><attr name="layout_goneMarginLeft"/><attr name="layout_goneMarginTop"/><attr name="layout_goneMarginRight"/><attr name="layout_goneMarginBottom"/><attr name="layout_goneMarginStart"/><attr name="layout_goneMarginEnd"/><attr name="layout_constraintHorizontal_bias"/><attr name="layout_constraintVertical_bias"/><attr name="layout_constraintWidth_default"/><attr name="layout_constraintHeight_default"/><attr name="layout_constraintWidth_min"/><attr name="layout_constraintWidth_max"/><attr name="layout_constraintHeight_min"/><attr name="layout_constraintHeight_max"/><attr name="layout_constraintLeft_creator"/><attr name="layout_constraintTop_creator"/><attr name="layout_constraintRight_creator"/><attr name="layout_constraintBottom_creator"/><attr name="layout_constraintBaseline_creator"/><attr name="layout_constraintDimensionRatio"/><attr name="layout_constraintHorizontal_weight"/><attr name="layout_constraintVertical_weight"/><attr name="layout_constraintHorizontal_chainStyle"/><attr name="layout_constraintVertical_chainStyle"/><attr name="layout_editor_absoluteX"/><attr name="layout_editor_absoluteY"/></declare-styleable>
     <declare-styleable name="CoordinatorLayout"><attr format="reference" name="keylines"/><attr format="reference" name="statusBarBackground"/></declare-styleable>
     <declare-styleable name="CoordinatorLayout_Layout"><attr name="android:layout_gravity"/><attr format="string" name="layout_behavior"/><attr format="reference" name="layout_anchor"/><attr format="integer" name="layout_keyline"/><attr name="layout_anchorGravity">
             
@@ -687,8 +647,6 @@
             <enum name="multiply" value="14"/>
             
             <enum name="screen" value="15"/>
-            
-            <enum name="add" value="16"/>
         </attr></declare-styleable>
     <declare-styleable name="ViewStubCompat"><attr name="android:layout"/><attr name="android:inflatedId"/><attr name="android:id"/></declare-styleable>
     <dimen name="abc_action_bar_content_inset_material">16dp</dimen>
@@ -990,6 +948,8 @@
     <integer name="show_password_duration">200</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
     <string name="abc_action_bar_home_description">Navigate home</string>
+    <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
+    <string name="abc_action_bar_home_subtitle_description_format">%1$s, %2$s, %3$s</string>
     <string name="abc_action_bar_up_description">Navigate up</string>
     <string name="abc_action_menu_overflow_description">More options</string>
     <string name="abc_action_mode_done">Done</string>
@@ -1016,7 +976,7 @@
     <string name="abc_searchview_description_submit">Submit query</string>
     <string name="abc_searchview_description_voice">Voice search</string>
     <string name="abc_shareactionprovider_share_with">Share with</string>
-    <string name="abc_shareactionprovider_share_with_application">Share with <ns1:g example="Mail" id="application_name">%s</ns1:g></string>
+    <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="add">添加</string>
     <string name="advanced_team">高级群</string>
@@ -2489,6 +2449,22 @@
     <style name="TextAppearance.AppCompat.Medium" parent="Base.TextAppearance.AppCompat.Medium"/>
     <style name="TextAppearance.AppCompat.Medium.Inverse" parent="Base.TextAppearance.AppCompat.Medium.Inverse"/>
     <style name="TextAppearance.AppCompat.Menu" parent="Base.TextAppearance.AppCompat.Menu"/>
+    <style name="TextAppearance.AppCompat.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent"/>
+    <style name="TextAppearance.AppCompat.Notification.Info">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+    <style name="TextAppearance.AppCompat.Notification.Info.Media"/>
+    <style name="TextAppearance.AppCompat.Notification.Line2" parent="TextAppearance.AppCompat.Notification.Info"/>
+    <style name="TextAppearance.AppCompat.Notification.Line2.Media" parent="TextAppearance.AppCompat.Notification.Info.Media"/>
+    <style name="TextAppearance.AppCompat.Notification.Media"/>
+    <style name="TextAppearance.AppCompat.Notification.Time">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+    <style name="TextAppearance.AppCompat.Notification.Time.Media"/>
+    <style name="TextAppearance.AppCompat.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title"/>
+    <style name="TextAppearance.AppCompat.Notification.Title.Media"/>
     <style name="TextAppearance.AppCompat.SearchResult.Subtitle" parent="Base.TextAppearance.AppCompat.SearchResult.Subtitle">
     </style>
     <style name="TextAppearance.AppCompat.SearchResult.Title" parent="Base.TextAppearance.AppCompat.SearchResult.Title">
@@ -2739,7 +2715,7 @@
     </style>
     <style name="Widget.Design.BottomSheet.Modal" parent="android:Widget">
         <item name="android:background">?android:attr/colorBackground</item>
-        <item name="android:elevation" ns2:ignore="NewApi">@dimen/design_bottom_sheet_modal_elevation</item>
+        <item name="android:elevation" ns1:ignore="NewApi">@dimen/design_bottom_sheet_modal_elevation</item>
         <item name="behavior_peekHeight">auto</item>
         <item name="behavior_hideable">true</item>
         <item name="behavior_skipCollapsed">false</item>

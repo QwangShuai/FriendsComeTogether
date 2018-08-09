@@ -98,15 +98,15 @@ public final class R {
         public static int save_non_transition_alpha = 0x7f0c012c;
         public static int save_scale_type = 0x7f0c012d;
         public static int status_bar_latest_event_content = 0x7f0c0153;
-        public static int text = 0x7f0c017f;
-        public static int text2 = 0x7f0c0180;
-        public static int time = 0x7f0c018b;
-        public static int title = 0x7f0c0190;
-        public static int transition_current_scene = 0x7f0c019b;
-        public static int transition_layout_save = 0x7f0c019c;
-        public static int transition_position = 0x7f0c019d;
-        public static int transition_scene_layoutid_cache = 0x7f0c019e;
-        public static int transition_transform = 0x7f0c019f;
+        public static int text = 0x7f0c0180;
+        public static int text2 = 0x7f0c0181;
+        public static int time = 0x7f0c018c;
+        public static int title = 0x7f0c0191;
+        public static int transition_current_scene = 0x7f0c019c;
+        public static int transition_layout_save = 0x7f0c019d;
+        public static int transition_position = 0x7f0c019e;
+        public static int transition_scene_layoutid_cache = 0x7f0c019f;
+        public static int transition_transform = 0x7f0c01a0;
     }
     public static final class integer {
         public static int cancel_button_image_alpha = 0x7f0d0005;
@@ -154,9 +154,12 @@ public final class R {
         public static int FontFamily_fontProviderFetchTimeout = 3;
         public static int FontFamily_fontProviderPackage = 4;
         public static int FontFamily_fontProviderQuery = 5;
-        public static int[] FontFamilyFont = { 0x7f040095, 0x7f04009d, 0x7f04009e };
-        public static int FontFamilyFont_font = 0;
-        public static int FontFamilyFont_fontStyle = 1;
-        public static int FontFamilyFont_fontWeight = 2;
+        public static int[] FontFamilyFont = { 0x01010532, 0x0101053f, 0x01010533, 0x7f040095, 0x7f04009d, 0x7f04009e };
+        public static int FontFamilyFont_android_font = 0;
+        public static int FontFamilyFont_android_fontStyle = 1;
+        public static int FontFamilyFont_android_fontWeight = 2;
+        public static int FontFamilyFont_font = 3;
+        public static int FontFamilyFont_fontStyle = 4;
+        public static int FontFamilyFont_fontWeight = 5;
     }
 }
