@@ -1,17 +1,20 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.FriendsTogetherDetailsModel;
+import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
 import java.util.List;
@@ -37,7 +40,7 @@ public class ParticipantsItemAdapter extends RecyclerView.Adapter<ParticipantsIt
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         if(data.size()!=0){
             if(!StringUtils.isEmpty(data.get(position).getUserpic())){
                 Picasso.with(context).load(data.get(position).getUserpic()).into(holder.headIv);
@@ -48,6 +51,14 @@ public class ParticipantsItemAdapter extends RecyclerView.Adapter<ParticipantsIt
             } else {
                 holder.numTv.setText(data.get(position).getNum());
             }
+            holder.personRl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent it = new Intent(context, OtherInformationActivity.class);
+                    it.putExtra("id",data.get(position).getNum());
+                    context.startActivity(it);
+                }
+            });
         }
     }
 
@@ -60,12 +71,14 @@ public class ParticipantsItemAdapter extends RecyclerView.Adapter<ParticipantsIt
         private TextView numTv;
         private ImageView headIv;
         private TextView nicknameTv;
+        private RelativeLayout personRl;
 
         public ViewHolder(View itemView) {
             super(itemView);
             numTv = (itemView).findViewById(R.id.item_num);
             headIv = (itemView).findViewById(R.id.item_head);
             nicknameTv = (itemView).findViewById(R.id.item_nickname);
+            personRl = (itemView).findViewById(R.id.item_onclick_rl);
         }
     }
 

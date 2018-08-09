@@ -34,6 +34,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -67,7 +68,7 @@ public class EditorFriendTogetherActivity extends BaseActivity {
     private List<GetEditorFriendTogetherModel.ObjBean.TitleListBean> mList;
 
     private String id = "";
-
+    GetEditorFriendTogetherModel.ObjBean bean = new GetEditorFriendTogetherModel.ObjBean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,7 @@ public class EditorFriendTogetherActivity extends BaseActivity {
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 GetEditorFriendTogetherModel model = gson.fromJson(data, GetEditorFriendTogetherModel.class);
+                                bean = model.getObj();
                                 tvTitle.setText(model.getObj().getPftitle());
                                 Picasso.with(EditorFriendTogetherActivity.this).load(model.getObj().getPfpic()).into(ivTitle);
                                 tvStart.setText("开始时间: " + model.getObj().getPfgotime());
@@ -184,7 +186,8 @@ public class EditorFriendTogetherActivity extends BaseActivity {
         }
     };
 
-    @OnClick({R.id.activity_editor_friend_together_rl_back, R.id.activity_editor_friend_together_tv_add})
+    @OnClick({R.id.activity_editor_friend_together_rl_back, R.id.activity_editor_friend_together_tv_add,
+            R.id.activity_editor_friend_together_rl})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -194,6 +197,14 @@ public class EditorFriendTogetherActivity extends BaseActivity {
             case R.id.activity_editor_friend_together_tv_add:
                 intent.setClass(EditorFriendTogetherActivity.this, FriendTogetherAddContentActivity.class);
                 intent.putExtra("pfID", id);
+                startActivity(intent);
+                onBackPressed();
+                break;
+            case R.id.activity_editor_friend_together_rl:
+                intent.setClass(EditorFriendTogetherActivity.this, CreateFriendTogetherActivity.class);
+                intent.putExtra("bean", (Serializable)bean);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("pfID",id);
                 startActivity(intent);
                 onBackPressed();
                 break;

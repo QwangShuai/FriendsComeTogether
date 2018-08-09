@@ -163,7 +163,14 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         priceTv.setText("活动费用：" + model.getPrice());
         womanTv.setText("女生人数：" + model.getWoman());
         manTv.setText("男生人数：" + model.getMan());
-        participantsTv.setText("参加人员（" + model.getHave_num() + "/" + model.getPerson_num() + ")");
+        if(model.getHave_num().equals("0")){
+            participantsTv.setText("*暂无报名信息");
+            recyclerViewP.setVisibility(View.GONE);
+        } else {
+            participantsTv.setText("参加人员（" + model.getHave_num() + "/" + model.getPerson_num() + ")");
+            initPerson(model.getUser_list());
+        }
+
         focusOnLeaderIv.setImageResource(model.getAttention_captain().equals("0")?R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
 //        if(!StringUtils.isEmpty(leaderID)&&!leaderID.equals("0")){
 //            levelTv.setText(model.getIf_sign().equals("0")?"普通领队":"签约领队");
@@ -171,7 +178,6 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
 //            levelTv.setText("暂无领队");
 //        }
 
-        initPerson(model.getUser_list());
         initList(model.getInfo_list());
     }
 

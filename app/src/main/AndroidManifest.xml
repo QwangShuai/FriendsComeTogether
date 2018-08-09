@@ -208,7 +208,8 @@
             android:exported="false"
             android:process=":core" />
 
-        <activity android:name=".pages.MyFriendActivity"></activity>
+        <activity android:name=".pages.MyFriendActivity" />
+        <activity android:name=".pages.EditorMainFriendTogetherActivity"></activity>
     </application>
 
 </manifest>

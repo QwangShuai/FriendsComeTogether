@@ -81,6 +81,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.login_registerTv:
                 Intent it = new Intent(c,RegisterActivity.class);
                 startActivity(it);
+                finish();
                 break;
             case R.id.login_forgetPwTv:
                 Intent itf = new Intent(c,ForgetPwActivity.class);

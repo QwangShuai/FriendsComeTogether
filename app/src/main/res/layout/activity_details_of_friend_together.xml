@@ -339,7 +339,7 @@
                 android:layout_marginLeft="40px"
                 android:layout_marginTop="20px"
                 android:layout_width="match_parent"
-                android:layout_height="160px"
+                android:layout_height="wrap_content"
                 android:descendantFocusability="blocksDescendants">
 
                 <android.support.v7.widget.RecyclerView

@@ -76,6 +76,7 @@ public class RegisterActivity extends BaseActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.rl_set_return:
+                startActivity(new Intent(this,LoginActivity.class));
                 finish();
                 break;
             case R.id.getCode_btn:
@@ -91,7 +92,7 @@ public class RegisterActivity extends BaseActivity {
         if (!StringUtils.isPhoneNumberValid(phone)) {
             toToast(c, "请输入正确的手机号");
         } else {
-            MyApplication.ftptimecount.start();
+            MyApplication.timecount.start();
             String token = getToken(NetConfig.BaseUrl + NetConfig.getCodeUrl);
             ViseHttp.POST(NetConfig.getCodeUrl)
                     .addParam("app_key", token)
