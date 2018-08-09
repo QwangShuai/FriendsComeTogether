@@ -154,4 +154,6 @@ public class NetConfig {
     public static String editorFriendTogetherSubtitleContentUrl = "action/ac_activity/update_activity_info";
     //用户协议地址
     public static String userAgreementUrl = "http://47.92.136.19/index.php/action/ac_public/user_agreement";
+    //获取用户的活动列表
+    public static String userActiveListUrl = "action/ac_article/ActivityList";
 }
