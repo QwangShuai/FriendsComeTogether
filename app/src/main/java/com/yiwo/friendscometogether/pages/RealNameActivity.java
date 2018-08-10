@@ -67,6 +67,8 @@ public class RealNameActivity extends BaseActivity {
     private SpImp spImp;
     private String uid = "";
 
+    private String status = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +88,7 @@ public class RealNameActivity extends BaseActivity {
 
         ViseHttp.POST(NetConfig.userRealNameInfoUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userRealNameInfoUrl))
-                .addParam("uid", uid)
+                .addParam("id", uid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -95,6 +97,7 @@ public class RealNameActivity extends BaseActivity {
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 UserRealNameInfoModel model = gson.fromJson(data, UserRealNameInfoModel.class);
+                                status = model.getObj().getUsercodeok();
                                 if(model.getObj().getUsercodeok().equals("0")){
 
                                 }else {
@@ -144,7 +147,11 @@ public class RealNameActivity extends BaseActivity {
                         .start(RealNameActivity.this, REQUEST_CODE1); // 打开相册
                 break;
             case R.id.activity_real_name_rl_complete:
-                onComplete();
+                if(status.equals("0")){
+                    onComplete();
+                }else {
+                    toToast(RealNameActivity.this, "审核中");
+                }
                 break;
         }
     }

@@ -179,7 +179,7 @@
 
             <ImageView
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/focus_on_empty_y"
                 android:layout_width="26px"
                 android:layout_height="24px" />
 
