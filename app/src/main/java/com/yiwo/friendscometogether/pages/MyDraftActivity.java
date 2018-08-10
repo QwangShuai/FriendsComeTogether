@@ -117,6 +117,10 @@ public class MyDraftActivity extends BaseActivity {
                 switch (menuPosition){
                     case 0:
                         //编辑友记
+                        Intent intent = new Intent();
+                        intent.setClass(MyDraftActivity.this, ModifyFriendRememberActivity.class);
+                        intent.putExtra("id", mList.get(adapterPosition).getFmID());
+                        startActivity(intent);
                         break;
                     case 1:
                         ViseHttp.POST(NetConfig.releaseDraftUrl)

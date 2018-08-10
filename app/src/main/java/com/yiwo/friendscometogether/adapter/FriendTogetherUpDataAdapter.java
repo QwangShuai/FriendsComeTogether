@@ -24,6 +24,7 @@ import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.pages.ActiveEvaluationActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.OtherInformationActivity;
@@ -166,6 +167,15 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
                     intent.putExtra("pfID", data.get(position).getPfID());
                     context.startActivity(intent);
                 }
+            }
+        });
+        holder.look_overLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, ActiveEvaluationActivity.class);
+                intent.putExtra("pfID", data.get(position).getPfID());
+                context.startActivity(intent);
             }
         });
         if (data.get(position).getAll_u_pic().size() < 8) {
