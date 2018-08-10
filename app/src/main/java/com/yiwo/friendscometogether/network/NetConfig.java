@@ -158,4 +158,6 @@ public class NetConfig {
     public static String userActiveListUrl = "action/ac_article/ActivityList";
     //显示实名认证信息
     public static String userRealNameInfoUrl = "action/ac_user/Realdisplay";
+    //活动评价列表
+    public static String activeEvaluationListUrl = "action/ac_activity/activity_comment_list";
 }

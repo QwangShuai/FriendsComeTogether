@@ -41,6 +41,7 @@
             android:layout_height="176px">
 
             <TextView
+                android:maxLines="4"
                 android:id="@+id/home_hot_content"
                 android:layout_width="430px"
                 android:layout_height="147px"
@@ -51,6 +52,7 @@
                 android:textColor="@color/black_333333"
                 android:textSize="26px" />
             <ImageView
+                android:scaleType="centerCrop"
                 android:id="@+id/home_hot_itemIv"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="29px"

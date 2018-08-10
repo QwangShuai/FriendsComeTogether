@@ -18,18 +18,20 @@
             android:layout_width="match_parent"
             android:layout_height="88px">
             <TextView
+                android:maxLines="1"
                 android:id="@+id/home_together_title_tv"
                 android:layout_marginLeft="16px"
                 android:textSize="30px"
                 android:textColor="@color/white_ffffff"
                 android:layout_centerVertical="true"
                 android:text="  活动活动"
-                android:layout_width="wrap_content"
+                android:layout_width="700px"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </RelativeLayout>
 
     <TextView
+        android:maxLines="4"
         android:id="@+id/home_together_content_tv"
         android:layout_marginLeft="20px"
         android:layout_marginTop="41px"

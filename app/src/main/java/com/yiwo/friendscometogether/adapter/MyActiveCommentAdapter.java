@@ -78,7 +78,7 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ivAvatar = itemView.findViewById(R.id.activity_article_comment_rv_iv_avatar);
+            ivAvatar = itemView.findViewById(R.id.activity_active_comment_rv_iv);
             tvNickname = itemView.findViewById(R.id.activity_article_comment_rv_tv_nickname);
             tvTitle = itemView.findViewById(R.id.activity_article_comment_rv_tv_title);
             tvContent = itemView.findViewById(R.id.activity_article_comment_rv_tv_content);
