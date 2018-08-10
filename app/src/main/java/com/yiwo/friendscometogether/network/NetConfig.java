@@ -160,4 +160,6 @@ public class NetConfig {
     public static String userRealNameInfoUrl = "action/ac_user/Realdisplay";
     //活动评价列表
     public static String activeEvaluationListUrl = "action/ac_activity/activity_comment_list";
+    //友记修改基础信息
+    public static String modifyFriendRememberUrl = "action/ac_article/AmendFriends";
 }
