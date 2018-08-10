@@ -20,10 +20,8 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class VideoActivity extends BaseActivity {
-//    @BindView(R.id.videoplayer)
-//    JCVideoPlayerStandard videoplayer
     @BindView(R.id.videoplayer)
-    VideoView videoplayer;
+    JCVideoPlayerStandard videoplayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,24 +35,12 @@ public class VideoActivity extends BaseActivity {
         String url = getIntent().getStringExtra("videoUrl");
         String picUrl = getIntent().getStringExtra("picUrl");
         String title = getIntent().getStringExtra("title");
-//        boolean setUp = videoplayer.setUp("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4", JCVideoPlayer.SCREEN_LAYOUT_LIST, title);
-//        if (setUp) {
-//            videoplayer.thumbImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//            Glide.with(this).load(picUrl).into(videoplayer.thumbImageView);
-//
-//        }
-        Uri uri = Uri.parse( "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4" );
-        //设置视频控制器
-        videoplayer.setMediaController(new MediaController(this));
+        boolean setUp = videoplayer.setUp("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4", JCVideoPlayer.SCREEN_LAYOUT_LIST, title);
+        if (setUp) {
+            videoplayer.thumbImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            Glide.with(this).load(picUrl).into(videoplayer.thumbImageView);
 
-        //播放完成回调
-//        videoplayer.setOnCompletionListener( new PlayerOnCompletionListener());
-
-        //设置视频路径
-        videoplayer.setVideoURI(uri);
-
-        //开始播放视频
-        videoplayer.start();
+        }
     }
     @OnClick({R.id.rl_set_return})
     public void OnClick(View v){
@@ -66,7 +52,16 @@ public class VideoActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 }

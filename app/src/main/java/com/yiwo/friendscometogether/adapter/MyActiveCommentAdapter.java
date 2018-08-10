@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.ActiveCommentModel;
 import com.yiwo.friendscometogether.model.ArticleCommentListModel;
+import com.yiwo.friendscometogether.utils.StringUtils;
 
 import java.util.List;
 
@@ -24,13 +26,9 @@ import java.util.List;
 public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveCommentAdapter.ViewHolder> {
 
     private Context context;
-//    private List<ArticleCommentListModel.ObjBean> data;
-    private List<String> data;
+    private List<ActiveCommentModel.ObjBean> data;
 
-//    public MyActiveCommentAdapter(List<ArticleCommentListModel.ObjBean> data) {
-//        this.data = data;
-//    }
-    public MyActiveCommentAdapter(List<String> data) {
+    public MyActiveCommentAdapter(List<ActiveCommentModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -45,23 +43,23 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-//        if (TextUtils.isEmpty(data.get(position).getUserpic())) {
-//            Picasso.with(context).load(R.mipmap.my_head).into(holder.ivAvatar);
-//        } else {
-//            Picasso.with(context).load(data.get(position).getUserpic()).into(holder.ivAvatar);
-//        }
-//        holder.tvTitle.setText(data.get(position).getNewsTile());
-//        holder.tvTime.setText(data.get(position).getFctime());
-//        if (data.get(position).getPic().size() > 0) {
-//            holder.recyclerView.setVisibility(View.VISIBLE);
-//            LinearLayoutManager manager = new LinearLayoutManager(context);
-//            manager.setOrientation(LinearLayoutManager.VERTICAL);
-//            holder.recyclerView.setLayoutManager(manager);
-//            MyCommentCommentAdapter adapter = new MyCommentCommentAdapter(data.get(position).getPic());
-//            holder.recyclerView.setAdapter(adapter);
-//        }else {
-//            holder.recyclerView.setVisibility(View.GONE);
-//        }
+        if (StringUtils.isEmpty(data.get(position).getPic())) {
+            Picasso.with(context).load(R.mipmap.my_head).into(holder.ivAvatar);
+        } else {
+            Picasso.with(context).load(data.get(position).getPic()).into(holder.ivAvatar);
+        }
+        holder.tvTitle.setText(data.get(position).getTitle());
+        holder.tvTime.setText(data.get(position).getTime());
+        if (data.get(position).getList().size() > 0) {
+            holder.recyclerView.setVisibility(View.VISIBLE);
+            LinearLayoutManager manager = new LinearLayoutManager(context);
+            manager.setOrientation(LinearLayoutManager.VERTICAL);
+            holder.recyclerView.setLayoutManager(manager);
+            MyActiveCommentCommentAdapter adapter = new MyActiveCommentCommentAdapter(data.get(position).getList());
+            holder.recyclerView.setAdapter(adapter);
+        }else {
+            holder.recyclerView.setVisibility(View.GONE);
+        }
     }
 
     @Override
