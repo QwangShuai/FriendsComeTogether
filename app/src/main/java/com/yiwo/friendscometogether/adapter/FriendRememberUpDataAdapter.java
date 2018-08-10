@@ -59,6 +59,11 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
         holder.tvUsergrade.setText("LV" + data.get(position).getUsergrade());
         holder.tvCreateTime.setText(data.get(position).getFmtime());
         holder.tvLookNum.setText(data.get(position).getFmlook());
+        if(data.get(position).getFmlook().equals("0")){
+            Picasso.with(context).load(R.mipmap.focus_on_empty_y).into(holder.ivIsFocus);
+        }else {
+            Picasso.with(context).load(R.mipmap.focus_on_y).into(holder.ivIsFocus);
+        }
         holder.tvCommentNum.setText(data.get(position).getFmcomment());
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +93,7 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
         private TextView tvLookNum;
         private TextView tvCommentNum;
         private LinearLayout ll;
+        private ImageView ivIsFocus;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -101,6 +107,7 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
             tvLookNum = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_look_num);
             tvCommentNum = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_comment_num);
             ll = itemView.findViewById(R.id.fragment_friend_remember_rv_ll);
+            ivIsFocus = itemView.findViewById(R.id.fragment_friend_remember_rv_iv_is_focus);
         }
     }
 

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -219,6 +220,11 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                     Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.focus_on_y).into(ivFocus);
                                 }
 
+                                if(model.getObj().getContent().getInserTtext().equals("0")){
+                                    //不允许插文
+                                    llIntercalation.setVisibility(View.GONE);
+                                }
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -248,103 +254,123 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.activity_details_of_friends_ll_comment:
-                intent.setClass(DetailsOfFriendsActivity.this, ArticleCommentActivity.class);
-                intent.putExtra("id", fmID);
-                startActivity(intent);
+                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                    intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(DetailsOfFriendsActivity.this, ArticleCommentActivity.class);
+                    intent.putExtra("id", fmID);
+                    startActivity(intent);
+                }
                 break;
             case R.id.activity_details_of_friends_ll_share:
-                new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
-                        .setShareboardclickCallback(new ShareBoardlistener() {
-                            @Override
-                            public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                ShareUtils.shareWeb(DetailsOfFriendsActivity.this,"http://www.baidu.com","不快乐",
-                                        "就是不快乐","",share_media);
-                            }
-                        }).open();
+                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                    intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                            .setShareboardclickCallback(new ShareBoardlistener() {
+                                @Override
+                                public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                                    ShareUtils.shareWeb(DetailsOfFriendsActivity.this,"http://www.baidu.com","不快乐",
+                                            "就是不快乐","",share_media);
+                                }
+                            }).open();
+                }
                 break;
             case R.id.activity_details_of_friends_ll_praise:
-                if(!isPraise){
-                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.praise_y).into(ivPraise);
-                    tvPraise.setTextColor(Color.parseColor("#FF9D00"));
-                    ViseHttp.POST(NetConfig.articlePraiseUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articlePraiseUrl))
-                            .addParam("id", fmID)
-                            .addParam("uid", uid)
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.getInt("code") == 200){
-                                            toToast(DetailsOfFriendsActivity.this, "点赞成功");
+                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                    intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    if(!isPraise){
+                        Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.praise_y).into(ivPraise);
+                        tvPraise.setTextColor(Color.parseColor("#FF9D00"));
+                        ViseHttp.POST(NetConfig.articlePraiseUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articlePraiseUrl))
+                                .addParam("id", fmID)
+                                .addParam("uid", uid)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.getInt("code") == 200){
+                                                toToast(DetailsOfFriendsActivity.this, "点赞成功");
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
                                     }
-                                }
 
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
 
-                                }
-                            });
+                                    }
+                                });
+                    }
                 }
                 break;
             case R.id.activity_details_of_friends_ll_star:
-                if(!isStar){
-                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.star_y).into(ivStar);
-                    tvStar.setTextColor(Color.parseColor("#FF9D00"));
-                    isStar = !isStar;
-                    ViseHttp.POST(NetConfig.articleCollectionUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleCollectionUrl))
-                            .addParam("id", fmID)
-                            .addParam("uid", uid)
-                            .addParam("type", "0")
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.getInt("code") == 200){
-                                            toToast(DetailsOfFriendsActivity.this, "收藏成功");
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
-
-                                }
-                            });
+                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                    intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }else {
-                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_star_b).into(ivStar);
-                    tvStar.setTextColor(Color.parseColor("#333333"));
-                    isStar = !isStar;
-                    ViseHttp.POST(NetConfig.articleCollectionUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleCollectionUrl))
-                            .addParam("id", fmID)
-                            .addParam("uid", uid)
-                            .addParam("type", "1")
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.getInt("code") == 200){
-                                            toToast(DetailsOfFriendsActivity.this, "取消收藏成功");
+                    if(!isStar){
+                        Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.star_y).into(ivStar);
+                        tvStar.setTextColor(Color.parseColor("#FF9D00"));
+                        isStar = !isStar;
+                        ViseHttp.POST(NetConfig.articleCollectionUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleCollectionUrl))
+                                .addParam("id", fmID)
+                                .addParam("uid", uid)
+                                .addParam("type", "0")
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.getInt("code") == 200){
+                                                toToast(DetailsOfFriendsActivity.this, "收藏成功");
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
                                     }
-                                }
 
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
 
-                                }
-                            });
+                                    }
+                                });
+                    }else {
+                        Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_star_b).into(ivStar);
+                        tvStar.setTextColor(Color.parseColor("#333333"));
+                        isStar = !isStar;
+                        ViseHttp.POST(NetConfig.articleCollectionUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleCollectionUrl))
+                                .addParam("id", fmID)
+                                .addParam("uid", uid)
+                                .addParam("type", "1")
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.getInt("code") == 200){
+                                                toToast(DetailsOfFriendsActivity.this, "取消收藏成功");
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
                 }
                 break;
             case R.id.activity_details_of_friends_ll_person_content:

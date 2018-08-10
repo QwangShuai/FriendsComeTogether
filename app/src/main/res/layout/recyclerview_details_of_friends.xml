@@ -19,7 +19,6 @@
             android:id="@+id/activity_details_of_friends_rv_rv_tv_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="50px"
-            android:layout_toLeftOf="@+id/activity_details_of_friends_rv_ll_avatar"
             android:layout_marginLeft="40px"
             android:textSize="28px"
             android:textColor="#333333"
@@ -27,34 +26,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_centerVertical="true"
-            android:id="@+id/activity_details_of_friends_rv_ll_avatar"
-            android:layout_marginRight="20px"
-            android:layout_alignParentRight="true"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <!--<LinearLayout-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:id="@+id/activity_details_of_friends_rv_ll_avatar"-->
+            <!--android:layout_marginRight="20px"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <com.yiwo.friendscometogether.custom.CImageView
-                android:id="@+id/activity_details_of_friends_rv_rv_iv_avatar"
-                android:layout_gravity="center_horizontal"
-                android:src="@mipmap/ic_launcher"
-                android:layout_width="80px"
-                android:layout_height="80px" />
+            <!--<com.yiwo.friendscometogether.custom.CImageView-->
+                <!--android:id="@+id/activity_details_of_friends_rv_rv_iv_avatar"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:src="@mipmap/ic_launcher"-->
+                <!--android:layout_width="80px"-->
+                <!--android:layout_height="80px" />-->
 
-            <TextView
-                android:id="@+id/activity_details_of_friends_rv_rv_tv_nickname"
-                android:layout_marginTop="4px"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="昵称"
-                android:textColor="#ff333333"
-                android:textSize="20px"
-                />
+            <!--<TextView-->
+                <!--android:id="@+id/activity_details_of_friends_rv_rv_tv_nickname"-->
+                <!--android:layout_marginTop="4px"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="昵称"-->
+                <!--android:textColor="#ff333333"-->
+                <!--android:textSize="20px"-->
+                <!--/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
     </RelativeLayout>
 

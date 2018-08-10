@@ -52,7 +52,7 @@
                 android:textStyle="bold"
                 android:textColor="#333333"
                 android:textSize="36px"
-                android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -79,7 +79,7 @@
                         android:layout_marginLeft="5px"
                         android:textColor="#333333"
                         android:textSize="28px"
-                        android:text="浏览: 12345"
+                        android:text="浏览: "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -102,7 +102,7 @@
                         android:layout_marginLeft="6px"
                         android:textColor="#333333"
                         android:textSize="28px"
-                        android:text="关注: 10"
+                        android:text="关注: "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -146,7 +146,7 @@
                             android:gravity="center"
                             android:textSize="28px"
                             android:textColor="#333333"
-                            android:text="开始时间：2018.04.12"
+                            android:text="开始时间："
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -169,7 +169,7 @@
                             android:gravity="center"
                             android:textSize="28px"
                             android:textColor="#333333"
-                            android:text="结束时间：2018.05.12"
+                            android:text="结束时间："
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -192,7 +192,7 @@
                             android:gravity="center"
                             android:textSize="28px"
                             android:textColor="#333333"
-                            android:text="人均费用：¥1500.00"
+                            android:text="人均费用："
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -215,7 +215,7 @@
                             android:gravity="center"
                             android:textSize="28px"
                             android:textColor="#333333"
-                            android:text="活动地点：上海"
+                            android:text="活动地点："
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -234,7 +234,6 @@
                     <com.yiwo.friendscometogether.custom.CImageView
                         android:id="@+id/activity_details_of_friends_iv_avatar"
                         android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/ic_launcher"
                         android:layout_width="140px"
                         android:layout_height="140px" />
 
@@ -244,7 +243,7 @@
                         android:layout_marginTop="10px"
                         android:textColor="#333333"
                         android:textSize="24px"
-                        android:text="昵称昵称昵称"
+                        android:text=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -294,7 +293,7 @@
                         android:textSize="18px"
                         android:textColor="#FFFFFF"
                         android:layout_alignParentRight="true"
-                        android:text="LV1"
+                        android:text="LV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -331,7 +330,7 @@
                         android:textColor="#747474"
                         android:lines="3"
                         android:ellipsize="end"
-                        android:text="开头讲个段子。在决定下笔写游记之前，我在朋友圈征集和酒有关旅行故事，很多人问我，要和酒有关的故…"
+                        android:text=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -345,7 +344,7 @@
                             android:id="@+id/activity_details_of_friends_tv_related_c_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2018-04-04"
+                            android:text=""
                             android:textColor="#ff5a5a5a"
                             android:textSize="24px"
                             />
@@ -367,7 +366,7 @@
                                 android:id="@+id/activity_details_of_friends_tv_related_look_num"
                                 android:textColor="#FF9D00"
                                 android:textSize="24px"
-                                android:text="1234"
+                                android:text=""
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
 
@@ -390,7 +389,7 @@
                                 android:id="@+id/activity_details_of_friends_tv_related_comment_num"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1234"
+                                android:text=""
                                 android:textColor="#FF9D00"
                                 android:textSize="24px" />
 
@@ -402,7 +401,6 @@
 
                 <ImageView
                     android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher"
                     android:id="@+id/activity_details_of_friends_iv_activity_title"
                     android:layout_marginTop="40px"
                     android:layout_marginRight="40px"

@@ -35,7 +35,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-
             android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -211,7 +210,8 @@
         <activity android:name=".pages.MyFriendActivity" />
         <activity android:name=".pages.EditorMainFriendTogetherActivity" />
         <activity android:name=".pages.SearchListActivity" />
-        <activity android:name=".pages.VideoActivity"></activity>
+        <activity android:name=".pages.VideoActivity" />
+        <activity android:name=".pages.ModifyFriendRememberActivity"></activity>
     </application>
 
 </manifest>

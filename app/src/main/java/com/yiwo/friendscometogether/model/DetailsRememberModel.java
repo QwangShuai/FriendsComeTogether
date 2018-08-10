@@ -123,6 +123,7 @@ public class DetailsRememberModel {
             private int give;
             private int Collection;
             private int follow;
+            private String inserTtext;
 
             public String getFmID() {
                 return fmID;
@@ -250,6 +251,14 @@ public class DetailsRememberModel {
 
             public void setFollow(int follow) {
                 this.follow = follow;
+            }
+
+            public String getInserTtext() {
+                return inserTtext;
+            }
+
+            public void setInserTtext(String inserTtext) {
+                this.inserTtext = inserTtext;
             }
         }
 

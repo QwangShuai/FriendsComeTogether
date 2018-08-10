@@ -98,7 +98,7 @@ public class RealNameActivity extends BaseActivity {
                                 Gson gson = new Gson();
                                 UserRealNameInfoModel model = gson.fromJson(data, UserRealNameInfoModel.class);
                                 status = model.getObj().getUsercodeok();
-                                if(model.getObj().getUsercodeok().equals("0")){
+                                if(model.getObj().getUsercodeok().equals("0")||model.getObj().getUsercodeok().equals("3")){
 
                                 }else {
                                     etName.setText(model.getObj().getUsertruename());
@@ -147,10 +147,12 @@ public class RealNameActivity extends BaseActivity {
                         .start(RealNameActivity.this, REQUEST_CODE1); // 打开相册
                 break;
             case R.id.activity_real_name_rl_complete:
-                if(status.equals("0")){
+                if(status.equals("0")||status.equals("3")){
                     onComplete();
-                }else {
+                }else if(status.equals("1")){
                     toToast(RealNameActivity.this, "审核中");
+                }else {
+                    toToast(RealNameActivity.this, "已通过审核");
                 }
                 break;
         }
