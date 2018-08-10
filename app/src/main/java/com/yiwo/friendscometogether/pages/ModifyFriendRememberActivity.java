@@ -31,6 +31,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
+import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.model.ModifyFriendRememberModel;
 import com.yiwo.friendscometogether.model.UserActiveListModel;
@@ -43,6 +44,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -51,9 +53,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class ModifyFriendRememberActivity extends BaseActivity {
 
@@ -147,6 +155,11 @@ public class ModifyFriendRememberActivity extends BaseActivity {
     private List<UserActiveListModel.ObjBean> activeList;
 
     private String password;
+
+    /**
+     * 是否替换图片，true为替换
+     */
+    private boolean isPic = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -287,6 +300,10 @@ public class ModifyFriendRememberActivity extends BaseActivity {
                                 }else {
                                     tvIsIntercalation.setText("否");
                                 }
+                                Picasso.with(ModifyFriendRememberActivity.this).load(model.getObj().getFmpic()).into(ivTitle);
+                                ivTitle.setVisibility(View.VISIBLE);
+                                tvFirstIv.setVisibility(View.VISIBLE);
+                                ivDelete.setVisibility(View.VISIBLE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -412,12 +429,10 @@ public class ModifyFriendRememberActivity extends BaseActivity {
 
                 break;
             case R.id.activity_create_friend_remember_rl_complete:
-                if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())||TextUtils.isEmpty(tvTimeStart.getText().toString())
-                        ||TextUtils.isEmpty(tvTimeEnd.getText().toString())||TextUtils.isEmpty(tvCity.getText().toString())||TextUtils.isEmpty(etPrice.getText().toString())
-                        ||TextUtils.isEmpty(tvLabel.getText().toString())){
+                if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())||TextUtils.isEmpty(tvLabel.getText().toString())){
                     toToast(ModifyFriendRememberActivity.this, "请完善信息");
                 }else {
-//                    showCompletePopupwindow();
+                    onSave();
                 }
                 break;
             case R.id.activity_create_friend_remember_rl_set_password:
@@ -443,6 +458,7 @@ public class ModifyFriendRememberActivity extends BaseActivity {
                 ivDelete.setVisibility(View.GONE);
                 ivTitle.setVisibility(View.INVISIBLE);
                 tvFirstIv.setVisibility(View.INVISIBLE);
+                isPic = true;
                 break;
             case R.id.activity_create_friend_remember_rl_label:
                 AlertDialog.Builder singleChoiceDialog =
@@ -534,6 +550,145 @@ public class ModifyFriendRememberActivity extends BaseActivity {
                 singleChoiceDialog1.show();
                 break;
         }
+    }
+
+    /**
+     * 保存
+     */
+    private void onSave() {
+
+        dialog = WeiboDialogUtils.createLoadingDialog(ModifyFriendRememberActivity.this, "请等待...");
+        if(isPic){
+            Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
+                @Override
+                public void subscribe(final ObservableEmitter<File> e) throws Exception {
+//                        File file = new File(images);
+                    Luban.with(ModifyFriendRememberActivity.this)
+                            .load(images)
+                            .ignoreBy(100)
+                            .filter(new CompressionPredicate() {
+                                @Override
+                                public boolean apply(String path) {
+                                    return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                }
+                            })
+                            .setCompressListener(new OnCompressListener() {
+                                @Override
+                                public void onStart() {
+                                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                }
+
+                                @Override
+                                public void onSuccess(File file) {
+                                    // TODO 压缩成功后调用，返回压缩后的图片文件
+                                    e.onNext(file);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    // TODO 当压缩过程出现问题时调用
+                                }
+                            }).launch();
+                }
+            });
+            Observer<File> observer = new Observer<File>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(File value) {
+                    ViseHttp.UPLOAD(NetConfig.saveFriendRememberUrl)
+                            .addHeader("Content-Type","multipart/form-data")
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.saveFriendRememberUrl))
+                            .addParam("fmtitle", etTitle.getText().toString())
+                            .addParam("fmcontent", etContent.getText().toString())
+                            .addParam("fmaddress", tvCity.getText().toString())
+                            .addParam("fmlable", yourChoiceId)
+                            .addParam("fmgotime", tvTimeStart.getText().toString())
+                            .addParam("fmendtime", tvTimeEnd.getText().toString())
+                            .addParam("percapitacost", etPrice.getText().toString())
+                            .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                            .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
+                            .addParam("accesspassword", password)
+                            .addParam("id", fmId)
+                            .addFile("fmpic", value)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    Log.e("222", data);
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if (jsonObject.getInt("code") == 200) {
+                                            toToast(ModifyFriendRememberActivity.this, "修改成功");
+                                            WeiboDialogUtils.closeDialog(dialog);
+                                            onBackPressed();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+                                    Log.e("222", "网络请求失败"+errMsg);
+                                    WeiboDialogUtils.closeDialog(dialog);
+                                }
+                            });
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            };
+            observable.observeOn(Schedulers.newThread())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(observer);
+        }else {
+            ViseHttp.POST(NetConfig.saveFriendRememberUrl)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.saveFriendRememberUrl))
+                    .addParam("fmtitle", etTitle.getText().toString())
+                    .addParam("fmcontent", etContent.getText().toString())
+                    .addParam("fmaddress", tvCity.getText().toString())
+                    .addParam("fmlable", yourChoiceId)
+                    .addParam("fmgotime", tvTimeStart.getText().toString())
+                    .addParam("fmendtime", tvTimeEnd.getText().toString())
+                    .addParam("percapitacost", etPrice.getText().toString())
+                    .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                    .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
+                    .addParam("accesspassword", password)
+                    .addParam("id", fmId)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            Log.e("222", data);
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    toToast(ModifyFriendRememberActivity.this, "修改成功");
+                                    WeiboDialogUtils.closeDialog(dialog);
+                                    onBackPressed();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+                            Log.e("222", "网络请求失败"+errMsg);
+                            WeiboDialogUtils.closeDialog(dialog);
+                        }
+                    });
+        }
+
     }
 
     /**
