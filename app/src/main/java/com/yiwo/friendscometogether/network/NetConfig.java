@@ -166,4 +166,6 @@ public class NetConfig {
     public static String saveFriendRememberUrl = "action/ac_article/SaveFriendsText";
     //获取续写信息（修改）
     public static String modifyIntercalationUrl = "action/ac_article/RenewInfo";
+    //保存续写修改信息
+    public static String saveModifyIntercalationUrl = "action/ac_article/SaveRenewInfo";
 }

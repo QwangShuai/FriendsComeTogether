@@ -103,7 +103,7 @@ public class EditorFriendRememberActivity extends BaseActivity {
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
                                 mList = model.getObj().getRenewList();
-                                adapter = new EditorFriendRememberAdapter(model.getObj().getRenewList());
+                                adapter = new EditorFriendRememberAdapter(model.getObj().getRenewList(), EditorFriendRememberActivity.this);
                                 recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
                                 recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
                                 recyclerView.setAdapter(adapter);

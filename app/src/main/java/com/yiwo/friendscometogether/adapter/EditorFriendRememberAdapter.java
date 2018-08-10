@@ -1,6 +1,8 @@
 package com.yiwo.friendscometogether.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.EditorFriendRememberModel;
+import com.yiwo.friendscometogether.pages.ModifyIntercalationActivity;
 
 import java.util.List;
 
@@ -22,9 +25,11 @@ public class EditorFriendRememberAdapter extends RecyclerView.Adapter<EditorFrie
 
     private Context context;
     private List<EditorFriendRememberModel.ObjBean.RenewListBean> data;
+    private Activity activity;
 
-    public EditorFriendRememberAdapter(List<EditorFriendRememberModel.ObjBean.RenewListBean> data) {
+    public EditorFriendRememberAdapter(List<EditorFriendRememberModel.ObjBean.RenewListBean> data, Activity activity) {
         this.data = data;
+        this.activity = activity;
     }
 
     @Override
@@ -37,12 +42,16 @@ public class EditorFriendRememberAdapter extends RecyclerView.Adapter<EditorFrie
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvTitle.setText(data.get(position).getFftitle());
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent();
+                intent.putExtra("id", data.get(position).getFfID());
+                intent.setClass(context, ModifyIntercalationActivity.class);
+                context.startActivity(intent);
+                activity.finish();
             }
         });
     }
