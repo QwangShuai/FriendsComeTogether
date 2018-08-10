@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -83,16 +84,12 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     TextView details_applyTv;
     @BindView(R.id.activity_details_of_friends_together_ll_share)
     LinearLayout details_shareLl;
-    @BindView(R.id.activity_details_of_friends_together_ll_focus_on)
-    LinearLayout focusOnLl;
+    @BindView(R.id.activity_details_of_friends_together_btn_top_focus)
+    Button focusOnBtn;
     @BindView(R.id.activity_details_of_friends_together_iv_focus_on)
     ImageView focusOnIv;
     @BindView(R.id.activity_details_of_friends_together_rl_back)
     RelativeLayout activity_details_of_friends_together_rl_back;
-    @BindView(R.id.activity_details_of_friends_together_ll_top_focus)
-    LinearLayout focusOnLeaderLl;
-    @BindView(R.id.activity_details_of_friends_together_iv_focus)
-    ImageView focusOnLeaderIv;
     private Unbinder unbinder;
     private ParticipantsItemAdapter adapter;
     private DetailsOfFriendsTogetherAdapter detailsOfFriendsTogetherAdapter;
@@ -163,15 +160,15 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         priceTv.setText("活动费用：" + model.getPrice());
         womanTv.setText("女生人数：" + model.getWoman());
         manTv.setText("男生人数：" + model.getMan());
-        if(model.getHave_num().equals("0")){
-            participantsTv.setText("*暂无报名信息");
-            recyclerViewP.setVisibility(View.GONE);
-        } else {
+//        if(model.getHave_num().equals("0")){
+//            participantsTv.setText("*暂无报名信息");
+//            recyclerViewP.setVisibility(View.GONE);
+//        } else {
             participantsTv.setText("参加人员（" + model.getHave_num() + "/" + model.getPerson_num() + ")");
             initPerson(model.getUser_list());
-        }
+//        }
 
-        focusOnLeaderIv.setImageResource(model.getAttention_captain().equals("0")?R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
+        focusOnBtn.setText(model.getAttention_captain().equals("0")?"+ 关注": "已关注");
 //        if(!StringUtils.isEmpty(leaderID)&&!leaderID.equals("0")){
 //            levelTv.setText(model.getIf_sign().equals("0")?"普通领队":"签约领队");
 //        } else {
@@ -210,7 +207,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     }
 
     @OnClick({R.id.details_applyTv, R.id.activity_details_of_friends_together_rl_back, R.id.activity_details_of_friends_together_ll_share,
-            R.id.activity_details_of_friends_together_ll_focus_on,R.id.activity_details_of_friends_together_ll_top_focus,
+            R.id.activity_details_of_friends_together_ll_focus_on,R.id.activity_details_of_friends_together_btn_top_focus,
             R.id.activity_details_of_friends_together_ll_person_content})
     public void OnClick(View v) {
         switch (v.getId()) {
@@ -289,7 +286,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                             }
                         });
                 break;
-            case R.id.activity_details_of_friends_together_ll_top_focus:
+            case R.id.activity_details_of_friends_together_btn_top_focus:
                 if (!StringUtils.isEmpty(leaderID)&&!leaderID.equals("0")){
                     ViseHttp.POST(NetConfig.focusOnLeaderUrl)
                             .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.focusOnLeaderUrl))
@@ -301,9 +298,9 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                                     FocusOnLeaderModel model = new Gson().fromJson(data,FocusOnLeaderModel.class);
                                     if(model.getCode()==200){
                                         if(model.getObj().getAttention().equals("0")){
-                                            focusOnLeaderIv.setImageResource(R.mipmap.focus_on_empty_y);
+                                            focusOnBtn.setText("+ 关注");
                                         } else {
-                                            focusOnLeaderIv.setImageResource(R.mipmap.focus_on_y);
+                                            focusOnBtn.setText("已关注");
                                         }
                                     }
                                 }

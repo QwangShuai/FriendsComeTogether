@@ -118,31 +118,40 @@
                         android:layout_height="140px" />
 
 
-                    <LinearLayout
-                        android:id="@+id/activity_details_of_friends_together_ll_top_focus"
-                        android:layout_marginTop="10px"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/activity_details_of_friends_together_ll_top_focus"-->
+                        <!--android:layout_marginTop="10px"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                        <ImageView
-                            android:id="@+id/activity_details_of_friends_together_iv_focus"
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/focus_on_empty_y"
-                            android:layout_width="26px"
-                            android:layout_height="24px" />
+                        <!--<ImageView-->
+                            <!--android:id="@+id/activity_details_of_friends_together_iv_focus"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:src="@mipmap/focus_on_empty_y"-->
+                            <!--android:layout_width="26px"-->
+                            <!--android:layout_height="24px" />-->
 
-                        <TextView
-                            android:gravity="center_vertical"
-                            android:layout_gravity="center_vertical"
-                            android:textColor="#333333"
-                            android:textSize="24px"
-                            android:text="关注"
-                            android:layout_width="wrap_content"
-                            android:layout_height="33px" />
+                        <!--<TextView-->
+                            <!--android:gravity="center_vertical"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:textColor="#333333"-->
+                            <!--android:textSize="24px"-->
+                            <!--android:text="关注"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="33px" />-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
+                    <Button
+                        android:layout_marginTop="5px"
+                        android:id="@+id/activity_details_of_friends_together_btn_top_focus"
+                        android:textSize="26px"
+                        android:textColor="@color/white_ffffff"
+                        android:text="+ 关注"
+                        android:background="@drawable/bg_btn_red"
+                        android:layout_width="140px"
+                        android:layout_height="52px" />
                 </LinearLayout>
                 <RelativeLayout
                     android:layout_alignParentRight="true"
@@ -425,11 +434,12 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_weight="1">
+
                         <ImageView
                             android:id="@+id/activity_details_of_friends_together_iv_focus_on"
                             android:layout_width="42px"
-                            android:layout_height="38px"
-                            android:src="@mipmap/focus_on_y"/>
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/focus_on_y" />
                         <TextView
                             android:text="关注"
                             android:textSize="20px"

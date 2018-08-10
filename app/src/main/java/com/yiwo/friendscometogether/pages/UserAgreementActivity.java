@@ -9,6 +9,7 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
@@ -21,6 +22,8 @@ import butterknife.OnClick;
 public class UserAgreementActivity extends AppCompatActivity {
     @BindView(R.id.activity_user_agreement_webview)
     WebView webView;
+    @BindView(R.id.ctivity_user_agreement_tv_title)
+    TextView titleTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,7 @@ public class UserAgreementActivity extends AppCompatActivity {
     }
 
     public void initWebView(){
+        titleTv.setText(getIntent().getStringExtra("title"));
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
@@ -51,7 +55,7 @@ public class UserAgreementActivity extends AppCompatActivity {
             webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
         }
-        webView.loadUrl(NetConfig.userAgreementUrl);
+        webView.loadUrl(getIntent().getStringExtra("url"));
     }
 
     @OnClick({R.id.activity_user_agreement_rl_back})

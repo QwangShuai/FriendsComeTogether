@@ -11,6 +11,7 @@
         style="@style/rl_top_bar">
 
         <TextView
+            android:id="@+id/ctivity_user_agreement_tv_title"
             style="@style/tv_top_title"
             android:text="用户协议" />
 

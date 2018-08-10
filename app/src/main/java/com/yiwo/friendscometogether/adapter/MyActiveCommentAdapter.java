@@ -24,9 +24,13 @@ import java.util.List;
 public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveCommentAdapter.ViewHolder> {
 
     private Context context;
-    private List<ArticleCommentListModel.ObjBean> data;
+//    private List<ArticleCommentListModel.ObjBean> data;
+    private List<String> data;
 
-    public MyActiveCommentAdapter(List<ArticleCommentListModel.ObjBean> data) {
+//    public MyActiveCommentAdapter(List<ArticleCommentListModel.ObjBean> data) {
+//        this.data = data;
+//    }
+    public MyActiveCommentAdapter(List<String> data) {
         this.data = data;
     }
 
@@ -41,25 +45,23 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        if (TextUtils.isEmpty(data.get(position).getUserpic())) {
-            Picasso.with(context).load(R.mipmap.my_head).into(holder.ivAvatar);
-        } else {
-            Picasso.with(context).load(data.get(position).getUserpic()).into(holder.ivAvatar);
-        }
-        holder.tvNickname.setText(data.get(position).getUsername());
-        holder.tvTitle.setText(data.get(position).getNewsTile());
-        holder.tvContent.setText(data.get(position).getFctitle());
-        holder.tvTime.setText(data.get(position).getFctime());
-        if (data.get(position).getPic().size() > 0) {
-            holder.recyclerView.setVisibility(View.VISIBLE);
-            LinearLayoutManager manager = new LinearLayoutManager(context);
-            manager.setOrientation(LinearLayoutManager.VERTICAL);
-            holder.recyclerView.setLayoutManager(manager);
-            MyCommentCommentAdapter adapter = new MyCommentCommentAdapter(data.get(position).getPic());
-            holder.recyclerView.setAdapter(adapter);
-        }else {
-            holder.recyclerView.setVisibility(View.GONE);
-        }
+//        if (TextUtils.isEmpty(data.get(position).getUserpic())) {
+//            Picasso.with(context).load(R.mipmap.my_head).into(holder.ivAvatar);
+//        } else {
+//            Picasso.with(context).load(data.get(position).getUserpic()).into(holder.ivAvatar);
+//        }
+//        holder.tvTitle.setText(data.get(position).getNewsTile());
+//        holder.tvTime.setText(data.get(position).getFctime());
+//        if (data.get(position).getPic().size() > 0) {
+//            holder.recyclerView.setVisibility(View.VISIBLE);
+//            LinearLayoutManager manager = new LinearLayoutManager(context);
+//            manager.setOrientation(LinearLayoutManager.VERTICAL);
+//            holder.recyclerView.setLayoutManager(manager);
+//            MyCommentCommentAdapter adapter = new MyCommentCommentAdapter(data.get(position).getPic());
+//            holder.recyclerView.setAdapter(adapter);
+//        }else {
+//            holder.recyclerView.setVisibility(View.GONE);
+//        }
     }
 
     @Override
@@ -70,20 +72,18 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivAvatar;
-        private TextView tvNickname;
+        private TextView tvReply;
         private TextView tvTitle;
-        private TextView tvContent;
         private TextView tvTime;
         private RecyclerView recyclerView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivAvatar = itemView.findViewById(R.id.activity_active_comment_rv_iv);
-            tvNickname = itemView.findViewById(R.id.activity_article_comment_rv_tv_nickname);
-            tvTitle = itemView.findViewById(R.id.activity_article_comment_rv_tv_title);
-            tvContent = itemView.findViewById(R.id.activity_article_comment_rv_tv_content);
-            tvTime = itemView.findViewById(R.id.activity_article_comment_rv_tv_time);
-            recyclerView = itemView.findViewById(R.id.activity_article_comment_rv_rv);
+            tvReply = itemView.findViewById(R.id.activity_active_comment_rv_reply_tv);
+            tvTitle = itemView.findViewById(R.id.activity_active_comment_rv_title_tv);
+            tvTime = itemView.findViewById(R.id.activity_active_comment_rv_time_tv);
+            recyclerView = itemView.findViewById(R.id.activity_active_comment_rv_rv);
         }
     }
 
