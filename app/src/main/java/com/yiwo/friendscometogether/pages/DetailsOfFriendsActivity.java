@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -103,10 +104,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     ImageView ivActiveTitle;
     @BindView(R.id.activity_details_of_friends_rv_intercalation)
     RecyclerView recyclerView1;
-    @BindView(R.id.activity_details_of_friends_ll_top_focus)
-    LinearLayout llTopFocus;
-    @BindView(R.id.activity_details_of_friends_iv_focus)
-    ImageView ivFocus;
+    @BindView(R.id.activity_details_of_friends_btn_focus)
+    Button btnTopFocus;
 
     private DetailsOfFriendsIntercalationAdapter adapter;
     private DetailsOfFriendsIntercalation1Adapter adapter1;
@@ -159,10 +158,26 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                 tvTitle.setText(model.getObj().getContent().getFmtitle());
                                 tvLookNum.setText("浏览: "+model.getObj().getContent().getFmlook());
                                 tvFocusNum.setText("收藏: "+model.getObj().getContent().getFmfavorite());
-                                tvStartTime.setText("开始时间: "+model.getObj().getContent().getFmgotime());
-                                tvEndTime.setText("结束时间: "+model.getObj().getContent().getFmendtime());
-                                tvPrice.setText("人均费用: ¥"+model.getObj().getContent().getPercapitacost());
-                                tvCity.setText("活动地点: "+model.getObj().getContent().getFmaddress());
+                                if(TextUtils.isEmpty(model.getObj().getContent().getFmgotime())){
+                                    tvStartTime.setText("开始时间: --------");
+                                }else {
+                                    tvStartTime.setText("开始时间: "+model.getObj().getContent().getFmgotime());
+                                }
+                                if(TextUtils.isEmpty(model.getObj().getContent().getFmendtime())){
+                                    tvEndTime.setText("结束时间: --------");
+                                }else {
+                                    tvEndTime.setText("结束时间: "+model.getObj().getContent().getFmendtime());
+                                }
+                                if(TextUtils.isEmpty(model.getObj().getContent().getPercapitacost())){
+                                    tvPrice.setText("人均费用: --------");
+                                }else {
+                                    tvPrice.setText("人均费用: ¥"+model.getObj().getContent().getPercapitacost());
+                                }
+                                if(TextUtils.isEmpty(model.getObj().getContent().getFmaddress())){
+                                    tvCity.setText("活动地点: --------");
+                                }else {
+                                    tvCity.setText("活动地点: "+model.getObj().getContent().getFmaddress());
+                                }
                                 Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getContent().getUserpic()).into(ivAvatar);
                                 tvNickname.setText(model.getObj().getContent().getUsername());
                                 tvLevel.setText("LV"+model.getObj().getContent().getUsergrade());
@@ -214,10 +229,10 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
                                 if(model.getObj().getContent().getFollow() == 0){
                                     isFocus = false;
-                                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_focus_on_b).into(ivFocus);
+                                    btnTopFocus.setText("+关注");
                                 }else {
                                     isFocus = true;
-                                    Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.focus_on_y).into(ivFocus);
+                                    btnTopFocus.setText("已关注");
                                 }
 
                                 if(model.getObj().getContent().getInserTtext().equals("0")){
@@ -241,7 +256,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
     @OnClick({R.id.activity_details_of_friends_rl_back, R.id.activity_details_of_friends_ll_intercalation, R.id.activity_details_of_friends_ll_comment,
             R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star,
-            R.id.activity_details_of_friends_ll_person_content, R.id.activity_details_of_friends_ll_top_focus})
+            R.id.activity_details_of_friends_ll_person_content, R.id.activity_details_of_friends_btn_focus})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -377,8 +392,35 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 intent.setClass(DetailsOfFriendsActivity.this, OtherInformationActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.activity_details_of_friends_ll_top_focus:
-                //添加关注
+//            case R.id.activity_details_of_friends_ll_top_focus:
+//                //添加关注
+//                if(!isFocus){
+//                    ViseHttp.POST(NetConfig.userFocusUrl)
+//                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+//                            .addParam("uid", uid)
+//                            .addParam("likeId", articleUid)
+//                            .request(new ACallback<String>() {
+//                                @Override
+//                                public void onSuccess(String data) {
+//                                    try {
+//                                        JSONObject jsonObject = new JSONObject(data);
+//                                        if(jsonObject.getInt("code") == 200){
+//                                            toToast(DetailsOfFriendsActivity.this, "关注成功");
+//                                            Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.focus_on_y).into(ivFocus);
+//                                        }
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onFail(int errCode, String errMsg) {
+//
+//                                }
+//                            });
+//                }
+//                break;
+            case R.id.activity_details_of_friends_btn_focus:
                 if(!isFocus){
                     ViseHttp.POST(NetConfig.userFocusUrl)
                             .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
@@ -391,7 +433,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                         JSONObject jsonObject = new JSONObject(data);
                                         if(jsonObject.getInt("code") == 200){
                                             toToast(DetailsOfFriendsActivity.this, "关注成功");
-                                            Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.focus_on_y).into(ivFocus);
+                                            btnTopFocus.setText("已关注");
+                                            isFocus = true;
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();

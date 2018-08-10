@@ -170,30 +170,42 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <Button
             android:layout_marginRight="62px"
             android:layout_alignParentRight="true"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="34px">
+            android:layout_marginTop="5px"
+            android:id="@+id/activity_details_of_friends_btn_focus"
+            android:textSize="20px"
+            android:textColor="@color/white_ffffff"
+            android:text="+ 关注"
+            android:background="@drawable/bg_btn_red"
+            android:layout_width="80px"
+            android:layout_height="36px" />
 
-            <ImageView
-                android:id="@+id/fragment_friend_remember_rv_iv_is_focus"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/focus_on_empty_y"
-                android:layout_width="26px"
-                android:layout_height="24px" />
+        <!--<LinearLayout-->
+            <!--android:layout_marginRight="62px"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="34px">-->
 
-            <TextView
-                android:layout_marginLeft="4px"
-                android:gravity="center"
-                android:textColor="#FF9D00"
-                android:textSize="24px"
-                android:text="关注"
-                android:layout_width="wrap_content"
-                android:layout_height="34px" />
+            <!--<ImageView-->
+                <!--android:id="@+id/fragment_friend_remember_rv_iv_is_focus"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:src="@mipmap/focus_on_empty_y"-->
+                <!--android:layout_width="26px"-->
+                <!--android:layout_height="24px" />-->
 
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_marginLeft="4px"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#FF9D00"-->
+                <!--android:textSize="24px"-->
+                <!--android:text="关注"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="34px" />-->
+
+        <!--</LinearLayout>-->
 
     </RelativeLayout>
 

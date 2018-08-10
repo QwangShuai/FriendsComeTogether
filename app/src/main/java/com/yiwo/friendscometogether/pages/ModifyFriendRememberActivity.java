@@ -294,6 +294,7 @@ public class ModifyFriendRememberActivity extends BaseActivity {
                                 tvLabel.setText(model.getObj().getFmlableName());
                                 if(!TextUtils.isEmpty(model.getObj().getAccesspassword())){
                                     tvPassword.setText("已添加密码("+model.getObj().getAccesspassword()+")");
+                                    password = model.getObj().getAccesspassword();
                                 }
                                 if(model.getObj().getInsertatext().equals("0")){
                                     tvIsIntercalation.setText("是");

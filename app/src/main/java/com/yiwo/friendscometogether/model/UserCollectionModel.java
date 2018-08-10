@@ -11,7 +11,7 @@ public class UserCollectionModel {
     /**
      * code : 200
      * message : 获取成功!
-     * obj : [{"fID":"1","ftitle":"泰山七日游","fpic":"uploads/activity/20180719/20180719/11e73ef1b5e4809649c225afe7eb2501.jpg","ftime":"123"},{"fID":"2","ftitle":"洱海10天游","fpic":"uploads/xingcheng/20180723/20180723/6c2644a18caacdf5e463a600c11a6916.jpg","ftime":"123123"}]
+     * obj : [{"fID":"60","ftype":"2","ftableid":"93","ftitle":"五大连池火山","fpic":"http://47.92.136.19/uploads/article/20180810/20180810/7060e0722623c2dab803f9f2f2499d92.png","ftime":"2018-08-10 15:18:46"}]
      */
 
     private int code;
@@ -44,13 +44,17 @@ public class UserCollectionModel {
 
     public static class ObjBean {
         /**
-         * fID : 1
-         * ftitle : 泰山七日游
-         * fpic : uploads/activity/20180719/20180719/11e73ef1b5e4809649c225afe7eb2501.jpg
-         * ftime : 123
+         * fID : 60
+         * ftype : 2
+         * ftableid : 93
+         * ftitle : 五大连池火山
+         * fpic : http://47.92.136.19/uploads/article/20180810/20180810/7060e0722623c2dab803f9f2f2499d92.png
+         * ftime : 2018-08-10 15:18:46
          */
 
         private String fID;
+        private String ftype;
+        private String ftableid;
         private String ftitle;
         private String fpic;
         private String ftime;
@@ -61,6 +65,22 @@ public class UserCollectionModel {
 
         public void setFID(String fID) {
             this.fID = fID;
+        }
+
+        public String getFtype() {
+            return ftype;
+        }
+
+        public void setFtype(String ftype) {
+            this.ftype = ftype;
+        }
+
+        public String getFtableid() {
+            return ftableid;
+        }
+
+        public void setFtableid(String ftableid) {
+            this.ftableid = ftableid;
         }
 
         public String getFtitle() {

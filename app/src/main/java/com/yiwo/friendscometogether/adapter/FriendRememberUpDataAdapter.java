@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.custom.LookPasswordDialog;
 import com.yiwo.friendscometogether.model.FriendsRememberModel;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 
@@ -60,18 +62,34 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
         holder.tvCreateTime.setText(data.get(position).getFmtime());
         holder.tvLookNum.setText(data.get(position).getFmlook());
         if(data.get(position).getFmlook().equals("0")){
-            Picasso.with(context).load(R.mipmap.focus_on_empty_y).into(holder.ivIsFocus);
+//            Picasso.with(context).load(R.mipmap.focus_on_empty_y).into(holder.ivIsFocus);
+            holder.btnIsFocus.setText("+关注");
         }else {
-            Picasso.with(context).load(R.mipmap.focus_on_y).into(holder.ivIsFocus);
+//            Picasso.with(context).load(R.mipmap.focus_on_y).into(holder.ivIsFocus);
+            holder.btnIsFocus.setText("已关注");
         }
         holder.tvCommentNum.setText(data.get(position).getFmcomment());
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(context, DetailsOfFriendsActivity.class);
-                intent.putExtra("fmid", data.get(position).getFmID());
-                context.startActivity(intent);
+                final Intent intent = new Intent();
+                if(TextUtils.isEmpty(data.get(position).getAccesspassword())){
+                    intent.setClass(context, DetailsOfFriendsActivity.class);
+                    intent.putExtra("fmid", data.get(position).getFmID());
+                    context.startActivity(intent);
+                }else {
+                    LookPasswordDialog lookPasswordDialog = new LookPasswordDialog(context, new LookPasswordDialog.SetPasswordListener() {
+                        @Override
+                        public void setActivityText(String s) {
+                            if(s.equals(data.get(position).getAccesspassword())){
+                                intent.setClass(context, DetailsOfFriendsActivity.class);
+                                intent.putExtra("fmid", data.get(position).getFmID());
+                                context.startActivity(intent);
+                            }
+                        }
+                    });
+                    lookPasswordDialog.show();
+                }
             }
         });
     }
@@ -93,7 +111,8 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
         private TextView tvLookNum;
         private TextView tvCommentNum;
         private LinearLayout ll;
-        private ImageView ivIsFocus;
+//        private ImageView ivIsFocus;
+        private Button btnIsFocus;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -107,7 +126,8 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
             tvLookNum = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_look_num);
             tvCommentNum = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_comment_num);
             ll = itemView.findViewById(R.id.fragment_friend_remember_rv_ll);
-            ivIsFocus = itemView.findViewById(R.id.fragment_friend_remember_rv_iv_is_focus);
+//            ivIsFocus = itemView.findViewById(R.id.fragment_friend_remember_rv_iv_is_focus);
+            btnIsFocus = itemView.findViewById(R.id.activity_details_of_friends_btn_focus);
         }
     }
 

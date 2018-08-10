@@ -273,9 +273,9 @@ public class ModifyIntercalationActivity extends BaseActivity {
                 }
                 Log.e("222", describe);
 
-                ViseHttp.UPLOAD(NetConfig.userRenewTheArticle)
+                ViseHttp.UPLOAD(NetConfig.saveModifyIntercalationUrl)
                         .addHeader("Content-Type", "multipart/form-data")
-                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.saveModifyIntercalationUrl))
                         .addParam("title", etTitle.getText().toString())
                         .addParam("content", etContent.getText().toString())
                         .addParam("id", id)
