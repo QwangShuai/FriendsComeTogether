@@ -23,8 +23,12 @@
 
     </RelativeLayout>
 
-    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+    <!--<fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard-->
+        <!--android:id="@+id/videoplayer"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="500px"/>-->
+    <VideoView
         android:id="@+id/videoplayer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="500px" />
 </LinearLayout>
