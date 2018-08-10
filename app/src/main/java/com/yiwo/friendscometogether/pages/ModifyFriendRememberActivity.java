@@ -32,6 +32,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.model.JsonBean;
+import com.yiwo.friendscometogether.model.ModifyFriendRememberModel;
 import com.yiwo.friendscometogether.model.UserActiveListModel;
 import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -110,6 +111,8 @@ public class ModifyFriendRememberActivity extends BaseActivity {
     RelativeLayout rlIsIntercalation;
     @BindView(R.id.activity_create_friend_remember_tv_is_intercalation)
     TextView tvIsIntercalation;
+    @BindView(R.id.activity_create_friend_remember_tv_encryption)
+    TextView tvPassword;
 
     private String fmId = "";
 
@@ -252,7 +255,49 @@ public class ModifyFriendRememberActivity extends BaseActivity {
                     }
                 });
 
+        ViseHttp.POST(NetConfig.modifyFriendRememberUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.modifyFriendRememberUrl))
+                .addParam("id", fmId)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.e("222", data);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                ModifyFriendRememberModel model = gson.fromJson(data, ModifyFriendRememberModel.class);
+                                etTitle.setText(model.getObj().getFmtitle());
+                                etContent.setText(model.getObj().getFmcontent());
+                                if(!TextUtils.isEmpty(model.getObj().getFmpartyName())){
+                                    yourChoiceActiveId = model.getObj().getFmpartyID();
+                                    tvActiveTitle.setText(model.getObj().getFmpartyName());
+                                }
+                                tvTimeStart.setText(model.getObj().getFmgotime());
+                                tvTimeEnd.setText(model.getObj().getFmendtime());
+                                tvCity.setText(model.getObj().getFmaddress());
+                                etPrice.setText(model.getObj().getPercapitacost());
+                                yourChoiceId = model.getObj().getFmlable();
+                                tvLabel.setText(model.getObj().getFmlableName());
+                                if(!TextUtils.isEmpty(model.getObj().getAccesspassword())){
+                                    tvPassword.setText("已添加密码("+model.getObj().getAccesspassword()+")");
+                                }
+                                if(model.getObj().getInsertatext().equals("0")){
+                                    tvIsIntercalation.setText("是");
+                                }else {
+                                    tvIsIntercalation.setText("否");
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
         etTitle.addTextChangedListener(textTitleWatcher);
         etContent.addTextChangedListener(textContentWatcher);
@@ -380,6 +425,7 @@ public class ModifyFriendRememberActivity extends BaseActivity {
                     @Override
                     public void setActivityText(String s) {
                         password = s;
+                        tvPassword.setText("已添加密码("+s+")");
                     }
                 });
                 setPasswordDialog.show();

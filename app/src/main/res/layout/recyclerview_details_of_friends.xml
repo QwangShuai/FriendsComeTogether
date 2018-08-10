@@ -8,7 +8,8 @@
         android:id="@+id/activity_details_of_friends_rv_iv_title"
         android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="372px" />
+        android:adjustViewBounds="true"
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:layout_marginTop="20px"

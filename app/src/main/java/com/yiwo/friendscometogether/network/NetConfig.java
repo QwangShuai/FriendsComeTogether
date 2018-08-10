@@ -162,4 +162,7 @@ public class NetConfig {
     public static String activeEvaluationListUrl = "action/ac_activity/activity_comment_list";
     //友记修改基础信息
     public static String modifyFriendRememberUrl = "action/ac_article/AmendFriends";
+    //保存友记或草稿的修改信息
+    public static String saveFriendRememberUrl = "action/ac_article/SaveFriendsText";
+
 }

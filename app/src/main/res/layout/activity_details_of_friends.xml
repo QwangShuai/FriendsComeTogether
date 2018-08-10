@@ -39,7 +39,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:id="@+id/activity_details_of_friends_iv_title"
                 android:layout_width="match_parent"
                 android:layout_height="372px" />

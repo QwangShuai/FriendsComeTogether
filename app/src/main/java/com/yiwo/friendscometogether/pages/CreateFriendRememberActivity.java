@@ -128,6 +128,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
     RelativeLayout rlIsIntercalation;
     @BindView(R.id.activity_create_friend_remember_tv_is_intercalation)
     TextView tvIsIntercalation;
+    @BindView(R.id.activity_create_friend_remember_tv_encryption)
+    TextView tvPassword;
 
     private int mYear;
     private int mMonth;
@@ -376,6 +378,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                     @Override
                     public void setActivityText(String s) {
                         password = s;
+                        tvPassword.setText("已添加密码("+s+")");
                     }
                 });
                 setPasswordDialog.show();
