@@ -210,9 +210,11 @@
         <activity android:name=".pages.MyFriendActivity" />
         <activity android:name=".pages.EditorMainFriendTogetherActivity" />
         <activity android:name=".pages.SearchListActivity" />
-        <activity android:name=".pages.VideoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".pages.ModifyFriendRememberActivity"></activity>
+        <activity
+            android:name=".pages.VideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name=".pages.ModifyFriendRememberActivity" />
+        <activity android:name=".pages.ModifyIntercalationActivity"></activity>
     </application>
 
 </manifest>

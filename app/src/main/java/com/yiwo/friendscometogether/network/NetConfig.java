@@ -164,5 +164,6 @@ public class NetConfig {
     public static String modifyFriendRememberUrl = "action/ac_article/AmendFriends";
     //保存友记或草稿的修改信息
     public static String saveFriendRememberUrl = "action/ac_article/SaveFriendsText";
-
+    //获取续写信息（修改）
+    public static String modifyIntercalationUrl = "action/ac_article/RenewInfo";
 }

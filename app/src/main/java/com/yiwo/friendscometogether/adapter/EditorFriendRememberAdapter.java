@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -38,6 +39,12 @@ public class EditorFriendRememberAdapter extends RecyclerView.Adapter<EditorFrie
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvTitle.setText(data.get(position).getFftitle());
+        holder.rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -48,10 +55,12 @@ public class EditorFriendRememberAdapter extends RecyclerView.Adapter<EditorFrie
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvTitle;
+        private RelativeLayout rl;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.activity_editor_friend_remember_rv_tv);
+            rl = itemView.findViewById(R.id.activity_editor_friend_remember_rv_rl);
         }
     }
 

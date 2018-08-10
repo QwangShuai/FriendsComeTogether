@@ -1,13 +1,12 @@
 package com.yiwo.friendscometogether.pages;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
@@ -24,7 +23,6 @@ import com.yiwo.friendscometogether.utils.TokenUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -76,7 +74,7 @@ public class MyFriendRememberActivity extends BaseActivity {
                                 Gson gson = new Gson();
                                 UserRememberModel userRememberModel = gson.fromJson(data, UserRememberModel.class);
                                 mList = userRememberModel.getObj();
-                                adapter = new MyFriendRememberAdapter(userRememberModel.getObj());
+                                adapter = new MyFriendRememberAdapter(userRememberModel.getObj(), MyFriendRememberActivity.this);
                                 recyclerView.setAdapter(adapter);
                                 adapter.setOnDeleteListener(new MyFriendRememberAdapter.OnDeleteListener() {
                                     @Override

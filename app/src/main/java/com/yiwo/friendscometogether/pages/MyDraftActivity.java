@@ -121,6 +121,7 @@ public class MyDraftActivity extends BaseActivity {
                         intent.setClass(MyDraftActivity.this, ModifyFriendRememberActivity.class);
                         intent.putExtra("id", mList.get(adapterPosition).getFmID());
                         startActivity(intent);
+                        onBackPressed();
                         break;
                     case 1:
                         ViseHttp.POST(NetConfig.releaseDraftUrl)
