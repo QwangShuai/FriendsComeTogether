@@ -44,11 +44,11 @@
 
             <TextView
                 android:id="@+id/dialog_people_price_tv_left"
-                android:background="@drawable/bg_dialog_price_un_select"
-                android:textColor="@color/black_333333"
+                android:background="@drawable/bg_dialog_price_select"
+                android:textColor="@color/red_F71F1F"
                 android:textSize="24px"
                 android:gravity="center"
-                android:text="参考展示"
+                android:text="现场收取"
                 android:layout_width="160px"
                 android:layout_height="56px" />
 
@@ -59,7 +59,7 @@
                 android:textColor="@color/black_333333"
                 android:textSize="24px"
                 android:gravity="center"
-                android:text="我请客"
+                android:text="免费参加"
                 android:layout_width="160px"
                 android:layout_height="56px" />
             <TextView
@@ -69,7 +69,7 @@
                 android:textColor="@color/black_333333"
                 android:textSize="24px"
                 android:gravity="center"
-                android:text="线上交易"
+                android:text="线上收取"
                 android:layout_width="160px"
                 android:layout_height="56px" />
 
@@ -79,7 +79,7 @@
             android:id="@+id/dialog_people_price_tv_content"
             android:layout_marginTop="20px"
             android:textColor="@color/black_333333"
-            android:text="活动费用由领队支付，你可免费参加活动。"
+            android:text="活动费用现场实际收费"
             android:textSize="20px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

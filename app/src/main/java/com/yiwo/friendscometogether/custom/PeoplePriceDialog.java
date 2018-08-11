@@ -125,12 +125,12 @@ public class PeoplePriceDialog extends Dialog {
             case 1:
                 treatTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
                 treatTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
-                contentTv.setText("活动费用由领队支付，你可免费参加活动。");
+                contentTv.setText("由活动创建者承担费用，用户免费报名参加");
                 break;
             case 2:
                 payTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
                 payTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
-                contentTv.setText("活动费用队员可选微信或支付宝支付。");
+                contentTv.setText("在线直接付款，通过平台结算");
                 break;
         }
 

@@ -297,7 +297,11 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
                     @Override
                     public void setActivityText(CreateFriendsTogetherRequestModel model) {
                         map.put("pfspend", model.getPrice());
-                        map.put("pfspendtype", model.getPrice_type());
+                        if(StringUtils.isEmpty(model.getPrice_type())){
+                            map.put("pfspendtype","0");
+                        } else {
+                            map.put("pfspendtype", model.getPrice_type());
+                        }
                         map.put("pfspendexplain", model.getPrice_info());
                         tvPrice.setText(model.getPrice());
                     }

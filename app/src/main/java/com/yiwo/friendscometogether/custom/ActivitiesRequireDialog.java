@@ -116,7 +116,7 @@ public class ActivitiesRequireDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 if(StringUtils.isEmpty(model.getPeoplesex())||StringUtils.isEmpty(model.getMarry())){
-                    Toast.makeText(context,"选项卡必选",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"请完善信息",Toast.LENGTH_SHORT).show();
                 } else if(StringUtils.isEmpty(ageMinEt.getText().toString())||
                         StringUtils.isEmpty(ageMaxEt.getText().toString())){
                     Toast.makeText(context,"年龄不能为空",Toast.LENGTH_SHORT ).show();

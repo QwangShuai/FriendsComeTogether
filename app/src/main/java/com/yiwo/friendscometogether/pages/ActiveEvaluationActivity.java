@@ -67,7 +67,7 @@ public class ActiveEvaluationActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(ActiveEvaluationActivity.this) {
             @Override
             public boolean canScrollVertically() {
-                return false;
+                return true;
             }
         };
         manager.setOrientation(LinearLayoutManager.VERTICAL);

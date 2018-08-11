@@ -70,6 +70,15 @@ public class FriendsTogethermodel {
         private String have_num;
         private String focusOn;
         private String sign;
+        private String captain_focusOn;
+
+        public String getCaptain_focusOn() {
+            return captain_focusOn;
+        }
+
+        public void setCaptain_focusOn(String captain_focusOn) {
+            this.captain_focusOn = captain_focusOn;
+        }
 
         public String getSign() {
             return sign;

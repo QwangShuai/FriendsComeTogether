@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,6 +33,7 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -84,9 +86,11 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
 //        }
 
 //        holder.levelBg.setBackgroundResource(data.get(position).getUsergrade().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
+        holder.levelTv.setText("LV"+data.get(position).getUsergrade());
         holder.personTv.setText("参与人数："+data.get(position).getHave_num() + "/" + data.get(position).getPfpeople());
         holder.focusOnIv.setImageResource(data.get(position).getFocusOn().equals("0") ? R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
-        holder.focusOnll.setOnClickListener(new View.OnClickListener() {
+        holder.focusOnBtn.setText(data.get(position).getCaptain_focusOn().equals("0")?"+ 关注":"已关注");
+        holder.focusOnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViseHttp.POST(NetConfig.focusOnLeaderUrl)
@@ -96,14 +100,24 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
-                                FocusOnLeaderModel model = new Gson().fromJson(data,FocusOnLeaderModel.class);
-                                if(model.getCode()==200){
-                                    if(model.getObj().getAttention().equals("0")){
-                                        holder.focusOnLeaderIv.setImageResource(R.mipmap.focus_on_empty_y);
+                                try {
+                                    JSONObject js = new JSONObject(data);
+                                    if(js.getInt("code")==200){
+                                        FocusOnLeaderModel model = new Gson().fromJson(data,FocusOnLeaderModel.class);
+                                        if(model.getCode()==200){
+                                            if(model.getObj().getAttention().equals("0")){
+                                                holder.focusOnBtn.setText("+ 关注");
+                                            } else {
+                                                holder.focusOnBtn.setText("已关注");
+                                            }
+                                        }
                                     } else {
-                                        holder.focusOnLeaderIv.setImageResource(R.mipmap.focus_on_y);
+                                        Toast.makeText(context,js.getString("message"),Toast.LENGTH_SHORT).show();
                                     }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
+
                             }
 
                             @Override
@@ -113,6 +127,33 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
                         });
             }
         });
+//        holder.focusOnll.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ViseHttp.POST(NetConfig.focusOnLeaderUrl)
+//                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.focusOnLeaderUrl))
+//                        .addParam("userID",spImp.getUID())
+//                        .addParam("attention_userID",data.get(position).getCaptain())
+//                        .request(new ACallback<String>() {
+//                            @Override
+//                            public void onSuccess(String data) {
+//                                FocusOnLeaderModel model = new Gson().fromJson(data,FocusOnLeaderModel.class);
+//                                if(model.getCode()==200){
+//                                    if(model.getObj().getAttention().equals("0")){
+//                                        holder.focusOnLeaderIv.setImageResource(R.mipmap.focus_on_empty_y);
+//                                    } else {
+//                                        holder.focusOnLeaderIv.setImageResource(R.mipmap.focus_on_y);
+//                                    }
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFail(int errCode, String errMsg) {
+//
+//                            }
+//                        });
+//            }
+//        });
         holder.personll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,7 +248,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView picIv;
-        private ImageView focusOnLeaderIv;
+//        private ImageView focusOnLeaderIv;
         private TextView titleTv;
         private TextView contentTv;
         private LinearLayout vessel;
@@ -221,7 +262,8 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         private LinearLayout focus_on_activitiesLl;
         private LinearLayout ll;
         private LinearLayout personll;
-        private LinearLayout focusOnll;
+        private Button focusOnBtn;
+//        private LinearLayout focusOnll;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -239,8 +281,9 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             focus_on_activitiesLl = (itemView).findViewById(R.id.focus_on_activitiesLl);
             ll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll);
             personll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll_person_content);
-            focusOnll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll_top_focus);
-            focusOnLeaderIv = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_iv_focus);
+//            focusOnll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll_top_focus);
+//            focusOnLeaderIv = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_iv_focus);
+            focusOnBtn = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_btn_top_focus);
         }
     }
 }

@@ -287,7 +287,11 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                     @Override
                     public void setActivityText(CreateFriendsTogetherRequestModel model) {
                         map.put("price", model.getPrice());
-                        map.put("price_type", model.getPrice_type());
+                        if(StringUtils.isEmpty(model.getPrice_type())){
+                            map.put("price_type", "0");
+                        } else {
+                            map.put("price_type", model.getPrice_type());
+                        }
                         map.put("price_info", model.getPrice_info());
                         tvPrice.setText(model.getPrice());
                     }

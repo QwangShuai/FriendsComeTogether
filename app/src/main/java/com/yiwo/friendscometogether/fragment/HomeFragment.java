@@ -124,7 +124,14 @@ public class HomeFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_home, null);
+//        if (rootView==null){
+            rootView = inflater.inflate(R.layout.fragment_home, null);
+//        }
+//        ViewGroup parent = (ViewGroup) rootView.getParent();
+//        if(parent!=null){
+//            parent.removeView(rootView);
+//        }
+
         ButterKnife.bind(this, rootView);
         ScreenAdapterTools.getInstance().loadView(rootView);
         getLocation();

@@ -106,7 +106,7 @@
             android:textSize="24px"
             android:textColor="@color/black_333333"
             android:gravity="center"
-            android:text="无"
+            android:text="不限"
             android:layout_width="120px"
             android:layout_height="match_parent" />
 
@@ -153,7 +153,7 @@
     <TextView
         android:textColor="@color/black_333333"
         android:gravity="center"
-        android:text="是否单身："
+        android:text="单身："
         android:textSize="28px"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
@@ -175,7 +175,7 @@
             android:textSize="24px"
             android:textColor="@color/black_333333"
             android:gravity="center"
-            android:text="否"
+            android:text="不限"
             android:layout_width="160px"
             android:layout_height="match_parent" />
     </LinearLayout>
@@ -189,7 +189,7 @@
         <TextView
             android:textColor="@color/black_333333"
             android:gravity="center"
-            android:text="其他要求："
+            android:text="其他："
             android:textSize="28px"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
