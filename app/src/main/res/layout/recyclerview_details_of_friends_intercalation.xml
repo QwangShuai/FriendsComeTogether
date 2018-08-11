@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:textStyle="bold"
         android:layout_marginRight="40px"
         android:layout_marginLeft="40px"
         android:layout_marginTop="20px"

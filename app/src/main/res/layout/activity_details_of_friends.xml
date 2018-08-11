@@ -425,17 +425,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_marginLeft="40px"
-                    android:layout_marginTop="30px"
-                    android:textColor="#333333"
-                    android:textStyle="bold"
-                    android:textSize="32px"
-                    android:text="行程介绍"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
                 <RelativeLayout
+                    android:layout_marginTop="10px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:descendantFocusability="blocksDescendants">

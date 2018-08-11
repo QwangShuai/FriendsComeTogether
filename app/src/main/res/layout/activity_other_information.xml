@@ -104,6 +104,7 @@
                         android:layout_height="60px">
 
                         <TextView
+                            android:id="@+id/activity_other_information_tv_user_level"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_marginRight="10px"
@@ -168,6 +169,7 @@
                 android:layout_height="2px"/>
 
             <TextView
+                android:id="@+id/activity_other_information_tv_sign"
                 android:layout_marginLeft="40px"
                 android:layout_marginTop="40px"
                 android:textColor="@color/white_ffffff"
@@ -184,6 +186,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/activity_other_information_tv_age"
                     android:gravity="center"
                     android:background="@drawable/bg_other_information"
                     android:textSize="28px"
@@ -193,6 +196,7 @@
                     android:layout_height="60px" />
 
                 <TextView
+                    android:id="@+id/activity_other_information_tv_city"
                     android:layout_marginLeft="20px"
                     android:gravity="center"
                     android:background="@drawable/bg_other_information"
@@ -203,6 +207,7 @@
                     android:layout_height="60px" />
 
                 <TextView
+                    android:id="@+id/activity_other_information_tv_constellation"
                     android:layout_marginLeft="20px"
                     android:gravity="center"
                     android:background="@drawable/bg_other_information"
@@ -221,6 +226,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/activity_other_information_tv_focus_num"
                     android:layout_marginLeft="50px"
                     android:textColor="@color/white_ffffff"
                     android:textSize="30px"
@@ -236,6 +242,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/activity_other_information_tv_fans_num"
                     android:layout_marginLeft="30px"
                     android:textColor="@color/white_ffffff"
                     android:textSize="30px"
@@ -251,6 +258,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/activity_other_information_tv_praise_num"
                     android:layout_marginLeft="30px"
                     android:text="182792"
                     android:textColor="@color/white_ffffff"
@@ -274,6 +282,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/activity_other_information_tv_works"
                     android:gravity="center"
                     android:textColor="@color/white_ffffff"
                     android:textSize="36px"
@@ -284,6 +293,7 @@
                     android:layout_height="88px" />
 
                 <TextView
+                    android:id="@+id/activity_other_information_tv_active"
                     android:background="#000000"
                     android:gravity="center"
                     android:textColor="@color/white_ffffff"
