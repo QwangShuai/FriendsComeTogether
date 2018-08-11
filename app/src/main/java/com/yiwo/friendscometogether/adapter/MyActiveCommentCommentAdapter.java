@@ -22,7 +22,11 @@ public class MyActiveCommentCommentAdapter extends RecyclerView.Adapter<MyActive
 
     private Context context;
     private List<ActiveCommentModel.ObjBean.ListBean> data;
+    private MyActiveCommentCommentAdapter.OnReplyCommentListener listener;
 
+    public void setOnReplyCommentListener(MyActiveCommentCommentAdapter.OnReplyCommentListener listener){
+        this.listener = listener;
+    }
     public MyActiveCommentCommentAdapter(List<ActiveCommentModel.ObjBean.ListBean> data) {
         this.data = data;
     }
@@ -39,6 +43,12 @@ public class MyActiveCommentCommentAdapter extends RecyclerView.Adapter<MyActive
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tv.setText(data.get(position).getUsername()+"："+data.get(position).getContent());
+        holder.tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onReplyComment(data.get(position).getUserID());
+            }
+        });
     }
 
     @Override
@@ -54,6 +64,9 @@ public class MyActiveCommentCommentAdapter extends RecyclerView.Adapter<MyActive
             super(itemView);
             tv = itemView.findViewById(R.id.activity_article_comment_rv_rv_tv);
         }
+    }
+    public interface OnReplyCommentListener{
+        void onReplyComment(String ID);
     }
 
 }
