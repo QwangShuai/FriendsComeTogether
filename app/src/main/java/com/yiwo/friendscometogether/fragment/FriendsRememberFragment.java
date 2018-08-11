@@ -13,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.squareup.okhttp.Request;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -59,6 +64,8 @@ public class FriendsRememberFragment extends BaseFragment {
     RecyclerView recyclerView;
     @BindView(R.id.searchLl)
     LinearLayout llSearch;
+    @BindView(R.id.fragment_friend_remember_refreshLayout)
+    RefreshLayout refreshLayout;
 
     private FriendRememberUpDataAdapter adapter;
 
@@ -77,6 +84,21 @@ public class FriendsRememberFragment extends BaseFragment {
     }
 
     private void initData() {
+
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(1000);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(1000);//传入false表示加载失败
+            }
+        });
 
         ViseHttp.POST(NetConfig.friendsRememberUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.friendsRememberUrl))

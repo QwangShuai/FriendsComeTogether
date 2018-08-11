@@ -97,4 +97,6 @@ dependencies {
     compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
     compile 'cn.jiguang.sdk:jpush:3.1.1'
     compile 'cn.jiguang.sdk:jcore:1.1.9'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-6'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-6'
 }

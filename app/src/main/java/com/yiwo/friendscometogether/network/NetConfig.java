@@ -168,4 +168,6 @@ public class NetConfig {
     public static String modifyIntercalationUrl = "action/ac_article/RenewInfo";
     //保存续写修改信息
     public static String saveModifyIntercalationUrl = "action/ac_article/SaveRenewInfo";
+    //黑色个人中心
+    public static String otherUserInformationUrl = "action/ac_user/PersonalcenterOthers";
 }

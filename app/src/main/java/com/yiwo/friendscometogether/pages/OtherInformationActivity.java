@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.pages;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,6 +52,10 @@ public class OtherInformationActivity extends BaseActivity {
     TextView tvWorks;
     @BindView(R.id.activity_other_information_tv_active)
     TextView tvActive;
+    @BindView(R.id.activity_other_information_rv_works)
+    RecyclerView rvWorks;
+    @BindView(R.id.activity_other_information_rv_active)
+    RecyclerView rvActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +85,14 @@ public class OtherInformationActivity extends BaseActivity {
             case R.id.activity_other_information_tv_works:
                 tvWorks.setBackgroundColor(Color.parseColor("#FF9D00"));
                 tvActive.setBackgroundColor(Color.parseColor("#000000"));
+                rvWorks.setVisibility(View.VISIBLE);
+                rvActive.setVisibility(View.GONE);
                 break;
             case R.id.activity_other_information_tv_active:
                 tvWorks.setBackgroundColor(Color.parseColor("#000000"));
                 tvActive.setBackgroundColor(Color.parseColor("#FF9D00"));
+                rvWorks.setVisibility(View.GONE);
+                rvActive.setVisibility(View.VISIBLE);
                 break;
             case R.id.activity_other_information_ll_mypics:
                 intent.setClass(OtherInformationActivity.this, MyPicturesActivity.class);
