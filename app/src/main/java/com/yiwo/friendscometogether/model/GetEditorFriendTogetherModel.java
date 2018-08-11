@@ -248,7 +248,7 @@ public class GetEditorFriendTogetherModel{
             this.title_list = title_list;
         }
 
-        public static class TitleListBean {
+        public static class TitleListBean implements Serializable {
             /**
              * id : 1
              * pfptitle : 第一天：爬山
