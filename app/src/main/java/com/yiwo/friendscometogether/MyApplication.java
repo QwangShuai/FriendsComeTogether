@@ -31,6 +31,8 @@ import com.yiwo.friendscometogether.network.UMConfig;
 import com.yiwo.friendscometogether.utils.FTPTimeCount;
 import com.yiwo.friendscometogether.utils.TimeCount;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class MyApplication extends Application {
     public static String versionCode = "V1.0.1";
@@ -50,6 +52,8 @@ public class MyApplication extends Application {
         ScreenAdapterTools.init(this);
         // 4.6.0 开始，第三方推送配置入口改为 SDKOption#mixPushConfig，旧版配置方式依旧支持
         NIMClient.init(this, loginInfo(), options());
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         UMShareAPI.get(this);
         UMConfigure.setLogEnabled(true);
         UMConfigure.init(this,"5b5579fbb27b0a608200000d"

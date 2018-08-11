@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -63,68 +64,10 @@ public class EditorFriendTogetherActivity extends BaseActivity {
     SwipeMenuRecyclerView recyclerView;
     @BindView(R.id.activity_editor_friend_together_tv_add)
     TextView tvAdd;
-
+    GetEditorFriendTogetherModel.ObjBean bean = new GetEditorFriendTogetherModel.ObjBean();
     private EditorFriendTogetherAdapter adapter;
     private List<GetEditorFriendTogetherModel.ObjBean.TitleListBean> mList;
-
     private String id = "";
-    GetEditorFriendTogetherModel.ObjBean bean = new GetEditorFriendTogetherModel.ObjBean();
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor_friend_together);
-        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
-
-        ButterKnife.bind(this);
-
-        initData();
-
-    }
-
-    private void initData() {
-        Intent intent = getIntent();
-        id = intent.getStringExtra("pfID");
-        ViseHttp.POST(NetConfig.getEditorFriendTogetherUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getEditorFriendTogetherUrl))
-                .addParam("activity_id", id)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if (jsonObject.getInt("code") == 200) {
-                                Gson gson = new Gson();
-                                GetEditorFriendTogetherModel model = gson.fromJson(data, GetEditorFriendTogetherModel.class);
-                                bean = model.getObj();
-                                tvTitle.setText(model.getObj().getPftitle());
-                                Picasso.with(EditorFriendTogetherActivity.this).load(model.getObj().getPfpic()).into(ivTitle);
-                                tvStart.setText("开始时间: " + model.getObj().getPfgotime());
-                                tvEnd.setText("结束时间: " + model.getObj().getPfendtime());
-                                tvPrice.setText("人均费用: " + model.getObj().getPfspend());
-//                                tvBrowseNum.setText("浏览: " + model.getObj().get);
-//                                tvFocusNum.setText("关注: " + model.getObj().getFriendsList().getFmfavorite());
-                                LinearLayoutManager manager = new LinearLayoutManager(EditorFriendTogetherActivity.this);
-                                manager.setOrientation(LinearLayoutManager.VERTICAL);
-                                recyclerView.setLayoutManager(manager);
-                                mList = model.getObj().getTitle_list();
-                                adapter = new EditorFriendTogetherAdapter(model.getObj().getTitle_list());
-                                recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
-                                recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
-                                recyclerView.setAdapter(adapter);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
-
-                    }
-                });
-
-    }
-
     /**
      * RecyclerView的Item的Menu点击监听。
      */
@@ -167,7 +110,6 @@ public class EditorFriendTogetherActivity extends BaseActivity {
             }
         }
     };
-
     private SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
         @Override
         public void onCreateMenu(SwipeMenu leftMenu, SwipeMenu rightMenu, int viewType) {
@@ -185,6 +127,59 @@ public class EditorFriendTogetherActivity extends BaseActivity {
             rightMenu.addMenuItem(editItem);// 添加菜单到右侧。
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_editor_friend_together);
+        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
+
+        ButterKnife.bind(this);
+
+        initData();
+
+    }
+
+    private void initData() {
+        Intent intent = getIntent();
+        id = intent.getStringExtra("pfID");
+        ViseHttp.POST(NetConfig.getEditorFriendTogetherUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getEditorFriendTogetherUrl))
+                .addParam("activity_id", id)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                                GetEditorFriendTogetherModel model = new Gson().fromJson(data, GetEditorFriendTogetherModel.class);
+                                Log.e("1233321",model.getObj().toString());
+                                if(model.getCode()==200){
+                                    bean = model.getObj();
+                                    tvTitle.setText(model.getObj().getPftitle());
+                                    Picasso.with(EditorFriendTogetherActivity.this).load(model.getObj().getPfpic()).into(ivTitle);
+                                    tvStart.setText("开始时间: " + model.getObj().getPfgotime());
+                                    tvEnd.setText("结束时间: " + model.getObj().getPfendtime());
+                                    tvPrice.setText("人均费用: " + model.getObj().getPfspend());
+//                                tvBrowseNum.setText("浏览: " + model.getObj().get);
+//                                tvFocusNum.setText("关注: " + model.getObj().getFriendsList().getFmfavorite());
+                                    LinearLayoutManager manager = new LinearLayoutManager(EditorFriendTogetherActivity.this);
+                                    manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                    recyclerView.setLayoutManager(manager);
+                                    mList = model.getObj().getTitle_list();
+                                    adapter = new EditorFriendTogetherAdapter(model.getObj().getTitle_list());
+                                    recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
+                                    recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+                                    recyclerView.setAdapter(adapter);
+                                }
+                            }
+
+
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
+    }
 
     @OnClick({R.id.activity_editor_friend_together_rl_back, R.id.activity_editor_friend_together_tv_add,
             R.id.activity_editor_friend_together_rl})
