@@ -109,6 +109,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
     private DetailsOfFriendsIntercalationAdapter adapter;
     private DetailsOfFriendsIntercalation1Adapter adapter1;
+    private DetailsRememberModel model;
 
     private boolean isFocus = false;
     private boolean isPraise = false;
@@ -151,7 +152,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
-                                DetailsRememberModel model = gson.fromJson(data, DetailsRememberModel.class);
+                                model = gson.fromJson(data, DetailsRememberModel.class);
                                 fmID = model.getObj().getContent().getFmID();
                                 articleUid = model.getObj().getContent().getUid();
                                 Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getContent().getFmpic()).into(ivTitle);
@@ -390,6 +391,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 break;
             case R.id.activity_details_of_friends_ll_person_content:
                 intent.setClass(DetailsOfFriendsActivity.this, OtherInformationActivity.class);
+                intent.putExtra("uid", model.getObj().getContent().getUid());
                 startActivity(intent);
                 break;
 //            case R.id.activity_details_of_friends_ll_top_focus:
@@ -421,31 +423,36 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 //                }
 //                break;
             case R.id.activity_details_of_friends_btn_focus:
-                if(!isFocus){
-                    ViseHttp.POST(NetConfig.userFocusUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
-                            .addParam("uid", uid)
-                            .addParam("likeId", articleUid)
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.getInt("code") == 200){
-                                            toToast(DetailsOfFriendsActivity.this, "关注成功");
-                                            btnTopFocus.setText("已关注");
-                                            isFocus = true;
+                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                    intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    if(!isFocus){
+                        ViseHttp.POST(NetConfig.userFocusUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+                                .addParam("uid", uid)
+                                .addParam("likeId", articleUid)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.getInt("code") == 200){
+                                                toToast(DetailsOfFriendsActivity.this, "关注成功");
+                                                btnTopFocus.setText("已关注");
+                                                isFocus = true;
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
                                     }
-                                }
 
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
 
-                                }
-                            });
+                                    }
+                                });
+                    }
                 }
                 break;
         }

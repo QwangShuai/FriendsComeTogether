@@ -300,7 +300,7 @@ public class ModifyIntercalationActivity extends BaseActivity {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-
+                                WeiboDialogUtils.closeDialog(dialog);
                             }
                         });
             }
