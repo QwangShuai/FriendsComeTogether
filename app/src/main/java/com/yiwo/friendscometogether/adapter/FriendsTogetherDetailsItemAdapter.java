@@ -41,9 +41,7 @@ public class FriendsTogetherDetailsItemAdapter extends RecyclerView.Adapter<Frie
         if(!StringUtils.isEmpty(data.get(position).getPic())){
             Picasso.with(context).load(data.get(position).getPic()).into(holder.item_picIv);
         }
-        if(!StringUtils.isEmpty(data.get(position).getText_info())){
-            holder.item_titleTv.setText(data.get(position).getText_info());
-        }
+        holder.item_titleTv.setText(data.get(position).getText_info());
     }
 
     @Override

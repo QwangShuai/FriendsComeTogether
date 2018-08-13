@@ -73,7 +73,7 @@ public class FriendsRememberModel {
         private String username;
         private String upicurl;
         private String usergrade;
-        private int look;
+        private String look;
 
         public String getFmID() {
             return fmID;
@@ -179,11 +179,11 @@ public class FriendsRememberModel {
             this.usergrade = usergrade;
         }
 
-        public int getLook() {
+        public String getLook() {
             return look;
         }
 
-        public void setLook(int look) {
+        public void setLook(String look) {
             this.look = look;
         }
     }

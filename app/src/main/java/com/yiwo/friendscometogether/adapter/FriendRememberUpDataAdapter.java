@@ -51,7 +51,6 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
             Picasso.with(context).load(data.get(position).getFmpic()).into(holder.ivTitle);
         }
         holder.tvTitle.setText(data.get(position).getFmtitle());
-        holder.tvContent.setText(data.get(position).getFmcontent());
         if(TextUtils.isEmpty(data.get(position).getUpicurl())){
             Picasso.with(context).load(R.mipmap.my_head).into(holder.ivAvatar);
         }else {
@@ -61,7 +60,7 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
         holder.tvUsergrade.setText("LV" + data.get(position).getUsergrade());
         holder.tvCreateTime.setText(data.get(position).getFmtime());
         holder.tvLookNum.setText(data.get(position).getFmlook());
-        if(data.get(position).getFmlook().equals("0")){
+        if(data.get(position).getLook().equals("0")){
 //            Picasso.with(context).load(R.mipmap.focus_on_empty_y).into(holder.ivIsFocus);
             holder.btnIsFocus.setText("+关注");
         }else {
@@ -103,7 +102,6 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
 
         private ImageView ivTitle;
         private TextView tvTitle;
-        private TextView tvContent;
         private ImageView ivAvatar;
         private TextView tvNickname;
         private TextView tvUsergrade;
@@ -118,7 +116,6 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
             super(itemView);
             ivTitle = itemView.findViewById(R.id.fragment_friend_remember_rv_iv_title);
             tvTitle = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_title);
-            tvContent = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_content);
             ivAvatar = itemView.findViewById(R.id.fragment_friend_remember_rv_iv_avatar);
             tvNickname = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_nickname);
             tvUsergrade = itemView.findViewById(R.id.fragment_friend_remember_rv_tv_usergrade);

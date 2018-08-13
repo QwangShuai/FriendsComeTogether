@@ -170,4 +170,6 @@ public class NetConfig {
     public static String saveModifyIntercalationUrl = "action/ac_article/SaveRenewInfo";
     //黑色个人中心
     public static String otherUserInformationUrl = "action/ac_user/PersonalcenterOthers";
+    //活动发布评价
+    public static String orderCommentUrl = "action/ac_activity/activityReviews";
 }

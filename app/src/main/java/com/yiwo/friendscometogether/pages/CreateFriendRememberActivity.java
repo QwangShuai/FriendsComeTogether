@@ -365,7 +365,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
 
                 break;
             case R.id.activity_create_friend_remember_rl_complete:
-                if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())||TextUtils.isEmpty(images)||TextUtils.isEmpty(tvLabel.getText().toString())){
+                if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(images)||TextUtils.isEmpty(tvLabel.getText().toString())){
                     toToast(CreateFriendRememberActivity.this, "请完善信息");
                 }else {
                     showCompletePopupwindow();

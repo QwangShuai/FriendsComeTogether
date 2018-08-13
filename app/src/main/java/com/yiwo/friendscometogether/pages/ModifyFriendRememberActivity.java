@@ -430,7 +430,7 @@ public class ModifyFriendRememberActivity extends BaseActivity {
 
                 break;
             case R.id.activity_create_friend_remember_rl_complete:
-                if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())||TextUtils.isEmpty(tvLabel.getText().toString())){
+                if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(tvLabel.getText().toString())){
                     toToast(ModifyFriendRememberActivity.this, "请完善信息");
                 }else {
                     onSave();
