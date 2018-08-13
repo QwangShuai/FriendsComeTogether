@@ -271,7 +271,7 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                         .addParam("content", etContent.getText().toString())
                         .addParam("id", id)
                         .addParam("uid", uid)
-                        .addParams( describe)
+                        .addParams(describe)
                         .addFiles(value)
                         .request(new ACallback<String>() {
                             @Override

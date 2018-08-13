@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -18,6 +23,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FragmentToPayAdapter;
 import com.yiwo.friendscometogether.base.OrderBaseFragment;
+import com.yiwo.friendscometogether.model.AllOrderFragmentModel;
 import com.yiwo.friendscometogether.model.OrderToPayModel;
 import com.yiwo.friendscometogether.model.PayFragmentModel;
 import com.yiwo.friendscometogether.model.Paymodel;
@@ -42,6 +48,8 @@ public class ToPayFragment extends OrderBaseFragment {
 
     @BindView(R.id.fragment_to_pay_rv)
     RecyclerView recyclerView;
+    @BindView(R.id.fragment_to_pay_refreshLayout)
+    RefreshLayout refreshLayout;
 
     private FragmentToPayAdapter adapter;
     private List<PayFragmentModel.ObjBean> mList;
@@ -50,6 +58,8 @@ public class ToPayFragment extends OrderBaseFragment {
     private String uid = "";
 
     private IWXAPI api;
+
+    private int page = 1;
 
     @Override
     public View initView() {
@@ -69,6 +79,78 @@ public class ToPayFragment extends OrderBaseFragment {
     }
 
     private void initData1() {
+
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.myOrderListUrl)
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.myOrderListUrl))
+                        .addParam("page", "1")
+                        .addParam("userID", uid)
+                        .addParam("type", "1")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        Gson gson = new Gson();
+                                        final PayFragmentModel model = gson.fromJson(data, PayFragmentModel.class);
+                                        mList.clear();
+                                        mList.addAll(model.getObj());
+                                        adapter.notifyDataSetChanged();
+                                        page = 2;
+                                        refreshlayout.finishRefresh();
+                                    }
+                                    refreshlayout.finishRefresh();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishRefresh();
+                            }
+                        });
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.myOrderListUrl)
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.myOrderListUrl))
+                        .addParam("page", page+"")
+                        .addParam("userID", uid)
+                        .addParam("type", "1")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        Gson gson = new Gson();
+                                        final PayFragmentModel model = gson.fromJson(data, PayFragmentModel.class);
+                                        mList.addAll(model.getObj());
+                                        adapter.notifyDataSetChanged();
+                                        page = page+1;
+                                        refreshlayout.finishLoadMore();
+                                    }
+                                    refreshlayout.finishLoadMore();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishLoadMore();
+                            }
+                        });
+            }
+        });
 
         uid = spImp.getUID();
 
@@ -91,6 +173,7 @@ public class ToPayFragment extends OrderBaseFragment {
                                 mList = model.getObj();
                                 adapter = new FragmentToPayAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
+                                page = page+1;
                                 adapter.setOnPayListener(new FragmentToPayAdapter.OnPayListener() {
                                     @Override
                                     public void onPay(int position) {

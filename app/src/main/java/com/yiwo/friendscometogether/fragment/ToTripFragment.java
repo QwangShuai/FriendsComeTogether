@@ -13,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -44,12 +49,16 @@ public class ToTripFragment extends OrderBaseFragment {
 
     @BindView(R.id.fragment_to_trip_rv)
     RecyclerView recyclerView;
+    @BindView(R.id.fragment_to_trip_refreshLayout)
+    RefreshLayout refreshLayout;
 
     private FragmentToTripAdapter adapter;
     private List<TripFragmentModel.ObjBean> mList;
 
     private SpImp spImp;
     private String uid = "";
+
+    private int page = 1;
 
     @Override
     public View initView() {
@@ -69,13 +78,85 @@ public class ToTripFragment extends OrderBaseFragment {
 
     private void initData1() {
 
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.myOrderListUrl)
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.myOrderListUrl))
+                        .addParam("page", "1")
+                        .addParam("userID", uid)
+                        .addParam("type", "2")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Gson gson = new Gson();
+                                        TripFragmentModel model = gson.fromJson(data, TripFragmentModel.class);
+                                        mList.clear();
+                                        mList.addAll(model.getObj());
+                                        adapter.notifyDataSetChanged();
+                                        page = 2;
+                                        refreshlayout.finishRefresh();
+                                    }
+                                    refreshlayout.finishRefresh();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishRefresh();
+                            }
+                        });
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.myOrderListUrl)
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.myOrderListUrl))
+                        .addParam("page", page + "")
+                        .addParam("userID", uid)
+                        .addParam("type", "2")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Gson gson = new Gson();
+                                        TripFragmentModel model = gson.fromJson(data, TripFragmentModel.class);
+                                        mList.addAll(model.getObj());
+                                        adapter.notifyDataSetChanged();
+                                        page = page + 1;
+                                        refreshlayout.finishLoadMore();
+                                    }
+                                    refreshlayout.finishLoadMore();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishLoadMore();
+                            }
+                        });
+            }
+        });
+
         uid = spImp.getUID();
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
         ViseHttp.POST(NetConfig.myOrderListUrl)
-                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.myOrderListUrl))
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.myOrderListUrl))
                 .addParam("page", "1")
                 .addParam("userID", uid)
                 .addParam("type", "2")
@@ -84,12 +165,13 @@ public class ToTripFragment extends OrderBaseFragment {
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 TripFragmentModel model = gson.fromJson(data, TripFragmentModel.class);
                                 mList = model.getObj();
                                 adapter = new FragmentToTripAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
+                                page = page + 1;
                                 adapter.setOnCancelListener(new FragmentToTripAdapter.OnCancelListener() {
                                     @Override
                                     public void onCancel(final int position) {
@@ -101,14 +183,14 @@ public class ToTripFragment extends OrderBaseFragment {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 ViseHttp.POST(NetConfig.cancelOrderTripUrl)
-                                                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.cancelOrderTripUrl))
+                                                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.cancelOrderTripUrl))
                                                         .addParam("order_id", mList.get(position).getOID())
                                                         .request(new ACallback<String>() {
                                                             @Override
                                                             public void onSuccess(String data) {
                                                                 try {
                                                                     JSONObject jsonObject1 = new JSONObject(data);
-                                                                    if(jsonObject1.getInt("code") == 200){
+                                                                    if (jsonObject1.getInt("code") == 200) {
                                                                         Toast.makeText(getContext(), "取消行程成功", Toast.LENGTH_SHORT).show();
                                                                         mList.remove(position);
                                                                         adapter.notifyDataSetChanged();

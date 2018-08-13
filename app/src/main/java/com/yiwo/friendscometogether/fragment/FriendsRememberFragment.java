@@ -69,20 +69,23 @@ public class FriendsRememberFragment extends BaseFragment {
     RefreshLayout refreshLayout;
 
     private FriendRememberUpDataAdapter adapter;
+    private List<FriendsRememberModel.ObjBean> mList;
 
     private SpImp spImp;
     private String uid = "";
 
+    private int page = 1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_friends_remember,null);
+        rootView = inflater.inflate(R.layout.fragment_friends_remember, null);
         ScreenAdapterTools.getInstance().loadView(rootView);
 
         ButterKnife.bind(this, rootView);
         spImp = new SpImp(getContext());
 
-        init(banner,DetailsOfFriendsActivity.class);
+        init(banner, DetailsOfFriendsActivity.class);
         initData();
 
         return rootView;
@@ -96,19 +99,78 @@ public class FriendsRememberFragment extends BaseFragment {
         refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(1000);
+            public void onRefresh(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.friendsRememberUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.friendsRememberUrl))
+                        .addParam("page", "1")
+                        .addParam("userID", uid)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    int code = jsonObject.getInt("code");
+                                    if (code == 200) {
+                                        Gson gson = new Gson();
+                                        FriendsRememberModel friendsRememberModel = gson.fromJson(data, FriendsRememberModel.class);
+                                        mList.clear();
+                                        mList.addAll(friendsRememberModel.getObj());
+                                        adapter.notifyDataSetChanged();
+                                        page = 2;
+                                    } else {
+                                        toToast(getContext(), jsonObject.getString("message"));
+                                    }
+                                    refreshlayout.finishRefresh();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishRefresh();
+                            }
+                        });
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(1000);//传入false表示加载失败
+            public void onLoadMore(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.friendsRememberUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.friendsRememberUrl))
+                        .addParam("page", page + "")
+                        .addParam("userID", uid)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    int code = jsonObject.getInt("code");
+                                    if (code == 200) {
+                                        Gson gson = new Gson();
+                                        FriendsRememberModel friendsRememberModel = gson.fromJson(data, FriendsRememberModel.class);
+                                        mList.addAll(friendsRememberModel.getObj());
+                                        adapter.notifyDataSetChanged();
+                                        page = page + 1;
+                                    } else {
+                                        toToast(getContext(), jsonObject.getString("message"));
+                                    }
+                                    refreshlayout.finishLoadMore();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishLoadMore();
+                            }
+                        });
             }
         });
 
         ViseHttp.POST(NetConfig.friendsRememberUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.friendsRememberUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.friendsRememberUrl))
                 .addParam("page", "1")
                 .addParam("userID", uid)
                 .request(new ACallback<String>() {
@@ -117,11 +179,12 @@ public class FriendsRememberFragment extends BaseFragment {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             int code = jsonObject.getInt("code");
-                            if(code == 200){
+                            if (code == 200) {
                                 Gson gson = new Gson();
                                 FriendsRememberModel friendsRememberModel = gson.fromJson(data, FriendsRememberModel.class);
+                                page = page + 1;
                                 initList(friendsRememberModel.getObj());
-                            }else {
+                            } else {
                                 toToast(getContext(), jsonObject.getString("message"));
                             }
                         } catch (JSONException e) {
@@ -139,7 +202,8 @@ public class FriendsRememberFragment extends BaseFragment {
 
     private void initList(List<FriendsRememberModel.ObjBean> data) {
 
-        LinearLayoutManager manager = new LinearLayoutManager(getContext()){
+        mList = data;
+        LinearLayoutManager manager = new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -147,15 +211,15 @@ public class FriendsRememberFragment extends BaseFragment {
         };
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        adapter = new FriendRememberUpDataAdapter(data);
+        adapter = new FriendRememberUpDataAdapter(mList);
         recyclerView.setAdapter(adapter);
 
     }
 
     @OnClick({R.id.searchLl})
-    public void onClick(View view){
+    public void onClick(View view) {
         Intent intent = new Intent();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.searchLl:
                 intent.setClass(getContext(), SearchActivity.class);
                 startActivity(intent);
