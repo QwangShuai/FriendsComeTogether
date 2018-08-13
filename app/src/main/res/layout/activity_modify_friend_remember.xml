@@ -92,6 +92,7 @@
                 android:background="#F8F8F8" />
 
             <RelativeLayout
+                android:visibility="gone"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:id="@+id/activity_create_friend_remember_rl_edit_content"
@@ -158,7 +159,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30px"
                     android:layout_marginRight="30px"
-                    android:scaleType="fitXY" />
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:visibility="gone"

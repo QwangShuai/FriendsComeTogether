@@ -33,6 +33,7 @@ import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateIntercalationActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
+import com.yiwo.friendscometogether.sp.SpImp;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -69,6 +70,9 @@ public class FriendsRememberFragment extends BaseFragment {
 
     private FriendRememberUpDataAdapter adapter;
 
+    private SpImp spImp;
+    private String uid = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,6 +80,7 @@ public class FriendsRememberFragment extends BaseFragment {
         ScreenAdapterTools.getInstance().loadView(rootView);
 
         ButterKnife.bind(this, rootView);
+        spImp = new SpImp(getContext());
 
         init(banner,DetailsOfFriendsActivity.class);
         initData();
@@ -84,6 +89,8 @@ public class FriendsRememberFragment extends BaseFragment {
     }
 
     private void initData() {
+
+        uid = spImp.getUID();
 
         refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
@@ -103,6 +110,7 @@ public class FriendsRememberFragment extends BaseFragment {
         ViseHttp.POST(NetConfig.friendsRememberUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.friendsRememberUrl))
                 .addParam("page", "1")
+                .addParam("userID", uid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

@@ -117,9 +117,46 @@ public class OrderCommentActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_order_comment_rl_complete:
-
+                onComplete();
                 break;
         }
+    }
+
+    /**
+     * 提交评价
+     */
+    private void onComplete() {
+
+        if(TextUtils.isEmpty(etContent.getText().toString())){
+            toToast(OrderCommentActivity.this, "评价内容不能为空");
+        }else {
+            ViseHttp.POST(NetConfig.orderCommentUrl)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.orderCommentUrl))
+                    .addParam("userID", uid)
+                    .addParam("order_id", orderId)
+                    .addParam("content", etContent.getText().toString())
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            Log.e("222", data);
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.getInt("code") == 200){
+                                    toToast(OrderCommentActivity.this, "评价成功");
+                                    finish();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+
     }
 
     @Override

@@ -179,7 +179,8 @@ public class OtherInformationActivity extends BaseActivity {
                 rvActive.setVisibility(View.VISIBLE);
                 break;
             case R.id.activity_other_information_ll_mypics:
-                intent.setClass(OtherInformationActivity.this, MyPicturesActivity.class);
+                intent.putExtra("otheruid", otherUid);
+                intent.setClass(OtherInformationActivity.this, OtherPicActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.IntercalationAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -72,6 +74,9 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
     private String id = "";
     Map<String,String> textmap;
     private List<File> files = new ArrayList<>();
+
+    private Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,6 +186,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
      * 发布
      */
     private void complete() {
+        dialog = WeiboDialogUtils.createLoadingDialog(FriendTogetherAddContentActivity.this, "请等待...");
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
             public void subscribe(final ObservableEmitter<Map<String, File>> e) throws Exception {
@@ -249,17 +255,19 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                                     obj = new JSONObject(data);
                                     if(obj.getInt("code")==200){
                                         toToast(FriendTogetherAddContentActivity.this,"内容添加成功");
+                                        WeiboDialogUtils.closeDialog(dialog);
                                         finish();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                WeiboDialogUtils.closeDialog(dialog);
 
                             }
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-
+                                WeiboDialogUtils.closeDialog(dialog);
                             }
                         });
             }

@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -42,6 +43,7 @@ import com.yiwo.friendscometogether.custom.EditTitleDialog;
 import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.PeopleRequireDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
+import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
@@ -146,6 +148,9 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     private SpImp spImp;
     String pfID = "";
     GetEditorFriendTogetherModel.ObjBean bean = new GetEditorFriendTogetherModel.ObjBean();
+
+    private Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -582,9 +587,11 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     }
 
     public void onComplete(final int state) {
+
         map.put("user_id", spImp.getUID());
         if ((map.size() == 17 && findPwd()) || (map.size() == 16 && !findPwd())) {
             String token = getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
+            dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendTogetherActivity.this, "请等待...");
             Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
                 @Override
                 public void subscribe(final ObservableEmitter<File> e) throws Exception {
@@ -648,18 +655,21 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                                     finish();
                                 } else {
                                     Intent it = new Intent(CreateFriendTogetherActivity.this, FriendTogetherAddContentActivity.class);
-                                    it.putExtra("pfID", model.getObj().getActivity_id());
+                                    it.putExtra("pfID", model.getObj().getActivity_id()+"");
+                                    WeiboDialogUtils.closeDialog(dialog);
                                     startActivity(it);
                                     finish();
                                 }
                             } else {
                                 toToast(CreateFriendTogetherActivity.this, model.getMessage());
+                                WeiboDialogUtils.closeDialog(dialog);
                             }
                         }
 
                         @Override
                         public void onFail(int errCode, String errMsg) {
                             toToast(CreateFriendTogetherActivity.this, errMsg);
+                            WeiboDialogUtils.closeDialog(dialog);
                         }
                     });
                 }

@@ -9,11 +9,10 @@
         android:layout_height="20px"
         android:background="@color/black_f8f8f8" />
     <ImageView
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:id="@+id/fragment_friend_together_rv_iv_title"
         android:layout_width="match_parent"
-        android:layout_height="372px"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_height="372px"/>
     <RelativeLayout
         android:layout_marginTop="16px"
         android:layout_width="match_parent"
@@ -30,6 +29,8 @@
             android:textColor="@color/black_333333"
             android:textSize="36px" />
         <TextView
+            android:lines="5"
+            android:ellipsize="end"
             android:id="@+id/contentTv"
             android:text="开头讲个段子。在决定下笔写游记之前，我在朋友圈征集和酒有关旅行故事，很多人问我，要和酒有关的故事，还是要旅行故事？我说两者兼..."
             android:layout_marginTop="10px"
@@ -38,7 +39,7 @@
             android:textSize="28px"
             android:textColor="@color/black_333333"
             android:layout_width="520px"
-            android:layout_height="161px" />
+            android:layout_height="wrap_content" />
         <LinearLayout
             android:layout_marginTop="10px"
             android:layout_marginLeft="10px"

@@ -215,7 +215,8 @@
             android:name=".pages.VideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".pages.ModifyFriendRememberActivity" />
-        <activity android:name=".pages.ModifyIntercalationActivity"></activity>
+        <activity android:name=".pages.ModifyIntercalationActivity" />
+
         <receiver
             android:name=".jpush.MyReceiver"
             android:enabled="true"
@@ -230,5 +231,8 @@
                 <category android:name="com.yiwo.friendscometogether" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".pages.OtherPicActivity"></activity>
     </application>
+
 </manifest>

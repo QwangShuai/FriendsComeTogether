@@ -43,7 +43,7 @@ public class GetEditorFriendTogetherModel{
         this.obj = obj;
     }
 
-    public static class ObjBean  implements Serializable {
+    public static class ObjBean implements Serializable {
         /**
          * pfpic : http://localhost/www/uploads/activity/20180719/20180719/11e73ef1b5e4809649c225afe7eb2501.jpg
          * pftitle : 泰山七日游
@@ -293,7 +293,7 @@ public class GetEditorFriendTogetherModel{
                 this.img_list = img_list;
             }
 
-            public static class ImgListBean {
+            public static class ImgListBean implements Serializable {
                 /**
                  * pfpID : 280
                  * pfpcontent : 云海日出

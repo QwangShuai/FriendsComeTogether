@@ -317,7 +317,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
             case R.id.activity_details_of_friends_together_ll_person_content:
                 toToast(this,"这是领队的ID"+model.getObj().getCaptain());
                 Intent it = new Intent(this,OtherInformationActivity.class);
-                it.putExtra("id",model.getObj().getCaptain());
+                it.putExtra("uid",model.getObj().getCaptain());
                 startActivity(it);
                 break;
         }
