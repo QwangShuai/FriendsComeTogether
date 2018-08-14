@@ -385,6 +385,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             </RelativeLayout>
+
+            <View
+                android:background="@color/black_f8f8f8"
+                android:layout_width="match_parent"
+                android:layout_height="20px"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginTop="30px"
+                android:layout_marginLeft="40px"
+                android:textColor="@color/black_333333"
+                android:textSize="30px"
+                android:text="评价"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <LinearLayout
                 android:background="@color/black_f8f8f8"
                 android:layout_width="match_parent"
