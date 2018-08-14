@@ -1,190 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/fragment_home_refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_my_focus_rl_top">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/fragment_home_banner"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="372px" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_marginTop="20px"
-                android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:orientation="horizontal">
+                <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/fragment_home_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="372px" />
+
                 <RelativeLayout
-                    android:layout_marginLeft="20px"
-                    android:id="@+id/locationRl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:id="@+id/locationLv"
-                        android:layout_width="42px"
-                        android:layout_height="42px"
-                        android:src="@mipmap/index_location" />
-
-                    <TextView
-                        android:maxLines="1"
-                        android:id="@+id/cityTv"
-                        android:layout_toRightOf="@+id/locationLv"
-                        android:gravity="center"
-                        android:textSize="32px"
-                        android:layout_marginLeft="10px"
-                        android:layout_width="96px"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/black_333333"
-                        android:ellipsize="end"
-                        android:text="哈尔滨" />
-                </RelativeLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/searchLl"
-                    android:layout_toRightOf="@+id/locationRl"
-                    android:gravity="center"
-                    android:background="@drawable/bg_search1"
-                    android:layout_marginLeft="30px"
-                    android:layout_width="468px"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="30px"
+                    android:layout_width="match_parent"
+                    android:layout_height="64px"
+                    android:layout_marginTop="20px"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/imageView2"
+                    <RelativeLayout
+                        android:id="@+id/locationRl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/explore_search_icon" />
+                        android:layout_marginLeft="20px">
 
-                    <TextView
-                        android:textSize="28px"
-                        android:layout_marginLeft="20px"
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="搜索景点/领队" />
-                </LinearLayout>
-                <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20px"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/messageIv"
-                    android:layout_width="44px"
-                    android:layout_height="44px"
-                    android:src="@mipmap/index_message" />
-                <TextView
-                    android:id="@+id/home_numTv"
-                    android:gravity="center"
-                    android:background="@drawable/bg_red"
-                    android:layout_alignParentRight="true"
-                    android:text="4"
-                    android:textColor="@color/white_ffffff"
-                    android:textSize="24px"
-                    android:layout_width="34px"
-                    android:layout_height="34px" />
-            </RelativeLayout>
-            <View
-                android:layout_marginTop="20px"
-                android:layout_width="match_parent"
-                android:layout_height="20px"
-                android:background="@color/black_f8f8f8"></View>
-            <RelativeLayout
-                android:layout_marginTop="26px"
-                android:layout_width="match_parent"
-                android:layout_height="60px">
-                <LinearLayout
-                    android:layout_marginLeft="20px"
-                    android:background="@mipmap/hot"
-                    android:layout_width="230px"
-                    android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/locationLv"
+                            android:layout_width="42px"
+                            android:layout_height="42px"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/index_location" />
 
-                    <TextView
-                        android:textSize="34px"
-                        android:textColor="@color/white_ffffff"
-                        android:gravity="center"
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/cityTv"
+                            android:layout_width="96px"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10px"
+                            android:layout_toRightOf="@+id/locationLv"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="哈尔滨"
+                            android:textColor="@color/black_333333"
+                            android:textSize="32px" />
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/searchLl"
+                        android:layout_width="468px"
                         android:layout_height="match_parent"
-                        android:text="热门推荐" />
-                </LinearLayout>
+                        android:layout_marginLeft="30px"
+                        android:layout_marginRight="30px"
+                        android:layout_toRightOf="@+id/locationRl"
+                        android:background="@drawable/bg_search1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_marginRight="39px"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/home_more"
-                    android:layout_width="36px"
-                    android:layout_height="4px"
-                    android:layout_alignParentRight="true"
-                    android:src="@mipmap/point" />
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/explore_search_icon" />
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_marginTop="10px"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants">
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20px"
+                            android:text="搜索景点/领队"
+                            android:textSize="28px" />
+                    </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/home_hotVideoRv"
+                    <ImageView
+                        android:id="@+id/messageIv"
+                        android:layout_width="44px"
+                        android:layout_height="44px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20px"
+                        android:src="@mipmap/index_message" />
+
+                    <TextView
+                        android:id="@+id/home_numTv"
+                        android:layout_width="34px"
+                        android:layout_height="34px"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/bg_red"
+                        android:gravity="center"
+                        android:text="4"
+                        android:textColor="@color/white_ffffff"
+                        android:textSize="24px" />
+                </RelativeLayout>
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants">
+                    android:layout_height="20px"
+                    android:layout_marginTop="20px"
+                    android:background="@color/black_f8f8f8" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/home_hotRv"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <View
-                android:layout_marginTop="34px"
-                android:layout_width="match_parent"
-                android:layout_height="20px"
-                android:background="@color/black_f8f8f8"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="124px">
+                    android:layout_height="60px"
+                    android:layout_marginTop="26px">
 
-                <ImageView
-                    android:layout_marginRight="9px"
-                    android:layout_toLeftOf="@+id/right_tv"
-                    android:layout_centerVertical="true"
-                    android:layout_width="32px"
-                    android:layout_height="32px"
-                    android:src="@mipmap/cheers" />
-                <TextView
-                    android:id="@+id/right_tv"
-                    android:text="友来友聚"
-                    android:textSize="34px"
-                    android:textColor="@color/yellow_ff9d00"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants">
+                    <LinearLayout
+                        android:layout_width="230px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20px"
+                        android:background="@mipmap/hot">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/home_hotTogetherRv"
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="热门推荐"
+                            android:textColor="@color/white_ffffff"
+                            android:textSize="34px" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/home_more"
+                        android:layout_width="36px"
+                        android:layout_height="4px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="39px"
+                        android:src="@mipmap/point" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/home_hotVideoRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/home_hotRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="124px">
+
+                    <ImageView
+                        android:layout_width="32px"
+                        android:layout_height="32px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="9px"
+                        android:layout_toLeftOf="@+id/right_tv"
+                        android:src="@mipmap/cheers" />
+
+                    <TextView
+                        android:id="@+id/right_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="友来友聚"
+                        android:textColor="@color/yellow_ff9d00"
+                        android:textSize="34px" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/home_hotTogetherRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </LinearLayout>

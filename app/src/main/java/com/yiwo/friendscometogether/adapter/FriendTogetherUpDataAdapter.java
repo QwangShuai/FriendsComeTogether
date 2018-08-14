@@ -93,38 +93,42 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         holder.focusOnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViseHttp.POST(NetConfig.focusOnLeaderUrl)
-                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.focusOnLeaderUrl))
-                        .addParam("userID",spImp.getUID())
-                        .addParam("attention_userID",data.get(position).getCaptain())
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String data) {
-                                try {
-                                    JSONObject js = new JSONObject(data);
-                                    if(js.getInt("code")==200){
-                                        FocusOnLeaderModel model = new Gson().fromJson(data,FocusOnLeaderModel.class);
-                                        if(model.getCode()==200){
-                                            if(model.getObj().getAttention().equals("0")){
-                                                holder.focusOnBtn.setText("+ 关注");
-                                            } else {
-                                                holder.focusOnBtn.setText("已关注");
+                if (spImp.getUID().equals("0")) {
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                } else {
+                    ViseHttp.POST(NetConfig.focusOnLeaderUrl)
+                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.focusOnLeaderUrl))
+                            .addParam("userID", spImp.getUID())
+                            .addParam("attention_userID", data.get(position).getCaptain())
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject js = new JSONObject(data);
+                                        if (js.getInt("code") == 200) {
+                                            FocusOnLeaderModel model = new Gson().fromJson(data, FocusOnLeaderModel.class);
+                                            if (model.getCode() == 200) {
+                                                if (model.getObj().getAttention().equals("0")) {
+                                                    holder.focusOnBtn.setText("+ 关注");
+                                                } else {
+                                                    holder.focusOnBtn.setText("已关注");
+                                                }
                                             }
+                                        } else {
+                                            Toast.makeText(context, js.getString("message"), Toast.LENGTH_SHORT).show();
                                         }
-                                    } else {
-                                        Toast.makeText(context,js.getString("message"),Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+
                                 }
 
-                            }
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
 
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
-
-                            }
-                        });
+                                }
+                            });
+                }
             }
         });
 //        holder.focusOnll.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +162,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(context, OtherInformationActivity.class);
-                it.putExtra("id",data.get(position).getCaptain());
+                it.putExtra("uid",data.get(position).getCaptain());
                 context.startActivity(it);
             }
         });

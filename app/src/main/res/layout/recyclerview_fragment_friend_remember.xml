@@ -70,12 +70,12 @@
             android:layout_marginRight="20px"
             android:layout_alignParentRight="true"
             android:id="@+id/activity_details_of_friends_btn_focus"
-            android:textSize="20px"
+            android:textSize="28px"
             android:textColor="@color/white_ffffff"
             android:text="+ 关注"
             android:background="@drawable/bg_btn_red"
-            android:layout_width="80px"
-            android:layout_height="36px" />
+            android:layout_width="120px"
+            android:layout_height="56px" />
 
     </RelativeLayout>
 

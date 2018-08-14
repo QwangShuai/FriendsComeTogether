@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,8 +34,14 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     private Context context;
     private List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data;
     SpImp spImp;
-//    private List<HomeHotFriendsRememberModel.ObjBean.VideoBean> list;
-    public HomeHotAdapter(List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data){
+    private OnFocusListener listener;
+
+    public void setOnFocusListener(OnFocusListener listener){
+        this.listener = listener;
+    }
+
+    //    private List<HomeHotFriendsRememberModel.ObjBean.VideoBean> list;
+    public HomeHotAdapter(List<HomeHotFriendsRememberModel.ObjBean.InfoBean> data) {
         this.data = data;
     }
 
@@ -51,30 +58,34 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 //        if(data.get(position).getVideo().size()==0){
-            Picasso.with(context).load(data.get(position).getFmpic()).into(holder.titleIv);
-            holder.titleTv.setText(data.get(position).getFmtitle());
-        Log.i("00000000",data.get(position).getFmcomment());
-            holder.contentTv.setText(data.get(position).getFmcontent()+"");
-            if(!TextUtils.isEmpty(data.get(position).getUpicurl())){
-                Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
-            }
-            holder.timeTv.setText(data.get(position).getFmtime());
-            holder.viewsTv.setText(data.get(position).getFmlook());
-            holder.messageTv.setText(data.get(position).getFmcomment());
-            holder.nameTv.setText(data.get(position).getUsername());
-            holder.childrenLl.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(spImp.getUID().equals("0")){
-                        context.startActivity(new Intent(context, LoginActivity.class));
-                    } else {
-                        Intent intent = new Intent();
-                        intent.setClass(context, DetailsOfFriendsActivity.class);
-                        intent.putExtra("fmid", data.get(position).getFmID());
-                        context.startActivity(intent);
-                    }
+        Picasso.with(context).load(data.get(position).getFmpic()).into(holder.titleIv);
+        holder.titleTv.setText(data.get(position).getFmtitle());
+        Log.i("00000000", data.get(position).getFmcomment());
+        if (!TextUtils.isEmpty(data.get(position).getUpicurl())) {
+            Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
+        }
+        if(data.get(position).getFollow().equals("0")){
+            holder.btnFocus.setText("+关注");
+        }else {
+            holder.btnFocus.setText("已关注");
+        }
+        holder.timeTv.setText(data.get(position).getFmtime());
+        holder.viewsTv.setText(data.get(position).getFmlook());
+        holder.messageTv.setText(data.get(position).getFmcomment());
+        holder.nameTv.setText(data.get(position).getUsername());
+        holder.childrenLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (spImp.getUID().equals("0")) {
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(context, DetailsOfFriendsActivity.class);
+                    intent.putExtra("fmid", data.get(position).getFmID());
+                    context.startActivity(intent);
                 }
-            });
+            }
+        });
 //        } else {
 //            list = data.get(position).getVideo();
 //            holder.childrenLl.setVisibility(View.GONE);
@@ -82,6 +93,16 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
 //            holder.vesselLl.addView(videoPl);
 //           videoPl.setAdapter(new PileLayoutVideoAdapter(context,data.get(position).getVideo()));
 //        }
+        holder.btnFocus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (spImp.getUID().equals("0")) {
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                } else {
+                    listener.onFocus(position);
+                }
+            }
+        });
 
     }
 
@@ -89,9 +110,9 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     public int getItemCount() {
         return data == null ? 0 : data.size();
     }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTv;
-        private TextView contentTv;
         private TextView nameTv;
         private TextView viewsTv;
         private TextView messageTv;
@@ -100,12 +121,12 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
         private ImageView headIv;
         private LinearLayout vesselLl;
         private LinearLayout childrenLl;
+        private Button btnFocus;
 
         public ViewHolder(View itemView) {
             super(itemView);
             titleIv = itemView.findViewById(R.id.home_hot_itemIv);
             titleTv = itemView.findViewById(R.id.home_hot_title);
-            contentTv = itemView.findViewById(R.id.home_hot_content);
             headIv = itemView.findViewById(R.id.home_hot_itemHeadIv);
             nameTv = itemView.findViewById(R.id.home_hot_itemNameTv);
             timeTv = itemView.findViewById(R.id.home_hot_itemTimeTv);
@@ -113,6 +134,12 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             messageTv = itemView.findViewById(R.id.home_hot_itemMessageTv);
             vesselLl = itemView.findViewById(R.id.home_hot_vessel);
             childrenLl = itemView.findViewById(R.id.home_hot_children);
+            btnFocus = itemView.findViewById(R.id.activity_details_of_friends_btn_focus);
         }
     }
+
+    public interface OnFocusListener{
+        void onFocus(int position);
+    }
+
 }

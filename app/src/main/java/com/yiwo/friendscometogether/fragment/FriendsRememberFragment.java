@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateIntercalationActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
+import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.youth.banner.Banner;
@@ -200,7 +202,7 @@ public class FriendsRememberFragment extends BaseFragment {
 
     }
 
-    private void initList(List<FriendsRememberModel.ObjBean> data) {
+    private void initList(final List<FriendsRememberModel.ObjBean> data) {
 
         mList = data;
         LinearLayoutManager manager = new LinearLayoutManager(getContext()) {
@@ -213,6 +215,43 @@ public class FriendsRememberFragment extends BaseFragment {
         recyclerView.setLayoutManager(manager);
         adapter = new FriendRememberUpDataAdapter(mList);
         recyclerView.setAdapter(adapter);
+        adapter.setOnFocusListener(new FriendRememberUpDataAdapter.OnFocusListener() {
+            @Override
+            public void onFocus(final int position) {
+                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    if(mList.get(position).getLook().equals("0")){
+                        ViseHttp.POST(NetConfig.userFocusUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+                                .addParam("uid", uid)
+                                .addParam("likeId", data.get(position).getUserID())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.getInt("code") == 200){
+                                                mList.get(position).setLook("1");
+                                                adapter.notifyDataSetChanged();
+                                                toToast(getContext(), "关注成功");
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                }
+            }
+        });
 
     }
 
