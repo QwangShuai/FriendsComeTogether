@@ -22,6 +22,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.IntercalationAdapter;
+import com.yiwo.friendscometogether.adapter.ModifyIntercalationPicAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.ModifyIntercalationModel;
@@ -66,9 +67,14 @@ public class ModifyIntercalationActivity extends BaseActivity {
     EditText etContent;
     @BindView(R.id.activity_create_intercalation_tv_text_num)
     TextView tvContentNum;
+    @BindView(R.id.activity_create_intercalation_rv1)
+    RecyclerView recyclerView1;
 
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
+
+    private ModifyIntercalationPicAdapter picAdapter;
+    private List<ModifyIntercalationModel.ObjBean.ImagesArrBean> mList1;
 
     private static final int REQUEST_CODE = 0x00000011;
 
@@ -110,8 +116,32 @@ public class ModifyIntercalationActivity extends BaseActivity {
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 ModifyIntercalationModel model = gson.fromJson(data, ModifyIntercalationModel.class);
-                                etTitle.setText(model.getObj().getFftitle());
-                                etContent.setText(model.getObj().getFfcontect());
+                                etTitle.setText(model.getObj().getInfo().getFftitle());
+                                etContent.setText(model.getObj().getInfo().getFfcontect());
+                                GridLayoutManager manager1 = new GridLayoutManager(ModifyIntercalationActivity.this, 3){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                recyclerView1.setLayoutManager(manager1);
+                                mList1 = model.getObj().getImagesArr();
+                                picAdapter = new ModifyIntercalationPicAdapter(mList1);
+                                recyclerView1.setAdapter(picAdapter);
+                                picAdapter.setOnModifyListener(new ModifyIntercalationPicAdapter.OnModifyListener() {
+                                    @Override
+                                    public void onModify(int type, int position) {
+                                        switch (type){
+                                            case 1:
+                                                mList1.remove(position);
+                                                picAdapter.notifyDataSetChanged();
+                                                break;
+                                            case 2:
+
+                                                break;
+                                        }
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -126,7 +156,12 @@ public class ModifyIntercalationActivity extends BaseActivity {
 
         uid = spImp.getUID();
         mList = new ArrayList<>();
-        GridLayoutManager manager = new GridLayoutManager(ModifyIntercalationActivity.this, 3);
+        GridLayoutManager manager = new GridLayoutManager(ModifyIntercalationActivity.this, 3){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         recyclerView.setLayoutManager(manager);
         adapter = new IntercalationAdapter(mList);
         recyclerView.setAdapter(adapter);

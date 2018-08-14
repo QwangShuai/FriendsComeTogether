@@ -103,7 +103,7 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
             levelTv = (itemView).findViewById(R.id.levelTv);
             picIv = (itemView).findViewById(R.id.home_together_pic_iv);
             titleTv = (itemView).findViewById(R.id.home_together_title_tv);
-            contentTv = (itemView).findViewById(R.id.home_together_title_tv);
+            contentTv = (itemView).findViewById(R.id.home_together_content_tv);
             rl = (itemView).findViewById(R.id.home_together__item_rl);
         }
     }

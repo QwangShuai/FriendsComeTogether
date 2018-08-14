@@ -97,17 +97,17 @@
 
                     <RelativeLayout
                         android:id="@+id/activity_other_information_rl_sign_team"
-                        android:background="@mipmap/level_red"
+                        android:background="@mipmap/level_bg"
                         android:layout_marginTop="10px"
                         android:layout_below="@+id/activity_other_information_tv_nickname"
                         android:layout_width="183px"
-                        android:layout_height="60px">
+                        android:layout_height="50px">
 
                         <TextView
                             android:id="@+id/activity_other_information_tv_user_level"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginRight="10px"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="40px"
                             android:layout_marginBottom="3px"
                             android:textColor="@color/white_ffffff"
                             android:textSize="28px"

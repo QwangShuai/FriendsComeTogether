@@ -34,7 +34,7 @@ public class IntercalationAdapter extends RecyclerView.Adapter<IntercalationAdap
     private OnDeleteImgListener deleteImgListener;
     private OnAddDescribeListener describeListener;
 
-    public void setListener(OnAddImgListener addListener, OnDeleteImgListener deleteImgListener, OnAddDescribeListener describeListener){
+    public void setListener(OnAddImgListener addListener, OnDeleteImgListener deleteImgListener, OnAddDescribeListener describeListener) {
         this.addListener = addListener;
         this.deleteImgListener = deleteImgListener;
         this.describeListener = describeListener;
@@ -63,6 +63,7 @@ public class IntercalationAdapter extends RecyclerView.Adapter<IntercalationAdap
             holder.ivDelete.setVisibility(View.VISIBLE);
         }
         if (getItemViewType(position) == TYPE_ADD) {
+            holder.tvPicNum.setText(position + "/9");
             holder.rlImg.setVisibility(View.GONE);
             holder.ivDelete.setVisibility(View.GONE);
         } else {
@@ -70,9 +71,9 @@ public class IntercalationAdapter extends RecyclerView.Adapter<IntercalationAdap
             holder.rlImg.setVisibility(View.VISIBLE);
             holder.ivDelete.setVisibility(View.VISIBLE);
             Picasso.with(context).load("file://" + data.get(position).getPic()).into(holder.iv);
-            if(!data.get(position).getDescribe().equals("")){
+            if (!data.get(position).getDescribe().equals("")) {
                 holder.tvContent.setText(data.get(position).getDescribe());
-            }else {
+            } else {
                 holder.tvContent.setText(null);
             }
         }
@@ -137,15 +138,15 @@ public class IntercalationAdapter extends RecyclerView.Adapter<IntercalationAdap
         }
     }
 
-    public interface OnAddImgListener{
+    public interface OnAddImgListener {
         void onAddImg();
     }
 
-    public interface OnDeleteImgListener{
+    public interface OnDeleteImgListener {
         void onDeleteImg(int i);
     }
 
-    public interface OnAddDescribeListener{
+    public interface OnAddDescribeListener {
         void onAddDescribe(int i, String s);
     }
 

@@ -1,18 +1,21 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.OtherInformationModel;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 
 import java.util.List;
 
@@ -39,7 +42,7 @@ public class OtherInformationWorksAdapter extends RecyclerView.Adapter<OtherInfo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         if (!TextUtils.isEmpty(data.get(position).getFmpic())) {
             Picasso.with(context).load(data.get(position).getFmpic()).into(holder.iv);
         }
@@ -48,6 +51,15 @@ public class OtherInformationWorksAdapter extends RecyclerView.Adapter<OtherInfo
         holder.tvCommentNum.setText("评论: " + data.get(position).getFmcomment());
         holder.tvCollectionNum.setText("收藏: " + data.get(position).getFmfavorite());
         holder.tvPraiseNum.setText("赞: " + data.get(position).getFmgood());
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("fmid", data.get(position).getFmID());
+                intent.setClass(context, DetailsOfFriendsActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -63,6 +75,7 @@ public class OtherInformationWorksAdapter extends RecyclerView.Adapter<OtherInfo
         private TextView tvCommentNum;
         private TextView tvCollectionNum;
         private TextView tvPraiseNum;
+        private LinearLayout ll;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -72,6 +85,7 @@ public class OtherInformationWorksAdapter extends RecyclerView.Adapter<OtherInfo
             tvCommentNum = itemView.findViewById(R.id.activity_other_information_rv_works_tv_comment_num);
             tvCollectionNum = itemView.findViewById(R.id.activity_other_information_rv_works_tv_collection_num);
             tvPraiseNum = itemView.findViewById(R.id.activity_other_information_rv_works_tv_praise_num);
+            ll = itemView.findViewById(R.id.activity_other_information_rv_works_ll_item);
         }
     }
 
