@@ -271,6 +271,7 @@ public class DetailsRememberModel {
              * pfpic : http://47.92.136.19/uploads/xingcheng/20180723/20180723/6c2644a18caacdf5e463a600c11a6916.jpg
              */
 
+            private String pfID;
             private String pfcontent;
             private String pftime;
             private String pflook;
@@ -315,6 +316,14 @@ public class DetailsRememberModel {
 
             public void setPfpic(String pfpic) {
                 this.pfpic = pfpic;
+            }
+
+            public String getPfID() {
+                return pfID;
+            }
+
+            public void setPfID(String pfID) {
+                this.pfID = pfID;
             }
         }
 
