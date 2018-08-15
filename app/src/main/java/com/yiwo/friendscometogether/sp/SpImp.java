@@ -24,6 +24,24 @@ public class SpImp {
         editor.commit();
     }
 
+    public String getYXID() {
+        return sp.getString(SpPublic.YXID, "0");
+    }
+
+    public void setYXID(String YXID) {
+        editor.putString(SpPublic.YXID, YXID).toString();
+        editor.commit();
+    }
+
+    public String getYXTOKEN() {
+        return sp.getString(SpPublic.YXtoken, "0");
+    }
+
+    public void setYXTOKEN(String YXTOKEN) {
+        editor.putString(SpPublic.YXtoken, YXTOKEN).toString();
+        editor.commit();
+    }
+
 
 
     //长整形

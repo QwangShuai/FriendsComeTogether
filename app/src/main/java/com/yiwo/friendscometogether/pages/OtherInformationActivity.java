@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -24,6 +25,7 @@ import com.yiwo.friendscometogether.adapter.OtherInformationWorksAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.OtherInformationModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.sp.SpImp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,6 +82,12 @@ public class OtherInformationActivity extends BaseActivity {
     private List<OtherInformationModel.ObjBean.ListPicNewsBean> data1;
     private List<OtherInformationModel.ObjBean.ListActiviyBean> data2;
 
+    private String account;
+    private SpImp spImp;
+    private OtherInformationModel model;
+
+    private String uid = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +95,7 @@ public class OtherInformationActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
+        spImp = new SpImp(OtherInformationActivity.this);
 
         initData();
 
@@ -96,9 +105,11 @@ public class OtherInformationActivity extends BaseActivity {
 
         Intent intent = getIntent();
         otherUid = intent.getStringExtra("uid");
+        account = spImp.getYXID();
+        uid = spImp.getUID();
 
         ViseHttp.POST(NetConfig.otherUserInformationUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.otherUserInformationUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.otherUserInformationUrl))
                 .addParam("uid", otherUid)
                 .request(new ACallback<String>() {
                     @Override
@@ -106,22 +117,22 @@ public class OtherInformationActivity extends BaseActivity {
                         Log.e("222", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
-                                OtherInformationModel model = gson.fromJson(data, OtherInformationModel.class);
-                                if(!TextUtils.isEmpty(model.getObj().getInfo().getUserpic())){
+                                model = gson.fromJson(data, OtherInformationModel.class);
+                                if (!TextUtils.isEmpty(model.getObj().getInfo().getUserpic())) {
                                     Picasso.with(OtherInformationActivity.this).load(model.getObj().getInfo().getUserpic()).into(ivAvatar);
                                 }
                                 tvNickname.setText(model.getObj().getInfo().getUsername());
-                                tvUserLevel.setText("LV"+model.getObj().getInfo().getUsergrade());
-                                tvSign.setText("个性签名: "+model.getObj().getInfo().getUserautograph());
+                                tvUserLevel.setText("LV" + model.getObj().getInfo().getUsergrade());
+                                tvSign.setText("个性签名: " + model.getObj().getInfo().getUserautograph());
                                 tvAge.setText(model.getObj().getInfo().getAge());
                                 tvCity.setText(model.getObj().getInfo().getAddress());
                                 tvConstellation.setText(model.getObj().getInfo().getConstellation());
                                 tvFocusNum.setText(model.getObj().getInfo().getUserlike());
                                 tvFansNum.setText(model.getObj().getInfo().getUserbelike());
                                 tvPraiseNum.setText(model.getObj().getInfo().getGiveCount());
-                                LinearLayoutManager manager = new LinearLayoutManager(OtherInformationActivity.this){
+                                LinearLayoutManager manager = new LinearLayoutManager(OtherInformationActivity.this) {
                                     @Override
                                     public boolean canScrollVertically() {
                                         return false;
@@ -132,10 +143,10 @@ public class OtherInformationActivity extends BaseActivity {
                                 data1 = model.getObj().getListPicNews();
                                 worksAdapter = new OtherInformationWorksAdapter(data1);
                                 rvWorks.setAdapter(worksAdapter);
-                                if(data1.size() == 0){
+                                if (data1.size() == 0) {
                                     rvWorks.setVisibility(View.GONE);
                                 }
-                                LinearLayoutManager manager1 = new LinearLayoutManager(OtherInformationActivity.this){
+                                LinearLayoutManager manager1 = new LinearLayoutManager(OtherInformationActivity.this) {
                                     @Override
                                     public boolean canScrollVertically() {
                                         return false;
@@ -161,20 +172,21 @@ public class OtherInformationActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.activity_other_information_rl_back, R.id.activity_other_information_tv_works, R.id.activity_other_information_tv_active, R.id.activity_other_information_ll_mypics})
-    public void onClick(View view){
+    @OnClick({R.id.activity_other_information_rl_back, R.id.activity_other_information_tv_works, R.id.activity_other_information_tv_active, R.id.activity_other_information_ll_mypics,
+            R.id.activity_other_information_tv_send_message, R.id.activity_other_information_iv_add_friend})
+    public void onClick(View view) {
         Intent intent = new Intent();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.activity_other_information_rl_back:
                 onBackPressed();
                 break;
             case R.id.activity_other_information_tv_works:
                 tvWorks.setBackgroundColor(Color.parseColor("#FF9D00"));
                 tvActive.setBackgroundColor(Color.parseColor("#000000"));
-                if(data1.size() == 0){
+                if (data1.size() == 0) {
                     rvWorks.setVisibility(View.GONE);
                     rvActive.setVisibility(View.GONE);
-                }else {
+                } else {
                     rvWorks.setVisibility(View.VISIBLE);
                     rvActive.setVisibility(View.GONE);
                 }
@@ -182,10 +194,10 @@ public class OtherInformationActivity extends BaseActivity {
             case R.id.activity_other_information_tv_active:
                 tvWorks.setBackgroundColor(Color.parseColor("#000000"));
                 tvActive.setBackgroundColor(Color.parseColor("#FF9D00"));
-                if(data2.size() == 0){
+                if (data2.size() == 0) {
                     rvWorks.setVisibility(View.GONE);
                     rvActive.setVisibility(View.GONE);
-                }else {
+                } else {
                     rvWorks.setVisibility(View.GONE);
                     rvActive.setVisibility(View.VISIBLE);
                 }
@@ -195,7 +207,56 @@ public class OtherInformationActivity extends BaseActivity {
                 intent.setClass(OtherInformationActivity.this, OtherPicActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.activity_other_information_tv_send_message:
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
+                    intent.setClass(OtherInformationActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    liaotian(model.getObj().getInfo().getWy_accid());
+//                    team();
+                }
+                break;
+            case R.id.activity_other_information_iv_add_friend:
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
+                    intent.setClass(OtherInformationActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    ViseHttp.POST(NetConfig.addFriendsUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addFriendsUrl))
+                            .addParam("uid", uid)
+                            .addParam("friendId", otherUid)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if (jsonObject.getInt("code") == 200) {
+                                            toToast(OtherInformationActivity.this, "添加成功");
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }
+                break;
         }
+    }
+
+    private void liaotian(String liaotianAccount) {
+        NimUIKit.setAccount(account);
+        NimUIKit.startP2PSession(OtherInformationActivity.this, liaotianAccount);
+    }
+
+    private void team() {
+        String liaotianAccount = "656460193";
+        NimUIKit.setAccount(account);
+        NimUIKit.startTeamSession(OtherInformationActivity.this, liaotianAccount);
     }
 
     @Override

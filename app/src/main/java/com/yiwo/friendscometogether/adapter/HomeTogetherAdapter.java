@@ -128,7 +128,7 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         private ImageView picIv;
         private TextView titleTv;
         private TextView levelTv;
-        private CImageView headIv;
+        private ImageView headIv;
         private TextView contentTv;
         private LinearLayout rl;
         private TextView nickname;

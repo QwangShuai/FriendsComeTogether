@@ -88,7 +88,7 @@ public class MyCommentActivity extends BaseActivity {
                                         mList.addAll(model.getObj());
                                         adapter.notifyDataSetChanged();
                                         page = 2;
-                                        Log.e("222", page+"");
+                                        Log.e("222", page + "");
                                         refreshlayout.finishRefresh();
                                     }
                                 } catch (JSONException e) {
@@ -109,7 +109,7 @@ public class MyCommentActivity extends BaseActivity {
                 ViseHttp.POST(NetConfig.userComment)
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userComment))
                         .addParam("userID", uid)
-                        .addParam("page", "1")
+                        .addParam("page", page + "")
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
@@ -121,7 +121,7 @@ public class MyCommentActivity extends BaseActivity {
                                         mList.addAll(model.getObj());
                                         adapter.notifyDataSetChanged();
                                         page = page + 1;
-                                        Log.e("222", page+"");
+                                        Log.e("222", page + "");
                                         refreshlayout.finishLoadMore();
                                     }
                                 } catch (JSONException e) {
@@ -157,7 +157,7 @@ public class MyCommentActivity extends BaseActivity {
                                 adapter = new MyCommentAdapter(mList);
                                 recyclerView.setAdapter(adapter);
                                 page = page + 1;
-                                Log.e("222", page+"");
+                                Log.e("222", page + "");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -66,6 +66,7 @@ public class FriendsTogetherDetailsModel {
          * user_list : [{"username":"zp","userpic":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","num":"1"}]
          */
 
+        private String wy_accid;
         private String captain;
         private String capttain_name;
         private String capttain_pic;
@@ -90,6 +91,14 @@ public class FriendsTogetherDetailsModel {
         private String attention_captain;
         private List<InfoListBean> info_list;
         private List<UserListBean> user_list;
+
+        public String getWy_accid() {
+            return wy_accid;
+        }
+
+        public void setWy_accid(String wy_accid) {
+            this.wy_accid = wy_accid;
+        }
 
         public String getAttention_captain() {
             return attention_captain;

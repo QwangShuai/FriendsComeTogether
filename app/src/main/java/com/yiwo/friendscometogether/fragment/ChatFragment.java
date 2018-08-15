@@ -39,11 +39,6 @@ import butterknife.OnClick;
 public class ChatFragment extends BaseFragment{
     View rootView;
 
-    @BindView(R.id.btn1)
-    Button btn1;
-    @BindView(R.id.btn2)
-    Button btn2;
-
     private String account;
     private String token;
 
@@ -56,53 +51,6 @@ public class ChatFragment extends BaseFragment{
         ButterKnife.bind(this, rootView);
 
         return rootView;
-    }
-
-    @OnClick({R.id.btn1, R.id.btn2})
-    public void onClick(View view){
-        switch (view.getId()){
-            case R.id.btn1:
-                account = "yy15244615473";
-                token = "c52f69e327c6c8e5cad8635de42662e7";
-                LoginInfo info = new LoginInfo(account, token);
-                RequestCallback<LoginInfo> callback =
-                        new RequestCallback<LoginInfo>() {
-                            @Override
-                            public void onSuccess(LoginInfo loginInfo) {
-                                NimUIKit.loginSuccess(account);
-                                toToast(getContext(), "登录成功");
-                                NimUIKit.setMsgForwardFilter(new MsgForwardFilter() {
-                                    @Override
-                                    public boolean shouldIgnore(IMMessage message) {
-                                        return false;
-                                    }
-                                });
-                                NimUIKit.setMsgRevokeFilter(new MsgRevokeFilter() {
-                                    @Override
-                                    public boolean shouldIgnore(IMMessage message) {
-                                        return false;
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onFailed(int i) {
-                                toToast(getContext(), "登录失败");
-                            }
-
-                            @Override
-                            public void onException(Throwable throwable) {
-                                toToast(getContext(), "登录出错");
-                            }
-                            // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
-                        };
-                NIMClient.getService(AuthService.class).login(info)
-                        .setCallback(callback);
-                break;
-            case R.id.btn2:
-                liaotian();
-                break;
-        }
     }
 
     private void liaotian() {

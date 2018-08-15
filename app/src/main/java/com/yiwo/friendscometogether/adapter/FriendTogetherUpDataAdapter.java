@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -243,6 +245,25 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
                 }
             }
         }
+        holder.llleader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String uid = spImp.getUID();
+                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                    Intent intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    liaotian(data.get(position).getWy_accid());
+                }
+            }
+        });
+    }
+
+    private void liaotian(String liaotianAccount) {
+        String account = spImp.getYXID();
+        NimUIKit.setAccount(account);
+        NimUIKit.startP2PSession(context, liaotianAccount);
     }
 
     @Override
@@ -268,6 +289,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         private LinearLayout personll;
         private Button focusOnBtn;
 //        private LinearLayout focusOnll;
+        private LinearLayout llleader;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -288,6 +310,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
 //            focusOnll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll_top_focus);
 //            focusOnLeaderIv = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_iv_focus);
             focusOnBtn = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_btn_top_focus);
+            llleader = itemView.findViewById(R.id.consult_leaderLl);
         }
     }
 }

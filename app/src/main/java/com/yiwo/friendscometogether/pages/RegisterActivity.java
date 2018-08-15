@@ -11,6 +11,14 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nim.uikit.business.session.module.MsgForwardFilter;
+import com.netease.nim.uikit.business.session.module.MsgRevokeFilter;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.AuthService;
+import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.squareup.okhttp.Request;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -61,6 +69,9 @@ public class RegisterActivity extends BaseActivity {
     }
     public SpImp spImp;
     boolean state = true;
+
+    private String account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,6 +161,44 @@ public class RegisterActivity extends BaseActivity {
                                     Log.i("我的UID", jsonObject.optString("obj").toString());
                                     JSONObject js = new JSONObject(jsonObject.optString("obj"));
                                     spImp.setUID(js.optString("uid"));
+                                    spImp.setYXID(js.optString("wy_accid"));
+                                    spImp.setYXTOKEN(js.optString("token"));
+                                    account = js.optString("wy_accid");
+                                    String token = js.optString("token");
+                                    LoginInfo info = new LoginInfo(account, token);
+                                    RequestCallback<LoginInfo> callback =
+                                            new RequestCallback<LoginInfo>() {
+                                                @Override
+                                                public void onSuccess(LoginInfo loginInfo) {
+                                                    NimUIKit.loginSuccess(account);
+                                                    toToast(RegisterActivity.this, "登录成功");
+                                                    NimUIKit.setMsgForwardFilter(new MsgForwardFilter() {
+                                                        @Override
+                                                        public boolean shouldIgnore(IMMessage message) {
+                                                            return false;
+                                                        }
+                                                    });
+                                                    NimUIKit.setMsgRevokeFilter(new MsgRevokeFilter() {
+                                                        @Override
+                                                        public boolean shouldIgnore(IMMessage message) {
+                                                            return false;
+                                                        }
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onFailed(int i) {
+                                                    toToast(RegisterActivity.this, "登录失败");
+                                                }
+
+                                                @Override
+                                                public void onException(Throwable throwable) {
+                                                    toToast(RegisterActivity.this, "登录出错");
+                                                }
+                                                // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
+                                            };
+                                    NIMClient.getService(AuthService.class).login(info)
+                                            .setCallback(callback);
                                     finish();
                                 } else {
                                     toToast(c, jsonObject.optString("message").toString());

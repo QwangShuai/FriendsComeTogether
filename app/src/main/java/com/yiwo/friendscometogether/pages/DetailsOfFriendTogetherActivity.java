@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -93,6 +95,9 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     ImageView focusOnIv;
     @BindView(R.id.activity_details_of_friends_together_rl_back)
     RelativeLayout activity_details_of_friends_together_rl_back;
+    @BindView(R.id.consult_leaderLl)
+    LinearLayout llLeader;
+
     private Unbinder unbinder;
     private ParticipantsItemAdapter adapter;
     private DetailsOfFriendsTogetherAdapter detailsOfFriendsTogetherAdapter;
@@ -214,7 +219,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
 
     @OnClick({R.id.details_applyTv, R.id.activity_details_of_friends_together_rl_back, R.id.activity_details_of_friends_together_ll_share,
             R.id.activity_details_of_friends_together_ll_focus_on, R.id.activity_details_of_friends_together_btn_top_focus,
-            R.id.activity_details_of_friends_together_ll_person_content})
+            R.id.activity_details_of_friends_together_ll_person_content, R.id.consult_leaderLl})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.activity_details_of_friends_together_rl_back:
@@ -326,7 +331,23 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 it.putExtra("uid", model.getObj().getCaptain());
                 startActivity(it);
                 break;
+            case R.id.consult_leaderLl:
+                String uid = spImp.getUID();
+                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                    Intent intent = new Intent();
+                    intent.setClass(DetailsOfFriendTogetherActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    liaotian(model.getObj().getWy_accid());
+                }
+                break;
         }
+    }
+
+    private void liaotian(String liaotianAccount) {
+        String account = spImp.getYXID();
+        NimUIKit.setAccount(account);
+        NimUIKit.startP2PSession(DetailsOfFriendTogetherActivity.this, liaotianAccount);
     }
 
     @Override

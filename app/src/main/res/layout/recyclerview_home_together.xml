@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="70px">
 
-        <com.yiwo.friendscometogether.custom.CImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_marginLeft="25px"
             android:id="@+id/headIv"
             android:layout_width="70px"

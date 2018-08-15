@@ -231,7 +231,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.yiwo.friendscometogether.custom.CImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/activity_details_of_friends_iv_avatar"
                         android:layout_gravity="center_horizontal"
                         android:layout_width="140px"
@@ -316,6 +316,11 @@
                 android:background="#F7F7F7"
                 android:layout_width="match_parent"
                 android:layout_height="254px">
+
+                <View
+                    android:background="#F5F5F5"
+                    android:layout_width="match_parent"
+                    android:layout_height="12px"/>
 
                 <LinearLayout
                     android:layout_marginRight="18px"
@@ -418,6 +423,11 @@
                     android:layout_alignParentRight="true"
                     android:layout_width="262px"
                     android:layout_height="176px" />
+
+                <View
+                    android:background="#F5F5F5"
+                    android:layout_width="match_parent"
+                    android:layout_height="12px"/>
 
             </RelativeLayout>
 

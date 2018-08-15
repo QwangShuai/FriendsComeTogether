@@ -174,4 +174,6 @@ public class NetConfig {
     public static String orderCommentUrl = "action/ac_activity/activityReviews";
     //续写信息(修改描述和删除)
     public static String savePicAndDescribeUrl = "action/ac_article/SaveDescribe";
+    //添加好友
+    public static String addFriendsUrl = "action/ac_user/Addfriends";
 }

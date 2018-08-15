@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="20px"/>
 
-                <com.yiwo.friendscometogether.custom.CImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/fragment_my_iv_avatar"
                     android:layout_marginTop="20px"
                     android:layout_marginLeft="20px"
