@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white_ffffff"
     tools:context="com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity">
     <RelativeLayout
@@ -27,8 +26,10 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
     <ScrollView
-        android:layout_below="@+id/activity_details_of_friends_rl_top"
+        android:layout_above="@+id/bottom"
+        android:layout_below="@+id/activity_details_of_friends_together_rl_top"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -401,83 +402,88 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:background="@color/black_f8f8f8"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="98px">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <LinearLayout
-                        android:id="@+id/consult_leaderLl"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1">
-                        <ImageView
-                            android:layout_width="42px"
-                            android:layout_height="36px"
-                            android:src="@mipmap/consult"/>
-                        <TextView
-                            android:text="咨询队长"
-                            android:textSize="20px"
-                            android:textColor="@color/black_333333"
-                            android:layout_width="wrap_content"
-                            android:layout_height="28px" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/activity_details_of_friends_together_ll_share"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1">
-                        <ImageView
-                            android:layout_width="42px"
-                            android:layout_height="42px"
-                            android:src="@mipmap/share_y"/>
-                        <TextView
-                            android:text="分享"
-                            android:textSize="20px"
-                            android:textColor="@color/black_333333"
-                            android:layout_width="wrap_content"
-                            android:layout_height="28px" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/activity_details_of_friends_together_ll_focus_on"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1">
+        </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/activity_details_of_friends_together_iv_focus_on"
-                            android:layout_width="42px"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/focus_on_y" />
-                        <TextView
-                            android:text="关注"
-                            android:textSize="20px"
-                            android:textColor="@color/black_333333"
-                            android:layout_width="wrap_content"
-                            android:layout_height="28px" />
-                    </LinearLayout>
-                </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black_f8f8f8"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="98px">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/consult_leaderLl"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="42px"
+                    android:layout_height="36px"
+                    android:src="@mipmap/consult"/>
                 <TextView
-                    android:gravity="center"
-                    android:textSize="28px"
-                    android:textColor="@color/white_ffffff"
-                    android:background="@color/yellow_ff9d00"
-                    android:id="@+id/details_applyTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="报名参加"/>
+                    android:text="咨询队长"
+                    android:textSize="20px"
+                    android:textColor="@color/black_333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28px" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/activity_details_of_friends_together_ll_share"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="42px"
+                    android:layout_height="42px"
+                    android:src="@mipmap/share_y"/>
+                <TextView
+                    android:text="分享"
+                    android:textSize="20px"
+                    android:textColor="@color/black_333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28px" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/activity_details_of_friends_together_ll_focus_on"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/activity_details_of_friends_together_iv_focus_on"
+                    android:layout_width="42px"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/focus_on_y" />
+                <TextView
+                    android:text="关注"
+                    android:textSize="20px"
+                    android:textColor="@color/black_333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28px" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        <TextView
+            android:gravity="center"
+            android:textSize="28px"
+            android:textColor="@color/white_ffffff"
+            android:background="@color/yellow_ff9d00"
+            android:id="@+id/details_applyTv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="报名参加"/>
+    </LinearLayout>
+
+</RelativeLayout>

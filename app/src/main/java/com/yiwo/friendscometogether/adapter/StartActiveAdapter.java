@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.yiwo.friendscometogether.custom.EditContentDialog;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.InitiativesModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.EditorFriendTogetherActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
@@ -71,6 +73,15 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
                 context.startActivity(it);
             }
         });
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("pfID", data.get(position).getPfID());
+                intent.setClass(context, DetailsOfFriendTogetherActivity.class);
+                context.startActivity(intent);
+            }
+        });
         holder.cancleRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,16 +127,17 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTv;
-        TextView beginTimeTv;
-        TextView endTimeTv;
-        TextView priceTv;
-        TextView applyTv;
-        ImageView picIv;
-        TextView viewsyTv;
-        TextView focusOnTv;
-        RelativeLayout cancleRl;
-        RelativeLayout editorRl;
+        private TextView titleTv;
+        private TextView beginTimeTv;
+        private TextView endTimeTv;
+        private TextView priceTv;
+        private TextView applyTv;
+        private ImageView picIv;
+        private TextView viewsyTv;
+        private TextView focusOnTv;
+        private RelativeLayout cancleRl;
+        private RelativeLayout editorRl;
+        private LinearLayout ll;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -139,6 +151,7 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
             focusOnTv = (itemView).findViewById(R.id.recyclerview_start_active_tv_focus_on_num);
             cancleRl = (itemView).findViewById(R.id.recyclerview_start_active_rl_cancle_activity);
             editorRl = (itemView).findViewById(R.id.recyclerview_start_active_rl_editor_activity);
+            ll = itemView.findViewById(R.id.ll);
         }
     }
 

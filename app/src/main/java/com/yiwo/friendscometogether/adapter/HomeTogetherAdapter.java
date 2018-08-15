@@ -107,6 +107,15 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
                 }
             }
         });
+        holder.headIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("uid", data.get(position).getCaptain());
+                intent.setClass(context, OtherInformationActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

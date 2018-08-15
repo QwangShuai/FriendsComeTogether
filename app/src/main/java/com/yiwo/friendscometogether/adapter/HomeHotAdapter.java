@@ -20,6 +20,7 @@ import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
+import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 
 import org.w3c.dom.Text;
@@ -101,6 +102,15 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
                 } else {
                     listener.onFocus(position);
                 }
+            }
+        });
+        holder.headIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("uid", data.get(position).getUserID());
+                intent.setClass(context, OtherInformationActivity.class);
+                context.startActivity(intent);
             }
         });
 
