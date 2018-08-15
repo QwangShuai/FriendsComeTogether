@@ -172,4 +172,6 @@ public class NetConfig {
     public static String otherUserInformationUrl = "action/ac_user/PersonalcenterOthers";
     //活动发布评价
     public static String orderCommentUrl = "action/ac_activity/activityReviews";
+    //续写信息(修改描述和删除)
+    public static String savePicAndDescribeUrl = "action/ac_article/SaveDescribe";
 }

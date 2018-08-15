@@ -238,6 +238,10 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
 
             @Override
             public void onNext(Map<String, File> value) {
+                textmap = new HashMap<>();
+                for (int i = 0; i < mList.size(); i++) {
+                    textmap.put("textarea_img["+i+"]",mList.get(i).getDescribe());
+                }
                 ViseHttp.UPLOAD(NetConfig.addContentFriendTogetherUrl)
                         .addHeader("Content-Type", "multipart/form-data")
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addContentFriendTogetherUrl))

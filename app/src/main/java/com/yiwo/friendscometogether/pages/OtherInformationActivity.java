@@ -132,6 +132,9 @@ public class OtherInformationActivity extends BaseActivity {
                                 data1 = model.getObj().getListPicNews();
                                 worksAdapter = new OtherInformationWorksAdapter(data1);
                                 rvWorks.setAdapter(worksAdapter);
+                                if(data1.size() == 0){
+                                    rvWorks.setVisibility(View.GONE);
+                                }
                                 LinearLayoutManager manager1 = new LinearLayoutManager(OtherInformationActivity.this){
                                     @Override
                                     public boolean canScrollVertically() {
@@ -143,7 +146,6 @@ public class OtherInformationActivity extends BaseActivity {
                                 data2 = model.getObj().getListActiviy();
                                 activeAdapter = new OtherInformationActiveAdapter(data2);
                                 rvActive.setAdapter(activeAdapter);
-                                rvWorks.setVisibility(View.VISIBLE);
                                 rvActive.setVisibility(View.GONE);
                             }
                         } catch (JSONException e) {
@@ -169,14 +171,24 @@ public class OtherInformationActivity extends BaseActivity {
             case R.id.activity_other_information_tv_works:
                 tvWorks.setBackgroundColor(Color.parseColor("#FF9D00"));
                 tvActive.setBackgroundColor(Color.parseColor("#000000"));
-                rvWorks.setVisibility(View.VISIBLE);
-                rvActive.setVisibility(View.GONE);
+                if(data1.size() == 0){
+                    rvWorks.setVisibility(View.GONE);
+                    rvActive.setVisibility(View.GONE);
+                }else {
+                    rvWorks.setVisibility(View.VISIBLE);
+                    rvActive.setVisibility(View.GONE);
+                }
                 break;
             case R.id.activity_other_information_tv_active:
                 tvWorks.setBackgroundColor(Color.parseColor("#000000"));
                 tvActive.setBackgroundColor(Color.parseColor("#FF9D00"));
-                rvWorks.setVisibility(View.GONE);
-                rvActive.setVisibility(View.VISIBLE);
+                if(data2.size() == 0){
+                    rvWorks.setVisibility(View.GONE);
+                    rvActive.setVisibility(View.GONE);
+                }else {
+                    rvWorks.setVisibility(View.GONE);
+                    rvActive.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.activity_other_information_ll_mypics:
                 intent.putExtra("otheruid", otherUid);

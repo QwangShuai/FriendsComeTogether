@@ -11,25 +11,31 @@
         style="@style/rl_top_bar">
 
         <TextView
-            android:text="我的关注"
-            style="@style/tv_top_title" />
-        
+            style="@style/tv_top_title"
+            android:text="我的关注" />
+
         <RelativeLayout
             android:id="@+id/activity_my_focus_back"
             android:layout_width="100px"
             android:layout_height="match_parent">
 
-            <ImageView
-                style="@style/iv_return" />
+            <ImageView style="@style/iv_return" />
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_my_focus_rv"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_below="@+id/activity_my_focus_rl_top"
+        android:id="@+id/activity_my_focus_refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_my_focus_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateIntercalationActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
+import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.youth.banner.Banner;
@@ -69,20 +71,23 @@ public class FriendsRememberFragment extends BaseFragment {
     RefreshLayout refreshLayout;
 
     private FriendRememberUpDataAdapter adapter;
+    private List<FriendsRememberModel.ObjBean> mList;
 
     private SpImp spImp;
     private String uid = "";
 
+    private int page = 1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_friends_remember,null);
+        rootView = inflater.inflate(R.layout.fragment_friends_remember, null);
         ScreenAdapterTools.getInstance().loadView(rootView);
 
         ButterKnife.bind(this, rootView);
         spImp = new SpImp(getContext());
 
-        init(banner,DetailsOfFriendsActivity.class);
+        init(banner, DetailsOfFriendsActivity.class);
         initData();
 
         return rootView;
@@ -96,19 +101,78 @@ public class FriendsRememberFragment extends BaseFragment {
         refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(1000);
+            public void onRefresh(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.friendsRememberUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.friendsRememberUrl))
+                        .addParam("page", "1")
+                        .addParam("userID", uid)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    int code = jsonObject.getInt("code");
+                                    if (code == 200) {
+                                        Gson gson = new Gson();
+                                        FriendsRememberModel friendsRememberModel = gson.fromJson(data, FriendsRememberModel.class);
+                                        mList.clear();
+                                        mList.addAll(friendsRememberModel.getObj());
+                                        adapter.notifyDataSetChanged();
+                                        page = 2;
+                                    } else {
+                                        toToast(getContext(), jsonObject.getString("message"));
+                                    }
+                                    refreshlayout.finishRefresh();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishRefresh();
+                            }
+                        });
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(1000);//传入false表示加载失败
+            public void onLoadMore(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.friendsRememberUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.friendsRememberUrl))
+                        .addParam("page", page + "")
+                        .addParam("userID", uid)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    int code = jsonObject.getInt("code");
+                                    if (code == 200) {
+                                        Gson gson = new Gson();
+                                        FriendsRememberModel friendsRememberModel = gson.fromJson(data, FriendsRememberModel.class);
+                                        mList.addAll(friendsRememberModel.getObj());
+                                        adapter.notifyDataSetChanged();
+                                        page = page + 1;
+                                    } else {
+                                        toToast(getContext(), jsonObject.getString("message"));
+                                    }
+                                    refreshlayout.finishLoadMore();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishLoadMore();
+                            }
+                        });
             }
         });
 
         ViseHttp.POST(NetConfig.friendsRememberUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.friendsRememberUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.friendsRememberUrl))
                 .addParam("page", "1")
                 .addParam("userID", uid)
                 .request(new ACallback<String>() {
@@ -117,11 +181,12 @@ public class FriendsRememberFragment extends BaseFragment {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             int code = jsonObject.getInt("code");
-                            if(code == 200){
+                            if (code == 200) {
                                 Gson gson = new Gson();
                                 FriendsRememberModel friendsRememberModel = gson.fromJson(data, FriendsRememberModel.class);
+                                page = page + 1;
                                 initList(friendsRememberModel.getObj());
-                            }else {
+                            } else {
                                 toToast(getContext(), jsonObject.getString("message"));
                             }
                         } catch (JSONException e) {
@@ -137,9 +202,10 @@ public class FriendsRememberFragment extends BaseFragment {
 
     }
 
-    private void initList(List<FriendsRememberModel.ObjBean> data) {
+    private void initList(final List<FriendsRememberModel.ObjBean> data) {
 
-        LinearLayoutManager manager = new LinearLayoutManager(getContext()){
+        mList = data;
+        LinearLayoutManager manager = new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -147,15 +213,52 @@ public class FriendsRememberFragment extends BaseFragment {
         };
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        adapter = new FriendRememberUpDataAdapter(data);
+        adapter = new FriendRememberUpDataAdapter(mList);
         recyclerView.setAdapter(adapter);
+        adapter.setOnFocusListener(new FriendRememberUpDataAdapter.OnFocusListener() {
+            @Override
+            public void onFocus(final int position) {
+                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    if(mList.get(position).getLook().equals("0")){
+                        ViseHttp.POST(NetConfig.userFocusUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+                                .addParam("uid", uid)
+                                .addParam("likeId", data.get(position).getUserID())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.getInt("code") == 200){
+                                                mList.get(position).setLook("1");
+                                                adapter.notifyDataSetChanged();
+                                                toToast(getContext(), "关注成功");
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                }
+            }
+        });
 
     }
 
     @OnClick({R.id.searchLl})
-    public void onClick(View view){
+    public void onClick(View view) {
         Intent intent = new Intent();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.searchLl:
                 intent.setClass(getContext(), SearchActivity.class);
                 startActivity(intent);

@@ -12,153 +12,165 @@
             android:text="友聚" />
     </RelativeLayout>
 
-    <ScrollView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/fragment_friend_together_refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_my_focus_rl_top">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/fragment_friend_together_banner"
-                android:layout_width="match_parent"
-                android:layout_height="372px" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40px"
-                android:layout_marginTop="26px">
-
-                <LinearLayout
-                    android:id="@+id/select_city"
-                    android:layout_width="136px"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="80px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/fragment_friends_together_city_tv"
-                        android:layout_width="112px"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="选择城市"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px" />
-
-                    <ImageView
-                        android:layout_width="20px"
-                        android:layout_height="20px"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="4px"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/city" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/select_lable"
-                    android:layout_width="136px"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/fragment_friends_together_lable_tv"
-                        android:layout_width="112px"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="选择标签"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px" />
-
-                    <ImageView
-                        android:layout_width="20px"
-                        android:layout_height="20px"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="4px"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/label" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/search_leader"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="136px"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="80px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/fragment_friends_together_leader_tv"
-                        android:layout_width="112px"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="搜索领队"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px" />
-
-                    <ImageView
-                        android:layout_width="20px"
-                        android:layout_height="20px"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="4px"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/serach" />
-                </LinearLayout>
-            </RelativeLayout>
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants">
+                android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fragment_friend_together_rv"
+                <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/fragment_friend_together_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:background="#F8F8F8"
-                android:layout_width="match_parent"
-                android:layout_height="130px">
+                    android:layout_height="372px" />
 
-                <View
-                    android:layout_marginTop="20px"
-                    android:background="#E5E5E5"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="2px" />
+                    android:layout_height="40px"
+                    android:layout_marginTop="26px">
 
-                <LinearLayout
-                    android:layout_centerInParent="true"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/select_city"
+                        android:layout_width="136px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="80px"
+                        android:orientation="horizontal">
 
-                    <View
-                        android:layout_gravity="center_vertical"
-                        android:background="#979797"
-                        android:layout_width="80px"
-                        android:layout_height="2px"
-                        />
+                        <TextView
+                            android:id="@+id/fragment_friends_together_city_tv"
+                            android:layout_width="112px"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="选择城市"
+                            android:textColor="@color/black_333333"
+                            android:textSize="28px" />
 
-                    <TextView
-                        android:layout_marginLeft="20px"
-                        android:layout_marginRight="20px"
-                        android:textSize="30px"
-                        android:textColor="#6A6A6A"
-                        android:text="已经到底了"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="20px"
+                            android:layout_height="20px"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="4px"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/city" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/select_lable"
+                        android:layout_width="136px"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/fragment_friends_together_lable_tv"
+                            android:layout_width="112px"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="选择标签"
+                            android:textColor="@color/black_333333"
+                            android:textSize="28px" />
+
+                        <ImageView
+                            android:layout_width="20px"
+                            android:layout_height="20px"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="4px"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/label" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/search_leader"
+                        android:layout_width="136px"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="80px"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/fragment_friends_together_leader_tv"
+                            android:layout_width="112px"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="搜索领队"
+                            android:textColor="@color/black_333333"
+                            android:textSize="28px" />
+
+                        <ImageView
+                            android:layout_width="20px"
+                            android:layout_height="20px"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="4px"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/serach" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/fragment_friend_together_rv"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+                </RelativeLayout>
 
-                    <View
-                        android:layout_gravity="center_vertical"
-                        android:background="#979797"
-                        android:layout_width="80px"
-                        android:layout_height="2px"
-                        />
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="130px"-->
+                    <!--android:background="#F8F8F8">-->
 
-                </LinearLayout>
+                    <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="2px"-->
+                        <!--android:layout_marginTop="20px"-->
+                        <!--android:background="#E5E5E5" />-->
 
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_centerInParent="true"-->
+                        <!--android:orientation="horizontal">-->
+
+                        <!--<View-->
+                            <!--android:layout_width="80px"-->
+                            <!--android:layout_height="2px"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:background="#979797" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="20px"-->
+                            <!--android:layout_marginRight="20px"-->
+                            <!--android:text="已经到底了"-->
+                            <!--android:textColor="#6A6A6A"-->
+                            <!--android:textSize="30px" />-->
+
+                        <!--<View-->
+                            <!--android:layout_width="80px"-->
+                            <!--android:layout_height="2px"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:background="#979797" />-->
+
+                    <!--</LinearLayout>-->
+
+                <!--</RelativeLayout>-->
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </LinearLayout>

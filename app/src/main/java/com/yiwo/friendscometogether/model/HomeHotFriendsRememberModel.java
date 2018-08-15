@@ -11,7 +11,7 @@ public class HomeHotFriendsRememberModel {
     /**
      * code : 200
      * message : 获取成功!
-     * obj : {"info":[{"userphone":"15244615472","fmhot":"0","fmID":"12","upicurl":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","fmtitle":"不扔给","fmcontent":"2访问方法","fmpic":"http://47.92.136.19/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg","fmtime":"","fmlook":"0","fmcomment":"0","username":"zp","type":"1"},{"userphone":"15244615472","fmhot":"0","fmID":"11","upicurl":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","fmtitle":"2方法","fmcontent":"2沃尔沃二","fmpic":"http://47.92.136.19/http://47.92.136.19/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg","fmtime":"","fmlook":"0","fmcomment":"0","username":"zp","type":"2"},{"userphone":"15244615472","fmhot":"0","fmID":"10","upicurl":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","fmtitle":"违法违法","fmcontent":"而为范围","fmpic":"http://47.92.136.19/uploads/activity/20180719/20180719/11e73ef1b5e4809649c225afe7eb2501.jpg","fmtime":"","fmlook":"0","fmcomment":"0","username":"zp","type":"1"}],"video":[{"vname":"看视频上芒果TV","vurl":"www.aiqiyi.com","img":"http://47.92.136.19/uploads/videos/20180723/20180723/518fb806764967b97ee7f59a7d2d2795.jpg"},{"vname":"看视频来爱奇艺","vurl":"www.aiqiyi.com","img":"http://47.92.136.19/uploads/videos/20180723/20180723/603dc9e676722de754ed9f5dcf3029ac.jpg"},{"vname":"看视频来优酷","vurl":"www.baidu.com","img":"http://47.92.136.19/uploads/videos/20180723/20180723/ec202c25a5914855399f018f9d50752c.jpg"}]}
+     * obj : {"info":[{"userID":"7","userphone":"15244615473","upicurl":"http://47.92.136.19/uploads/header/2018/08/14/e046ce4cc65dee1e7fb83a564981889a15342152253.jpg","fmhot":"1","fmID":"85","fmtitle":"泰山七日游","fmcontent":"那里好好玩啊，下次有谁一起去吗？请告诉我那里好好玩啊，下次有谁一起去吗？请告诉我那里好好玩啊，下次有谁一起去吗？请告诉我那里好好玩啊，下次有谁一起去吗？请告诉我那里好好玩啊，下次有谁一起去吗？请告诉我","fmpic":"http://47.92.136.19/uploads/article/20180810/20180810/a5fba7bdbdef8beb653129c024d56cb8.jpeg","fmtime":"2018-08-10","fmlook":"178","fmcomment":"0","username":"吃了","follow":"0","type":"1"}],"video":[{"vname":"看视频上芒果TV","vurl":"www.aiqiyi.com","img":"http://47.92.136.19/uploads/videos/20180723/20180723/518fb806764967b97ee7f59a7d2d2795.jpg"},{"vname":"看视频来爱奇艺","vurl":"www.aiqiyi.com","img":"http://47.92.136.19/uploads/videos/20180723/20180723/603dc9e676722de754ed9f5dcf3029ac.jpg"},{"vname":"看视频来优酷","vurl":"www.baidu.com","img":"http://47.92.136.19/uploads/videos/20180723/20180723/ec202c25a5914855399f018f9d50752c.jpg"}]}
      */
 
     private int code;
@@ -64,24 +64,27 @@ public class HomeHotFriendsRememberModel {
 
         public static class InfoBean {
             /**
-             * userphone : 15244615472
-             * fmhot : 0
-             * fmID : 12
-             * upicurl : http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg
-             * fmtitle : 不扔给
-             * fmcontent : 2访问方法
-             * fmpic : http://47.92.136.19/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg
-             * fmtime :
-             * fmlook : 0
+             * userID : 7
+             * userphone : 15244615473
+             * upicurl : http://47.92.136.19/uploads/header/2018/08/14/e046ce4cc65dee1e7fb83a564981889a15342152253.jpg
+             * fmhot : 1
+             * fmID : 85
+             * fmtitle : 泰山七日游
+             * fmcontent : 那里好好玩啊，下次有谁一起去吗？请告诉我那里好好玩啊，下次有谁一起去吗？请告诉我那里好好玩啊，下次有谁一起去吗？请告诉我那里好好玩啊，下次有谁一起去吗？请告诉我那里好好玩啊，下次有谁一起去吗？请告诉我
+             * fmpic : http://47.92.136.19/uploads/article/20180810/20180810/a5fba7bdbdef8beb653129c024d56cb8.jpeg
+             * fmtime : 2018-08-10
+             * fmlook : 178
              * fmcomment : 0
-             * username : zp
+             * username : 吃了
+             * follow : 0
              * type : 1
              */
 
+            private String userID;
             private String userphone;
+            private String upicurl;
             private String fmhot;
             private String fmID;
-            private String upicurl;
             private String fmtitle;
             private String fmcontent;
             private String fmpic;
@@ -89,7 +92,16 @@ public class HomeHotFriendsRememberModel {
             private String fmlook;
             private String fmcomment;
             private String username;
+            private String follow;
             private String type;
+
+            public String getUserID() {
+                return userID;
+            }
+
+            public void setUserID(String userID) {
+                this.userID = userID;
+            }
 
             public String getUserphone() {
                 return userphone;
@@ -97,6 +109,14 @@ public class HomeHotFriendsRememberModel {
 
             public void setUserphone(String userphone) {
                 this.userphone = userphone;
+            }
+
+            public String getUpicurl() {
+                return upicurl;
+            }
+
+            public void setUpicurl(String upicurl) {
+                this.upicurl = upicurl;
             }
 
             public String getFmhot() {
@@ -113,14 +133,6 @@ public class HomeHotFriendsRememberModel {
 
             public void setFmID(String fmID) {
                 this.fmID = fmID;
-            }
-
-            public String getUpicurl() {
-                return upicurl;
-            }
-
-            public void setUpicurl(String upicurl) {
-                this.upicurl = upicurl;
             }
 
             public String getFmtitle() {
@@ -177,6 +189,14 @@ public class HomeHotFriendsRememberModel {
 
             public void setUsername(String username) {
                 this.username = username;
+            }
+
+            public String getFollow() {
+                return follow;
+            }
+
+            public void setFollow(String follow) {
+                this.follow = follow;
             }
 
             public String getType() {

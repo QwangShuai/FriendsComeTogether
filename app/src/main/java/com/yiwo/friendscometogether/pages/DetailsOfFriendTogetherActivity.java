@@ -40,6 +40,9 @@ import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -97,6 +100,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     FriendsTogetherDetailsModel model;
     String pfID;
     String leaderID = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,13 +124,15 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String data) {
                         Log.e("222", data);
-                        model = new Gson().fromJson(data, FriendsTogetherDetailsModel.class);
-                        if(model.getCode()==200){
-                            initView(model.getObj());
-                        } else {
-                            toToast(DetailsOfFriendTogetherActivity.this,model.getMessage());
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                model = new Gson().fromJson(data, FriendsTogetherDetailsModel.class);
+                                initView(model.getObj());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-
                     }
 
                     @Override
@@ -138,7 +144,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     }
 
     public void initView(FriendsTogetherDetailsModel.ObjBean model) {
-        if(!StringUtils.isEmpty(model.getCaptain()))
+        if (!StringUtils.isEmpty(model.getCaptain()))
             leaderID = model.getCaptain();
         if (!StringUtils.isEmpty(model.getShow_pic())) {
             Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getShow_pic()).into(titleIv);
@@ -164,11 +170,11 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
 //            participantsTv.setText("*暂无报名信息");
 //            recyclerViewP.setVisibility(View.GONE);
 //        } else {
-            participantsTv.setText("参加人员（" + model.getHave_num() + "/" + model.getPerson_num() + ")");
-            initPerson(model.getUser_list());
+        participantsTv.setText("参加人员（" + model.getHave_num() + "/" + model.getPerson_num() + ")");
+        initPerson(model.getUser_list());
 //        }
 
-        focusOnBtn.setText(model.getAttention_captain().equals("0")?"+ 关注": "已关注");
+        focusOnBtn.setText(model.getAttention_captain().equals("0") ? "+ 关注" : "已关注");
 //        if(!StringUtils.isEmpty(leaderID)&&!leaderID.equals("0")){
 //            levelTv.setText(model.getIf_sign().equals("0")?"普通领队":"签约领队");
 //        } else {
@@ -207,7 +213,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     }
 
     @OnClick({R.id.details_applyTv, R.id.activity_details_of_friends_together_rl_back, R.id.activity_details_of_friends_together_ll_share,
-            R.id.activity_details_of_friends_together_ll_focus_on,R.id.activity_details_of_friends_together_btn_top_focus,
+            R.id.activity_details_of_friends_together_ll_focus_on, R.id.activity_details_of_friends_together_btn_top_focus,
             R.id.activity_details_of_friends_together_ll_person_content})
     public void OnClick(View v) {
         switch (v.getId()) {
@@ -287,17 +293,17 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                         });
                 break;
             case R.id.activity_details_of_friends_together_btn_top_focus:
-                if (!StringUtils.isEmpty(leaderID)&&!leaderID.equals("0")){
+                if (!StringUtils.isEmpty(leaderID) && !leaderID.equals("0")) {
                     ViseHttp.POST(NetConfig.focusOnLeaderUrl)
-                            .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.focusOnLeaderUrl))
-                            .addParam("userID",spImp.getUID())
-                            .addParam("attention_userID",leaderID)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.focusOnLeaderUrl))
+                            .addParam("userID", spImp.getUID())
+                            .addParam("attention_userID", leaderID)
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {
-                                    FocusOnLeaderModel model = new Gson().fromJson(data,FocusOnLeaderModel.class);
-                                    if(model.getCode()==200){
-                                        if(model.getObj().getAttention().equals("0")){
+                                    FocusOnLeaderModel model = new Gson().fromJson(data, FocusOnLeaderModel.class);
+                                    if (model.getCode() == 200) {
+                                        if (model.getObj().getAttention().equals("0")) {
                                             focusOnBtn.setText("+ 关注");
                                         } else {
                                             focusOnBtn.setText("已关注");
@@ -311,13 +317,13 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                                 }
                             });
                 } else {
-                    toToast(DetailsOfFriendTogetherActivity.this,"暂无领队");
+                    toToast(DetailsOfFriendTogetherActivity.this, "暂无领队");
                 }
                 break;
             case R.id.activity_details_of_friends_together_ll_person_content:
-                toToast(this,"这是领队的ID"+model.getObj().getCaptain());
-                Intent it = new Intent(this,OtherInformationActivity.class);
-                it.putExtra("uid",model.getObj().getCaptain());
+//                toToast(this, "这是领队的ID" + model.getObj().getCaptain());
+                Intent it = new Intent(this, OtherInformationActivity.class);
+                it.putExtra("uid", model.getObj().getCaptain());
                 startActivity(it);
                 break;
         }

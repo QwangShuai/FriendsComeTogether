@@ -22,7 +22,9 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.IntercalationAdapter;
+import com.yiwo.friendscometogether.adapter.ModifyIntercalationPicAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.custom.PicDescribeDialog;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.ModifyIntercalationModel;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
@@ -66,9 +68,14 @@ public class ModifyIntercalationActivity extends BaseActivity {
     EditText etContent;
     @BindView(R.id.activity_create_intercalation_tv_text_num)
     TextView tvContentNum;
+    @BindView(R.id.activity_create_intercalation_rv1)
+    RecyclerView recyclerView1;
 
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
+
+    private ModifyIntercalationPicAdapter picAdapter;
+    private List<ModifyIntercalationModel.ObjBean.ImagesArrBean> mList1;
 
     private static final int REQUEST_CODE = 0x00000011;
 
@@ -110,8 +117,85 @@ public class ModifyIntercalationActivity extends BaseActivity {
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 ModifyIntercalationModel model = gson.fromJson(data, ModifyIntercalationModel.class);
-                                etTitle.setText(model.getObj().getFftitle());
-                                etContent.setText(model.getObj().getFfcontect());
+                                etTitle.setText(model.getObj().getInfo().getFftitle());
+                                etContent.setText(model.getObj().getInfo().getFfcontect());
+                                GridLayoutManager manager1 = new GridLayoutManager(ModifyIntercalationActivity.this, 3){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                recyclerView1.setLayoutManager(manager1);
+                                mList1 = model.getObj().getImagesArr();
+                                picAdapter = new ModifyIntercalationPicAdapter(mList1);
+                                recyclerView1.setAdapter(picAdapter);
+                                picAdapter.setOnModifyListener(new ModifyIntercalationPicAdapter.OnModifyListener() {
+                                    @Override
+                                    public void onModify(int type, final int position) {
+                                        switch (type){
+                                            case 1:
+                                                ViseHttp.POST(NetConfig.savePicAndDescribeUrl)
+                                                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.savePicAndDescribeUrl))
+                                                        .addParam("type", "1")
+                                                        .addParam("id", mList1.get(position).getFfpID())
+                                                        .request(new ACallback<String>() {
+                                                            @Override
+                                                            public void onSuccess(String data) {
+                                                                try {
+                                                                    JSONObject jsonObject1 = new JSONObject(data);
+                                                                    if(jsonObject1.getInt("code") == 200){
+                                                                        mList1.remove(position);
+                                                                        picAdapter.notifyDataSetChanged();
+                                                                        toToast(ModifyIntercalationActivity.this, "删除成功");
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFail(int errCode, String errMsg) {
+
+                                                            }
+                                                        });
+                                                break;
+                                            case 2:
+                                                PicDescribeDialog dialog = new PicDescribeDialog(ModifyIntercalationActivity.this);
+                                                dialog.show();
+                                                dialog.setOnReturnListener(new PicDescribeDialog.OnReturnListener() {
+                                                    @Override
+                                                    public void onReturn(final String title) {
+                                                        ViseHttp.POST(NetConfig.savePicAndDescribeUrl)
+                                                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.savePicAndDescribeUrl))
+                                                                .addParam("type", "0")
+                                                                .addParam("id", mList1.get(position).getFfpID())
+                                                                .addParam("describe", title+"")
+                                                                .request(new ACallback<String>() {
+                                                                    @Override
+                                                                    public void onSuccess(String data) {
+                                                                        try {
+                                                                            JSONObject jsonObject1 = new JSONObject(data);
+                                                                            if(jsonObject1.getInt("code") == 200){
+                                                                                mList1.get(position).setFfptitle(title+"");
+                                                                                picAdapter.notifyDataSetChanged();
+                                                                                toToast(ModifyIntercalationActivity.this, "修改成功");
+                                                                            }
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFail(int errCode, String errMsg) {
+
+                                                                    }
+                                                                });
+                                                    }
+                                                });
+                                                break;
+                                        }
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -126,7 +210,12 @@ public class ModifyIntercalationActivity extends BaseActivity {
 
         uid = spImp.getUID();
         mList = new ArrayList<>();
-        GridLayoutManager manager = new GridLayoutManager(ModifyIntercalationActivity.this, 3);
+        GridLayoutManager manager = new GridLayoutManager(ModifyIntercalationActivity.this, 3){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         recyclerView.setLayoutManager(manager);
         adapter = new IntercalationAdapter(mList);
         recyclerView.setAdapter(adapter);

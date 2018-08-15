@@ -106,6 +106,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     RecyclerView recyclerView1;
     @BindView(R.id.activity_details_of_friends_btn_focus)
     Button btnTopFocus;
+    @BindView(R.id.activity_details_of_friends_rl_activity)
+    RelativeLayout rlActiveContent;
 
     private DetailsOfFriendsIntercalationAdapter adapter;
     private DetailsOfFriendsIntercalation1Adapter adapter1;
@@ -257,7 +259,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
     @OnClick({R.id.activity_details_of_friends_rl_back, R.id.activity_details_of_friends_ll_intercalation, R.id.activity_details_of_friends_ll_comment,
             R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star,
-            R.id.activity_details_of_friends_ll_person_content, R.id.activity_details_of_friends_btn_focus})
+            R.id.activity_details_of_friends_ll_person_content, R.id.activity_details_of_friends_btn_focus, R.id.activity_details_of_friends_rl_activity})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -454,6 +456,12 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                 });
                     }
                 }
+                break;
+            case R.id.activity_details_of_friends_rl_activity:
+                //相关活动跳转
+                intent.putExtra("pfID", model.getObj().getActivityInfo().getPfID());
+                intent.setClass(DetailsOfFriendsActivity.this, DetailsOfFriendTogetherActivity.class);
+                startActivity(intent);
                 break;
         }
     }

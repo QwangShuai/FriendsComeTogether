@@ -2,63 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_hot_vessel"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/home_hot_children"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <RelativeLayout
-            android:layout_marginTop="27px"
             android:layout_width="match_parent"
-            android:layout_height="50px">
+            android:layout_height="wrap_content">
+
+            <com.yiwo.friendscometogether.custom.CImageView
+                android:id="@+id/home_hot_itemHeadIv"
+                android:layout_width="88px"
+                android:layout_height="88px"
+                android:layout_marginLeft="20px" />
+
             <TextView
-                android:layout_marginLeft="20px"
-                android:textSize="36px"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/home_hot_itemHeadIv"
+                android:id="@+id/home_hot_itemNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12px"
                 android:gravity="center_vertical"
                 android:textColor="@color/black_333333"
-                android:id="@+id/home_hot_title"
-                android:text="嘿嘿嘿额"
-                android:layout_width="576px"
-                android:layout_height="match_parent" />
+                android:textSize="30px" />
 
-            <TextView
-                android:text="热门"
-                android:textSize="20px"
-                android:textColor="@color/white_ffffff"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="40px"
+            <Button
                 android:layout_centerVertical="true"
-                android:gravity="center"
-                android:layout_width="70px"
-                android:layout_height="40px"
-                android:background="@drawable/bg_hot"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_marginTop="24px"
-            android:layout_width="match_parent"
-            android:layout_height="176px">
-
-            <TextView
-                android:maxLines="4"
-                android:id="@+id/home_hot_content"
-                android:layout_width="430px"
-                android:layout_height="147px"
-                android:layout_marginLeft="20px"
-                android:layout_marginTop="15px"
-                android:ellipsize="end"
-                android:text="开头讲个段子。在决定下笔写游记之前，我在朋友圈征集和酒有关旅行故事，很多人问我，要和酒有关的故事，还是要旅行故事？我说两者兼..."
-                android:textColor="@color/black_333333"
-                android:textSize="26px" />
-            <ImageView
-                android:scaleType="centerCrop"
-                android:id="@+id/home_hot_itemIv"
+                android:layout_marginRight="20px"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="29px"
-                android:layout_width="262px"
-                android:layout_height="176px"
-                android:src="@mipmap/ic_launcher"/>
+                android:id="@+id/activity_details_of_friends_btn_focus"
+                android:textSize="30px"
+                android:textColor="#F71F1F"
+                android:background="@null"
+                android:text="+ 关注"
+                android:layout_width="120px"
+                android:layout_height="56px" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -66,77 +52,103 @@
             android:layout_height="50px"
             android:layout_marginTop="24px">
 
-            <com.yiwo.friendscometogether.custom.CImageView
-                android:id="@+id/home_hot_itemHeadIv"
-                android:layout_width="50px"
+            <TextView
+                android:id="@+id/home_hot_title"
+                android:layout_width="576px"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20px"
-                android:src="@mipmap/ic_launcher" />
-
-            <TextView
-                android:id="@+id/home_hot_itemNameTv"
-                android:layout_width="210px"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/home_hot_itemHeadIv"
-                android:layout_toRightOf="@+id/home_hot_itemHeadIv"
+                android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:text="山峰不会写游记"
+                android:lines="1"
+                android:text="嘿嘿嘿额"
                 android:textColor="@color/black_333333"
-                android:textSize="30px" />
+                android:textSize="36px" />
 
             <TextView
+                android:layout_width="80px"
+                android:layout_height="50px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"
+                android:background="@drawable/bg_hot"
+                android:gravity="center"
+                android:text="热门"
+                android:textColor="@color/white_ffffff"
+                android:textSize="26px" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_marginTop="24px"
+            android:id="@+id/home_hot_itemIv"
+            android:layout_width="match_parent"
+            android:layout_height="372px"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90px">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"
                 android:id="@+id/home_hot_itemTimeTv"
-                android:layout_width="140px"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/views"
-                android:layout_toStartOf="@+id/views"
                 android:gravity="center_vertical"
+                android:layout_alignParentRight="true"
                 android:text="2018-05-10"
                 android:textColor="@color/black_333333"
                 android:textSize="24px" />
 
             <ImageView
+                android:layout_marginLeft="20px"
                 android:id="@+id/views"
                 android:layout_width="28px"
                 android:layout_height="19px"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="6px"
-                android:layout_toLeftOf="@+id/home_hot_itemViewsTv"
                 android:src="@mipmap/views" />
 
             <TextView
+                android:layout_centerVertical="true"
                 android:id="@+id/home_hot_itemViewsTv"
                 android:layout_width="53px"
                 android:layout_height="match_parent"
                 android:layout_marginRight="20px"
-                android:layout_toLeftOf="@+id/messages"
+                android:layout_toRightOf="@+id/views"
                 android:gravity="center_vertical"
                 android:text="1234"
                 android:textColor="@color/yellow_ff9d00"
                 android:textSize="24px" />
 
             <ImageView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/home_hot_itemViewsTv"
                 android:id="@+id/messages"
                 android:layout_width="26px"
                 android:layout_height="24px"
                 android:layout_marginRight="6px"
                 android:layout_marginTop="13px"
-                android:layout_toLeftOf="@+id/home_hot_itemMessageTv"
                 android:src="@mipmap/message_hot" />
 
             <TextView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/messages"
                 android:id="@+id/home_hot_itemMessageTv"
                 android:layout_width="53px"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20px"
                 android:gravity="center_vertical"
                 android:text="1234"
                 android:textColor="@color/yellow_ff9d00"
                 android:textSize="24px" />
         </RelativeLayout>
+
+        <View
+            android:background="#F4F4F4"
+            android:layout_width="match_parent"
+            android:layout_height="20px"/>
+
     </LinearLayout>
 
 </LinearLayout>

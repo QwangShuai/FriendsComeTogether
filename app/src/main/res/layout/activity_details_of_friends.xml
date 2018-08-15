@@ -312,6 +312,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/activity_details_of_friends_rl_activity"
                 android:background="#F7F7F7"
                 android:layout_width="match_parent"
                 android:layout_height="254px">

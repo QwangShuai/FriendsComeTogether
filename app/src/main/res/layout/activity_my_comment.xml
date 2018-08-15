@@ -11,25 +11,31 @@
         style="@style/rl_top_bar">
 
         <TextView
-            android:text="我的评论"
-            style="@style/tv_top_title" />
-        
+            style="@style/tv_top_title"
+            android:text="我的评论" />
+
         <RelativeLayout
             android:id="@+id/activity_my_comment_rl_back"
             android:layout_width="100px"
             android:layout_height="match_parent">
 
-            <ImageView
-                style="@style/iv_return" />
+            <ImageView style="@style/iv_return" />
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/activity_my_comment_rl_top"
-        android:id="@+id/activity_my_comment_rv"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/activity_my_comment_refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_my_comment_rl_top">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_my_comment_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </RelativeLayout>

@@ -18,6 +18,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.LookPasswordDialog;
 import com.yiwo.friendscometogether.model.FriendsRememberModel;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
+import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 
 import java.util.List;
 
@@ -29,6 +30,11 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
 
     private List<FriendsRememberModel.ObjBean> data;
     private Context context;
+    private OnFocusListener listener;
+
+    public void setOnFocusListener(OnFocusListener listener){
+        this.listener = listener;
+    }
 
     public FriendRememberUpDataAdapter(List<FriendsRememberModel.ObjBean> data) {
         this.data = data;
@@ -91,6 +97,21 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
                 }
             }
         });
+        holder.ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("uid", data.get(position).getUserID());
+                intent.setClass(context, OtherInformationActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        holder.btnIsFocus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onFocus(position);
+            }
+        });
     }
 
     @Override
@@ -126,6 +147,10 @@ public class FriendRememberUpDataAdapter extends RecyclerView.Adapter<FriendReme
 //            ivIsFocus = itemView.findViewById(R.id.fragment_friend_remember_rv_iv_is_focus);
             btnIsFocus = itemView.findViewById(R.id.activity_details_of_friends_btn_focus);
         }
+    }
+
+    public interface OnFocusListener{
+        void onFocus(int position);
     }
 
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,6 +39,12 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
     private Context context;
     private List<HomeTogetherModel.ObjBean> data;
     SpImp spImp;
+    private OnFocusListener listener;
+
+    public void setOnFocusListener(OnFocusListener listener){
+        this.listener = listener;
+    }
+
     //    private List<HomeHotFriendsRememberModel.ObjBean.VideoBean> list;
     public HomeTogetherAdapter(List<HomeTogetherModel.ObjBean> data){
         this.data = data;
@@ -59,12 +66,21 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
             Picasso.with(context).load(data.get(position).getPfpic()).into(holder.picIv);
         if(!StringUtils.isEmpty(data.get(position).getUpicurl()))
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
-        holder.bgRl.setBackgroundResource(data.get(position).getSign().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
 //        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
 //            holder.levelTv.setText(data.get(position).getSign().equals("0")?"普通领队":"签约领队");
 //        } else {
 //            holder.levelTv.setText("暂无领队");
 //        }
+
+        holder.nickname.setText(data.get(position).getUsername());
+        holder.time.setText(data.get(position).getPftime());
+        holder.lookNum.setText(data.get(position).getLook_num());
+        holder.commentNum.setText(data.get(position).getComment_num());
+        if(data.get(position).getFollow().equals("0")){
+            holder.btnFocus.setText("+关注");
+        }else {
+            holder.btnFocus.setText("已关注");
+        }
 
         holder.titleTv.setText(data.get(position).getPftitle());
         holder.contentTv.setText(data.get(position).getPfcontent());
@@ -81,6 +97,25 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
                 }
             }
         });
+        holder.btnFocus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(spImp.getUID().equals("0")){
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                } else {
+                    listener.onFocus(position);
+                }
+            }
+        });
+        holder.headIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("uid", data.get(position).getCaptain());
+                intent.setClass(context, OtherInformationActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -89,22 +124,37 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView picIv;
-        TextView titleTv;
-        TextView levelTv;
-        RelativeLayout bgRl;
-        CImageView headIv;
-        TextView contentTv;
-        RelativeLayout rl;
+
+        private ImageView picIv;
+        private TextView titleTv;
+        private TextView levelTv;
+        private CImageView headIv;
+        private TextView contentTv;
+        private LinearLayout rl;
+        private TextView nickname;
+        private TextView time;
+        private TextView lookNum;
+        private TextView commentNum;
+        private Button btnFocus;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            bgRl = (itemView).findViewById(R.id.item_levelBg);
             headIv = (itemView).findViewById(R.id.headIv);
             levelTv = (itemView).findViewById(R.id.levelTv);
             picIv = (itemView).findViewById(R.id.home_together_pic_iv);
             titleTv = (itemView).findViewById(R.id.home_together_title_tv);
-            contentTv = (itemView).findViewById(R.id.home_together_title_tv);
+            contentTv = (itemView).findViewById(R.id.home_together_content_tv);
             rl = (itemView).findViewById(R.id.home_together__item_rl);
+            nickname = itemView.findViewById(R.id.nickname);
+            time = itemView.findViewById(R.id.time);
+            lookNum = itemView.findViewById(R.id.look_num);
+            commentNum = itemView.findViewById(R.id.comment_num);
+            btnFocus = itemView.findViewById(R.id.activity_details_of_friends_btn_focus);
         }
     }
+
+    public interface OnFocusListener{
+        void onFocus(int position);
+    }
+
 }
