@@ -86,6 +86,10 @@ public class FriendsTogetherFragment extends BaseFragment {
     private int page = 1;
     private List<FriendsTogethermodel.ObjBean> mList;
 
+    private String cityId = "";
+
+    private String sign = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -112,6 +116,8 @@ public class FriendsTogetherFragment extends BaseFragment {
                         .addParam("app_key", token)
                         .addParam("page", "1")
                         .addParam("userID", spImp.getUID())
+                        .addParam("city_id", cityId)
+                        .addParam("sign", sign)
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
@@ -146,6 +152,8 @@ public class FriendsTogetherFragment extends BaseFragment {
                         .addParam("app_key", token)
                         .addParam("page", page + "")
                         .addParam("userID", spImp.getUID())
+                        .addParam("city_id", cityId)
+                        .addParam("sign", sign)
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
@@ -251,12 +259,105 @@ public class FriendsTogetherFragment extends BaseFragment {
                                     if (TextUtils.isEmpty(yourChoiceName)) {
                                         lableTv.setText(itemName[0]);
                                         yourChoiceId = itemId[0];
+                                        sign = yourChoiceId;
+                                        String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
+                                        ViseHttp.POST(NetConfig.friendsTogetherUrl)
+                                                .addParam("app_key", token)
+                                                .addParam("page", "1")
+                                                .addParam("userID", spImp.getUID())
+                                                .addParam("city_id", cityId)
+                                                .addParam("sign", sign)
+                                                .request(new ACallback<String>() {
+                                                    @Override
+                                                    public void onSuccess(String data) {
+                                                        try {
+                                                            JSONObject jsonObject = new JSONObject(data);
+                                                            if (jsonObject.getInt("code") == 200) {
+                                                                Log.e("222", data);
+                                                                FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
+                                                                page = 2;
+                                                                initList(model.getObj());
+                                                            }
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFail(int errCode, String errMsg) {
+
+                                                    }
+                                                });
                                     } else {
                                         lableTv.setText(yourChoiceName);
                                         yourChoiceName = "";
+                                        sign = yourChoiceId;
+                                        String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
+                                        ViseHttp.POST(NetConfig.friendsTogetherUrl)
+                                                .addParam("app_key", token)
+                                                .addParam("page", "1")
+                                                .addParam("userID", spImp.getUID())
+                                                .addParam("city_id", cityId)
+                                                .addParam("sign", sign)
+                                                .request(new ACallback<String>() {
+                                                    @Override
+                                                    public void onSuccess(String data) {
+                                                        try {
+                                                            JSONObject jsonObject = new JSONObject(data);
+                                                            if (jsonObject.getInt("code") == 200) {
+                                                                Log.e("222", data);
+                                                                FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
+                                                                page = 2;
+                                                                initList(model.getObj());
+                                                            }
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFail(int errCode, String errMsg) {
+
+                                                    }
+                                                });
                                     }
                                 }
                             });
+                    singleChoiceDialog.setNegativeButton("重置", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            sign = "";
+                            lableTv.setText("选择标签");
+                            String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
+                            ViseHttp.POST(NetConfig.friendsTogetherUrl)
+                                    .addParam("app_key", token)
+                                    .addParam("page", "1")
+                                    .addParam("userID", spImp.getUID())
+                                    .addParam("city_id", cityId)
+                                    .addParam("sign", sign)
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String data) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(data);
+                                                if (jsonObject.getInt("code") == 200) {
+                                                    Log.e("222", data);
+                                                    FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
+                                                    page = 2;
+                                                    initList(model.getObj());
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
+
+                                        }
+                                    });
+                        }
+                    });
                     singleChoiceDialog.show();
                     break;
                 case R.id.search_leader:
@@ -269,9 +370,69 @@ public class FriendsTogetherFragment extends BaseFragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && data != null) {
+        if (requestCode == 1 && data != null && resultCode == 1) {
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
             cityTv.setText(model.getName());
+            cityId = model.getId();
+            String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
+            ViseHttp.POST(NetConfig.friendsTogetherUrl)
+                    .addParam("app_key", token)
+                    .addParam("page", "1")
+                    .addParam("userID", spImp.getUID())
+                    .addParam("city_id", cityId)
+                    .addParam("sign", sign)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    Log.e("222", data);
+                                    FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
+                                    page = 2;
+                                    initList(model.getObj());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }else if(requestCode == 1 && resultCode == 2){
+            cityId = "";
+            cityTv.setText("选择城市");
+            String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
+            ViseHttp.POST(NetConfig.friendsTogetherUrl)
+                    .addParam("app_key", token)
+                    .addParam("page", "1")
+                    .addParam("userID", spImp.getUID())
+                    .addParam("city_id", cityId)
+                    .addParam("sign", sign)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    Log.e("222", data);
+                                    FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
+                                    page = 2;
+                                    initList(model.getObj());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
         }
     }
 

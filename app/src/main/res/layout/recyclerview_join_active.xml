@@ -142,6 +142,7 @@
         android:layout_height="90px">
 
         <RelativeLayout
+            android:id="@+id/rl_enter_chat_room"
             android:layout_weight="1"
             android:layout_width="0px"
             android:layout_height="match_parent">

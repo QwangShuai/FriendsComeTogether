@@ -21,6 +21,22 @@
             style="@style/tv_top_title"
             android:text="城市列表" />
 
+        <RelativeLayout
+            android:id="@+id/rl_reset"
+            android:layout_alignParentRight="true"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:text="重置"
+                android:textColor="@color/white_ffffff"
+                android:textSize="28px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <View style="@style/v_split" />

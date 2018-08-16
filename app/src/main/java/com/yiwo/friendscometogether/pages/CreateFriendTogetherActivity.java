@@ -1,8 +1,10 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -49,6 +51,7 @@ import com.yiwo.friendscometogether.model.CreateFriendsTogetherModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
 import com.yiwo.friendscometogether.model.GetEditorFriendTogetherModel;
 import com.yiwo.friendscometogether.model.JsonBean;
+import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -56,6 +59,8 @@ import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -132,6 +137,11 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     TextView tvTitleNum;
     @BindView(R.id.activity_create_friend_together_tv_content_num)
     TextView tvContentNum;
+    @BindView(R.id.activity_create_friend_remember_rl_label)
+    RelativeLayout rlLabel;
+    @BindView(R.id.activity_create_friend_remember_tv_label)
+    TextView tvLabel;
+
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -150,6 +160,11 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     GetEditorFriendTogetherModel.ObjBean bean = new GetEditorFriendTogetherModel.ObjBean();
 
     private Dialog dialog;
+
+    private String[] itemId;
+    private String[] itemName;
+    private String yourChoiceId = "";
+    private String yourChoiceName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,27 +197,58 @@ public class CreateFriendTogetherActivity extends BaseActivity {
 //            tvTimeStart.setText(bean.getPfgotime());
 //            tvTimeEnd.setText(bean.getPfendtime());
 //        }
-        Observable.just("").subscribeOn(Schedulers.newThread()).subscribe(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
 
-            }
+//        Observable.just("").subscribeOn(Schedulers.newThread()).subscribe(new Observer<String>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(String value) {
+//                initJsonData();
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        });
 
-            @Override
-            public void onNext(String value) {
-                initJsonData();
-            }
+        ViseHttp.POST(NetConfig.userLabel)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userLabel))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.e("222", data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                UserLabelModel userLabelModel = gson.fromJson(data, UserLabelModel.class);
+                                itemId = new String[userLabelModel.getObj().size()];
+                                itemName = new String[userLabelModel.getObj().size()];
+                                for (int i = 0; i < userLabelModel.getObj().size(); i++) {
+                                    itemId[i] = userLabelModel.getObj().get(i).getLID();
+                                    itemName[i] = userLabelModel.getObj().get(i).getLname();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-            @Override
-            public void onError(Throwable e) {
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
 
-            }
+                    }
+                });
 
-            @Override
-            public void onComplete() {
-
-            }
-        });
         StringUtils.setEditTextInputSpace(etTitle);
         etTitle.addTextChangedListener(new TextWatcher() {
             private CharSequence temp;
@@ -246,7 +292,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
             R.id.activity_create_friend_together_rl_time_start, R.id.activity_create_friend_together_rl_time_end, R.id.activity_create_friend_together_rl_activity_city,
             R.id.activity_create_friend_together_rl_price, R.id.activity_create_friend_together_rl_complete, R.id.activity_create_friend_together_rl_enter_activities,
             R.id.activity_create_friend_together_rl_person_require, R.id.activity_create_friend_together_rl_activities_require,
-            R.id.activity_create_friend_together_iv_add, R.id.activity_create_friend_together_iv_delete})
+            R.id.activity_create_friend_together_iv_add, R.id.activity_create_friend_together_iv_delete, R.id.activity_create_friend_remember_rl_label})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_create_friend_together_rl_back:
@@ -360,6 +406,36 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                 ivDelete.setVisibility(View.GONE);
                 ivTitle.setVisibility(View.INVISIBLE);
                 tvFirstIv.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.activity_create_friend_remember_rl_label:
+                AlertDialog.Builder singleChoiceDialog =
+                        new AlertDialog.Builder(CreateFriendTogetherActivity.this);
+                singleChoiceDialog.setTitle("请选择标签");
+                // 第二个参数是默认选项，此处设置为0
+                singleChoiceDialog.setSingleChoiceItems(itemName, 0,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                yourChoiceName = itemName[which];
+                                yourChoiceId = itemId[which];
+                            }
+                        });
+                singleChoiceDialog.setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (TextUtils.isEmpty(yourChoiceName)) {
+                                    tvLabel.setText(itemName[0]);
+                                    yourChoiceId = itemId[0];
+                                    map.put("pflable", yourChoiceId);
+                                } else {
+                                    tvLabel.setText(yourChoiceName);
+                                    yourChoiceName = "";
+                                    map.put("pflable", yourChoiceId);
+                                }
+                            }
+                        });
+                singleChoiceDialog.show();
                 break;
         }
     }
@@ -589,7 +665,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     public void onComplete(final int state) {
 
         map.put("user_id", spImp.getUID());
-        if ((map.size() == 17 && findPwd()) || (map.size() == 16 && !findPwd())) {
+        if ((map.size() == 18 && findPwd()) || (map.size() == 17 && !findPwd())) {
             String token = getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
             dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendTogetherActivity.this, "请等待...");
             Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {

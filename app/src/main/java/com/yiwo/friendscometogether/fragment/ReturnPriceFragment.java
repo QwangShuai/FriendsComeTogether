@@ -172,7 +172,7 @@ public class ReturnPriceFragment extends OrderBaseFragment {
                                 mList = model.getObj();
                                 adapter = new FragmentReturnPriceAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
-                                page = page + 1;
+                                page = 2;
                                 adapter.setOnDeleteListener(new FragmentReturnPriceAdapter.OnDeleteListener() {
                                     @Override
                                     public void onDelete(final int position) {

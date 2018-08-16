@@ -173,7 +173,7 @@ public class ToPayFragment extends OrderBaseFragment {
                                 mList = model.getObj();
                                 adapter = new FragmentToPayAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
-                                page = page+1;
+                                page = 2;
                                 adapter.setOnPayListener(new FragmentToPayAdapter.OnPayListener() {
                                     @Override
                                     public void onPay(int position) {

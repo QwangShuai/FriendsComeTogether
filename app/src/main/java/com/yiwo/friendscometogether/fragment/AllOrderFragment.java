@@ -176,7 +176,7 @@ public class AllOrderFragment extends OrderBaseFragment {
                                 mList = model.getObj();
                                 adapter = new FragmentAllOrderAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
-                                page = page + 1;
+                                page = 2;
                                 adapter.setOnPayListener(new FragmentAllOrderAdapter.OnPayListener() {
                                     @Override
                                     public void onPay(int position) {

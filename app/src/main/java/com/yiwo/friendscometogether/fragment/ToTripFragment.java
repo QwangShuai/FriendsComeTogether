@@ -171,7 +171,7 @@ public class ToTripFragment extends OrderBaseFragment {
                                 mList = model.getObj();
                                 adapter = new FragmentToTripAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
-                                page = page + 1;
+                                page = 2;
                                 adapter.setOnCancelListener(new FragmentToTripAdapter.OnCancelListener() {
                                     @Override
                                     public void onCancel(final int position) {

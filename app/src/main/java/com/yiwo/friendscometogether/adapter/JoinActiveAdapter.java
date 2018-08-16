@@ -26,6 +26,7 @@ import com.yiwo.friendscometogether.model.JoinActivemodel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.EditorFriendTogetherActivity;
+import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
@@ -89,6 +90,35 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
             }
         });
 
+        holder.rlEnterChatRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViseHttp.POST(NetConfig.enterChatRoomUrl)
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.enterChatRoomUrl))
+                        .addParam("uid", spImp.getUID())
+                        .addParam("activity_id", data.get(position).getPfID())
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        String teamid = jsonObject.getJSONObject("obj").getString("roomid");
+                                        team(teamid);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+        });
+
         holder.cancleRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +170,12 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
         NimUIKit.startP2PSession(context, liaotianAccount);
     }
 
+    private void team(String teamId) {
+        String account = spImp.getYXID();
+        NimUIKit.setAccount(account);
+        NimUIKit.startTeamSession(context, teamId);
+    }
+
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
@@ -157,6 +193,7 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
         private RelativeLayout cancleRl;
         private LinearLayout ll;
         private RelativeLayout rlLeader;
+        private RelativeLayout rlEnterChatRoom;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -171,6 +208,7 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
             cancleRl = (itemView).findViewById(R.id.recyclerview_join_active_rl_cancle_active);
             ll = itemView.findViewById(R.id.ll);
             rlLeader = itemView.findViewById(R.id.rl_consulting_leader);
+            rlEnterChatRoom = itemView.findViewById(R.id.rl_enter_chat_room);
         }
     }
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -82,6 +83,14 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
                 context.startActivity(intent);
             }
         });
+
+        holder.rlChatRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                team(data.get(position).getRoomid());
+            }
+        });
+
         holder.cancleRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +130,12 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
         });
     }
 
+    private void team(String teamId) {
+        String account = spImp.getYXID();
+        NimUIKit.setAccount(account);
+        NimUIKit.startTeamSession(context, teamId);
+    }
+
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
@@ -138,6 +153,7 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
         private RelativeLayout cancleRl;
         private RelativeLayout editorRl;
         private LinearLayout ll;
+        private RelativeLayout rlChatRoom;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -152,6 +168,7 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
             cancleRl = (itemView).findViewById(R.id.recyclerview_start_active_rl_cancle_activity);
             editorRl = (itemView).findViewById(R.id.recyclerview_start_active_rl_editor_activity);
             ll = itemView.findViewById(R.id.ll);
+            rlChatRoom = itemView.findViewById(R.id.rl_chat_room);
         }
     }
 

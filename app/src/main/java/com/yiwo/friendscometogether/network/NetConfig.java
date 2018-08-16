@@ -176,4 +176,6 @@ public class NetConfig {
     public static String savePicAndDescribeUrl = "action/ac_article/SaveDescribe";
     //添加好友
     public static String addFriendsUrl = "action/ac_user/Addfriends";
+    //进入聊天室
+    public static String enterChatRoomUrl = "action/ac_activity/GroupActives";
 }

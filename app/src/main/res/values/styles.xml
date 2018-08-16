@@ -35,7 +35,7 @@
     </style>
     <!--返回RelativeLayout样式-->
     <style name="rl_return">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">100px</item>
         <item name="android:layout_height">match_parent</item>
     </style>
     <!--全屏加透明-->

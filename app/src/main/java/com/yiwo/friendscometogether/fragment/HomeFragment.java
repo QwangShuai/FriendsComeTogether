@@ -121,6 +121,8 @@ public class HomeFragment extends BaseFragment {
     private SpImp spImp;
     private String uid = "";
 
+    private String cityId = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -155,6 +157,7 @@ public class HomeFragment extends BaseFragment {
                         .addParam("app_key", tokens)
                         .addParam("page", "1")
                         .addParam("uid", uid)
+                        .addParam("city_id", cityId)
                         .request(new ACallback<String>() {
                             @Override
                             public void onFail(int errCode, String errMsg) {
@@ -188,6 +191,7 @@ public class HomeFragment extends BaseFragment {
                         .addParam("app_key", tokens)
                         .addParam("page", page + "")
                         .addParam("uid", uid)
+                        .addParam("city_id", cityId)
                         .request(new ACallback<String>() {
                             @Override
                             public void onFail(int errCode, String errMsg) {
@@ -245,6 +249,7 @@ public class HomeFragment extends BaseFragment {
                 .addParam("app_key", tokens)
                 .addParam("page", "1")
                 .addParam("uid", uid)
+                .addParam("city_id", cityId)
                 .request(new ACallback<String>() {
                     @Override
                     public void onFail(int errCode, String errMsg) {
@@ -505,6 +510,33 @@ public class HomeFragment extends BaseFragment {
         if (requestCode == 1 && data != null) {
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
             cityTv.setText(model.getName());
+            cityId = model.getId();
+            String tokens = getToken(NetConfig.BaseUrl + NetConfig.homeTogetherListUrl);
+            ViseHttp.POST(NetConfig.homeTogetherListUrl)
+                    .addParam("app_key", tokens)
+                    .addParam("page", "1")
+                    .addParam("uid", uid)
+                    .addParam("city_id", cityId)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    HomeTogetherModel model = new Gson().fromJson(data, HomeTogetherModel.class);
+                                    page = 2;
+                                    initTogetherList(model.getObj());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
         }
     }
 }

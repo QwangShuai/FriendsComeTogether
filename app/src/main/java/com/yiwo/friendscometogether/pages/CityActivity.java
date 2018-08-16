@@ -39,6 +39,9 @@ public class CityActivity extends BaseActivity {
     ListView cityLv;
     @BindView(R.id.sb_city)
     SlideBar citySb;
+    @BindView(R.id.rl_reset)
+    RelativeLayout rlReset;
+
     List<CityModel> list;
     String[] letter;
     private Unbinder unbinder;
@@ -73,6 +76,15 @@ public class CityActivity extends BaseActivity {
         returnRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+            }
+        });
+        rlReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent();
+                it.putExtra(ActivityConfig.CITY, "");
+                setResult(2, it);
                 finish();
             }
         });

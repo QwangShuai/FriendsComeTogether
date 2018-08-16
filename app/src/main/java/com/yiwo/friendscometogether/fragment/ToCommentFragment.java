@@ -164,7 +164,7 @@ public class ToCommentFragment extends OrderBaseFragment {
                                 mList = model.getObj();
                                 adapter = new FragmentToCommentAdapter(mList, getActivity());
                                 recyclerView.setAdapter(adapter);
-                                page = page + 1;
+                                page = 2;
                                 adapter.setOnDeleteListener(new FragmentToCommentAdapter.OnDeleteListener() {
                                     @Override
                                     public void onDelete(final int position) {

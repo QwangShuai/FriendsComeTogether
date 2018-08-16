@@ -66,12 +66,17 @@ public class ArticleCommentActivity extends BaseActivity {
     private SpImp spImp;
     private String uid = "";
 
+    private boolean isComment = true;
+
     /**
      * popupwindow相关
      */
     private Button btn_submit;
     private ImageView btn_back;
     private PopupWindow popupWindowhf;
+
+    private String userid = "";
+    private String fcid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +127,7 @@ public class ArticleCommentActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String data) {
                         try {
+                            Log.e("222", data);
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
@@ -132,7 +138,10 @@ public class ArticleCommentActivity extends BaseActivity {
                                 adapter.setOnReplyListener(new ArticleCommentAdapter.OnReplyListener() {
                                     @Override
                                     public void onReply(int position, String id) {
-                                        showPopupCommnet(1, id, mList.get(position).getFcID());
+//                                        showPopupCommnet(1, id, mList.get(position).getFcID());
+                                        userid = id;
+                                        fcid = mList.get(position).getFcID();
+                                        showKeyboard(etComment);
                                     }
                                 });
                             }
@@ -170,33 +179,66 @@ public class ArticleCommentActivity extends BaseActivity {
      */
     private void toComment() {
 
-        ViseHttp.POST(NetConfig.articleCommentUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleCommentUrl))
-                .addParam("id", fmID)
-                .addParam("fctitle", etComment.getText().toString())
-                .addParam("uid", uid)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if (jsonObject.getInt("code") == 200) {
-                                toToast(ArticleCommentActivity.this, "评论成功");
-                                etComment.setText(null);
-                                reload();
+        if(isComment){
+            ViseHttp.POST(NetConfig.articleCommentUrl)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleCommentUrl))
+                    .addParam("id", fmID)
+                    .addParam("fctitle", etComment.getText().toString())
+                    .addParam("uid", uid)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    toToast(ArticleCommentActivity.this, "评论成功");
+                                    etComment.setText(null);
+                                    reload();
 //                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //                                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
 
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+                            etComment.setText(null);
+                        }
+                    });
+        }else {
+            ViseHttp.POST(NetConfig.replyCommentUrl)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.replyCommentUrl))
+                    .addParam("commentid", userid)
+                    .addParam("first_fcID", userid)
+                    .addParam("ArticleId", fmID)
+                    .addParam("fctitle", etComment.getText().toString())
+                    .addParam("uid", uid)
+                    .addParam("oneID", fcid)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.getInt("code") == 200){
+                                    toToast(ArticleCommentActivity.this, "回复成功");
+                                    etComment.setText(null);
+                                    reload();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            isComment = true;
+                        }
 
-                    }
-                });
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+                            isComment = true;
+                            etComment.setText(null);
+                        }
+                    });
+        }
 
     }
 
@@ -218,6 +260,7 @@ public class ArticleCommentActivity extends BaseActivity {
             //调用系统输入法
             InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.showSoftInput(editText, 0);
+            isComment = false;
         }
     }
 
