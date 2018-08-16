@@ -22,13 +22,12 @@
             android:text="注册" />
 
     </RelativeLayout>
-    <com.yiwo.friendscometogether.custom.CImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/headIv"
         android:layout_width="200px"
         android:layout_height="200px"
         android:layout_gravity="center"
         android:layout_marginTop="69px"
-        android:scaleType="fitXY"
         android:src="@mipmap/hhh" />
     <EditText
         android:gravity="center_vertical"

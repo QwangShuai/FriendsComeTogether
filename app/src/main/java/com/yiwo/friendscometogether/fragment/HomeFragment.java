@@ -5,8 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -14,8 +12,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,58 +29,40 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.squareup.okhttp.Request;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.HomeHotAdapter;
 import com.yiwo.friendscometogether.adapter.HomeTogetherAdapter;
 import com.yiwo.friendscometogether.adapter.VideoAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
-import com.yiwo.friendscometogether.custom.GlideImageLoader;
 import com.yiwo.friendscometogether.custom.ScalableCardHelper;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
+import com.yiwo.friendscometogether.model.GoogleCityModel;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.model.HomeTogetherModel;
-import com.yiwo.friendscometogether.model.UserFocusModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.pages.ApplyActivity;
 import com.yiwo.friendscometogether.pages.CityActivity;
-import com.yiwo.friendscometogether.pages.CreateFriendTogetherActivity;
-import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.MessageCenterActivity;
-import com.yiwo.friendscometogether.pages.MyFocusActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
-import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.UserUtils;
 import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.mContext;
 
 /**
  * Created by Administrator on 2018/7/16.
@@ -451,37 +429,69 @@ public class HomeFragment extends BaseFragment {
         try {
             // 去谷歌的地理位置获取中去解析经纬度对应的地理位置
             String url = "http://maps.google.cn/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true&language=zh-CN";
-            OkHttpUtils.get()
-                    .tag(this)
-                    .url(url)
+
+//            String url = "http://maps.google.cn/maps/api/geocode/json?latlng=" + "46.2122837132" + "," + "128.4605692798" + "&sensor=true&language=zh-CN";
+            ViseHttp.GET(url)
                     .addHeader("Accept-Language", "zh-CN")
-                    .build()
-                    .execute(new StringCallback() {
+                    .request(new ACallback<String>() {
                         @Override
-                        public void onError(Request request, Exception e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(String response) {
+                        public void onSuccess(String data) {
                             try {
-                                JSONObject jsonObject = new JSONObject(response);
+                                JSONObject jsonObject = new JSONObject(data);
                                 JSONArray resultArray = jsonObject
                                         .getJSONArray("results");
-                                if (resultArray.length() > 0) {
-                                    JSONObject subObject = resultArray.getJSONObject(1);
-                                    String address = subObject
-                                            .getString("formatted_address");
-                                    latLongString = address;
-                                    Log.i("所在城市", latLongString);
-                                    handler.sendEmptyMessage(2);
-                                }
-
+//                                if (resultArray.length() > 0) {
+//                                    JSONObject subObject = resultArray.getJSONObject(1);
+//                                    String address = subObject
+//                                            .getString("formatted_address");
+//                                    latLongString = address;
+//                                    Log.i("所在城市", latLongString);
+//                                    handler.sendEmptyMessage(2);
+//                                }
+                                Gson gson = new Gson();
+                                GoogleCityModel model = gson.fromJson(data, GoogleCityModel.class);
+                                latLongString = model.getResults().get(0).getAddress_components().get(3).getLong_name();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
                     });
+//            OkHttpUtils.get()
+//                    .tag(this)
+//                    .url(url)
+//                    .addHeader("Accept-Language", "zh-CN")
+//                    .build()
+//                    .execute(new StringCallback() {
+//                        @Override
+//                        public void onError(Request request, Exception e) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onResponse(String response) {
+//                            try {
+//                                JSONObject jsonObject = new JSONObject(response);
+//                                JSONArray resultArray = jsonObject
+//                                        .getJSONArray("results");
+//                                if (resultArray.length() > 0) {
+//                                    JSONObject subObject = resultArray.getJSONObject(1);
+//                                    String address = subObject
+//                                            .getString("formatted_address");
+//                                    latLongString = address;
+//                                    Log.i("所在城市", latLongString);
+//                                    handler.sendEmptyMessage(2);
+//                                }
+//
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    });
 
 
         } catch (Exception e) {

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -81,6 +82,13 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
             }
         });
 
+        holder.rlLeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                liaotian(data.get(position).getWy_accid());
+            }
+        });
+
         holder.cancleRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +134,12 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
         });
     }
 
+    private void liaotian(String liaotianAccount) {
+        String account = spImp.getYXID();
+        NimUIKit.setAccount(account);
+        NimUIKit.startP2PSession(context, liaotianAccount);
+    }
+
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
@@ -142,6 +156,7 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
         private TextView focusOnTv;
         private RelativeLayout cancleRl;
         private LinearLayout ll;
+        private RelativeLayout rlLeader;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -155,6 +170,7 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
             focusOnTv = (itemView).findViewById(R.id.recyclerview_join_active_tv_focus_on_num);
             cancleRl = (itemView).findViewById(R.id.recyclerview_join_active_rl_cancle_active);
             ll = itemView.findViewById(R.id.ll);
+            rlLeader = itemView.findViewById(R.id.rl_consulting_leader);
         }
     }
 

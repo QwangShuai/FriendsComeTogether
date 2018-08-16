@@ -88,10 +88,10 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
 //        }
 
 //        holder.levelBg.setBackgroundResource(data.get(position).getUsergrade().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
-        holder.levelTv.setText("LV"+data.get(position).getUsergrade());
-        holder.personTv.setText("参与人数："+data.get(position).getHave_num() + "/" + data.get(position).getPfpeople());
+        holder.levelTv.setText("LV" + data.get(position).getUsergrade());
+        holder.personTv.setText("参与人数：" + data.get(position).getHave_num() + "/" + data.get(position).getPfpeople());
         holder.focusOnIv.setImageResource(data.get(position).getFocusOn().equals("0") ? R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
-        holder.focusOnBtn.setText(data.get(position).getCaptain_focusOn().equals("0")?"+ 关注":"已关注");
+        holder.focusOnBtn.setText(data.get(position).getCaptain_focusOn().equals("0") ? "+ 关注" : "已关注");
         holder.focusOnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +164,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(context, OtherInformationActivity.class);
-                it.putExtra("uid",data.get(position).getCaptain());
+                it.putExtra("uid", data.get(position).getCaptain());
                 context.startActivity(it);
             }
         });
@@ -172,7 +172,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             @Override
             public void onClick(View v) {
                 String userID = spImp.getUID();
-                if(userID.equals("0")){
+                if (userID.equals("0")) {
                     context.startActivity(new Intent(context, LoginActivity.class));
                 } else {
                     ViseHttp.POST(NetConfig.focusOnToFriendTogetherUrl)
@@ -206,14 +206,10 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(spImp.getUID().equals("0")){
-                    context.startActivity(new Intent(context, LoginActivity.class));
-                } else {
-                    Intent intent = new Intent();
-                    intent.setClass(context, DetailsOfFriendTogetherActivity.class);
-                    intent.putExtra("pfID", data.get(position).getPfID());
-                    context.startActivity(intent);
-                }
+                Intent intent = new Intent();
+                intent.setClass(context, DetailsOfFriendTogetherActivity.class);
+                intent.putExtra("pfID", data.get(position).getPfID());
+                context.startActivity(intent);
             }
         });
         holder.look_overLl.setOnClickListener(new View.OnClickListener() {
@@ -236,7 +232,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             }
         } else {
             for (int i = 0; i < 8; i++) {
-                if(!StringUtils.isEmpty(data.get(position).getAll_u_pic().get(i))){
+                if (!StringUtils.isEmpty(data.get(position).getAll_u_pic().get(i))) {
                     Picasso.with(context).load(data.get(position).getAll_u_pic().get(i)).into(iv);
                 }
                 if (iv.getParent() != null) {
@@ -249,11 +245,11 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             @Override
             public void onClick(View view) {
                 String uid = spImp.getUID();
-                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
                     Intent intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
-                }else {
+                } else {
                     liaotian(data.get(position).getWy_accid());
                 }
             }
@@ -273,7 +269,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView picIv;
-//        private ImageView focusOnLeaderIv;
+        //        private ImageView focusOnLeaderIv;
         private TextView titleTv;
         private TextView contentTv;
         private LinearLayout vessel;
@@ -288,7 +284,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         private LinearLayout ll;
         private LinearLayout personll;
         private Button focusOnBtn;
-//        private LinearLayout focusOnll;
+        //        private LinearLayout focusOnll;
         private LinearLayout llleader;
 
         public ViewHolder(View itemView) {

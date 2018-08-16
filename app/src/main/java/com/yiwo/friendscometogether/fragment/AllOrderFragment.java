@@ -162,7 +162,7 @@ public class AllOrderFragment extends OrderBaseFragment {
         recyclerView.setLayoutManager(manager);
         ViseHttp.POST(NetConfig.myOrderListUrl)
                 .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.myOrderListUrl))
-                .addParam("page", page + "")
+                .addParam("page", "1")
                 .addParam("userID", uid)
                 .addParam("type", "0")
                 .request(new ACallback<String>() {

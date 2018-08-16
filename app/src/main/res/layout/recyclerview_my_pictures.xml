@@ -30,7 +30,7 @@
 
         <ImageView
             android:id="@+id/activity_my_pictures_rv_iv"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_width="300px"
             android:layout_height="200px" />
         

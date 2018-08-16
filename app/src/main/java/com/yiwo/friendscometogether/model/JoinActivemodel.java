@@ -11,7 +11,7 @@ public class JoinActivemodel {
     /**
      * code : 200
      * message : 操作成功!
-     * obj : [{"captain":"ylyy15244615472","ujID":"34","pfID":"56","pfpic":"http://47.92.136.19/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg","pftitle":"登峨眉山！","pfgotime":"2018-07-30","pfendtime":"2018-08-01","pfspend":"120.00","pflook":"13","focusOn":"12","join_num":"9"},{"captain":"ylyy15244615472","ujID":"33","pfID":"55","pfpic":"http://47.92.136.19/uploads/xingcheng/20180723/20180723/6c2644a18caacdf5e463a600c11a6916.jpg","pftitle":"洱海10天游","pfgotime":"2018-09-01","pfendtime":"2018-09-04","pfspend":"123.00","pflook":"123","focusOn":"123","join_num":"1"}]
+     * obj : [{"captain":"ylyy15244615473","ujID":"2","pfID":"2","pfpic":"http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg","pftitle":"泰山30日游","pfgotime":"2018-08-02","pfendtime":"2018-09-29","pfspend":"1.00","pflook":"14","focusOn":"0","join_num":"1","wy_accid":"yy15244615473"}]
      */
 
     private int code;
@@ -44,17 +44,18 @@ public class JoinActivemodel {
 
     public static class ObjBean {
         /**
-         * captain : ylyy15244615472
-         * ujID : 34
-         * pfID : 56
-         * pfpic : http://47.92.136.19/uploads/activity/20180720/20180720/73cc839014b7516c8d975ec3aa52e382.jpg
-         * pftitle : 登峨眉山！
-         * pfgotime : 2018-07-30
-         * pfendtime : 2018-08-01
-         * pfspend : 120.00
-         * pflook : 13
-         * focusOn : 12
-         * join_num : 9
+         * captain : ylyy15244615473
+         * ujID : 2
+         * pfID : 2
+         * pfpic : http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg
+         * pftitle : 泰山30日游
+         * pfgotime : 2018-08-02
+         * pfendtime : 2018-09-29
+         * pfspend : 1.00
+         * pflook : 14
+         * focusOn : 0
+         * join_num : 1
+         * wy_accid : yy15244615473
          */
 
         private String captain;
@@ -68,6 +69,7 @@ public class JoinActivemodel {
         private String pflook;
         private String focusOn;
         private String join_num;
+        private String wy_accid;
 
         public String getCaptain() {
             return captain;
@@ -155,6 +157,14 @@ public class JoinActivemodel {
 
         public void setJoin_num(String join_num) {
             this.join_num = join_num;
+        }
+
+        public String getWy_accid() {
+            return wy_accid;
+        }
+
+        public void setWy_accid(String wy_accid) {
+            this.wy_accid = wy_accid;
         }
     }
 }

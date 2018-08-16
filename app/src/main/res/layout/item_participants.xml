@@ -5,7 +5,7 @@
     android:id="@+id/item_onclick_rl"
     android:orientation="vertical">
 
-    <com.yiwo.friendscometogether.custom.CImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_marginTop="20px"
         android:id="@+id/item_head"
         android:layout_width="80px"

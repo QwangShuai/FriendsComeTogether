@@ -1,16 +1,15 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.squareup.okhttp.Request;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.MainActivity;
 import com.yiwo.friendscometogether.R;
@@ -21,14 +20,11 @@ import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.utils.UserUtils;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,21 +108,13 @@ public class CityActivity extends BaseActivity {
 
     public void loadHot() {
         String token = getToken(NetConfig.BaseUrl + NetConfig.hotCityUrl);
-        OkHttpUtils.post()
-                .tag(this)
-                .url(NetConfig.BaseUrl + NetConfig.hotCityUrl)
-                .addParams("app_key", token)
-                .build()
-                .execute(new StringCallback() {
+        ViseHttp.POST(NetConfig.hotCityUrl)
+                .addParam("app_key", token)
+                .request(new ACallback<String>() {
                     @Override
-                    public void onError(Request request, Exception e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response) {
+                    public void onSuccess(String data) {
                         try {
-                            JSONObject jsonObject = new JSONObject(response);
+                            JSONObject jsonObject = new JSONObject(data);
                             int code = jsonObject.optInt("code");
                             JSONArray arr = jsonObject.optJSONArray("obj");
                             if (code == 200) {
@@ -151,26 +139,63 @@ public class CityActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
                 });
+//        OkHttpUtils.post()
+//                .tag(this)
+//                .url(NetConfig.BaseUrl + NetConfig.hotCityUrl)
+//                .addParams("app_key", token)
+//                .build()
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onError(Request request, Exception e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(response);
+//                            int code = jsonObject.optInt("code");
+//                            JSONArray arr = jsonObject.optJSONArray("obj");
+//                            if (code == 200) {
+//                                if (arr != null && arr.length() != 0) {
+//                                    CityModel c = new CityModel();
+//                                    c.setId("-1");
+//                                    c.setName("热门城市");
+//                                    list.add(c);
+//                                    for (int j = 0; j < arr.length(); j++) {
+//                                        JSONObject o = arr.optJSONObject(j);
+//                                        CityModel cm = new CityModel();
+//                                        cm.setId(o.optString("city_id"));
+//                                        cm.setName(o.optString("city_name"));
+//                                        list.add(cm);
+//                                    }
+//                                }
+//                            } else {
+//                                toToast(CityActivity.this, jsonObject.optString("message").toString());
+//                            }
+//                            adapter.notifyDataSetChanged();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
     }
 
     public void loadCity() {
         String token = getToken(NetConfig.BaseUrl + NetConfig.cityUrl);
-        OkHttpUtils.post()
-                .tag(this)
-                .url(NetConfig.BaseUrl + NetConfig.cityUrl)
-                .addParams("app_key", token)
-                .build()
-                .execute(new StringCallback() {
+        ViseHttp.POST(NetConfig.cityUrl)
+                .addParam("app_key", token)
+                .request(new ACallback<String>() {
                     @Override
-                    public void onError(Request request, Exception e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response) {
+                    public void onSuccess(String data) {
                         try {
-                            JSONObject jsonObject = new JSONObject(response);
+                            JSONObject jsonObject = new JSONObject(data);
                             int code = jsonObject.optInt("code");
                             JSONObject jsonobj = jsonObject.optJSONObject("obj");
                             if (code == 200) {
@@ -198,6 +223,54 @@ public class CityActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
                 });
+//        OkHttpUtils.post()
+//                .tag(this)
+//                .url(NetConfig.BaseUrl + NetConfig.cityUrl)
+//                .addParams("app_key", token)
+//                .build()
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onError(Request request, Exception e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(response);
+//                            int code = jsonObject.optInt("code");
+//                            JSONObject jsonobj = jsonObject.optJSONObject("obj");
+//                            if (code == 200) {
+//                                for (int i = 0; i < letter.length; i++) {
+//                                    JSONArray arr = jsonobj.optJSONArray(letter[i]);
+//                                    if (arr != null) {
+//                                        CityModel c = new CityModel();
+//                                        c.setId("-1");
+//                                        c.setName(letter[i].toUpperCase());
+//                                        list.add(c);
+//                                        for (int j = 0; j < arr.length(); j++) {
+//                                            JSONObject o = arr.optJSONObject(j);
+//                                            CityModel cm = new CityModel();
+//                                            cm.setId(o.optString("ID"));
+//                                            cm.setName(o.optString("name"));
+//                                            list.add(cm);
+//                                        }
+//                                    }
+//                                }
+//                            } else {
+//                                toToast(CityActivity.this, jsonObject.optString("message").toString());
+//                            }
+//                            adapter.notifyDataSetChanged();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
     }
 }

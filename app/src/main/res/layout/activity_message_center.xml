@@ -28,13 +28,12 @@
         android:id="@+id/hot_message_rl"
         android:layout_width="match_parent"
         android:layout_height="170px">
-        <com.yiwo.friendscometogether.custom.CImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/headIv"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25px"
             android:layout_width="120px"
             android:layout_height="120px"
-            android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher"/>
         <TextView
             android:maxLines="1"
@@ -94,13 +93,12 @@
         android:id="@+id/set_message_rl"
         android:layout_width="match_parent"
         android:layout_height="170px">
-        <com.yiwo.friendscometogether.custom.CImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/set_headIv"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25px"
             android:layout_width="120px"
             android:layout_height="120px"
-            android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher"/>
         <TextView
             android:maxLines="1"
