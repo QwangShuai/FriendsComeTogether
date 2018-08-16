@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.custom.CImageView;
 import com.yiwo.friendscometogether.sp.SpImp;
 
 import butterknife.BindView;
@@ -23,9 +23,9 @@ public class MessageCenterActivity extends AppCompatActivity {
     @BindView(R.id.activity_message_center_rl_back)
     RelativeLayout backRl;
     @BindView(R.id.headIv)
-    CImageView headIv;
+    ImageView headIv;
     @BindView(R.id.set_headIv)
-    CImageView set_headIv;
+    ImageView set_headIv;
     @BindView(R.id.titleTv)
     TextView titleTv;
     @BindView(R.id.contentTv)

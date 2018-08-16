@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,7 +19,6 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
-import com.yiwo.friendscometogether.custom.CImageView;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
@@ -40,7 +40,7 @@ public class ForgetPwActivity extends BaseActivity {
     @BindView(R.id.rl_set_return)
     RelativeLayout returnRl;
     @BindView(R.id.headIv)
-    CImageView headIv;
+    ImageView headIv;
     @BindView(R.id.getCode_btn)
     Button getCode_btn;
     @BindView(R.id.forgetPw_phoneEt)

@@ -30,7 +30,6 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
-import com.yiwo.friendscometogether.custom.CImageView;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
@@ -51,7 +50,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.rl_set_return)
     RelativeLayout returnRl;
     @BindView(R.id.headIv)
-    CImageView headIv;
+    ImageView headIv;
     @BindView(R.id.login_phoneEt)
     EditText login_phoneEt;
     @BindView(R.id.login_pwEt)
