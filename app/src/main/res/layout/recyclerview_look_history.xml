@@ -13,8 +13,7 @@
             android:id="@+id/activity_look_history_rv_iv"
             android:layout_centerVertical="true"
             android:layout_marginLeft="40px"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
             android:layout_width="300px"
             android:layout_height="200px" />
 

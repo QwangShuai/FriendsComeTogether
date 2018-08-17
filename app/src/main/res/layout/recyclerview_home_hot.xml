@@ -82,8 +82,7 @@
             android:id="@+id/home_hot_itemIv"
             android:layout_width="match_parent"
             android:layout_height="372px"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="match_parent"

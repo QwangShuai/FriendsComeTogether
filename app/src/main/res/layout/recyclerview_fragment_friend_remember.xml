@@ -19,7 +19,6 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_launcher"
             android:id="@+id/fragment_friend_remember_rv_iv_avatar"
             android:layout_width="88px"
             android:layout_height="88px" />

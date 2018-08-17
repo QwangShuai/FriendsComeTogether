@@ -5,11 +5,13 @@ package com.yiwo.friendscometogether;
  */
 
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.multidex.MultiDex;
 
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.common.util.log.sdk.wrapper.NimLog;
@@ -81,6 +83,13 @@ public class MyApplication extends Application {
         }
 
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
     /**
      * 获取当前客户端版本信息
      */

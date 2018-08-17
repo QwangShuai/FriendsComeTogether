@@ -25,8 +25,7 @@
             android:layout_marginTop="20px"
             android:layout_width="match_parent"
             android:layout_height="312px"
-            android:src="@mipmap/ic_launcher"
-            android:scaleType="fitXY"/>
+            android:scaleType="centerCrop"/>
         <TextView
             android:id="@+id/message_view_content_tv"
             android:gravity="center_vertical"

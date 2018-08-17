@@ -10,7 +10,6 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/activity_my_focus_rv_iv_avatar"
-            android:src="@mipmap/ic_launcher"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20px"
             android:layout_width="200px"

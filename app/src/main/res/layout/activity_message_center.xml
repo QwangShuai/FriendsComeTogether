@@ -33,8 +33,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="25px"
             android:layout_width="120px"
-            android:layout_height="120px"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_height="120px"/>
         <TextView
             android:maxLines="1"
             android:id="@+id/titleTv"
@@ -98,8 +97,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="25px"
             android:layout_width="120px"
-            android:layout_height="120px"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_height="120px"/>
         <TextView
             android:maxLines="1"
             android:id="@+id/set_titleTv"

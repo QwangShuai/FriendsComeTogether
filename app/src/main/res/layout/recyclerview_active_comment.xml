@@ -14,8 +14,7 @@
             android:id="@+id/activity_active_comment_rv_iv"
             android:layout_width="210px"
             android:layout_height="140px"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/activity_active_comment_rv_title_tv"

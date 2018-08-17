@@ -14,8 +14,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="40px"
             android:layout_alignParentRight="true"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
             android:layout_width="300px"
             android:layout_height="200px" />
         

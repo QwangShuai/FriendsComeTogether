@@ -32,8 +32,7 @@
             android:layout_height="176px"
             android:layout_alignParentRight="true"
             android:layout_marginRight="25px"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:layout_marginTop="11px"
@@ -61,8 +60,7 @@
             android:layout_marginLeft="25px"
             android:id="@+id/headIv"
             android:layout_width="70px"
-            android:layout_height="70px"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_height="70px" />
 
         <TextView
             android:layout_marginLeft="10px"

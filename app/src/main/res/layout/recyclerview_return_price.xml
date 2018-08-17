@@ -44,8 +44,7 @@
 
         <ImageView
             android:id="@+id/fragment_return_price_rv_iv"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
             android:layout_marginLeft="40px"
             android:layout_centerVertical="true"
             android:layout_width="262px"

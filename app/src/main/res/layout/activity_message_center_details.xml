@@ -48,8 +48,7 @@
                 android:layout_marginLeft="40px"
                 android:layout_marginRight="40px"
                 android:layout_marginTop="20px"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="332px" />
             <TextView

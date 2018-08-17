@@ -195,7 +195,11 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_editor_friend_together_sub_title_content_rl_complete:
-                complete();
+                if(mList.size() == 0){
+                    toToast(EditorFriendTogetherSubTitleContentActivity.this, "请至少上传一张图片");
+                }else {
+                    complete();
+                }
                 break;
         }
     }
@@ -269,8 +273,8 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.editorFriendTogetherSubtitleContentUrl))
                         .addParam("title", etTitle.getText().toString())
                         .addParam("content", etContent.getText().toString())
-                        .addParam("id", id)
-                        .addParam("uid", uid)
+                        .addParam("title_id", id)
+                        .addParam("user_id", uid)
                         .addParams(describe)
                         .addFiles(value)
                         .request(new ACallback<String>() {

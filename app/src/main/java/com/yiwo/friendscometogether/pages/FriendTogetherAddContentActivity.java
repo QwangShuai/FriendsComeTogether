@@ -177,7 +177,11 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_add_content_rl_complete:
-                complete();
+                if(mList.size() == 0){
+                    toToast(FriendTogetherAddContentActivity.this, "请至少上传一张图片");
+                }else {
+                    complete();
+                }
                 break;
         }
     }

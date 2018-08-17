@@ -223,7 +223,11 @@ public class InsertIntercalationActivity extends BaseActivity {
                 if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())){
                     toToast(InsertIntercalationActivity.this, "请完善信息");
                 }else {
-                    complete();
+                    if(mList.size() == 0){
+                        toToast(InsertIntercalationActivity.this, "请至少上传一张图片");
+                    }else {
+                        complete();
+                    }
                 }
                 break;
             case R.id.activity_insert_intercalation_rl_intercalation_location:
