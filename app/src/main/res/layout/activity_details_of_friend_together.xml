@@ -58,7 +58,7 @@
                     android:layout_width="480px"
                     android:layout_height="90px"
                     android:layout_marginLeft="40px"
-                    android:text="标题标题标题标题标题标题标题标 题标题标题标题标题标题标题标题"
+                    android:text=""
                     android:textColor="@color/black_333333"
                     android:textSize="32px" />
 
@@ -82,7 +82,7 @@
                         android:textColor="@color/black_333333"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="浏览量：1234"/>
+                        android:text=""/>
                     <ImageView
                         android:layout_centerVertical="true"
                         android:id="@+id/focus_on_iv"
@@ -100,7 +100,7 @@
                         android:textColor="@color/black_333333"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="关注：10"/>
+                        android:text=""/>
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_marginTop="13px"
@@ -155,7 +155,7 @@
                 </LinearLayout>
                 <RelativeLayout
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="78px"
+                    android:layout_marginRight="102px"
                     android:id="@+id/item_levelBg"
                     android:layout_width="102px"
                     android:layout_height="30px"
@@ -205,7 +205,7 @@
                             android:textSize="28px"
                             android:textColor="@color/black_333333"
                             android:id="@+id/time_start_tv"
-                            android:text="开始时间：2018-05-05"
+                            android:text=""
                             android:gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent" />
@@ -233,7 +233,7 @@
                             android:layout_toEndOf="@+id/time_endIv"
                             android:layout_toRightOf="@+id/time_endIv"
                             android:gravity="center_vertical"
-                            android:text="结束时间：2018-05-05"
+                            android:text=""
                             android:textColor="@color/black_333333"
                             android:textSize="28px" />
 
@@ -243,6 +243,87 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_marginTop="24px"
+                            android:layout_marginLeft="20px"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40px">
+
+                                <ImageView
+                                    android:id="@+id/womanIv"
+                                    android:layout_width="40px"
+                                    android:layout_height="40px"
+                                    android:src="@mipmap/ismarry"/>
+
+                                <TextView
+                                    android:layout_toRightOf="@id/womanIv"
+                                    android:layout_marginLeft="5px"
+                                    android:textSize="28px"
+                                    android:textColor="@color/black_333333"
+                                    android:id="@+id/tv_is_marry"
+                                    android:text=""
+                                    android:gravity="center_vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_marginTop="24px"
+                                android:layout_width="match_parent"
+                                android:layout_height="40px">
+
+                                <ImageView
+                                    android:id="@+id/manIv"
+                                    android:layout_width="40px"
+                                    android:layout_height="40px"
+                                    android:src="@mipmap/age"/>
+
+                                <TextView
+                                    android:layout_toRightOf="@id/manIv"
+                                    android:layout_marginLeft="5px"
+                                    android:textSize="28px"
+                                    android:textColor="@color/black_333333"
+                                    android:id="@+id/tv_age_info"
+                                    android:text=""
+                                    android:gravity="center_vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_marginTop="24px"
+                                android:layout_width="match_parent"
+                                android:layout_height="40px">
+
+                                <ImageView
+                                    android:id="@+id/sex"
+                                    android:layout_width="40px"
+                                    android:layout_height="40px"
+                                    android:src="@mipmap/sex_info"/>
+
+                                <TextView
+                                    android:layout_toRightOf="@id/sex"
+                                    android:layout_marginLeft="5px"
+                                    android:textSize="28px"
+                                    android:textColor="@color/black_333333"
+                                    android:id="@+id/tv_sex"
+                                    android:text=""
+                                    android:gravity="center_vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_marginLeft="20px"
@@ -266,7 +347,7 @@
                                     android:textSize="28px"
                                     android:textColor="@color/black_333333"
                                     android:id="@+id/city_tv"
-                                    android:text="活动地点：上海"
+                                    android:text=""
                                     android:gravity="center_vertical"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent" />
@@ -289,65 +370,7 @@
                                     android:textSize="28px"
                                     android:textColor="@color/black_333333"
                                     android:id="@+id/priceTv"
-                                    android:text="活动费用：￥1500.00"
-                                    android:gravity="center_vertical"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent" />
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginTop="24px"
-                            android:layout_marginLeft="20px"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <RelativeLayout
-                                android:layout_marginTop="24px"
-                                android:layout_width="match_parent"
-                                android:layout_height="40px">
-
-                                <ImageView
-                                    android:id="@+id/womanIv"
-                                    android:layout_width="40px"
-                                    android:layout_height="40px"
-                                    android:src="@mipmap/nv"/>
-
-                                <TextView
-                                    android:layout_toRightOf="@id/womanIv"
-                                    android:layout_marginLeft="5px"
-                                    android:textSize="28px"
-                                    android:textColor="@color/black_333333"
-                                    android:id="@+id/womanTv"
-                                    android:text="女生人数：123"
-                                    android:gravity="center_vertical"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent" />
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_marginTop="24px"
-                                android:layout_width="match_parent"
-                                android:layout_height="40px">
-
-                                <ImageView
-                                    android:id="@+id/manIv"
-                                    android:layout_width="40px"
-                                    android:layout_height="40px"
-                                    android:src="@mipmap/nan"/>
-
-                                <TextView
-                                    android:layout_toRightOf="@id/manIv"
-                                    android:layout_marginLeft="5px"
-                                    android:textSize="28px"
-                                    android:textColor="@color/black_333333"
-                                    android:id="@+id/manTv"
-                                    android:text="男生人数：110"
+                                    android:text=""
                                     android:gravity="center_vertical"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent" />
@@ -358,10 +381,36 @@
 
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:layout_marginBottom="20px"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginTop="24px"
+                        android:layout_width="match_parent"
+                        android:layout_height="40px">
+
+                        <ImageView
+                            android:id="@+id/other"
+                            android:layout_width="40px"
+                            android:layout_height="40px"
+                            android:src="@mipmap/other_info"/>
+
+                        <TextView
+                            android:layout_toRightOf="@id/other"
+                            android:layout_marginLeft="5px"
+                            android:textSize="28px"
+                            android:textColor="@color/black_333333"
+                            android:id="@+id/tv_other_info"
+                            android:text=""
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <TextView
-                    android:layout_marginLeft="68px"
+                    android:layout_marginLeft="46px"
                     android:text="活动信息"
                     android:textSize="28px"
                     android:textColor="@color/black_333333"

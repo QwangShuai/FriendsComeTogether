@@ -11,7 +11,7 @@ public class FriendsTogetherDetailsModel {
     /**
      * code : 200
      * message : 操作成功!
-     * obj : {"captain":"","capttain_name":"","capttain_pic":"","level":"0","if_sign":"0","title":"泰山三日游","look":"0","pffavorite":"0","begin_time":"1970-01-01","end_time":"1970-01-01","city":"北京","price":"123.00","woman":"0","man":"0","person_num":"0","have_num":"1","show_pic":"","text_info":"12额2","info_list":[{"title":"新添加的哈哈","content":"<p>来吧 新添加的 &nbsp;<strong><em><span style=\"color: rgb(112, 48, 160);\">炒鸡好玩<\/span><\/em><\/strong><\/p>","pfpID":"275","image_list":[{"pic":"","text_info":null},{"pic":"","text_info":null}]},{"title":"探讨探讨","content":"<p>萨达阿萨德<\/p>","pfpID":"278","image_list":[{"pic":"","text_info":null}]},{"title":"去旅游啦","content":"<p><span style=\"color: rgb(0, 176, 240);\">去旅游啦去旅游啦去旅游啦啊<\/span><\/p>","pfpID":"162","image_list":[{"pic":"","text_info":"去旅游啦去旅游啦去旅游啦啊"},{"pic":"","text_info":"去旅游啦去旅游啦去旅游啦啊a"}]},{"title":"去哪网","content":"去哪网去哪网去哪网","pfpID":"203","image_list":[{"pic":"","text_info":null},{"pic":"","text_info":null},{"pic":"","text_info":null}]},{"title":"驱蚊器","content":"<p>生栋覆屋<\/p>","pfpID":"207","image_list":[{"pic":"","text_info":null}]},{"title":"给对方嘎辅导费","content":"<p><span style=\"color: rgb(0, 112, 192);\"><em><strong>胜多负少的<\/strong><\/em><\/span><\/p>","pfpID":"209","image_list":[{"pic":"","text_info":null}]}],"user_list":[{"username":"zp","userpic":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","num":"1"}]}
+     * obj : {"real_name":"1","user_tel":"15244615473","truename":"恶魔","wy_accid":"yy15244615473","roomid":"657667923","peoplesex":"无限制","pfID":"2","attention":"1","if_pay":"2","captain":"7","attention_captain":"0","capttain_name":"恶魔","capttain_pic":"http://47.92.136.19/uploads/header/2018/08/15/4360ba24a29f901291b95aec4c855e75153431703614.jpg","level":"0","if_sign":"0","title":"泰山30日游","marry":"是","age":"1-2","pfexplain":"","look":"50","pffavorite":"0","begin_time":"2018-08-02","end_time":"2018-09-29","city":"泰安","price":"1.00","woman":"0","man":"0","person_num":"2","have_num":"1","show_pic":"http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg","text_info":"泰山真好","info_list":[{"title":"泰山游","content":"泰山真好玩","pfpID":"2","image_list":[{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/ce8884bd149199916250f6ce792359b79741.jpeg","text_info":""},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/0cc9cf7625b85a5c172a96ab58d5ba5e3234.jpeg","text_info":"泰山的饭真好吃"},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/9f078da2444b05b5bea1fdd1fa96d2871430.jpeg","text_info":""}]}],"user_list":[{"userID":"38","username":"我们旅游吧","userpic":"http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg","num":"1"}],"comment_list":[]}
      */
 
     private int code;
@@ -44,35 +44,61 @@ public class FriendsTogetherDetailsModel {
 
     public static class ObjBean {
         /**
-         * captain :
-         * capttain_name :
-         * capttain_pic :
+         * real_name : 1
+         * user_tel : 15244615473
+         * truename : 恶魔
+         * wy_accid : yy15244615473
+         * roomid : 657667923
+         * peoplesex : 无限制
+         * pfID : 2
+         * attention : 1
+         * if_pay : 2
+         * captain : 7
+         * attention_captain : 0
+         * capttain_name : 恶魔
+         * capttain_pic : http://47.92.136.19/uploads/header/2018/08/15/4360ba24a29f901291b95aec4c855e75153431703614.jpg
          * level : 0
          * if_sign : 0
-         * title : 泰山三日游
-         * look : 0
+         * title : 泰山30日游
+         * marry : 是
+         * age : 1-2
+         * pfexplain :
+         * look : 50
          * pffavorite : 0
-         * begin_time : 1970-01-01
-         * end_time : 1970-01-01
-         * city : 北京
-         * price : 123.00
+         * begin_time : 2018-08-02
+         * end_time : 2018-09-29
+         * city : 泰安
+         * price : 1.00
          * woman : 0
          * man : 0
-         * person_num : 0
+         * person_num : 2
          * have_num : 1
-         * show_pic :
-         * text_info : 12额2
-         * info_list : [{"title":"新添加的哈哈","content":"<p>来吧 新添加的 &nbsp;<strong><em><span style=\"color: rgb(112, 48, 160);\">炒鸡好玩<\/span><\/em><\/strong><\/p>","pfpID":"275","image_list":[{"pic":"","text_info":null},{"pic":"","text_info":null}]},{"title":"探讨探讨","content":"<p>萨达阿萨德<\/p>","pfpID":"278","image_list":[{"pic":"","text_info":null}]},{"title":"去旅游啦","content":"<p><span style=\"color: rgb(0, 176, 240);\">去旅游啦去旅游啦去旅游啦啊<\/span><\/p>","pfpID":"162","image_list":[{"pic":"","text_info":"去旅游啦去旅游啦去旅游啦啊"},{"pic":"","text_info":"去旅游啦去旅游啦去旅游啦啊a"}]},{"title":"去哪网","content":"去哪网去哪网去哪网","pfpID":"203","image_list":[{"pic":"","text_info":null},{"pic":"","text_info":null},{"pic":"","text_info":null}]},{"title":"驱蚊器","content":"<p>生栋覆屋<\/p>","pfpID":"207","image_list":[{"pic":"","text_info":null}]},{"title":"给对方嘎辅导费","content":"<p><span style=\"color: rgb(0, 112, 192);\"><em><strong>胜多负少的<\/strong><\/em><\/span><\/p>","pfpID":"209","image_list":[{"pic":"","text_info":null}]}]
-         * user_list : [{"username":"zp","userpic":"http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg","num":"1"}]
+         * show_pic : http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg
+         * text_info : 泰山真好
+         * info_list : [{"title":"泰山游","content":"泰山真好玩","pfpID":"2","image_list":[{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/ce8884bd149199916250f6ce792359b79741.jpeg","text_info":""},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/0cc9cf7625b85a5c172a96ab58d5ba5e3234.jpeg","text_info":"泰山的饭真好吃"},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/9f078da2444b05b5bea1fdd1fa96d2871430.jpeg","text_info":""}]}]
+         * user_list : [{"userID":"38","username":"我们旅游吧","userpic":"http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg","num":"1"}]
+         * comment_list : []
          */
 
+        private String real_name;
+        private String user_tel;
+        private String truename;
         private String wy_accid;
+        private String roomid;
+        private String peoplesex;
+        private String pfID;
+        private String attention;
+        private String if_pay;
         private String captain;
+        private String attention_captain;
         private String capttain_name;
         private String capttain_pic;
         private String level;
         private String if_sign;
         private String title;
+        private String marry;
+        private String age;
+        private String pfexplain;
         private String look;
         private String pffavorite;
         private String begin_time;
@@ -85,12 +111,33 @@ public class FriendsTogetherDetailsModel {
         private String have_num;
         private String show_pic;
         private String text_info;
-        private String if_pay;
-        private String pfID;
-        private String attention;
-        private String attention_captain;
         private List<InfoListBean> info_list;
         private List<UserListBean> user_list;
+        private List<?> comment_list;
+
+        public String getReal_name() {
+            return real_name;
+        }
+
+        public void setReal_name(String real_name) {
+            this.real_name = real_name;
+        }
+
+        public String getUser_tel() {
+            return user_tel;
+        }
+
+        public void setUser_tel(String user_tel) {
+            this.user_tel = user_tel;
+        }
+
+        public String getTruename() {
+            return truename;
+        }
+
+        public void setTruename(String truename) {
+            this.truename = truename;
+        }
 
         public String getWy_accid() {
             return wy_accid;
@@ -100,20 +147,20 @@ public class FriendsTogetherDetailsModel {
             this.wy_accid = wy_accid;
         }
 
-        public String getAttention_captain() {
-            return attention_captain;
+        public String getRoomid() {
+            return roomid;
         }
 
-        public void setAttention_captain(String attention_captain) {
-            this.attention_captain = attention_captain;
+        public void setRoomid(String roomid) {
+            this.roomid = roomid;
         }
 
-        public String getAttention() {
-            return attention;
+        public String getPeoplesex() {
+            return peoplesex;
         }
 
-        public void setAttention(String attention) {
-            this.attention = attention;
+        public void setPeoplesex(String peoplesex) {
+            this.peoplesex = peoplesex;
         }
 
         public String getPfID() {
@@ -122,6 +169,14 @@ public class FriendsTogetherDetailsModel {
 
         public void setPfID(String pfID) {
             this.pfID = pfID;
+        }
+
+        public String getAttention() {
+            return attention;
+        }
+
+        public void setAttention(String attention) {
+            this.attention = attention;
         }
 
         public String getIf_pay() {
@@ -138,6 +193,14 @@ public class FriendsTogetherDetailsModel {
 
         public void setCaptain(String captain) {
             this.captain = captain;
+        }
+
+        public String getAttention_captain() {
+            return attention_captain;
+        }
+
+        public void setAttention_captain(String attention_captain) {
+            this.attention_captain = attention_captain;
         }
 
         public String getCapttain_name() {
@@ -178,6 +241,30 @@ public class FriendsTogetherDetailsModel {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getMarry() {
+            return marry;
+        }
+
+        public void setMarry(String marry) {
+            this.marry = marry;
+        }
+
+        public String getAge() {
+            return age;
+        }
+
+        public void setAge(String age) {
+            this.age = age;
+        }
+
+        public String getPfexplain() {
+            return pfexplain;
+        }
+
+        public void setPfexplain(String pfexplain) {
+            this.pfexplain = pfexplain;
         }
 
         public String getLook() {
@@ -292,12 +379,20 @@ public class FriendsTogetherDetailsModel {
             this.user_list = user_list;
         }
 
+        public List<?> getComment_list() {
+            return comment_list;
+        }
+
+        public void setComment_list(List<?> comment_list) {
+            this.comment_list = comment_list;
+        }
+
         public static class InfoListBean {
             /**
-             * title : 新添加的哈哈
-             * content : <p>来吧 新添加的 &nbsp;<strong><em><span style="color: rgb(112, 48, 160);">炒鸡好玩</span></em></strong></p>
-             * pfpID : 275
-             * image_list : [{"pic":"","text_info":null},{"pic":"","text_info":null}]
+             * title : 泰山游
+             * content : 泰山真好玩
+             * pfpID : 2
+             * image_list : [{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/ce8884bd149199916250f6ce792359b79741.jpeg","text_info":""},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/0cc9cf7625b85a5c172a96ab58d5ba5e3234.jpeg","text_info":"泰山的饭真好吃"},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/9f078da2444b05b5bea1fdd1fa96d2871430.jpeg","text_info":""}]
              */
 
             private String title;
@@ -339,8 +434,8 @@ public class FriendsTogetherDetailsModel {
 
             public static class ImageListBean {
                 /**
-                 * pic :
-                 * text_info : null
+                 * pic : http://47.92.136.19/uploads/xingcheng/20180816/ce8884bd149199916250f6ce792359b79741.jpeg
+                 * text_info :
                  */
 
                 private String pic;
@@ -366,14 +461,24 @@ public class FriendsTogetherDetailsModel {
 
         public static class UserListBean {
             /**
-             * username : zp
-             * userpic : http://47.92.136.19/uploads/activity/20180529/20180529/a51b266af3785bd0bd0a1794dbf234cf.jpg
+             * userID : 38
+             * username : 我们旅游吧
+             * userpic : http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg
              * num : 1
              */
 
+            private String userID;
             private String username;
             private String userpic;
             private String num;
+
+            public String getUserID() {
+                return userID;
+            }
+
+            public void setUserID(String userID) {
+                this.userID = userID;
+            }
 
             public String getUsername() {
                 return username;

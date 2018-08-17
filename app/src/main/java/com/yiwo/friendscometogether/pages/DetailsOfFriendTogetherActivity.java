@@ -73,10 +73,6 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     TextView city_tv;
     @BindView(R.id.priceTv)
     TextView priceTv;
-    @BindView(R.id.womanTv)
-    TextView womanTv;
-    @BindView(R.id.manTv)
-    TextView manTv;
     @BindView(R.id.participantsTv)
     TextView participantsTv;
     @BindView(R.id.item_levelBg)
@@ -97,6 +93,14 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     RelativeLayout activity_details_of_friends_together_rl_back;
     @BindView(R.id.consult_leaderLl)
     LinearLayout llLeader;
+    @BindView(R.id.tv_is_marry)
+    TextView tvIsMarry;
+    @BindView(R.id.tv_age_info)
+    TextView tvAgeInfo;
+    @BindView(R.id.tv_sex)
+    TextView tvSex;
+    @BindView(R.id.tv_other_info)
+    TextView tvOtherInfo;
 
     private Unbinder unbinder;
     private ParticipantsItemAdapter adapter;
@@ -165,12 +169,18 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         }
         Log.i("qwe", model.getAttention());
         focusOnIv.setImageResource(model.getAttention().equals("0") ? R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
-        time_start_tv.setText("开始时间：" + model.getBegin_time());
-        time_end_tv.setText("结束时间：" + model.getEnd_time());
-        city_tv.setText("活动地点：" + model.getCity());
-        priceTv.setText("活动费用：" + model.getPrice());
-        womanTv.setText("女生人数：" + model.getWoman());
-        manTv.setText("男生人数：" + model.getMan());
+        time_start_tv.setText("开始时间: " + model.getBegin_time());
+        time_end_tv.setText("结束时间: " + model.getEnd_time());
+        city_tv.setText("活动地点: " + model.getCity());
+        priceTv.setText("人均费用: " + model.getPrice());
+        tvIsMarry.setText("是否单身: " + model.getMarry());
+        tvAgeInfo.setText("年龄要求: " + model.getAge() + "岁");
+        tvSex.setText("性别要求: " + model.getPeoplesex());
+        if(TextUtils.isEmpty(model.getPfexplain())){
+            tvOtherInfo.setText("其他要求: 无");
+        }else {
+            tvOtherInfo.setText("其他要求: " + model.getPfexplain());
+        }
 //        if(model.getHave_num().equals("0")){
 //            participantsTv.setText("*暂无报名信息");
 //            recyclerViewP.setVisibility(View.GONE);

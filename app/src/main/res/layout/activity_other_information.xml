@@ -314,7 +314,7 @@
                     android:textSize="36px"
                     android:gravity="center"
                     android:textColor="@color/white_ffffff"
-                    android:text="暂无内容"
+                    android:text="暂无相关信息"
                     android:layout_width="match_parent"
                     android:layout_height="560px" />
 

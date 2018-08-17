@@ -55,7 +55,7 @@ public class ParticipantsItemAdapter extends RecyclerView.Adapter<ParticipantsIt
                 @Override
                 public void onClick(View v) {
                     Intent it = new Intent(context, OtherInformationActivity.class);
-                    it.putExtra("uid",data.get(position).getNum());
+                    it.putExtra("uid",data.get(position).getUserID());
                     context.startActivity(it);
                 }
             });

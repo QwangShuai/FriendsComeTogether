@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -49,8 +50,8 @@ import java.util.List;
 public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendTogetherUpDataAdapter.ViewHolder> {
     List<FriendsTogethermodel.ObjBean> data;
     private Context context;
-    View v;
-    ImageView iv;
+//    View v;
+//    ImageView iv;
     SpImp spImp;
 
     public FriendTogetherUpDataAdapter(List<FriendsTogethermodel.ObjBean> data) {
@@ -61,11 +62,11 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_fragment_friend_together, parent, false);
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_head, parent, false);
+//        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_head, parent, false);
         spImp = new SpImp(context);
-        iv = (ImageView) v.findViewById(R.id.item_pic);
+//        iv = (ImageView) v.findViewById(R.id.item_pic);
         ScreenAdapterTools.getInstance().loadView(view);
-        ScreenAdapterTools.getInstance().loadView(v);
+//        ScreenAdapterTools.getInstance().loadView(v);
         FriendTogetherUpDataAdapter.ViewHolder holder = new FriendTogetherUpDataAdapter.ViewHolder(view);
         return holder;
     }
@@ -221,26 +222,36 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
                 context.startActivity(intent);
             }
         });
-        if (data.get(position).getAll_u_pic().size() < 8) {
-            for (int i = 0; i < data.get(position).getAll_u_pic().size(); i++) {
-                Picasso.with(context).load(data.get(position).getAll_u_pic().get(i)).into(iv);
-                if (iv.getParent() != null) {
-                    ((ViewGroup) iv.getParent()).removeView(iv);
-                    holder.vessel.addView(iv);
-                }
 
-            }
-        } else {
-            for (int i = 0; i < 8; i++) {
-                if (!StringUtils.isEmpty(data.get(position).getAll_u_pic().get(i))) {
-                    Picasso.with(context).load(data.get(position).getAll_u_pic().get(i)).into(iv);
-                }
-                if (iv.getParent() != null) {
-                    ((ViewGroup) iv.getParent()).removeView(iv);
-                    holder.vessel.addView(iv);
-                }
-            }
-        }
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.vessel.setLayoutManager(manager);
+//        List<String> mList = new ArrayList<>();
+//        mList.addAll(data.get(position).getAll_u_pic());
+        FriendTogetherJoinPeopleAdapter adapter = new FriendTogetherJoinPeopleAdapter(data.get(position).getAll_u_pic());
+        holder.vessel.setAdapter(adapter);
+
+//        if (data.get(position).getAll_u_pic().size() < 8) {
+//            for (int i = 0; i < data.get(position).getAll_u_pic().size(); i++) {
+//                if (!StringUtils.isEmpty(data.get(position).getAll_u_pic().get(i))) {
+//                    Picasso.with(context).load(data.get(position).getAll_u_pic().get(i)).into(iv);
+//                }
+//                if (iv.getParent() != null) {
+//                    ((ViewGroup) iv.getParent()).removeView(iv);
+//                    holder.vessel.addView(iv);
+//                }
+//            }
+//        } else {
+//            for (int i = 0; i < 8; i++) {
+//                if (!StringUtils.isEmpty(data.get(position).getAll_u_pic().get(i))) {
+//                    Picasso.with(context).load(data.get(position).getAll_u_pic().get(i)).into(iv);
+//                }
+//                if (iv.getParent() != null) {
+//                    ((ViewGroup) iv.getParent()).removeView(iv);
+//                    holder.vessel.addView(iv);
+//                }
+//            }
+//        }
         holder.llleader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -272,7 +283,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         //        private ImageView focusOnLeaderIv;
         private TextView titleTv;
         private TextView contentTv;
-        private LinearLayout vessel;
+        private RecyclerView vessel;
         private ImageView headIv;
         private ImageView focusOnIv;
         private RelativeLayout levelBg;

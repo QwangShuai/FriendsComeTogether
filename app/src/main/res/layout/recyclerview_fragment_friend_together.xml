@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_marginTop="16px"
         android:layout_width="match_parent"
-        android:layout_height="281px">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/titleTv"
@@ -40,21 +40,32 @@
             android:textColor="@color/black_333333"
             android:layout_width="520px"
             android:layout_height="wrap_content" />
-        <LinearLayout
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/vessel"
             android:layout_marginTop="10px"
             android:layout_marginLeft="10px"
-            android:orientation="horizontal"
             android:layout_below="@+id/contentTv"
-            android:id="@+id/vessel"
             android:layout_width="520px"
-            android:layout_height="50px">
-        </LinearLayout>
+            android:layout_height="wrap_content"/>
+
+        <!--<LinearLayout-->
+            <!--android:layout_marginTop="10px"-->
+            <!--android:layout_marginLeft="10px"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_below="@+id/contentTv"-->
+            <!--android:id="@+id/vessel"-->
+            <!--android:layout_width="520px"-->
+            <!--android:layout_height="wrap_content">-->
+
+        <!--</LinearLayout>-->
+
         <RelativeLayout
             android:layout_marginRight="21px"
             android:orientation="vertical"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_marginTop="13px"
