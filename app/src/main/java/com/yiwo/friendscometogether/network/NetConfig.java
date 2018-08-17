@@ -178,4 +178,10 @@ public class NetConfig {
     public static String addFriendsUrl = "action/ac_user/Addfriends";
     //进入聊天室
     public static String enterChatRoomUrl = "action/ac_activity/GroupActives";
+    //获取要修改的活动标题内容和图片
+    public static String getActiveIntercalationInfoUrl = "action/ac_activity/get_title_info";
+    //删除活动图片
+    public static String delActivePicUrl = "action/ac_activity/del_activity_info";
+    //修改活动图片描述
+    public static String modifyActivePicInfoUrl = "action/ac_activity/update_image_info";
 }

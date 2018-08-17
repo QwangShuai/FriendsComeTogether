@@ -58,12 +58,13 @@
             android:id="@+id/activity_editor_friend_together_sub_title_content_et_title"
             android:textColor="@color/black_333333"
             android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
             android:layout_centerVertical="true"
             android:gravity="start"
             android:hint="请输入标题"
             android:textSize="28px"
             android:background="@null"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
@@ -116,6 +117,13 @@
             android:layout_height="match_parent" />
 
     </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_create_intercalation_rv1"
+        android:layout_marginRight="40px"
+        android:layout_marginLeft="40px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_editor_friend_together_sub_title_content_rv"

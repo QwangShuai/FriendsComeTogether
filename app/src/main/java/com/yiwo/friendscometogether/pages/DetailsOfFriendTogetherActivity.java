@@ -155,8 +155,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
             Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getShow_pic()).into(titleIv);
         }
         titleTv.setText(model.getTitle());
-        viewsTv.setText(model.getLook());
-        focus_onTv.setText(model.getPffavorite());
+        viewsTv.setText("浏览量: " + model.getLook());
+        focus_onTv.setText("关注: " + model.getPffavorite());
         if (!model.getCaptain().equals("0")) {
             if (!StringUtils.isEmpty(model.getCapttain_pic())) {
                 Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getCapttain_pic()).into(headIv);
@@ -333,11 +333,11 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 break;
             case R.id.consult_leaderLl:
                 String uid = spImp.getUID();
-                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
                     Intent intent = new Intent();
                     intent.setClass(DetailsOfFriendTogetherActivity.this, LoginActivity.class);
                     startActivity(intent);
-                }else {
+                } else {
                     liaotian(model.getObj().getWy_accid());
                 }
                 break;

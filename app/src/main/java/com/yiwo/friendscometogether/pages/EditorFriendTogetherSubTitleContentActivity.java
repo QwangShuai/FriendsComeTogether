@@ -18,15 +18,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.donkingliang.imageselector.utils.ImageSelector;
+import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.vise.xsnow.http.callback.UCallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.IntercalationAdapter;
+import com.yiwo.friendscometogether.adapter.ModifyFriendTogetherIntercalationPicAdapter;
+import com.yiwo.friendscometogether.adapter.ModifyIntercalationPicAdapter;
 import com.yiwo.friendscometogether.adapter.MyPicturesAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.custom.PicDescribeDialog;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
+import com.yiwo.friendscometogether.model.GetActiveIntercalationInfoModel;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -80,6 +85,8 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
     EditText etContent;
     @BindView(R.id.activity_editor_friend_together_sub_title_content_tv_text_num)
     TextView tvContentNum;
+    @BindView(R.id.activity_create_intercalation_rv1)
+    RecyclerView recyclerView1;
 
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
@@ -93,6 +100,9 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
     private List<File> files = new ArrayList<>();
 
     private Dialog dialog;
+
+    private ModifyFriendTogetherIntercalationPicAdapter picAdapter;
+    private List<GetActiveIntercalationInfoModel.ObjBean.ImgsBean> mList1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +121,108 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        title = intent.getStringExtra("title");
-        content = intent.getStringExtra("content");
+
+        ViseHttp.POST(NetConfig.getActiveIntercalationInfoUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.getActiveIntercalationInfoUrl))
+                .addParam("title_id", id)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                GetActiveIntercalationInfoModel model = gson.fromJson(data, GetActiveIntercalationInfoModel.class);
+                                etTitle.setText(model.getObj().getPfptitle());
+                                etContent.setText(model.getObj().getPfpcontent());
+                                GridLayoutManager manager1 = new GridLayoutManager(EditorFriendTogetherSubTitleContentActivity.this, 3){
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                recyclerView1.setLayoutManager(manager1);
+                                mList1 = model.getObj().getImgs();
+                                picAdapter = new ModifyFriendTogetherIntercalationPicAdapter(mList1);
+                                recyclerView1.setAdapter(picAdapter);
+                                picAdapter.setOnModifyListener(new ModifyFriendTogetherIntercalationPicAdapter.OnModifyListener() {
+                                    @Override
+                                    public void onModify(int type, final int position) {
+                                        switch (type){
+                                            case 1:
+                                                //删除图片
+                                                ViseHttp.POST(NetConfig.delActivePicUrl)
+                                                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.delActivePicUrl))
+                                                        .addParam("image_id", mList1.get(position).getPfpID())
+                                                        .request(new ACallback<String>() {
+                                                            @Override
+                                                            public void onSuccess(String data) {
+                                                                try {
+                                                                    JSONObject jsonObject1 = new JSONObject(data);
+                                                                    if(jsonObject1.getInt("code") == 200){
+                                                                        mList1.remove(position);
+                                                                        picAdapter.notifyDataSetChanged();
+                                                                        toToast(EditorFriendTogetherSubTitleContentActivity.this, "删除图片成功");
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFail(int errCode, String errMsg) {
+
+                                                            }
+                                                        });
+                                                break;
+                                            case 2:
+                                                //修改描述
+                                                PicDescribeDialog dialog = new PicDescribeDialog(EditorFriendTogetherSubTitleContentActivity.this);
+                                                dialog.show();
+                                                dialog.setOnReturnListener(new PicDescribeDialog.OnReturnListener() {
+                                                    @Override
+                                                    public void onReturn(final String title) {
+                                                        ViseHttp.POST(NetConfig.modifyActivePicInfoUrl)
+                                                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.modifyActivePicInfoUrl))
+                                                                .addParam("pfpID", mList1.get(position).getPfpID())
+                                                                .addParam("img_info", title+"")
+                                                                .request(new ACallback<String>() {
+                                                                    @Override
+                                                                    public void onSuccess(String data) {
+                                                                        try {
+                                                                            JSONObject jsonObject1 = new JSONObject(data);
+                                                                            if(jsonObject1.getInt("code") == 200){
+                                                                                mList1.get(position).setPfpcontent(title+"");
+                                                                                picAdapter.notifyDataSetChanged();
+                                                                                toToast(EditorFriendTogetherSubTitleContentActivity.this, "修改成功");
+                                                                            }
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFail(int errCode, String errMsg) {
+
+                                                                    }
+                                                                });
+                                                    }
+                                                });
+                                                break;
+                                        }
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
         uid = spImp.getUID();
         mList = new ArrayList<>();
