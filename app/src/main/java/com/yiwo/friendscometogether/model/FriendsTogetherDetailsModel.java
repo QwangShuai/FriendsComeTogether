@@ -11,7 +11,7 @@ public class FriendsTogetherDetailsModel {
     /**
      * code : 200
      * message : 操作成功!
-     * obj : {"real_name":"1","user_tel":"15244615473","truename":"恶魔","wy_accid":"yy15244615473","roomid":"657667923","peoplesex":"无限制","pfID":"2","attention":"1","if_pay":"2","captain":"7","attention_captain":"0","capttain_name":"恶魔","capttain_pic":"http://47.92.136.19/uploads/header/2018/08/15/4360ba24a29f901291b95aec4c855e75153431703614.jpg","level":"0","if_sign":"0","title":"泰山30日游","marry":"是","age":"1-2","pfexplain":"","look":"50","pffavorite":"0","begin_time":"2018-08-02","end_time":"2018-09-29","city":"泰安","price":"1.00","woman":"0","man":"0","person_num":"2","have_num":"1","show_pic":"http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg","text_info":"泰山真好","info_list":[{"title":"泰山游","content":"泰山真好玩","pfpID":"2","image_list":[{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/ce8884bd149199916250f6ce792359b79741.jpeg","text_info":""},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/0cc9cf7625b85a5c172a96ab58d5ba5e3234.jpeg","text_info":"泰山的饭真好吃"},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/9f078da2444b05b5bea1fdd1fa96d2871430.jpeg","text_info":""}]}],"user_list":[{"userID":"38","username":"我们旅游吧","userpic":"http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg","num":"1"}],"comment_list":[]}
+     * obj : {"real_name":"1","user_tel":"15244615473","truename":"恶魔","wy_accid":"yy15244615473","roomid":"657667923","peoplesex":"无限制","pfID":"2","attention":"1","if_pay":"2","captain":"7","attention_captain":"0","capttain_name":"恶魔","capttain_pic":"http://47.92.136.19/uploads/header/2018/08/15/4360ba24a29f901291b95aec4c855e75153431703614.jpg","level":"0","if_sign":"0","title":"泰山30日游","marry":"是","age":"1-2","pfexplain":"","look":"76","pffavorite":"0","begin_time":"2018-04-08","end_time":"2018-06-05","city":"泰安","price":"1.00","woman":"0","man":"0","person_num":"2","have_num":"1","show_pic":"http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg","text_info":"泰山真好","info_list":[{"title":"泰山游","content":"泰山真好玩","pfpID":"2","image_list":[{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/ce8884bd149199916250f6ce792359b79741.jpeg","text_info":""},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/0cc9cf7625b85a5c172a96ab58d5ba5e3234.jpeg","text_info":"泰山的饭真好吃"},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/9f078da2444b05b5bea1fdd1fa96d2871430.jpeg","text_info":""}]}],"user_list":[{"userID":"38","username":"我们旅游吧","userpic":"http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg","num":"1"}],"comment_list":[{"userpic":"http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg","userID":"38","pctitle":"泰山真好玩","username":"我们旅游吧"}]}
      */
 
     private int code;
@@ -63,10 +63,10 @@ public class FriendsTogetherDetailsModel {
          * marry : 是
          * age : 1-2
          * pfexplain :
-         * look : 50
+         * look : 76
          * pffavorite : 0
-         * begin_time : 2018-08-02
-         * end_time : 2018-09-29
+         * begin_time : 2018-04-08
+         * end_time : 2018-06-05
          * city : 泰安
          * price : 1.00
          * woman : 0
@@ -77,7 +77,7 @@ public class FriendsTogetherDetailsModel {
          * text_info : 泰山真好
          * info_list : [{"title":"泰山游","content":"泰山真好玩","pfpID":"2","image_list":[{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/ce8884bd149199916250f6ce792359b79741.jpeg","text_info":""},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/0cc9cf7625b85a5c172a96ab58d5ba5e3234.jpeg","text_info":"泰山的饭真好吃"},{"pic":"http://47.92.136.19/uploads/xingcheng/20180816/9f078da2444b05b5bea1fdd1fa96d2871430.jpeg","text_info":""}]}]
          * user_list : [{"userID":"38","username":"我们旅游吧","userpic":"http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg","num":"1"}]
-         * comment_list : []
+         * comment_list : [{"userpic":"http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg","userID":"38","pctitle":"泰山真好玩","username":"我们旅游吧"}]
          */
 
         private String real_name;
@@ -113,7 +113,7 @@ public class FriendsTogetherDetailsModel {
         private String text_info;
         private List<InfoListBean> info_list;
         private List<UserListBean> user_list;
-        private List<?> comment_list;
+        private List<CommentListBean> comment_list;
 
         public String getReal_name() {
             return real_name;
@@ -379,11 +379,11 @@ public class FriendsTogetherDetailsModel {
             this.user_list = user_list;
         }
 
-        public List<?> getComment_list() {
+        public List<CommentListBean> getComment_list() {
             return comment_list;
         }
 
-        public void setComment_list(List<?> comment_list) {
+        public void setComment_list(List<CommentListBean> comment_list) {
             this.comment_list = comment_list;
         }
 
@@ -502,6 +502,52 @@ public class FriendsTogetherDetailsModel {
 
             public void setNum(String num) {
                 this.num = num;
+            }
+        }
+
+        public static class CommentListBean {
+            /**
+             * userpic : http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg
+             * userID : 38
+             * pctitle : 泰山真好玩
+             * username : 我们旅游吧
+             */
+
+            private String userpic;
+            private String userID;
+            private String pctitle;
+            private String username;
+
+            public String getUserpic() {
+                return userpic;
+            }
+
+            public void setUserpic(String userpic) {
+                this.userpic = userpic;
+            }
+
+            public String getUserID() {
+                return userID;
+            }
+
+            public void setUserID(String userID) {
+                this.userID = userID;
+            }
+
+            public String getPctitle() {
+                return pctitle;
+            }
+
+            public void setPctitle(String pctitle) {
+                this.pctitle = pctitle;
+            }
+
+            public String getUsername() {
+                return username;
+            }
+
+            public void setUsername(String username) {
+                this.username = username;
             }
         }
     }

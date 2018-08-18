@@ -184,4 +184,6 @@ public class NetConfig {
     public static String delActivePicUrl = "action/ac_activity/del_activity_info";
     //修改活动图片描述
     public static String modifyActivePicInfoUrl = "action/ac_activity/update_image_info";
+    //活动回复
+    public static String activeReturnCommentUrl = "action/ac_activity/reply_activity_comment";
 }

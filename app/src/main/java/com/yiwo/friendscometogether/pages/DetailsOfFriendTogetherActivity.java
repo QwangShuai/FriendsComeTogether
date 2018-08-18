@@ -28,6 +28,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsTogetherAdapter;
+import com.yiwo.friendscometogether.adapter.FriendTogetherCommentListAdapter;
 import com.yiwo.friendscometogether.adapter.FriendTogetherUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.ParticipantsItemAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -101,6 +102,12 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     TextView tvSex;
     @BindView(R.id.tv_other_info)
     TextView tvOtherInfo;
+    @BindView(R.id.comment_tv)
+    TextView tvComment;
+    @BindView(R.id.comment_rv)
+    RecyclerView rvComment;
+    @BindView(R.id.comment_more)
+    TextView tvCommentMore;
 
     private Unbinder unbinder;
     private ParticipantsItemAdapter adapter;
@@ -109,6 +116,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     FriendsTogetherDetailsModel model;
     String pfID;
     String leaderID = "";
+
+    private FriendTogetherCommentListAdapter commentListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +147,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                             if (jsonObject.getInt("code") == 200) {
                                 model = new Gson().fromJson(data, FriendsTogetherDetailsModel.class);
                                 initView(model.getObj());
+                                initCommentList(model.getObj().getComment_list());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -149,6 +159,42 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
 
                     }
                 });
+
+    }
+
+    /**
+     * 加载底部评论列表
+     */
+    private void initCommentList(List<FriendsTogetherDetailsModel.ObjBean.CommentListBean> data) {
+
+        if (data.size() == 0) {
+            tvComment.setVisibility(View.GONE);
+            rvComment.setVisibility(View.GONE);
+            tvCommentMore.setVisibility(View.GONE);
+        } else if (data.size() > 0 && data.size() < 5) {
+            LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this){
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            manager.setOrientation(LinearLayoutManager.VERTICAL);
+            rvComment.setLayoutManager(manager);
+            commentListAdapter = new FriendTogetherCommentListAdapter(data);
+            rvComment.setAdapter(commentListAdapter);
+            tvCommentMore.setVisibility(View.GONE);
+        }else {
+            LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this){
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            manager.setOrientation(LinearLayoutManager.VERTICAL);
+            rvComment.setLayoutManager(manager);
+            commentListAdapter = new FriendTogetherCommentListAdapter(data);
+            rvComment.setAdapter(commentListAdapter);
+        }
 
     }
 
@@ -176,9 +222,9 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         tvIsMarry.setText("是否单身: " + model.getMarry());
         tvAgeInfo.setText("年龄要求: " + model.getAge() + "岁");
         tvSex.setText("性别要求: " + model.getPeoplesex());
-        if(TextUtils.isEmpty(model.getPfexplain())){
+        if (TextUtils.isEmpty(model.getPfexplain())) {
             tvOtherInfo.setText("其他要求: 无");
-        }else {
+        } else {
             tvOtherInfo.setText("其他要求: " + model.getPfexplain());
         }
 //        if(model.getHave_num().equals("0")){
@@ -229,7 +275,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
 
     @OnClick({R.id.details_applyTv, R.id.activity_details_of_friends_together_rl_back, R.id.activity_details_of_friends_together_ll_share,
             R.id.activity_details_of_friends_together_ll_focus_on, R.id.activity_details_of_friends_together_btn_top_focus,
-            R.id.activity_details_of_friends_together_ll_person_content, R.id.consult_leaderLl})
+            R.id.activity_details_of_friends_together_ll_person_content, R.id.consult_leaderLl, R.id.comment_more})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.activity_details_of_friends_together_rl_back:
@@ -350,6 +396,12 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 } else {
                     liaotian(model.getObj().getWy_accid());
                 }
+                break;
+            case R.id.comment_more:
+                Intent intent1 = new Intent();
+                intent1.setClass(DetailsOfFriendTogetherActivity.this, ActiveEvaluationActivity.class);
+                intent1.putExtra("pfID", pfID);
+                startActivity(intent1);
                 break;
         }
     }

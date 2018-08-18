@@ -54,12 +54,12 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
         }
         holder.tvTitle.setText(data.get(position).getTitle());
         holder.tvTime.setText(data.get(position).getTime());
-        holder.tvReply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onReply(position, data.get(position).getPfID());
-            }
-        });
+//        holder.tvReply.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                listener.onReply(position, data.get(position).getPfID());
+//            }
+//        });
         if (data.get(position).getList().size() > 0) {
             holder.recyclerView.setVisibility(View.VISIBLE);
             LinearLayoutManager manager = new LinearLayoutManager(context);
@@ -67,6 +67,12 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
             holder.recyclerView.setLayoutManager(manager);
             MyActiveCommentCommentAdapter adapter = new MyActiveCommentCommentAdapter(data.get(position).getList());
             holder.recyclerView.setAdapter(adapter);
+            adapter.setOnReplyCommentListener(new MyActiveCommentCommentAdapter.OnReplyCommentListener() {
+                @Override
+                public void onReplyComment(String ID) {
+                    listener.onReply(position, ID);
+                }
+            });
         }else {
             holder.recyclerView.setVisibility(View.GONE);
         }
@@ -80,7 +86,7 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivAvatar;
-        private TextView tvReply;
+//        private TextView tvReply;
         private TextView tvTitle;
         private TextView tvTime;
         private RecyclerView recyclerView;
@@ -88,7 +94,7 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
         public ViewHolder(View itemView) {
             super(itemView);
             ivAvatar = itemView.findViewById(R.id.activity_active_comment_rv_iv);
-            tvReply = itemView.findViewById(R.id.activity_active_comment_rv_reply_tv);
+//            tvReply = itemView.findViewById(R.id.activity_active_comment_rv_reply_tv);
             tvTitle = itemView.findViewById(R.id.activity_active_comment_rv_title_tv);
             tvTime = itemView.findViewById(R.id.activity_active_comment_rv_time_tv);
             recyclerView = itemView.findViewById(R.id.activity_active_comment_rv_rv);

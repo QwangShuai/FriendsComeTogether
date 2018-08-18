@@ -11,7 +11,7 @@ public class ActiveCommentModel {
     /**
      * code : 200
      * message : 操作成功!
-     * obj : [{"pfID":"54","pic":"http://47.92.136.19/uploads/activity/20180719/20180719/11e73ef1b5e4809649c225afe7eb2501.jpg","title":"泰山七日游","time":"2018.07.27-2018.09.08","list":[{"userID":"1","buserID":"2","username":"zp","busername":"heihei","content":"哈哈哈哈"},{"userID":"2","buserID":"1","username":"heihei","busername":"zp","content":"呵呵呵呵"}]}]
+     * obj : [{"join":"1","reply":"0","pfID":"2","pic":"http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg","title":"泰山30日游","time":"2018.04.08-2018.06.05","list":[{"comment_id":"1","username":"我们旅游吧","content":"泰山真好玩"}]}]
      */
 
     private int code;
@@ -44,18 +44,38 @@ public class ActiveCommentModel {
 
     public static class ObjBean {
         /**
-         * pfID : 54
-         * pic : http://47.92.136.19/uploads/activity/20180719/20180719/11e73ef1b5e4809649c225afe7eb2501.jpg
-         * title : 泰山七日游
-         * time : 2018.07.27-2018.09.08
-         * list : [{"userID":"1","buserID":"2","username":"zp","busername":"heihei","content":"哈哈哈哈"},{"userID":"2","buserID":"1","username":"heihei","busername":"zp","content":"呵呵呵呵"}]
+         * join : 1
+         * reply : 0
+         * pfID : 2
+         * pic : http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg
+         * title : 泰山30日游
+         * time : 2018.04.08-2018.06.05
+         * list : [{"comment_id":"1","username":"我们旅游吧","content":"泰山真好玩"}]
          */
 
+        private String join;
+        private String reply;
         private String pfID;
         private String pic;
         private String title;
         private String time;
         private List<ListBean> list;
+
+        public String getJoin() {
+            return join;
+        }
+
+        public void setJoin(String join) {
+            this.join = join;
+        }
+
+        public String getReply() {
+            return reply;
+        }
+
+        public void setReply(String reply) {
+            this.reply = reply;
+        }
 
         public String getPfID() {
             return pfID;
@@ -99,33 +119,21 @@ public class ActiveCommentModel {
 
         public static class ListBean {
             /**
-             * userID : 1
-             * buserID : 2
-             * username : zp
-             * busername : heihei
-             * content : 哈哈哈哈
+             * comment_id : 1
+             * username : 我们旅游吧
+             * content : 泰山真好玩
              */
 
-            private String userID;
-            private String buserID;
+            private String comment_id;
             private String username;
-            private String busername;
             private String content;
 
-            public String getUserID() {
-                return userID;
+            public String getComment_id() {
+                return comment_id;
             }
 
-            public void setUserID(String userID) {
-                this.userID = userID;
-            }
-
-            public String getBuserID() {
-                return buserID;
-            }
-
-            public void setBuserID(String buserID) {
-                this.buserID = buserID;
+            public void setComment_id(String comment_id) {
+                this.comment_id = comment_id;
             }
 
             public String getUsername() {
@@ -134,14 +142,6 @@ public class ActiveCommentModel {
 
             public void setUsername(String username) {
                 this.username = username;
-            }
-
-            public String getBusername() {
-                return busername;
-            }
-
-            public void setBusername(String busername) {
-                this.busername = busername;
             }
 
             public String getContent() {

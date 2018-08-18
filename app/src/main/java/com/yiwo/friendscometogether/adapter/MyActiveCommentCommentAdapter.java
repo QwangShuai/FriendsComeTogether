@@ -46,7 +46,7 @@ public class MyActiveCommentCommentAdapter extends RecyclerView.Adapter<MyActive
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onReplyComment(data.get(position).getUserID());
+                listener.onReplyComment(data.get(position).getComment_id());
             }
         });
     }
