@@ -49,6 +49,9 @@ public class InvitationActivity extends BaseActivity {
 
     private SpImp spImp;
     private String uid = "";
+    private String otherUid = "";
+
+    private int type = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +69,10 @@ public class InvitationActivity extends BaseActivity {
 
     private void initData() {
 
+        otherUid = getIntent().getStringExtra("otheruid");
         uid = spImp.getUID();
-        ViseHttp.POST(NetConfig.userActiveListUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userActiveListUrl))
+        ViseHttp.POST(NetConfig.activeInvitationListUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeInvitationListUrl))
                 .addParam("uid", uid)
                 .request(new ACallback<String>() {
                     @Override
@@ -100,12 +104,14 @@ public class InvitationActivity extends BaseActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i){
+                switch (i) {
                     case R.id.rb1:
                         toToast(InvitationActivity.this, "我请客");
+                        type = 0;
                         break;
                     case R.id.rb2:
                         toToast(InvitationActivity.this, "自费");
+                        type = 1;
                         break;
                 }
             }
@@ -154,7 +160,31 @@ public class InvitationActivity extends BaseActivity {
                 break;
             case R.id.activity_invitation_rl_ok:
                 //确定
+                ViseHttp.POST(NetConfig.activeInvitationUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeInvitationUrl))
+                        .addParam("uid", uid)
+                        .addParam("bid", otherUid)
+                        .addParam("tid", yourChoiceActiveId)
+                        .addParam("type", type + "")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        toToast(InvitationActivity.this, "邀请成功");
+                                        finish();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
         }
     }

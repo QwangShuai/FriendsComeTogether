@@ -68,6 +68,9 @@ public class EditorFriendTogetherActivity extends BaseActivity {
     private EditorFriendTogetherAdapter adapter;
     private List<GetEditorFriendTogetherModel.ObjBean.TitleListBean> mList;
     private String id = "";
+
+    private String userJoin = "";
+
     /**
      * RecyclerView的Item的Menu点击监听。
      */
@@ -83,14 +86,14 @@ public class EditorFriendTogetherActivity extends BaseActivity {
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
 //                Toast.makeText(EditorFriendtogetherActivity.this, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
                 ViseHttp.POST(NetConfig.deleteFriendTogetherSubtitleContentUrl)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteFriendTogetherSubtitleContentUrl))
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.deleteFriendTogetherSubtitleContentUrl))
                         .addParam("title_id", mList.get(adapterPosition).getId())
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
+                                    if (jsonObject.getInt("code") == 200) {
                                         mList.remove(adapterPosition);
                                         adapter.notifyDataSetChanged();
                                         toToast(EditorFriendTogetherActivity.this, "删除成功");
@@ -149,28 +152,33 @@ public class EditorFriendTogetherActivity extends BaseActivity {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
                                 GetEditorFriendTogetherModel model = new Gson().fromJson(data, GetEditorFriendTogetherModel.class);
-                                Log.e("1233321",model.getObj().toString());
-                                if(model.getCode()==200){
-                                    bean = model.getObj();
-                                    tvTitle.setText(model.getObj().getPftitle());
-                                    Picasso.with(EditorFriendTogetherActivity.this).load(model.getObj().getPfpic()).into(ivTitle);
-                                    tvStart.setText("开始时间: " + model.getObj().getPfgotime());
-                                    tvEnd.setText("结束时间: " + model.getObj().getPfendtime());
-                                    tvPrice.setText("人均费用: " + model.getObj().getPfspend());
+                                Log.e("1233321", model.getObj().toString());
+                                bean = model.getObj();
+                                userJoin = model.getObj().getUser_join();
+                                tvTitle.setText(model.getObj().getPftitle());
+                                Picasso.with(EditorFriendTogetherActivity.this).load(model.getObj().getPfpic()).into(ivTitle);
+                                tvStart.setText("开始时间: " + model.getObj().getPfgotime());
+                                tvEnd.setText("结束时间: " + model.getObj().getPfendtime());
+                                tvPrice.setText("人均费用: " + model.getObj().getPfspend());
 //                                tvBrowseNum.setText("浏览: " + model.getObj().get);
 //                                tvFocusNum.setText("关注: " + model.getObj().getFriendsList().getFmfavorite());
-                                    LinearLayoutManager manager = new LinearLayoutManager(EditorFriendTogetherActivity.this);
-                                    manager.setOrientation(LinearLayoutManager.VERTICAL);
-                                    recyclerView.setLayoutManager(manager);
-                                    mList = model.getObj().getTitle_list();
-                                    adapter = new EditorFriendTogetherAdapter(model.getObj().getTitle_list());
-                                    recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
-                                    recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
-                                    recyclerView.setAdapter(adapter);
-                                }
+                                LinearLayoutManager manager = new LinearLayoutManager(EditorFriendTogetherActivity.this);
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                mList = model.getObj().getTitle_list();
+                                adapter = new EditorFriendTogetherAdapter(model.getObj().getTitle_list());
+                                recyclerView.setSwipeMenuCreator(mSwipeMenuCreator);
+                                recyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+                                recyclerView.setAdapter(adapter);
                             }
-
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
 
                     @Override
@@ -196,12 +204,16 @@ public class EditorFriendTogetherActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_editor_friend_together_rl:
-                intent.setClass(EditorFriendTogetherActivity.this, EditorMainFriendTogetherActivity.class);
-                intent.putExtra("bean", (Serializable)bean);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("pfID",id);
-                startActivity(intent);
-                onBackPressed();
+                if(userJoin.equals("1")){
+                    toToast(EditorFriendTogetherActivity.this, "该活动已有参加人员，暂不能修改活动信息");
+                }else {
+                    intent.setClass(EditorFriendTogetherActivity.this, EditorMainFriendTogetherActivity.class);
+                    intent.putExtra("bean", (Serializable) bean);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("pfID", id);
+                    startActivity(intent);
+                    onBackPressed();
+                }
                 break;
         }
     }

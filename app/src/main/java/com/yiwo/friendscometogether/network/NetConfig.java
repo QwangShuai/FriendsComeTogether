@@ -188,4 +188,10 @@ public class NetConfig {
     public static String activeReturnCommentUrl = "action/ac_activity/reply_activity_comment";
     //活动分享
     public static String activeShareUrl = "action/ac_activity/SharingInformation";
+    //发起邀请
+    public static String activeInvitationUrl = "action/ac_activity/Invitation";
+    //活动列表（邀请）
+    public static String activeInvitationListUrl = "action/ac_activity/ActivityList";
+    //首页消息中心
+    public static String homeMessageCenterUrl = "action/ac_public/get_message";
 }

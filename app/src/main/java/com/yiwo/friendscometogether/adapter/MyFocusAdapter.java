@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -66,9 +67,14 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
         holder.tv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(context, InvitationActivity.class);
-                context.startActivity(intent);
+                if(data.get(position).getActivity_id().equals("0")){
+                    Intent intent = new Intent();
+                    intent.putExtra("otheruid", data.get(position).getLikeuserID());
+                    intent.setClass(context, InvitationActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    Toast.makeText(context, "已参加活动，无法邀请", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

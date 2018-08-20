@@ -1,16 +1,24 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.HomeMessageCenterModel;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,57 +27,124 @@ import butterknife.OnClick;
 /**
  * 消息中心
  */
-public class MessageCenterActivity extends AppCompatActivity {
+public class MessageCenterActivity extends BaseActivity {
+
     @BindView(R.id.activity_message_center_rl_back)
     RelativeLayout backRl;
-    @BindView(R.id.headIv)
-    ImageView headIv;
-    @BindView(R.id.set_headIv)
-    ImageView set_headIv;
-    @BindView(R.id.titleTv)
-    TextView titleTv;
     @BindView(R.id.contentTv)
-    TextView contentTv;
-    @BindView(R.id.numTv)
-    TextView numTv;
-    @BindView(R.id.set_titleTv)
-    TextView set_titleTv;
+    TextView tvHotContent;
+    @BindView(R.id.timeTv)
+    TextView tvHotTime;
+    @BindView(R.id.iv_hot)
+    ImageView ivHot;
     @BindView(R.id.set_contentTv)
-    TextView set_contentTv;
-    @BindView(R.id.set_numTv)
-    TextView set_numTv;
-    @BindView(R.id.hot_message_rl)
-    RelativeLayout hotRl;
-    @BindView(R.id.set_message_rl)
-    RelativeLayout setRl;
+    TextView tvSystemContent;
+    @BindView(R.id.set_timeTv)
+    TextView tvSystemTime;
+    @BindView(R.id.iv_system)
+    ImageView ivSystem;
+    @BindView(R.id.invitation_contentTv)
+    TextView tvInvitationContent;
+    @BindView(R.id.invitation_timeTv)
+    TextView tvInvitationTime;
+    @BindView(R.id.iv_invitation)
+    ImageView ivInvitation;
+    @BindView(R.id.comment_contentTv)
+    TextView tvCommentContent;
+    @BindView(R.id.comment_timeTv)
+    TextView tvCommentTime;
+    @BindView(R.id.iv_comment)
+    ImageView ivComment;
+    @BindView(R.id.friend_contentTv)
+    TextView tvFriendContent;
+    @BindView(R.id.friend_timeTv)
+    TextView tvFriendTime;
+    @BindView(R.id.iv_friend)
+    ImageView ivFriend;
+
     SpImp spImp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_center);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         ButterKnife.bind(this);
-        spImp =new SpImp(MessageCenterActivity.this);
+        spImp = new SpImp(MessageCenterActivity.this);
+
+        initData();
+
     }
 
-    @OnClick({R.id.hot_message_rl,R.id.set_message_rl,R.id.activity_message_center_rl_back})
-    public void OnClick(View v){
-        switch (v.getId()){
+    private void initData() {
+
+        ViseHttp.POST(NetConfig.homeMessageCenterUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homeMessageCenterUrl))
+                .addParam("user_id", spImp.getUID())
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                HomeMessageCenterModel model = gson.fromJson(data, HomeMessageCenterModel.class);
+                                tvHotContent.setText(model.getObj().getHot().getMessage());
+                                tvHotTime.setText(model.getObj().getHot().getTime());
+                                if (model.getObj().getHot().getType().equals("1")) {
+                                    ivHot.setVisibility(View.VISIBLE);
+                                }
+                                tvSystemContent.setText(model.getObj().getSystem().getMessage());
+                                tvSystemTime.setText(model.getObj().getSystem().getTime());
+                                if(model.getObj().getSystem().getType().equals("1")){
+                                    ivSystem.setVisibility(View.VISIBLE);
+                                }
+                                tvInvitationContent.setText(model.getObj().getYq().getMessage());
+                                tvInvitationTime.setText(model.getObj().getYq().getTime());
+                                if(model.getObj().getYq().getType().equals("1")){
+                                    ivInvitation.setVisibility(View.VISIBLE);
+                                }
+                                tvCommentContent.setText(model.getObj().getComment().getMessage());
+                                tvCommentTime.setText(model.getObj().getComment().getTime());
+                                if(model.getObj().getComment().getType().equals("1")){
+                                    ivComment.setVisibility(View.VISIBLE);
+                                }
+                                tvFriendContent.setText(model.getObj().getFriends().getMessage());
+                                tvFriendTime.setText(model.getObj().getFriends().getTime());
+                                if(model.getObj().getFriends().getType().equals("1")){
+                                    ivFriend.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
+    }
+
+    @OnClick({R.id.hot_message_rl, R.id.set_message_rl, R.id.activity_message_center_rl_back})
+    public void OnClick(View v) {
+        switch (v.getId()) {
             case R.id.activity_message_center_rl_back:
                 finish();
                 break;
             case R.id.hot_message_rl:
-                numTv.setVisibility(View.INVISIBLE);
-                Intent it = new Intent(MessageCenterActivity.this,MessageViewActivity.class);
-                it.putExtra("type","0");
+                Intent it = new Intent(MessageCenterActivity.this, MessageViewActivity.class);
+                it.putExtra("type", "0");
                 startActivity(it);
                 break;
             case R.id.set_message_rl:
-                set_numTv.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(MessageCenterActivity.this,MessageViewActivity.class);
-                intent.putExtra("type","1");
+                Intent intent = new Intent(MessageCenterActivity.this, MessageViewActivity.class);
+                intent.putExtra("type", "1");
                 startActivity(intent);
                 break;
         }
     }
+
 }
