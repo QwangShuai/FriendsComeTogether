@@ -277,7 +277,7 @@ public class MyInformationActivity extends BaseActivity {
 
                 AlertDialog.Builder singleChoiceDialog1 =
                         new AlertDialog.Builder(MyInformationActivity.this);
-                singleChoiceDialog1.setTitle("请选择性别");
+                singleChoiceDialog1.setTitle("请选择是否单身");
                 // 第二个参数是默认选项，此处设置为0
                 singleChoiceDialog1.setSingleChoiceItems(items1, 0,
                         new DialogInterface.OnClickListener() {

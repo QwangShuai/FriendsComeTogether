@@ -29,6 +29,7 @@ import com.yiwo.friendscometogether.adapter.DetailsOfFriendsIntercalation1Adapte
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsIntercalationAdapter;
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.model.DetailsRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -285,21 +286,46 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 if(TextUtils.isEmpty(uid)||uid.equals("0")){
                     intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }else {
-                    new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
-                            .setShareboardclickCallback(new ShareBoardlistener() {
+                    ViseHttp.POST(NetConfig.activeShareUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.activeShareUrl))
+                            .addParam("id", fmID)
+                            .addParam("type", "1")
+                            .request(new ACallback<String>() {
                                 @Override
-                                public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                    ShareUtils.shareWeb(DetailsOfFriendsActivity.this,"http://www.baidu.com","不快乐",
-                                            "就是不快乐","",share_media);
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            Gson gson = new Gson();
+                                            final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
+                                            new ShareAction(DetailsOfFriendsActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                                                    .setShareboardclickCallback(new ShareBoardlistener() {
+                                                        @Override
+                                                        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                                                            ShareUtils.shareWeb(DetailsOfFriendsActivity.this, shareModel.getObj().getUrl(), shareModel.getObj().getTitle(),
+                                                                    shareModel.getObj().getDesc(), shareModel.getObj().getImages(), share_media);
+                                                        }
+                                                    }).open();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }).open();
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
                 }
                 break;
             case R.id.activity_details_of_friends_ll_praise:
                 if(TextUtils.isEmpty(uid)||uid.equals("0")){
                     intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     if(!isPraise){
                         Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.praise_y).into(ivPraise);
@@ -333,6 +359,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 if(TextUtils.isEmpty(uid)||uid.equals("0")){
                     intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     if(!isStar){
                         Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.star_y).into(ivStar);
@@ -428,6 +455,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 if(TextUtils.isEmpty(uid)||uid.equals("0")){
                     intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     if(!isFocus){
                         ViseHttp.POST(NetConfig.userFocusUrl)

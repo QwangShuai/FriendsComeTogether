@@ -32,6 +32,7 @@ import com.yiwo.friendscometogether.adapter.FriendTogetherCommentListAdapter;
 import com.yiwo.friendscometogether.adapter.FriendTogetherUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.ParticipantsItemAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.FriendsTogetherDetailsModel;
@@ -317,14 +318,39 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                         });
                 break;
             case R.id.activity_details_of_friends_together_ll_share:
-                new ShareAction(this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                        .setShareboardclickCallback(new ShareBoardlistener() {
+
+                ViseHttp.POST(NetConfig.activeShareUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.activeShareUrl))
+                        .addParam("id", pfID)
+                        .addParam("type", "0")
+                        .request(new ACallback<String>() {
                             @Override
-                            public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                ShareUtils.shareWeb(DetailsOfFriendTogetherActivity.this, "http://www.baidu.com", "不快乐",
-                                        "就是不快乐", "", share_media);
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        Gson gson = new Gson();
+                                        final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
+                                        new ShareAction(DetailsOfFriendTogetherActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                                                .setShareboardclickCallback(new ShareBoardlistener() {
+                                                    @Override
+                                                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                                                        ShareUtils.shareWeb(DetailsOfFriendTogetherActivity.this, shareModel.getObj().getUrl(), shareModel.getObj().getTitle(),
+                                                                shareModel.getObj().getDesc(), shareModel.getObj().getImages(), share_media);
+                                                    }
+                                                }).open();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }).open();
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+
                 break;
             case R.id.activity_details_of_friends_together_ll_focus_on:
                 String userID = spImp.getUID();

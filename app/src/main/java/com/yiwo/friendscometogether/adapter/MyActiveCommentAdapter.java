@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -15,6 +17,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.ActiveCommentModel;
 import com.yiwo.friendscometogether.model.ArticleCommentListModel;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
 import java.util.List;
@@ -76,6 +79,15 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
         }else {
             holder.recyclerView.setVisibility(View.GONE);
         }
+        holder.rlFriendRemember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("pfID", data.get(position).getPfID());
+                intent.setClass(context, DetailsOfFriendTogetherActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -90,6 +102,7 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
         private TextView tvTitle;
         private TextView tvTime;
         private RecyclerView recyclerView;
+        private RelativeLayout rlFriendRemember;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -98,6 +111,7 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
             tvTitle = itemView.findViewById(R.id.activity_active_comment_rv_title_tv);
             tvTime = itemView.findViewById(R.id.activity_active_comment_rv_time_tv);
             recyclerView = itemView.findViewById(R.id.activity_active_comment_rv_rv);
+            rlFriendRemember = itemView.findViewById(R.id.rl_friend_remember);
         }
     }
     public interface OnReplyListener{

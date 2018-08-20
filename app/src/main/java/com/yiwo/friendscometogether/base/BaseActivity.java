@@ -66,7 +66,7 @@ public class BaseActivity extends AppCompatActivity {
     }
     public void toDialog(Context context, String title, String message, DialogInterface.OnClickListener listener, DialogInterface.OnClickListener listener1){
         AlertDialog.Builder normalDialog = new AlertDialog.Builder(context);
-        normalDialog.setIcon(R.mipmap.ic_launcher);
+//        normalDialog.setIcon(R.mipmap.ic_launcher);
         normalDialog.setTitle(title);
         normalDialog.setMessage(message);
         normalDialog.setPositiveButton("确定", listener);

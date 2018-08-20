@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.UserFocusModel;
+import com.yiwo.friendscometogether.pages.InvitationActivity;
 
 import java.util.List;
 
@@ -55,11 +57,18 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
         holder.tvArticleNum.setText("文章: " + data.get(position).getArticle_num());
         holder.tvLikeNum.setText("粉丝: " + data.get(position).getLike_num());
         holder.tvActivityId.setText(data.get(position).getActivity_id().equals("0") ? "活动状态: 未参加活动" : "活动状态: 活动中");
-        holder.tv2.setText(data.get(position).getStatus().equals("0") ? "已结束" : "进行中");
         holder.tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onCancel(position);
+            }
+        });
+        holder.tv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(context, InvitationActivity.class);
+                context.startActivity(intent);
             }
         });
     }

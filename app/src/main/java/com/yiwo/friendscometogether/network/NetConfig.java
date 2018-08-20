@@ -186,4 +186,6 @@ public class NetConfig {
     public static String modifyActivePicInfoUrl = "action/ac_activity/update_image_info";
     //活动回复
     public static String activeReturnCommentUrl = "action/ac_activity/reply_activity_comment";
+    //活动分享
+    public static String activeShareUrl = "action/ac_activity/SharingInformation";
 }

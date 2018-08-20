@@ -147,6 +147,7 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
     private SpImp spImp;
     String pfID = "";
     GetEditorFriendTogetherModel.ObjBean bean = new GetEditorFriendTogetherModel.ObjBean();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,25 +168,25 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
     private void init() {
         pfID = getIntent().getStringExtra("pfID");
         bean = (GetEditorFriendTogetherModel.ObjBean) getIntent().getSerializableExtra("bean");
-        if(!StringUtils.isEmpty(pfID)){
+        if (!StringUtils.isEmpty(pfID)) {
             etTitle.setText(bean.getPftitle());
             etContent.setText(bean.getPfcontent());
 //            ivAdd.setVisibility(View.INVISIBLE);
             ivDelete.setVisibility(View.VISIBLE);
             Picasso.with(this).load(bean.getPfpic()).into(ivTitle);
             ivTitle.setVisibility(View.VISIBLE);
-            Log.i("14521",bean.getPfpic());
+            Log.i("14521", bean.getPfpic());
             tvTimeStart.setText(bean.getPfgotime());
             tvTimeEnd.setText(bean.getPfendtime());
             tvCity.setText(bean.getCity_name());
-            tvTitleNum.setText(bean.getPftitle().length()+"/30");
-            tvContentNum.setText(bean.getPfcontent().length()+"/2000");
-            map.put("pftitle",bean.getPftitle());
-            map.put("pfcontent",bean.getPfcontent());
-            map.put("pfgotime",bean.getPfgotime());
-            map.put("pfendtime",bean.getPfendtime());
-            map.put("city_id",bean.getCity());
-            map.put("if_pic","0");
+            tvTitleNum.setText(bean.getPftitle().length() + "/30");
+            tvContentNum.setText(bean.getPfcontent().length() + "/2000");
+            map.put("pftitle", bean.getPftitle());
+            map.put("pfcontent", bean.getPfcontent());
+            map.put("pfgotime", bean.getPfgotime());
+            map.put("pfendtime", bean.getPfendtime());
+            map.put("city_id", bean.getCity());
+            map.put("if_pic", "0");
         }
         Observable.just("").subscribeOn(Schedulers.newThread()).subscribe(new Observer<String>() {
             @Override
@@ -211,6 +212,7 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
         StringUtils.setEditTextInputSpace(etTitle);
         etTitle.addTextChangedListener(new TextWatcher() {
             private CharSequence temp;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 temp = s;
@@ -223,12 +225,13 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvTitleNum.setText(temp.length()+"/30");
-                map.put("pftitle",temp.toString());
+                tvTitleNum.setText(temp.length() + "/30");
+                map.put("pftitle", temp.toString());
             }
         });
         etContent.addTextChangedListener(new TextWatcher() {
             private CharSequence temp;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 temp = s;
@@ -241,8 +244,8 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvContentNum.setText(temp.length()+"/2000");
-                map.put("pfcontent",temp.toString());
+                tvContentNum.setText(temp.length() + "/2000");
+                map.put("pfcontent", temp.toString());
             }
         });
     }
@@ -297,8 +300,8 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
                     @Override
                     public void setActivityText(CreateFriendsTogetherRequestModel model) {
                         map.put("pfspend", model.getPrice());
-                        if(StringUtils.isEmpty(model.getPrice_type())){
-                            map.put("pfspendtype","0");
+                        if (StringUtils.isEmpty(model.getPrice_type())) {
+                            map.put("pfspendtype", "0");
                         } else {
                             map.put("pfspendtype", model.getPrice_type());
                         }
@@ -362,7 +365,7 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
                         .start(EditorMainFriendTogetherActivity.this, REQUEST_CODE); // 打开相册
                 break;
             case R.id.activity_editor_main_friend_together_iv_delete:
-                map.put("if_pic","1");
+                map.put("if_pic", "1");
                 ivDelete.setVisibility(View.GONE);
                 ivTitle.setVisibility(View.INVISIBLE);
                 tvFirstIv.setVisibility(View.INVISIBLE);
@@ -547,11 +550,11 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
         map.put("user_id", spImp.getUID());
         if ((map.size() == 18 && findPwd()) || (map.size() == 17 && !findPwd())) {
             final String token = getToken(NetConfig.BaseUrl + NetConfig.editorFriendTogetherUrl);
-            if (StringUtils.isEmpty(path)){
+            if (StringUtils.isEmpty(path)) {
                 ViseHttp.POST(NetConfig.editorFriendTogetherUrl)
                         .addParams(map)
-                        .addParam("app_key",token)
-                        .addParam("activity_id",pfID)
+                        .addParam("app_key", token)
+                        .addParam("activity_id", pfID)
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
@@ -622,7 +625,7 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
                             public void onFail(int errCode, String errMsg) {
 
                             }
-                        }).addHeader("Content-Type", "multipart/form-data").addParams(map).addParam("app_key",token).addParam("activity_id",pfID)
+                        }).addHeader("Content-Type", "multipart/form-data").addParams(map).addParam("app_key", token).addParam("activity_id", pfID)
                                 .addFile("file_img", value).request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {

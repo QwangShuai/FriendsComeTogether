@@ -37,7 +37,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".pages.WelcomeActivity"
             android:screenOrientation="portrait">
@@ -236,6 +236,7 @@
         </receiver>
 
         <activity android:name=".pages.OtherPicActivity" />
+        <activity android:name=".pages.InvitationActivity"></activity>
     </application>
 
 </manifest>

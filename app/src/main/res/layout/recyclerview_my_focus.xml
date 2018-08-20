@@ -117,7 +117,7 @@
         </LinearLayout>
 
         <TextView
-            android:background="@drawable/bg_activity_my_focus_end"
+            android:background="@drawable/bg_activity_my_focus_focus"
             android:id="@+id/activity_my_focus_rv_tv_2"
             android:layout_marginRight="20px"
             android:layout_marginBottom="36px"
@@ -125,8 +125,8 @@
             android:layout_alignParentRight="true"
             android:gravity="center"
             android:textSize="24px"
-            android:textColor="@color/black_333333"
-            android:text="已结束"
+            android:textColor="@color/white_ffffff"
+            android:text="邀请他"
             android:layout_width="140px"
             android:layout_height="50px" />
 
