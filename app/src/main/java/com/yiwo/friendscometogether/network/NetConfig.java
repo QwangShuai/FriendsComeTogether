@@ -19,8 +19,6 @@ public class NetConfig {
     public static String cityUrl = "action/ac_login/get_all_city";
     //文章列表
     public static String friendsRememberUrl = "action/ac_article/article_list";
-    //文章列表幻灯片
-    public static String friendsRememberBannerUrl = "action/ac_article/article_slide";
     //文章详情
     public static String articleContentUrl = "action/ac_article/article_slide";
     //友聚列表
@@ -194,4 +192,10 @@ public class NetConfig {
     public static String activeInvitationListUrl = "action/ac_activity/ActivityList";
     //首页消息中心
     public static String homeMessageCenterUrl = "action/ac_public/get_message";
+    //系统、热门消息列表
+    public static String systemHotMessageListUrl = "action/ac_public/system_hot_list";
+    //邀请列表（消息中心）
+    public static String messageInvitationListUrl = "action/ac_activity/InvitationList";
+    //所有幻灯片
+    public static String allBannerUrl = "action/ac_article/article_slide";
 }

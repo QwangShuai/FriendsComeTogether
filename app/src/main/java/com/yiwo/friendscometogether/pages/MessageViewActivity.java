@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -16,8 +21,12 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.MessageViewAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.MessageViewModel;
+import com.yiwo.friendscometogether.model.UserFocusModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +43,17 @@ public class MessageViewActivity extends BaseActivity {
     RelativeLayout backRl;
     @BindView(R.id.activity_message_view_rv)
     RecyclerView messageRv;
+    @BindView(R.id.activity_message_refreshLayout)
+    RefreshLayout refreshLayout;
 
     private SpImp spImp;
     private MessageViewAdapter adapter;
     List<MessageViewModel.ObjBean> list = new ArrayList<>();
+
+    private String type = "";
+    private int page = 1;
+    private List<MessageViewModel.ObjBean> mList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,52 +64,123 @@ public class MessageViewActivity extends BaseActivity {
         initData();
     }
 
-    public void initData(){
-        MessageViewModel.ObjBean model = new MessageViewModel.ObjBean();
-        model.setMes_title("1243");
-        model.setMes_message("我是内容");
-        model.setMes_pic("https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=2e86e12575310a55db24d8f487474387/09fa513d269759eee4dd1b1dbefb43166c22df53.jpg");
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        initList(list);
-//        String type = getIntent().getStringExtra("type");
-//        ViseHttp.POST(NetConfig.messageListUrl)
-//                .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.messageListUrl))
-//                .addParam("type",type)
-//                .addParam("page","1")
-//                .request(new ACallback<String>() {
-//                    @Override
-//                    public void onSuccess(String data) {
-//                        Log.i("112233",data);
-//                       MessageViewModel model = new Gson().fromJson(data,MessageViewModel.class);
-//                       initList(model.getObj());
-//                    }
-//
-//                    @Override
-//                    public void onFail(int errCode, String errMsg) {
-//                        toToast(MessageViewActivity.this,errMsg);
-//                    }
-//                });
+    public void initData() {
+
+        type = getIntent().getStringExtra("type");
+
+        ViseHttp.POST(NetConfig.systemHotMessageListUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.systemHotMessageListUrl))
+                .addParam("page", "1")
+                .addParam("user_id", spImp.getUID())
+                .addParam("type", type)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                MessageViewModel model = gson.fromJson(data, MessageViewModel.class);
+                                page = 2;
+                                initList(model.getObj());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
+        refreshLayout.setRefreshHeader(new ClassicsHeader(MessageViewActivity.this));
+        refreshLayout.setRefreshFooter(new ClassicsFooter(MessageViewActivity.this));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.systemHotMessageListUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.systemHotMessageListUrl))
+                        .addParam("page", "1")
+                        .addParam("user_id", spImp.getUID())
+                        .addParam("type", type)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Gson gson = new Gson();
+                                        MessageViewModel model = gson.fromJson(data, MessageViewModel.class);
+                                        page = 2;
+                                        mList.clear();
+                                        mList.addAll(model.getObj());
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                    refreshlayout.finishRefresh();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishRefresh();
+                            }
+                        });
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(final RefreshLayout refreshlayout) {
+                ViseHttp.POST(NetConfig.systemHotMessageListUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.systemHotMessageListUrl))
+                        .addParam("page", page + "")
+                        .addParam("user_id", spImp.getUID())
+                        .addParam("type", type)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Gson gson = new Gson();
+                                        MessageViewModel model = gson.fromJson(data, MessageViewModel.class);
+                                        page = page + 1;
+                                        mList.addAll(model.getObj());
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                    refreshlayout.finishLoadMore();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshlayout.finishLoadMore();
+                            }
+                        });
+            }
+        });
+
     }
 
     public void initList(List<MessageViewModel.ObjBean> data) {
-        LinearLayoutManager manager = new LinearLayoutManager(this) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
+
+        mList = data;
+
+        LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         messageRv.setLayoutManager(manager);
-        adapter = new MessageViewAdapter(data);
+        adapter = new MessageViewAdapter(mList);
         messageRv.setAdapter(adapter);
     }
+
     @OnClick({R.id.activity_message_view_rl_back})
-    public void OnClick(View v){
-        switch (v.getId()){
+    public void OnClick(View v) {
+        switch (v.getId()) {
             case R.id.activity_message_view_rl_back:
                 finish();
                 break;

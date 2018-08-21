@@ -46,7 +46,7 @@ public class ChatFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_chat,null);
-        ScreenAdapterTools.getInstance().loadView(rootView);
+//        ScreenAdapterTools.getInstance().loadView(rootView);
 
         ButterKnife.bind(this, rootView);
 

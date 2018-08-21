@@ -28,6 +28,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.FriendTogetherUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.model.AllBannerModel;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.FriendsRememberModel;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
@@ -37,16 +38,19 @@ import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateFriendRememberActivity;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.MyFocusActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -98,13 +102,48 @@ public class FriendsTogetherFragment extends BaseFragment {
 
         ButterKnife.bind(this, rootView);
 
-        init(banner, DetailsOfFriendsActivity.class);
         spImp = new SpImp(getContext());
         initData();
         return rootView;
     }
 
     private void initData() {
+
+        ViseHttp.POST(NetConfig.allBannerUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.allBannerUrl))
+                .addParam("type", "2")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                final AllBannerModel bannerModel = gson.fromJson(data, AllBannerModel.class);
+                                List<String> list = new ArrayList<>();
+                                for (int i = 0; i < bannerModel.getObj().size(); i++) {
+                                    list.add(bannerModel.getObj().get(i).getPic());
+                                }
+                                init(banner, list);
+                                banner.setOnBannerListener(new OnBannerListener() {
+                                    @Override
+                                    public void OnBannerClick(int position) {
+                                        Intent intent = new Intent(getContext(), DetailsOfFriendTogetherActivity.class);
+                                        intent.putExtra("pfID", bannerModel.getObj().get(position).getLeftid());
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
         refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));

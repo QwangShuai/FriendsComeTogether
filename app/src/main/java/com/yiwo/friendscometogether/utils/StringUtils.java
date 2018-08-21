@@ -283,7 +283,6 @@ public class StringUtils {
 	/**
 	 * 判断是否是手机号码
 	 * 
-	 * @param context
 	 * @return
 	 */
 	public static boolean isPhoneNumberValid(String phoneNumber) {

@@ -236,7 +236,8 @@
         </receiver>
 
         <activity android:name=".pages.OtherPicActivity" />
-        <activity android:name=".pages.InvitationActivity"></activity>
+        <activity android:name=".pages.InvitationActivity" />
+        <activity android:name=".pages.MessageInvitationActivity"></activity>
     </application>
 
 </manifest>

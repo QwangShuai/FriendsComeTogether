@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.yiwo.friendscometogether.pages.MessageViewActivity">
+
     <RelativeLayout
         android:id="@+id/activity_message_view_rl_top"
         style="@style/rl_top_bar">
@@ -24,19 +25,27 @@
         </RelativeLayout>
 
     </RelativeLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants">
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:descendantFocusability="blocksDescendants">-->
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/activity_message_view_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-    </ScrollView>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/activity_message_refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_message_view_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <!--</RelativeLayout>-->
+    <!--</ScrollView>-->
 
 </LinearLayout>

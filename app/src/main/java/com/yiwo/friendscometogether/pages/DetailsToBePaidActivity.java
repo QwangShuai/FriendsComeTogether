@@ -132,7 +132,7 @@ public class DetailsToBePaidActivity extends BaseActivity {
                                 tvOrderNumber.setText("订单编号: " + model.getObj().getOrder_sn());
                                 if (model.getObj().getPay_type().equals("0")) {
                                     tvTradeNumber.setText("微信交易号: " + model.getObj().getPaycode());
-                                } else {
+                                } else if(model.getObj().getPay_type().equals("1")){
                                     tvTradeNumber.setText("支付宝交易号: " + model.getObj().getPaycode());
                                 }
                                 tvCreateTime.setText("创建时间: " + model.getObj().getCreate_time());

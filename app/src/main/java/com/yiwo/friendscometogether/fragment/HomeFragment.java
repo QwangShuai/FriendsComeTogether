@@ -38,6 +38,7 @@ import com.yiwo.friendscometogether.adapter.HomeTogetherAdapter;
 import com.yiwo.friendscometogether.adapter.VideoAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.ScalableCardHelper;
+import com.yiwo.friendscometogether.model.AllBannerModel;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.GoogleCityModel;
@@ -46,6 +47,7 @@ import com.yiwo.friendscometogether.model.HomeTogetherModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.MessageCenterActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
@@ -53,11 +55,13 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.UserUtils;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -138,12 +142,53 @@ public class HomeFragment extends BaseFragment {
         ScreenAdapterTools.getInstance().loadView(rootView);
         spImp = new SpImp(getContext());
         getLocation();
-        init(banner, DetailsOfFriendsActivity.class);
         initData();
         return rootView;
     }
 
     public void initData() {
+
+        ViseHttp.POST(NetConfig.allBannerUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.allBannerUrl))
+                .addParam("type", "1")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                final AllBannerModel bannerModel = gson.fromJson(data, AllBannerModel.class);
+                                List<String> list = new ArrayList<>();
+                                for (int i = 0; i < bannerModel.getObj().size(); i++) {
+                                    list.add(bannerModel.getObj().get(i).getPic());
+                                }
+                                init(banner, list);
+                                banner.setOnBannerListener(new OnBannerListener() {
+                                    @Override
+                                    public void OnBannerClick(int position) {
+                                        if(bannerModel.getObj().get(position).getFirst_type().equals("0")){
+                                            Intent intent = new Intent(getContext(), DetailsOfFriendTogetherActivity.class);
+                                            intent.putExtra("pfID", bannerModel.getObj().get(position).getLeftid());
+                                            startActivity(intent);
+                                        }else if(bannerModel.getObj().get(position).getFirst_type().equals("1")){
+                                            Intent intent = new Intent(getContext(), DetailsOfFriendsActivity.class);
+                                            intent.putExtra("fmid", bannerModel.getObj().get(position).getLeftid());
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
         uid = spImp.getUID();
 

@@ -283,39 +283,46 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.details_applyTv:
-                ViseHttp.POST(NetConfig.isRealNameUrl)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.isRealNameUrl))
-                        .addParam("userID", spImp.getUID())
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String data) {
-                                Log.i("123321", data);
-                                IsRealNameModel models = new Gson().fromJson(data, IsRealNameModel.class);
-                                if (models.getCode() == 200) {
-                                    if (models.getObj().getOk().equals("2")) {
-                                        Intent it = new Intent(DetailsOfFriendTogetherActivity.this, ApplyActivity.class);
-                                        it.putExtra("if_pay", model.getObj().getIf_pay());
-                                        it.putExtra("title", model.getObj().getTitle());
-                                        it.putExtra("begin_time", model.getObj().getBegin_time());
-                                        it.putExtra("price", model.getObj().getPrice());
-                                        it.putExtra("pfID", model.getObj().getPfID());
-                                        it.putExtra("sex", "2");
-                                        startActivity(it);
-                                    } else if (models.getObj().getOk().equals("1")) {
-                                        toToast(DetailsOfFriendTogetherActivity.this, "请于身份审核通过后报名");
+                if(TextUtils.isEmpty(spImp.getUID())||spImp.getUID().equals("0")){
+                    Intent intent = new Intent(DetailsOfFriendTogetherActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    ViseHttp.POST(NetConfig.isRealNameUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.isRealNameUrl))
+                            .addParam("userID", spImp.getUID())
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    Log.i("123321", data);
+                                    IsRealNameModel models = new Gson().fromJson(data, IsRealNameModel.class);
+                                    if (models.getCode() == 200) {
+                                        if (models.getObj().getOk().equals("2")) {
+                                            Intent it = new Intent(DetailsOfFriendTogetherActivity.this, ApplyActivity.class);
+                                            it.putExtra("if_pay", model.getObj().getIf_pay());
+                                            it.putExtra("title", model.getObj().getTitle());
+                                            it.putExtra("begin_time", model.getObj().getBegin_time());
+                                            it.putExtra("price", model.getObj().getPrice());
+                                            it.putExtra("pfID", model.getObj().getPfID());
+                                            it.putExtra("name", model.getObj().getTruename());
+                                            it.putExtra("sex", model.getObj().getPeoplesex());
+                                            startActivity(it);
+                                        } else if (models.getObj().getOk().equals("1")) {
+                                            toToast(DetailsOfFriendTogetherActivity.this, "请于身份审核通过后报名");
+                                        } else {
+                                            startActivity(new Intent(DetailsOfFriendTogetherActivity.this, RealNameActivity.class));
+                                        }
                                     } else {
-                                        startActivity(new Intent(DetailsOfFriendTogetherActivity.this, RealNameActivity.class));
+                                        toToast(DetailsOfFriendTogetherActivity.this, model.getMessage());
                                     }
-                                } else {
-                                    toToast(DetailsOfFriendTogetherActivity.this, model.getMessage());
                                 }
-                            }
 
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
 
-                            }
-                        });
+                                }
+                            });
+                }
                 break;
             case R.id.activity_details_of_friends_together_ll_share:
 

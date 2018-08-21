@@ -31,15 +31,7 @@ public class BaseFragment extends Fragment {
         String tokens = StringUtils.stringToMD5(token);
         return tokens;
     }
-    public void init(Banner banner, final Class activity) {
-        List<String> images = new ArrayList<>();
-//        List<String> titles = new ArrayList<>();
-        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739806900&di=5851898465493d1819030712458cee88&imgtype=0&src=http%3A%2F%2Fwww.5636.com%2Fnetbar%2Fuploads%2Fallimg%2F120620%2F21-120620102101526.jpg");
-        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739807163&di=f3875854f37cf9d8f5261998f229bd03&imgtype=0&src=http%3A%2F%2Fattachments.gfan.com%2Fforum%2Fattachments2%2Fday_100825%2F10082513558ebc5978899bb24c.jpg");
-        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531739807163&di=3be9c2032fcb53a8764c5d5a1409c58a&imgtype=0&src=http%3A%2F%2Fattachments.gfan.com%2Fforum%2F201612%2F12%2F22290422z010jrivvoloid.jpg");
-//        titles.add("活动介绍活动介绍活动介绍活动介绍");
-//        titles.add("活动介绍活动介绍活动介绍活动介绍");
-//        titles.add("活动介绍活动介绍活动介绍活动介绍");
+    public void init(Banner banner, List<String> images) {
 
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -59,15 +51,6 @@ public class BaseFragment extends Fragment {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
-
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                Intent intent = new Intent();
-                intent.setClass(getContext(), activity);
-                startActivity(intent);
-            }
-        });
 
     }
 }

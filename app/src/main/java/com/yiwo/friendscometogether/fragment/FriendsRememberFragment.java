@@ -26,6 +26,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
+import com.yiwo.friendscometogether.model.AllBannerModel;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.FriendsRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -84,13 +85,48 @@ public class FriendsRememberFragment extends BaseFragment {
         ButterKnife.bind(this, rootView);
         spImp = new SpImp(getContext());
 
-        init(banner, DetailsOfFriendsActivity.class);
         initData();
 
         return rootView;
     }
 
     private void initData() {
+
+        ViseHttp.POST(NetConfig.allBannerUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.allBannerUrl))
+                .addParam("type", "3")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                final AllBannerModel bannerModel = gson.fromJson(data, AllBannerModel.class);
+                                List<String> list = new ArrayList<>();
+                                for (int i = 0; i < bannerModel.getObj().size(); i++) {
+                                    list.add(bannerModel.getObj().get(i).getPic());
+                                }
+                                init(banner, list);
+                                banner.setOnBannerListener(new OnBannerListener() {
+                                    @Override
+                                    public void OnBannerClick(int position) {
+                                        Intent intent = new Intent(getContext(), DetailsOfFriendsActivity.class);
+                                        intent.putExtra("fmid", bannerModel.getObj().get(position).getLeftid());
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
         uid = spImp.getUID();
 
@@ -215,14 +251,14 @@ public class FriendsRememberFragment extends BaseFragment {
         adapter.setOnFocusListener(new FriendRememberUpDataAdapter.OnFocusListener() {
             @Override
             public void onFocus(final int position) {
-                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
                     Intent intent = new Intent();
                     intent.setClass(getContext(), LoginActivity.class);
                     startActivity(intent);
-                }else {
-                    if(mList.get(position).getLook().equals("0")){
+                } else {
+                    if (mList.get(position).getLook().equals("0")) {
                         ViseHttp.POST(NetConfig.userFocusUrl)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userFocusUrl))
                                 .addParam("uid", uid)
                                 .addParam("likeId", data.get(position).getUserID())
                                 .request(new ACallback<String>() {
@@ -230,7 +266,7 @@ public class FriendsRememberFragment extends BaseFragment {
                                     public void onSuccess(String data) {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
-                                            if(jsonObject.getInt("code") == 200){
+                                            if (jsonObject.getInt("code") == 200) {
                                                 mList.get(position).setLook("1");
                                                 adapter.notifyDataSetChanged();
                                                 toToast(getContext(), "关注成功");

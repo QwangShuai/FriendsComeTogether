@@ -62,7 +62,7 @@ public class MessageCenterActivity extends BaseActivity {
     @BindView(R.id.iv_friend)
     ImageView ivFriend;
 
-    SpImp spImp;
+    private SpImp spImp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,21 +128,35 @@ public class MessageCenterActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.hot_message_rl, R.id.set_message_rl, R.id.activity_message_center_rl_back})
+    @OnClick({R.id.hot_message_rl, R.id.set_message_rl, R.id.activity_message_center_rl_back, R.id.invitation_message_rl, R.id.comment_message_rl, R.id.friend_message_rl})
     public void OnClick(View v) {
+        Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.activity_message_center_rl_back:
                 finish();
                 break;
             case R.id.hot_message_rl:
-                Intent it = new Intent(MessageCenterActivity.this, MessageViewActivity.class);
-                it.putExtra("type", "0");
-                startActivity(it);
-                break;
-            case R.id.set_message_rl:
-                Intent intent = new Intent(MessageCenterActivity.this, MessageViewActivity.class);
+                ivHot.setVisibility(View.GONE);
+                intent.setClass(MessageCenterActivity.this, MessageViewActivity.class);
                 intent.putExtra("type", "1");
                 startActivity(intent);
+                break;
+            case R.id.set_message_rl:
+                ivSystem.setVisibility(View.GONE);
+                intent.setClass(MessageCenterActivity.this, MessageViewActivity.class);
+                intent.putExtra("type", "0");
+                startActivity(intent);
+                break;
+            case R.id.invitation_message_rl:
+                ivInvitation.setVisibility(View.GONE);
+                intent.setClass(MessageCenterActivity.this, MessageInvitationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.comment_message_rl:
+
+                break;
+            case R.id.friend_message_rl:
+
                 break;
         }
     }

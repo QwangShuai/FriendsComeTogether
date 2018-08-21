@@ -37,9 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20px"
-            android:ellipsize="end"
             android:gravity="center_vertical"
-            android:lines="1"
             android:text="你这内容属实简短"
             android:textColor="@color/black_626262"
             android:textSize="28px" />
@@ -50,26 +48,34 @@
             android:layout_marginTop="20px"
             android:background="@color/gray_e5e5e5" />
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40px"
+            android:layout_height="60px"
             android:layout_marginTop="20px">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="查看更多内容"
-                android:textColor="@color/black_333333"
-                android:textSize="28px" />
+                android:textColor="@color/white_ffffff"
+                android:background="@color/yellow_ff9d00"
+                android:gravity="center"
+                android:textSize="30px"
+                android:text="拒绝"
+                android:layout_weight="1"
+                android:layout_width="0px"
+                android:layout_height="match_parent" />
 
-            <ImageView
-                android:layout_width="12px"
-                android:layout_height="20px"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/right" />
-        </RelativeLayout>
+            <TextView
+                android:layout_marginLeft="130px"
+                android:textColor="@color/white_ffffff"
+                android:background="@color/yellow_ff9d00"
+                android:gravity="center"
+                android:textSize="30px"
+                android:text="同意"
+                android:layout_weight="1"
+                android:layout_width="0px"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
