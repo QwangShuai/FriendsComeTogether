@@ -67,7 +67,7 @@ public class ApplyActivity extends BaseActivity {
     private int payState = 0;
     private String pfID = "0";
     private String if_pay = "0";
-    SpImp spImp;
+    private SpImp spImp;
     private IWXAPI api;
 
     private int num = 1;

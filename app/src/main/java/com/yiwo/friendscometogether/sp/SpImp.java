@@ -42,6 +42,15 @@ public class SpImp {
         editor.commit();
     }
 
+    public String getSearch() {
+        return sp.getString(SpPublic.Search, "");
+    }
+
+    public void setSearch(String search) {
+        editor.putString(SpPublic.Search, search).toString();
+        editor.commit();
+    }
+
 
 
     //长整形

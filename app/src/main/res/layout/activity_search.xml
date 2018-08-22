@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.yiwo.friendscometogether.pages.SearchActivity">
+
     <com.czp.searchmlist.mSearchLayout
         android:id="@+id/mSearch"
-        android:padding="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:search_hint="搜索景点/领队">
-    </com.czp.searchmlist.mSearchLayout>
+        android:padding="0dp"
+        app:search_hint="搜索景点/领队"></com.czp.searchmlist.mSearchLayout>
 </LinearLayout>

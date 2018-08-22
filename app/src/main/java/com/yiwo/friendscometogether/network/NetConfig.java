@@ -202,4 +202,6 @@ public class NetConfig {
     public static String messageFriendsUrl = "action/ac_user/FriendsList";
     //同意好友请求（消息中心）
     public static String messageFriendsOkUrl = "action/ac_user/AssentRequestFriends";
+    //大家都在搜
+    public static String allSearchUrl = "action/ac_public/all_search";
 }

@@ -16,4 +16,5 @@ public class SpPublic {
     public static String UID = "user_id";//用户唯一id
     public static String YXID = "yx_id";//用户云信id
     public static String YXtoken = "yx_token";//用户云信token
+    public static String Search = "search";//用户搜索历史
 }

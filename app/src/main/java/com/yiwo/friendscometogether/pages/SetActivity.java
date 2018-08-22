@@ -1,12 +1,8 @@
 package com.yiwo.friendscometogether.pages;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
@@ -15,7 +11,6 @@ import com.yiwo.friendscometogether.custom.PopDialog;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
