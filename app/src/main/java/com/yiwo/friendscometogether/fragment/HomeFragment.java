@@ -445,7 +445,9 @@ public class HomeFragment extends BaseFragment {
                 startActivityForResult(it, 1);
                 break;
             case R.id.searchLl:
-                getActivity().startActivity(new Intent(getActivity(), SearchActivity.class));
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                intent.putExtra("type", "1");
+                startActivity(intent);
                 break;
             case R.id.messageIv:
                 home_numTv.setVisibility(View.INVISIBLE);

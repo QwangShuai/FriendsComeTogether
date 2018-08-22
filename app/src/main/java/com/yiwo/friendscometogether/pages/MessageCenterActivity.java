@@ -156,7 +156,9 @@ public class MessageCenterActivity extends BaseActivity {
 
                 break;
             case R.id.friend_message_rl:
-
+                ivFriend.setVisibility(View.GONE);
+                intent.setClass(MessageCenterActivity.this, MessageFriendsActivity.class);
+                startActivity(intent);
                 break;
         }
     }

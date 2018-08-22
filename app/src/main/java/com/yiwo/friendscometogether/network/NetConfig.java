@@ -198,4 +198,8 @@ public class NetConfig {
     public static String messageInvitationListUrl = "action/ac_activity/InvitationList";
     //所有幻灯片
     public static String allBannerUrl = "action/ac_article/article_slide";
+    //好友消息（消息中心）
+    public static String messageFriendsUrl = "action/ac_user/FriendsList";
+    //同意好友请求（消息中心）
+    public static String messageFriendsOkUrl = "action/ac_user/AssentRequestFriends";
 }

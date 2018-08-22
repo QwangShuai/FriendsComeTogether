@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -41,6 +42,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class MyPicturesActivity extends BaseActivity {
 
@@ -154,9 +158,35 @@ public class MyPicturesActivity extends BaseActivity {
             final List<String> list = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
             Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
                 @Override
-                public void subscribe(ObservableEmitter<File> e) throws Exception {
-                    File file = new File(list.get(0));
-                    e.onNext(file);
+                public void subscribe(final ObservableEmitter<File> e) throws Exception {
+//                    File file = new File(list.get(0));
+//                    e.onNext(file);
+                    Luban.with(MyPicturesActivity.this)
+                            .load(list.get(0))
+                            .ignoreBy(100)
+                            .filter(new CompressionPredicate() {
+                                @Override
+                                public boolean apply(String path) {
+                                    return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                }
+                            })
+                            .setCompressListener(new OnCompressListener() {
+                                @Override
+                                public void onStart() {
+                                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                }
+
+                                @Override
+                                public void onSuccess(File file) {
+                                    // TODO 压缩成功后调用，返回压缩后的图片文件
+                                    e.onNext(file);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    // TODO 当压缩过程出现问题时调用
+                                }
+                            }).launch();
                 }
             });
             Observer<File> observer = new Observer<File>() {

@@ -294,6 +294,7 @@ public class FriendsRememberFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.searchLl:
                 intent.setClass(getContext(), SearchActivity.class);
+                intent.putExtra("type", "2");
                 startActivity(intent);
                 break;
         }

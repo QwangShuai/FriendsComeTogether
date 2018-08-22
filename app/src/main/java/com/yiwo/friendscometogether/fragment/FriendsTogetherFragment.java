@@ -400,7 +400,9 @@ public class FriendsTogetherFragment extends BaseFragment {
                     singleChoiceDialog.show();
                     break;
                 case R.id.search_leader:
-                    startActivity(new Intent(getActivity(), SearchActivity.class));
+                    Intent intent = new Intent(getContext(), SearchActivity.class);
+                    intent.putExtra("type", "1");
+                    startActivity(intent);
                     break;
             }
         }

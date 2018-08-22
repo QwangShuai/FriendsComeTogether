@@ -173,6 +173,7 @@ public class MyFragment extends BaseFragment {
         } else {
             tvNotLogin.setVisibility(View.VISIBLE);
             rlContent.setVisibility(View.GONE);
+            Picasso.with(getContext()).load("null").into(ivAvatar);
         }
     }
 

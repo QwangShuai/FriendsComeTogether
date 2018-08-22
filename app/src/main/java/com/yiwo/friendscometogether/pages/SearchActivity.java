@@ -32,40 +32,44 @@ public class SearchActivity extends BaseActivity {
     //历史记录
     String shareData = "hehe,黑大,密西,卢瑟,火箭,啊呀,破皮";
     List skills = Arrays.asList(shareData.split(","));
+
+    private String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        type = getIntent().getStringExtra("type");
         unbinder = ButterKnife.bind(this);
         this.mSearch.initData(skills, skillHots, new mSearchLayout.setSearchCallBackListener() {
             @Override
             public void Search(String s) {
-                Log.i("11111111",s);
+                Log.i("11111111", s);
                 ViseHttp.POST(NetConfig.searchFriendTogetherUrl)
-                        .addParam("app_key",getToken(NetConfig.BaseUrl+NetConfig.searchFriendTogetherUrl))
-                        .addParam("page","1")
-                        .addParam("activity_name",s)
-                        .addParam("type","1")
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.searchFriendTogetherUrl))
+                        .addParam("page", "1")
+                        .addParam("activity_name", s)
+                        .addParam("type", type)
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
-                                SearchListModel model = new Gson().fromJson(data,SearchListModel.class);
-                                if (model.getCode()==200){
-                                       if(model.getObj().size()==0){
-                                           toToast(SearchActivity.this,"暂无搜索结果");
-                                       } else {
-                                           Intent it = new Intent(SearchActivity.this,SearchListActivity.class);
-                                           it.putExtra("list", (Serializable) model.getObj());
-                                           it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                           startActivity(it);
-                                           finish();
-                                       }
+                                SearchListModel model = new Gson().fromJson(data, SearchListModel.class);
+                                if (model.getCode() == 200) {
+                                    if (model.getObj().size() == 0) {
+                                        toToast(SearchActivity.this, "暂无搜索结果");
+                                    } else {
+                                        Intent it = new Intent(SearchActivity.this, SearchListActivity.class);
+                                        it.putExtra("list", (Serializable) model.getObj());
+                                        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(it);
+                                        finish();
+                                    }
                                 }
                             }
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                toToast(SearchActivity.this,errMsg);
+                                toToast(SearchActivity.this, errMsg);
                             }
                         });
             }
