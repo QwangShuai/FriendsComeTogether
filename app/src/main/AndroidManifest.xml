@@ -238,7 +238,8 @@
         <activity android:name=".pages.OtherPicActivity" />
         <activity android:name=".pages.InvitationActivity" />
         <activity android:name=".pages.MessageInvitationActivity" />
-        <activity android:name=".pages.MessageFriendsActivity"></activity>
+        <activity android:name=".pages.MessageFriendsActivity" />
+        <activity android:name=".pages.MessageCommentActivity"></activity>
     </application>
 
 </manifest>

@@ -450,7 +450,7 @@ public class HomeFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.messageIv:
-                home_numTv.setVisibility(View.INVISIBLE);
+//                home_numTv.setVisibility(View.INVISIBLE);
                 getActivity().startActivity(new Intent(getActivity(), MessageCenterActivity.class));
                 break;
         }

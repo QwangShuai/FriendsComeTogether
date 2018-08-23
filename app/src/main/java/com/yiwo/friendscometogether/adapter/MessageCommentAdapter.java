@@ -13,12 +13,12 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.MessageCommentModel;
 import com.yiwo.friendscometogether.model.MessageViewModel;
+import com.yiwo.friendscometogether.pages.ActiveEvaluationActivity;
 import com.yiwo.friendscometogether.pages.MessageCenterDetailsActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -26,12 +26,12 @@ import java.util.List;
  * Created by Administrator on 2018/8/3.
  */
 
-public class MessageViewAdapter extends RecyclerView.Adapter<MessageViewAdapter.ViewHolder> {
+public class MessageCommentAdapter extends RecyclerView.Adapter<MessageCommentAdapter.ViewHolder> {
     private Context context;
-    private List<MessageViewModel.ObjBean> data;
+    private List<MessageCommentModel.ObjBean> data;
     SpImp spImp;
 
-    public MessageViewAdapter(List<MessageViewModel.ObjBean> data) {
+    public MessageCommentAdapter(List<MessageCommentModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -41,7 +41,7 @@ public class MessageViewAdapter extends RecyclerView.Adapter<MessageViewAdapter.
         this.context = parent.getContext();
         spImp = new SpImp(parent.getContext());
         ScreenAdapterTools.getInstance().loadView(view);
-        MessageViewAdapter.ViewHolder holder = new MessageViewAdapter.ViewHolder(view);
+        MessageCommentAdapter.ViewHolder holder = new MessageCommentAdapter.ViewHolder(view);
         return holder;
     }
 
@@ -54,8 +54,8 @@ public class MessageViewAdapter extends RecyclerView.Adapter<MessageViewAdapter.
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(context, MessageCenterDetailsActivity.class);
-                it.putExtra("mesid",data.get(position).getMes_id());
+                Intent it = new Intent(context, ActiveEvaluationActivity.class);
+                it.putExtra("pfID",data.get(position).getPfID());
                 context.startActivity(it);
 
             }

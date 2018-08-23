@@ -204,4 +204,8 @@ public class NetConfig {
     public static String messageFriendsOkUrl = "action/ac_user/AssentRequestFriends";
     //大家都在搜
     public static String allSearchUrl = "action/ac_public/all_search";
+    //评价消息列表
+    public static String messageCommentUrl = "action/ac_public/comment_message_list";
+    //系统、热门消息详情
+    public static String systemHotMessageDetailsUrl = "action/ac_public/system_hot_content";
 }

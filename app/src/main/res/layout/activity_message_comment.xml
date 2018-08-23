@@ -2,36 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.yiwo.friendscometogether.pages.MessageViewActivity">
+    tools:context="com.yiwo.friendscometogether.pages.MessageCommentActivity">
 
     <RelativeLayout
-        android:id="@+id/activity_message_view_rl_top"
         style="@style/rl_top_bar">
 
         <TextView
-            style="@style/tv_top_title"
-            android:text="消息中心" />
+            android:text="评价消息"
+            style="@style/tv_top_title" />
 
         <RelativeLayout
-            android:id="@+id/activity_message_view_rl_back"
+            android:id="@+id/activity_message_comment_rl_back"
             android:layout_width="100px"
             android:layout_height="match_parent">
 
-            <ImageView style="@style/iv_return" />
+            <ImageView
+                style="@style/iv_return" />
 
         </RelativeLayout>
 
     </RelativeLayout>
-    <!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:descendantFocusability="blocksDescendants">-->
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/activity_message_refreshLayout"
@@ -39,14 +32,11 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:layout_marginBottom="40px"
+            android:paddingBottom="40px"
             android:id="@+id/activity_message_view_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-    <!--</RelativeLayout>-->
-    <!--</ScrollView>-->
 
 </LinearLayout>

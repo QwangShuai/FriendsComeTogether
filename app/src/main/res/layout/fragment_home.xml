@@ -95,6 +95,7 @@
                         android:src="@mipmap/index_message" />
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/home_numTv"
                         android:layout_width="34px"
                         android:layout_height="34px"
