@@ -306,6 +306,10 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                                             it.putExtra("pfID", model.getObj().getPfID());
                                             it.putExtra("name", model.getObj().getTruename());
                                             it.putExtra("sex", model.getObj().getPeoplesex());
+                                            it.putExtra("age", model.getObj().getAge());
+                                            it.putExtra("pic", model.getObj().getShow_pic());
+                                            it.putExtra("issingle", model.getObj().getMarry());
+                                            it.putExtra("city", model.getObj().getCity());
                                             startActivity(it);
                                         } else if (models.getObj().getOk().equals("1")) {
                                             toToast(DetailsOfFriendTogetherActivity.this, "请于身份审核通过后报名");

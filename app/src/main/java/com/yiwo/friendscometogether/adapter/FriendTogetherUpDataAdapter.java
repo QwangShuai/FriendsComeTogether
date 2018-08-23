@@ -24,12 +24,14 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.custom.LookPasswordDialog;
 import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.FriendsTogethermodel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.ActiveEvaluationActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -207,10 +209,24 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(context, DetailsOfFriendTogetherActivity.class);
-                intent.putExtra("pfID", data.get(position).getPfID());
-                context.startActivity(intent);
+                final Intent intent = new Intent();
+                if(TextUtils.isEmpty(data.get(position).getPfpwd())){
+                    intent.setClass(context, DetailsOfFriendTogetherActivity.class);
+                    intent.putExtra("pfID", data.get(position).getPfID());
+                    context.startActivity(intent);
+                }else {
+                    LookPasswordDialog lookPasswordDialog = new LookPasswordDialog(context, new LookPasswordDialog.SetPasswordListener() {
+                        @Override
+                        public void setActivityText(String s) {
+                            if(s.equals(data.get(position).getPfpwd())){
+                                intent.setClass(context, DetailsOfFriendTogetherActivity.class);
+                                intent.putExtra("pfID", data.get(position).getPfID());
+                                context.startActivity(intent);
+                            }
+                        }
+                    });
+                    lookPasswordDialog.show();
+                }
             }
         });
         holder.look_overLl.setOnClickListener(new View.OnClickListener() {

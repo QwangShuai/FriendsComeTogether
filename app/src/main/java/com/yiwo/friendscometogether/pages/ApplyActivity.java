@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -62,6 +64,22 @@ public class ApplyActivity extends BaseActivity {
     TextView tvNum;
     @BindView(R.id.tv_pay_decs)
     TextView tvPayDecs;
+    @BindView(R.id.sex)
+    TextView tvSex;
+    @BindView(R.id.iv_title)
+    ImageView ivTitle;
+    @BindView(R.id.age)
+    TextView tvAge;
+    @BindView(R.id.issingle)
+    TextView tvIssingle;
+    @BindView(R.id.city)
+    TextView tvCity;
+    @BindView(R.id.ll_pay)
+    LinearLayout llPay;
+    @BindView(R.id.all_price)
+    TextView tvAllPrice;
+    @BindView(R.id.online_pay)
+    TextView tvOnlinePay;
 
     private String yourChoice = "";
     private int payState = 0;
@@ -85,7 +103,7 @@ public class ApplyActivity extends BaseActivity {
         getShowView();
     }
 
-    @OnClick({R.id.activity_apply_rl_back, R.id.apply_btn, R.id.iv_jian, R.id.iv_jia})
+    @OnClick({R.id.activity_apply_rl_back, R.id.apply_btn, R.id.iv_jian, R.id.iv_jia, R.id.online_pay})
 //,R.id.apply_sex_tv
     public void OnClick(View v) {
         switch (v.getId()) {
@@ -100,14 +118,17 @@ public class ApplyActivity extends BaseActivity {
                     num = num - 1;
                     tvNum.setText(num + "");
                     money = money - perMoney;
-                    tvPrice.setText(money + "");
+                    tvAllPrice.setText("¥" + money);
                 }
                 break;
             case R.id.iv_jia:
                 num = num + 1;
                 tvNum.setText(num + "");
                 money = money + perMoney;
-                tvPrice.setText(money + "");
+                tvAllPrice.setText("¥" + money);
+                break;
+            case R.id.online_pay:
+                apply();
                 break;
         }
 
@@ -139,7 +160,8 @@ public class ApplyActivity extends BaseActivity {
 //                }
 //            });
             apply_vessel_ll.addView(v);
-            apply_btn.setText("支付");
+            apply_btn.setVisibility(View.INVISIBLE);
+            llPay.setVisibility(View.VISIBLE);
         }
     }
 
@@ -156,9 +178,21 @@ public class ApplyActivity extends BaseActivity {
         String name = getIntent().getStringExtra("name");
         pfID = getIntent().getStringExtra("pfID");
         tvActiveTitle.setText(title);
-        tvPrice.setText(price);
-        tvTime.setText(begin_time);
+        tvPrice.setText("¥" + price + "元/人");
+        tvAllPrice.setText("¥" + price);
+        tvTime.setText("出发时间: " + begin_time);
         tvName.setText(name);
+        tvSex.setText(sex);
+        String pic = getIntent().getStringExtra("pic");
+        if (!TextUtils.isEmpty(pic)) {
+            Glide.with(ApplyActivity.this).load(pic).into(ivTitle);
+        }
+        String age = getIntent().getStringExtra("age");
+        tvAge.setText(age + "岁");
+        String issingle = getIntent().getStringExtra("issingle");
+        tvIssingle.setText(issingle);
+        String city = getIntent().getStringExtra("city");
+        tvCity.setText("活动地点: " + city);
 
         if (sex.equals("无限制")) {
             apply_num_ll.setVisibility(View.VISIBLE);
@@ -201,14 +235,14 @@ public class ApplyActivity extends BaseActivity {
                         public void onSuccess(String data) {
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
-                                if(jsonObject.getInt("code") == 200){
+                                if (jsonObject.getInt("code") == 200) {
                                     Paymodel paymodel = new Gson().fromJson(data, Paymodel.class);
                                     toToast(ApplyActivity.this, "微信支付");
                                     wxPay(paymodel.getObj());
-                                }else if(jsonObject.getInt("code") == 201){
+                                } else if (jsonObject.getInt("code") == 201) {
                                     toToast(ApplyActivity.this, "报名成功");
                                     finish();
-                                }else if(jsonObject.getInt("code") == 400){
+                                } else if (jsonObject.getInt("code") == 400) {
                                     toToast(ApplyActivity.this, jsonObject.getString("message"));
                                 }
                             } catch (JSONException e) {

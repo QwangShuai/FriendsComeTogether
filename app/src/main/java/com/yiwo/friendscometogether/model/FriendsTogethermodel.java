@@ -58,6 +58,7 @@ public class FriendsTogethermodel {
          * focusOn : 0
          */
 
+        private String pfpwd;
         private String wy_accid;
         private String usergrade;
         private String username;
@@ -72,6 +73,14 @@ public class FriendsTogethermodel {
         private String focusOn;
         private String sign;
         private String captain_focusOn;
+
+        public String getPfpwd() {
+            return pfpwd;
+        }
+
+        public void setPfpwd(String pfpwd) {
+            this.pfpwd = pfpwd;
+        }
 
         public String getWy_accid() {
             return wy_accid;

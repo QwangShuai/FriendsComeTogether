@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,7 +41,10 @@ public class InvitationActivity extends BaseActivity {
     RelativeLayout rlOk;
     @BindView(R.id.rg)
     RadioGroup radioGroup;
+    @BindView(R.id.et)
+    EditText et;
 
+    private String[] block;
     private String[] activeId;
     private String[] activeName;
     private String yourChoiceActiveId = "";
@@ -51,7 +55,7 @@ public class InvitationActivity extends BaseActivity {
     private String uid = "";
     private String otherUid = "";
 
-    private int type = 0;
+    private int type = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +89,11 @@ public class InvitationActivity extends BaseActivity {
                                 activeList = model.getObj();
                                 activeId = new String[model.getObj().size()];
                                 activeName = new String[model.getObj().size()];
+                                block = new String[model.getObj().size()];
                                 for (int i = 0; i < model.getObj().size(); i++) {
                                     activeId[i] = model.getObj().get(i).getPfID();
                                     activeName[i] = model.getObj().get(i).getPftitle();
+                                    block[i] = model.getObj().get(i).getBlock();
                                 }
                             }
                         } catch (JSONException e) {
@@ -138,6 +144,13 @@ public class InvitationActivity extends BaseActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     yourChoiceActiveName = activeName[which];
                                     yourChoiceActiveId = activeId[which];
+                                    if(block[which].equals("0")){
+                                        radioGroup.setVisibility(View.GONE);
+                                        type = 3;
+                                    }else {
+                                        radioGroup.setVisibility(View.VISIBLE);
+                                        type = 0;
+                                    }
                                 }
                             });
                     singleChoiceDialog1.setPositiveButton("确定",
@@ -166,6 +179,7 @@ public class InvitationActivity extends BaseActivity {
                         .addParam("bid", otherUid)
                         .addParam("tid", yourChoiceActiveId)
                         .addParam("type", type + "")
+                        .addParam("text", et.getText().toString())
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {

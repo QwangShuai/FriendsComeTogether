@@ -11,7 +11,7 @@ public class UserActiveListModel {
     /**
      * code : 200
      * message : 获取成功!
-     * obj : [{"pfID":"56","pftitle":"登峨眉山！"}]
+     * obj : [{"pftitle":"泰山30日游","pfID":"2","pfspendtype":"2","block":"1"},{"pftitle":"三亚一月游","pfID":"3","pfspendtype":"2","block":"1"},{"pftitle":"黄山三日游","pfID":"5","pfspendtype":"0","block":"0"},{"pftitle":"哈尔滨十日游","pfID":"8","pfspendtype":"2","block":"1"},{"pftitle":"海口十日游","pfID":"14","pfspendtype":"0","block":"0"}]
      */
 
     private int code;
@@ -44,12 +44,24 @@ public class UserActiveListModel {
 
     public static class ObjBean {
         /**
-         * pfID : 56
-         * pftitle : 登峨眉山！
+         * pftitle : 泰山30日游
+         * pfID : 2
+         * pfspendtype : 2
+         * block : 1
          */
 
-        private String pfID;
         private String pftitle;
+        private String pfID;
+        private String pfspendtype;
+        private String block;
+
+        public String getPftitle() {
+            return pftitle;
+        }
+
+        public void setPftitle(String pftitle) {
+            this.pftitle = pftitle;
+        }
 
         public String getPfID() {
             return pfID;
@@ -59,12 +71,20 @@ public class UserActiveListModel {
             this.pfID = pfID;
         }
 
-        public String getPftitle() {
-            return pftitle;
+        public String getPfspendtype() {
+            return pfspendtype;
         }
 
-        public void setPftitle(String pftitle) {
-            this.pftitle = pftitle;
+        public void setPfspendtype(String pfspendtype) {
+            this.pfspendtype = pfspendtype;
+        }
+
+        public String getBlock() {
+            return block;
+        }
+
+        public void setBlock(String block) {
+            this.block = block;
         }
     }
 }
