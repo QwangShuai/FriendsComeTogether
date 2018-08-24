@@ -46,9 +46,15 @@ public class WelcomeActivity extends BaseActivity {
                 @Override
                 public void run() {
                     Intent intent = new Intent();
-                    intent.setClass(WelcomeActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(TextUtils.isEmpty(spImp.getYd())){
+                        intent.setClass(WelcomeActivity.this, GuideActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        intent.setClass(WelcomeActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }, 2000);
 
@@ -73,8 +79,13 @@ public class WelcomeActivity extends BaseActivity {
                                 }
                             });
                             Intent intent = new Intent();
-                            intent.setClass(WelcomeActivity.this, MainActivity.class);
-                            startActivity(intent);
+                            if(TextUtils.isEmpty(spImp.getYd())){
+                                intent.setClass(WelcomeActivity.this, GuideActivity.class);
+                                startActivity(intent);
+                            }else {
+                                intent.setClass(WelcomeActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
                             finish();
                         }
 

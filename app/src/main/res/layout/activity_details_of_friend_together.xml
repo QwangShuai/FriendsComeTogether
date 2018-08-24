@@ -49,123 +49,129 @@
                 android:layout_marginBottom="15dp"
                 android:scaleType="centerCrop" />
 
+            <TextView
+                android:id="@+id/titleTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:text=""
+                android:textColor="@color/black_333333"
+                android:textSize="36px" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40px"
+                android:layout_below="@+id/titleTv"
+                android:layout_marginLeft="40px"
+                android:layout_marginTop="24px">
+
+                <ImageView
+                    android:id="@+id/viewsIv"
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:src="@mipmap/views" />
+
+                <TextView
+                    android:id="@+id/viewsTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="6px"
+                    android:layout_toRightOf="@+id/viewsIv"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
+
+                <ImageView
+                    android:id="@+id/focus_on_iv"
+                    android:layout_width="39px"
+                    android:layout_height="26px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_toRightOf="@+id/viewsTv"
+                    android:src="@mipmap/focus_on_y" />
+
+                <TextView
+                    android:id="@+id/focus_onTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="6px"
+                    android:layout_toRightOf="@+id/focus_on_iv"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
+            </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30px">
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/headIv"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="30px" />
+
                 <TextView
-                    android:id="@+id/titleTv"
-                    android:layout_width="480px"
-                    android:layout_height="90px"
-                    android:layout_marginLeft="40px"
-                    android:text=""
+                    android:layout_marginLeft="10px"
+                    android:textSize="36px"
                     android:textColor="@color/black_333333"
-                    android:textSize="32px" />
-
-                <RelativeLayout
-                    android:layout_width="480px"
-                    android:layout_height="40px"
-                    android:layout_below="@+id/titleTv"
-                    android:layout_marginLeft="40px"
-                    android:layout_marginTop="16px">
-
-                    <ImageView
-                        android:id="@+id/viewsIv"
-                        android:layout_width="40px"
-                        android:layout_height="40px"
-                        android:src="@mipmap/views" />
-
-                    <TextView
-                        android:id="@+id/viewsTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="6px"
-                        android:layout_toRightOf="@+id/viewsIv"
-                        android:gravity="center_vertical"
-                        android:text=""
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px" />
-
-                    <ImageView
-                        android:id="@+id/focus_on_iv"
-                        android:layout_width="39px"
-                        android:layout_height="26px"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20px"
-                        android:layout_toRightOf="@+id/viewsTv"
-                        android:src="@mipmap/focus_on_y" />
-
-                    <TextView
-                        android:id="@+id/focus_onTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="6px"
-                        android:layout_toRightOf="@+id/focus_on_iv"
-                        android:gravity="center_vertical"
-                        android:text=""
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/activity_details_of_friends_together_ll_person_content"
+                    android:id="@+id/username"
+                    android:layout_toRightOf="@+id/headIv"
+                    android:text="昵称"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--<LinearLayout-->
+                <!--android:id="@+id/activity_details_of_friends_together_ll_top_focus"-->
+                <!--android:layout_marginTop="10px"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/activity_details_of_friends_together_iv_focus"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:src="@mipmap/focus_on_empty_y"-->
+                <!--android:layout_width="26px"-->
+                <!--android:layout_height="24px" />-->
+
+                <!--<TextView-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:textColor="#333333"-->
+                <!--android:textSize="24px"-->
+                <!--android:text="关注"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="33px" />-->
+
+                <!--</LinearLayout>-->
+
+                <Button
+                    android:layout_marginRight="30px"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="32px"
-                    android:layout_marginTop="13px"
-                    android:orientation="vertical">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/headIv"
-                        android:layout_width="140px"
-                        android:layout_height="140px"
-                        android:layout_gravity="center_horizontal" />
-
-
-                    <!--<LinearLayout-->
-                    <!--android:id="@+id/activity_details_of_friends_together_ll_top_focus"-->
-                    <!--android:layout_marginTop="10px"-->
-                    <!--android:layout_gravity="center_horizontal"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<ImageView-->
-                    <!--android:id="@+id/activity_details_of_friends_together_iv_focus"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:src="@mipmap/focus_on_empty_y"-->
-                    <!--android:layout_width="26px"-->
-                    <!--android:layout_height="24px" />-->
-
-                    <!--<TextView-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:textColor="#333333"-->
-                    <!--android:textSize="24px"-->
-                    <!--android:text="关注"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="33px" />-->
-
-                    <!--</LinearLayout>-->
-                    <Button
-                        android:id="@+id/activity_details_of_friends_together_btn_top_focus"
-                        android:layout_width="140px"
-                        android:layout_height="52px"
-                        android:layout_marginTop="5px"
-                        android:background="@drawable/bg_btn_red"
-                        android:text="+ 关注"
-                        android:textColor="@color/white_ffffff"
-                        android:textSize="26px" />
-                </LinearLayout>
+                    android:layout_centerVertical="true"
+                    android:id="@+id/activity_details_of_friends_together_btn_top_focus"
+                    android:layout_width="140px"
+                    android:layout_height="60px"
+                    android:background="@drawable/bg_btn_red"
+                    android:text="+ 关注"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="26px" />
 
                 <RelativeLayout
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="10px"
+                    android:layout_below="@+id/username"
+                    android:layout_toRightOf="@+id/headIv"
                     android:id="@+id/item_levelBg"
-                    android:layout_width="102px"
-                    android:layout_height="30px"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="102px"
+                    android:layout_width="136px"
+                    android:layout_height="40px"
                     android:background="@mipmap/level_bg">
 
                     <TextView
@@ -187,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
                 android:layout_marginRight="20px"
-                android:layout_marginTop="6px"
+                android:layout_marginTop="26px"
                 android:background="@mipmap/poly_box">
 
                 <LinearLayout

@@ -71,8 +71,6 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     ImageView ivStar;
     @BindView(R.id.activity_details_of_friends_tv_star)
     TextView tvStar;
-    @BindView(R.id.activity_details_of_friends_ll_person_content)
-    LinearLayout llPersonContent;
     @BindView(R.id.activity_details_of_friends_tv_title)
     TextView tvTitle;
     @BindView(R.id.activity_details_of_friends_tv_look_num)
@@ -109,6 +107,14 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     Button btnTopFocus;
     @BindView(R.id.activity_details_of_friends_rl_activity)
     RelativeLayout rlActiveContent;
+    @BindView(R.id.start)
+    LinearLayout llStart;
+    @BindView(R.id.end)
+    LinearLayout llEnd;
+    @BindView(R.id.money)
+    LinearLayout llMoney;
+    @BindView(R.id.city)
+    LinearLayout llCity;
 
     private DetailsOfFriendsIntercalationAdapter adapter;
     private DetailsOfFriendsIntercalation1Adapter adapter1;
@@ -163,22 +169,22 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                 tvLookNum.setText("浏览: "+model.getObj().getContent().getFmlook());
                                 tvFocusNum.setText("收藏: "+model.getObj().getContent().getFmfavorite());
                                 if(TextUtils.isEmpty(model.getObj().getContent().getFmgotime())){
-                                    tvStartTime.setText("开始时间: --------");
+                                    llStart.setVisibility(View.GONE);
                                 }else {
                                     tvStartTime.setText("开始时间: "+model.getObj().getContent().getFmgotime());
                                 }
                                 if(TextUtils.isEmpty(model.getObj().getContent().getFmendtime())){
-                                    tvEndTime.setText("结束时间: --------");
+                                    llEnd.setVisibility(View.GONE);
                                 }else {
                                     tvEndTime.setText("结束时间: "+model.getObj().getContent().getFmendtime());
                                 }
                                 if(TextUtils.isEmpty(model.getObj().getContent().getPercapitacost())){
-                                    tvPrice.setText("人均费用: --------");
+                                    llMoney.setVisibility(View.GONE);
                                 }else {
                                     tvPrice.setText("人均费用: ¥"+model.getObj().getContent().getPercapitacost());
                                 }
                                 if(TextUtils.isEmpty(model.getObj().getContent().getFmaddress())){
-                                    tvCity.setText("活动地点: --------");
+                                    llCity.setVisibility(View.GONE);
                                 }else {
                                     tvCity.setText("活动地点: "+model.getObj().getContent().getFmaddress());
                                 }
@@ -260,7 +266,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
     @OnClick({R.id.activity_details_of_friends_rl_back, R.id.activity_details_of_friends_ll_intercalation, R.id.activity_details_of_friends_ll_comment,
             R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star,
-            R.id.activity_details_of_friends_ll_person_content, R.id.activity_details_of_friends_btn_focus, R.id.activity_details_of_friends_rl_activity})
+            R.id.activity_details_of_friends_iv_avatar, R.id.activity_details_of_friends_btn_focus, R.id.activity_details_of_friends_rl_activity})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -418,7 +424,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                     }
                 }
                 break;
-            case R.id.activity_details_of_friends_ll_person_content:
+            case R.id.activity_details_of_friends_iv_avatar:
                 intent.setClass(DetailsOfFriendsActivity.this, OtherInformationActivity.class);
                 intent.putExtra("uid", model.getObj().getContent().getUid());
                 startActivity(intent);

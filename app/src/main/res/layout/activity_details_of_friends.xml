@@ -12,349 +12,366 @@
 
         <TextView
             android:id="@+id/activity_details_of_friends_tv_top_title"
-            android:text="详情"
-            style="@style/tv_top_title" />
+            style="@style/tv_top_title"
+            android:text="详情" />
 
         <RelativeLayout
             android:id="@+id/activity_details_of_friends_rl_back"
             android:layout_width="100px"
             android:layout_height="match_parent">
 
-            <ImageView
-                style="@style/iv_return" />
+            <ImageView style="@style/iv_return" />
 
         </RelativeLayout>
 
     </RelativeLayout>
 
     <ScrollView
-        android:layout_above="@+id/activity_details_of_friends_ll_bottom"
-        android:layout_below="@+id/activity_details_of_friends_rl_top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/activity_details_of_friends_ll_bottom"
+        android:layout_below="@+id/activity_details_of_friends_rl_top">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ImageView
-                android:scaleType="centerCrop"
                 android:id="@+id/activity_details_of_friends_iv_title"
                 android:layout_width="match_parent"
-                android:layout_height="372px" />
+                android:layout_height="372px"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/activity_details_of_friends_tv_title"
-                android:layout_marginTop="30px"
-                android:layout_marginRight="40px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="40px"
-                android:textStyle="bold"
+                android:layout_marginRight="40px"
+                android:layout_marginTop="30px"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="36px"
-                android:text=""
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_marginTop="20px"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_marginLeft="43px"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="43px"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:src="@mipmap/views"
                         android:layout_width="35px"
-                        android:layout_height="24px" />
+                        android:layout_height="24px"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/views" />
 
                     <TextView
                         android:id="@+id/activity_details_of_friends_tv_look_num"
-                        android:layout_marginLeft="5px"
-                        android:textColor="#333333"
-                        android:textSize="28px"
-                        android:text="浏览: "
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5px"
+                        android:text="浏览: "
+                        android:textColor="#333333"
+                        android:textSize="28px" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginLeft="20px"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:src="@mipmap/focus_on_empty_y"
                         android:layout_width="30px"
-                        android:layout_height="26px" />
+                        android:layout_height="26px"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/focus_on_empty_y" />
 
                     <TextView
                         android:id="@+id/activity_details_of_friends_tv_focus_num"
-                        android:layout_marginLeft="6px"
-                        android:textColor="#333333"
-                        android:textSize="28px"
-                        android:text="关注: "
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6px"
+                        android:text="关注: "
+                        android:textColor="#333333"
+                        android:textSize="28px" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <View
-                android:layout_marginRight="20px"
-                android:layout_marginLeft="20px"
-                android:layout_marginTop="10px"
-                android:background="#E5E5E5"
                 android:layout_width="match_parent"
                 android:layout_height="3px"
-                />
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:layout_marginTop="10px"
+                android:background="#E5E5E5" />
 
             <RelativeLayout
-                android:layout_marginTop="30px"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30px">
 
-                <LinearLayout
-                    android:layout_marginLeft="40px"
-                    android:orientation="vertical"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/activity_details_of_friends_iv_avatar"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="30px" />
+
+                <TextView
+                    android:id="@+id/activity_details_of_friends_tv_nickname"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
+                    android:layout_toRightOf="@+id/activity_details_of_friends_iv_avatar"
+                    android:text=""
+                    android:textColor="#333333"
+                    android:textSize="36px" />
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:src="@mipmap/time_start"
-                            android:layout_width="40px"
-                            android:layout_height="40px" />
-
-                        <TextView
-                            android:id="@+id/activity_details_of_friends_tv_start_time"
-                            android:layout_marginLeft="6px"
-                            android:gravity="center"
-                            android:textSize="28px"
-                            android:textColor="#333333"
-                            android:text="开始时间："
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginTop="20px"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:src="@mipmap/time_end"
-                            android:layout_width="40px"
-                            android:layout_height="40px" />
-
-                        <TextView
-                            android:id="@+id/activity_details_of_friends_tv_end_time"
-                            android:layout_marginLeft="6px"
-                            android:gravity="center"
-                            android:textSize="28px"
-                            android:textColor="#333333"
-                            android:text="结束时间："
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginTop="20px"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:src="@mipmap/price"
-                            android:layout_width="40px"
-                            android:layout_height="40px" />
-
-                        <TextView
-                            android:id="@+id/activity_details_of_friends_tv_price"
-                            android:layout_marginLeft="6px"
-                            android:gravity="center"
-                            android:textSize="28px"
-                            android:textColor="#333333"
-                            android:text="人均费用："
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginTop="20px"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:src="@mipmap/activity_place"
-                            android:layout_width="40px"
-                            android:layout_height="40px" />
-
-                        <TextView
-                            android:id="@+id/activity_details_of_friends_tv_city"
-                            android:layout_marginLeft="6px"
-                            android:gravity="center"
-                            android:textSize="28px"
-                            android:textColor="#333333"
-                            android:text="活动地点："
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/activity_details_of_friends_ll_person_content"
-                    android:layout_marginRight="32px"
+                <Button
+                    android:id="@+id/activity_details_of_friends_btn_focus"
+                    android:layout_width="140px"
+                    android:layout_height="60px"
                     android:layout_alignParentRight="true"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30px"
+                    android:background="@drawable/bg_btn_red"
+                    android:text="+ 关注"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="26px" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/activity_details_of_friends_iv_avatar"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="140px"
-                        android:layout_height="140px" />
+                <!--<LinearLayout-->
+                <!--android:id="@+id/activity_details_of_friends_ll_top_focus"-->
+                <!--android:layout_marginTop="10px"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content">-->
 
-                    <TextView
-                        android:id="@+id/activity_details_of_friends_tv_nickname"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10px"
-                        android:textColor="#333333"
-                        android:textSize="24px"
-                        android:text=""
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <!--<ImageView-->
+                <!--android:id="@+id/activity_details_of_friends_iv_focus"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:src="@mipmap/focus_on_empty_y"-->
+                <!--android:layout_width="26px"-->
+                <!--android:layout_height="24px" />-->
 
-                    <Button
-                        android:layout_marginTop="5px"
-                        android:id="@+id/activity_details_of_friends_btn_focus"
-                        android:textSize="26px"
-                        android:textColor="@color/white_ffffff"
-                        android:text="+ 关注"
-                        android:background="@drawable/bg_btn_red"
-                        android:layout_width="140px"
-                        android:layout_height="52px" />
+                <!--<TextView-->
+                <!--android:textColor="#333333"-->
+                <!--android:textSize="24px"-->
+                <!--android:text="关注"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
 
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/activity_details_of_friends_ll_top_focus"-->
-                        <!--android:layout_marginTop="10px"-->
-                        <!--android:layout_gravity="center_horizontal"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content">-->
-
-                        <!--<ImageView-->
-                            <!--android:id="@+id/activity_details_of_friends_iv_focus"-->
-                            <!--android:layout_gravity="center_vertical"-->
-                            <!--android:src="@mipmap/focus_on_empty_y"-->
-                            <!--android:layout_width="26px"-->
-                            <!--android:layout_height="24px" />-->
-
-                        <!--<TextView-->
-                            <!--android:textColor="#333333"-->
-                            <!--android:textSize="24px"-->
-                            <!--android:text="关注"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content" />-->
-
-                    <!--</LinearLayout>-->
-
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
                 <RelativeLayout
-                    android:layout_marginTop="6px"
-                    android:layout_marginRight="70px"
-                    android:layout_alignRight="@+id/activity_details_of_friends_ll_person_content"
-                    android:layout_width="102px"
-                    android:layout_height="30px">
+                    android:layout_width="136px"
+                    android:layout_height="40px"
+                    android:layout_below="@+id/activity_details_of_friends_tv_nickname"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="10px"
+                    android:layout_toRightOf="@+id/activity_details_of_friends_iv_avatar">
 
                     <ImageView
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/level_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/level_bg" />
 
                     <TextView
                         android:id="@+id/activity_details_of_friends_tv_level"
-                        android:layout_marginRight="19px"
-                        android:layout_centerVertical="true"
-                        android:textSize="18px"
-                        android:textColor="#FFFFFF"
-                        android:layout_alignParentRight="true"
-                        android:text="LV"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="19px"
+                        android:text="LV"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18px" />
 
                 </RelativeLayout>
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/activity_details_of_friends_rl_activity"
-                android:background="#F7F7F7"
                 android:layout_width="match_parent"
-                android:layout_height="254px">
-
-                <View
-                    android:background="#F5F5F5"
-                    android:layout_width="match_parent"
-                    android:layout_height="12px"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:layout_marginTop="26px"
+                android:background="@mipmap/poly_box">
 
                 <LinearLayout
-                    android:layout_marginRight="18px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="40px"
-                    android:layout_marginTop="32px"
-                    android:layout_toLeftOf="@+id/activity_details_of_friends_iv_activity_title"
-                    android:orientation="vertical"
+                    android:layout_marginTop="50px"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40px"
+                            android:layout_height="40px"
+                            android:src="@mipmap/time_start" />
+
+                        <TextView
+                            android:id="@+id/activity_details_of_friends_tv_start_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6px"
+                            android:gravity="center"
+                            android:text="开始时间："
+                            android:textColor="#333333"
+                            android:textSize="28px" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20px"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40px"
+                            android:layout_height="40px"
+                            android:src="@mipmap/time_end" />
+
+                        <TextView
+                            android:id="@+id/activity_details_of_friends_tv_end_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6px"
+                            android:gravity="center"
+                            android:text="结束时间："
+                            android:textColor="#333333"
+                            android:textSize="28px" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20px"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40px"
+                            android:layout_height="40px"
+                            android:src="@mipmap/price" />
+
+                        <TextView
+                            android:id="@+id/activity_details_of_friends_tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6px"
+                            android:gravity="center"
+                            android:text="人均费用："
+                            android:textColor="#333333"
+                            android:textSize="28px" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20px"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40px"
+                            android:layout_height="40px"
+                            android:src="@mipmap/activity_place" />
+
+                        <TextView
+                            android:id="@+id/activity_details_of_friends_tv_city"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6px"
+                            android:gravity="center"
+                            android:text="活动地点："
+                            android:textColor="#333333"
+                            android:textSize="28px" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40px"
+                    android:layout_marginLeft="46px"
+                    android:gravity="center"
+                    android:text="详细信息"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_details_of_friends_rl_activity"
+                android:layout_width="match_parent"
+                android:layout_height="254px"
+                android:background="#F7F7F7">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="12px"
+                    android:background="#F5F5F5" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/linearLayout">
+                    android:layout_marginLeft="40px"
+                    android:layout_marginRight="18px"
+                    android:layout_marginTop="32px"
+                    android:layout_toLeftOf="@+id/activity_details_of_friends_iv_activity_title"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:textSize="28px"
-                        android:textColor="#5B5B5B"
-                        android:text="相关活动"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="相关活动"
+                        android:textColor="#5B5B5B"
+                        android:textSize="28px" />
 
                     <TextView
                         android:id="@+id/activity_details_of_friends_tv_related_activity"
-                        android:layout_marginTop="10px"
-                        android:textSize="24px"
-                        android:textColor="#747474"
-                        android:lines="3"
-                        android:ellipsize="end"
-                        android:text=""
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:ellipsize="end"
+                        android:lines="3"
+                        android:text=""
+                        android:textColor="#747474"
+                        android:textSize="24px" />
 
                     <LinearLayout
-                        android:layout_marginTop="10px"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/activity_details_of_friends_tv_related_c_time"
@@ -362,49 +379,48 @@
                             android:layout_height="wrap_content"
                             android:text=""
                             android:textColor="#ff5a5a5a"
-                            android:textSize="24px"
-                            />
+                            android:textSize="24px" />
 
                         <LinearLayout
-                            android:layout_marginLeft="20px"
-                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20px"
+                            android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_gravity="center_vertical"
-                                android:src="@mipmap/views"
                                 android:layout_width="28px"
-                                android:layout_height="20px" />
+                                android:layout_height="20px"
+                                android:layout_gravity="center_vertical"
+                                android:src="@mipmap/views" />
 
                             <TextView
-                                android:layout_marginLeft="6px"
                                 android:id="@+id/activity_details_of_friends_tv_related_look_num"
-                                android:textColor="#FF9D00"
-                                android:textSize="24px"
-                                android:text=""
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6px"
+                                android:text=""
+                                android:textColor="#FF9D00"
+                                android:textSize="24px" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_marginLeft="20px"
-                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20px"
+                            android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_gravity="center_vertical"
-                                android:src="@mipmap/message_hot"
                                 android:layout_width="26px"
-                                android:layout_height="24px" />
+                                android:layout_height="24px"
+                                android:layout_gravity="center_vertical"
+                                android:src="@mipmap/message_hot" />
 
                             <TextView
-                                android:layout_marginLeft="6px"
                                 android:id="@+id/activity_details_of_friends_tv_related_comment_num"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="6px"
                                 android:text=""
                                 android:textColor="#FF9D00"
                                 android:textSize="24px" />
@@ -416,30 +432,30 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:scaleType="fitXY"
                     android:id="@+id/activity_details_of_friends_iv_activity_title"
-                    android:layout_marginTop="40px"
-                    android:layout_marginRight="40px"
-                    android:layout_alignParentRight="true"
                     android:layout_width="262px"
-                    android:layout_height="176px" />
+                    android:layout_height="176px"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40px"
+                    android:layout_marginTop="40px"
+                    android:scaleType="fitXY" />
 
                 <View
-                    android:background="#F5F5F5"
                     android:layout_width="match_parent"
-                    android:layout_height="12px"/>
+                    android:layout_height="12px"
+                    android:background="#F5F5F5" />
 
             </RelativeLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <RelativeLayout
-                    android:layout_marginTop="10px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
                     android:descendantFocusability="blocksDescendants">
 
                     <android.support.v7.widget.RecyclerView
@@ -466,140 +482,140 @@
     </ScrollView>
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:id="@+id/activity_details_of_friends_ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="98px"
+        android:layout_alignParentBottom="true"
         android:background="@color/white_ffffff"
         android:elevation="4px"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="98px">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/activity_details_of_friends_ll_intercalation"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:layout_weight="1"
             android:layout_width="0px"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_gravity="center_horizontal"
-                android:src="@mipmap/details_intercalation"
                 android:layout_width="36px"
-                android:layout_height="36px" />
+                android:layout_height="36px"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/details_intercalation" />
 
             <TextView
-                android:layout_marginTop="6px"
-                android:layout_gravity="center_horizontal"
-                android:textColor="#404040"
-                android:textSize="20px"
-                android:text="插文"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6px"
+                android:text="插文"
+                android:textColor="#404040"
+                android:textSize="20px" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/activity_details_of_friends_ll_comment"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:layout_weight="1"
             android:layout_width="0px"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_gravity="center_horizontal"
-                android:src="@mipmap/details_comments"
                 android:layout_width="36px"
-                android:layout_height="36px" />
+                android:layout_height="36px"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/details_comments" />
 
             <TextView
-                android:layout_marginTop="6px"
-                android:layout_gravity="center_horizontal"
-                android:textColor="#404040"
-                android:textSize="20px"
-                android:text="评论"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6px"
+                android:text="评论"
+                android:textColor="#404040"
+                android:textSize="20px" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/activity_details_of_friends_ll_share"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:layout_weight="1"
             android:layout_width="0px"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_gravity="center_horizontal"
-                android:src="@mipmap/details_share"
                 android:layout_width="36px"
-                android:layout_height="36px" />
+                android:layout_height="36px"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/details_share" />
 
             <TextView
-                android:layout_marginTop="6px"
-                android:layout_gravity="center_horizontal"
-                android:textColor="#404040"
-                android:textSize="20px"
-                android:text="分享"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6px"
+                android:text="分享"
+                android:textColor="#404040"
+                android:textSize="20px" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/activity_details_of_friends_ll_praise"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:layout_weight="1"
             android:layout_width="0px"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/activity_details_of_friends_iv_praise"
-                android:layout_gravity="center_horizontal"
-                android:src="@mipmap/details_praise_b"
                 android:layout_width="36px"
-                android:layout_height="36px" />
+                android:layout_height="36px"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/details_praise_b" />
 
             <TextView
                 android:id="@+id/activity_details_of_friends_tv_praise"
-                android:layout_marginTop="6px"
-                android:layout_gravity="center_horizontal"
-                android:textColor="#404040"
-                android:textSize="20px"
-                android:text="点赞"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6px"
+                android:text="点赞"
+                android:textColor="#404040"
+                android:textSize="20px" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/activity_details_of_friends_ll_star"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:layout_weight="1"
             android:layout_width="0px"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/activity_details_of_friends_iv_star"
-                android:layout_gravity="center_horizontal"
-                android:src="@mipmap/details_star_b"
                 android:layout_width="36px"
-                android:layout_height="36px" />
+                android:layout_height="36px"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/details_star_b" />
 
             <TextView
                 android:id="@+id/activity_details_of_friends_tv_star"
-                android:layout_marginTop="6px"
-                android:layout_gravity="center_horizontal"
-                android:textColor="#404040"
-                android:textSize="20px"
-                android:text="收藏"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6px"
+                android:text="收藏"
+                android:textColor="#404040"
+                android:textSize="20px" />
 
         </LinearLayout>
 

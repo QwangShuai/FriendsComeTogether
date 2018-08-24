@@ -51,6 +51,15 @@ public class SpImp {
         editor.commit();
     }
 
+    public String getYd() {
+        return sp.getString(SpPublic.Yd, "");
+    }
+
+    public void setYd(String yd) {
+        editor.putString(SpPublic.Yd, yd).toString();
+        editor.commit();
+    }
+
 
 
     //长整形

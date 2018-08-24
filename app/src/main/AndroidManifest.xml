@@ -241,7 +241,8 @@
         <activity android:name=".pages.InvitationActivity" />
         <activity android:name=".pages.MessageInvitationActivity" />
         <activity android:name=".pages.MessageFriendsActivity" />
-        <activity android:name=".pages.MessageCommentActivity"></activity>
+        <activity android:name=".pages.MessageCommentActivity" />
+        <activity android:name=".pages.GuideActivity"></activity>
     </application>
 
 </manifest>

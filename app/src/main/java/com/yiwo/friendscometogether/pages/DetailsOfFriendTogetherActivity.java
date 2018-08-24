@@ -109,6 +109,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     RecyclerView rvComment;
     @BindView(R.id.comment_more)
     TextView tvCommentMore;
+    @BindView(R.id.username)
+    TextView tvUsername;
 
     private Unbinder unbinder;
     private ParticipantsItemAdapter adapter;
@@ -208,6 +210,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         titleTv.setText(model.getTitle());
         viewsTv.setText("浏览量: " + model.getLook());
         focus_onTv.setText("关注: " + model.getPffavorite());
+        tvUsername.setText(model.getCapttain_name());
         if (!model.getCaptain().equals("0")) {
             if (!StringUtils.isEmpty(model.getCapttain_pic())) {
                 Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getCapttain_pic()).into(headIv);
@@ -276,7 +279,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
 
     @OnClick({R.id.details_applyTv, R.id.activity_details_of_friends_together_rl_back, R.id.activity_details_of_friends_together_ll_share,
             R.id.activity_details_of_friends_together_ll_focus_on, R.id.activity_details_of_friends_together_btn_top_focus,
-            R.id.activity_details_of_friends_together_ll_person_content, R.id.consult_leaderLl, R.id.comment_more})
+            R.id.headIv, R.id.consult_leaderLl, R.id.comment_more})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.activity_details_of_friends_together_rl_back:
@@ -418,7 +421,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                     toToast(DetailsOfFriendTogetherActivity.this, "暂无领队");
                 }
                 break;
-            case R.id.activity_details_of_friends_together_ll_person_content:
+            case R.id.headIv:
 //                toToast(this, "这是领队的ID" + model.getObj().getCaptain());
                 Intent it = new Intent(this, OtherInformationActivity.class);
                 it.putExtra("uid", model.getObj().getCaptain());
