@@ -24,6 +24,11 @@ public class MessageInvitationAdapter extends RecyclerView.Adapter<MessageInvita
 
     private Context context;
     private List<MessageInvitationListModel.ObjBean> data;
+    private OnApplyListener listener;
+
+    public void setOnApplyListener(OnApplyListener listener){
+        this.listener = listener;
+    }
 
     public MessageInvitationAdapter(List<MessageInvitationListModel.ObjBean> data) {
         this.data = data;
@@ -39,12 +44,24 @@ public class MessageInvitationAdapter extends RecyclerView.Adapter<MessageInvita
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         if(!TextUtils.isEmpty(data.get(position).getPfpic())){
             Picasso.with(context).load(data.get(position).getPfpic()).into(holder.picIv);
         }
         holder.titleTv.setText(data.get(position).getPftitle());
         holder.contentTv.setText(data.get(position).getPfcontent());
+        holder.tvNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onApply(0, position);
+            }
+        });
+        holder.tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onApply(1, position);
+            }
+        });
     }
 
     @Override
@@ -56,13 +73,21 @@ public class MessageInvitationAdapter extends RecyclerView.Adapter<MessageInvita
         private TextView titleTv;
         private ImageView picIv;
         private TextView contentTv;
+        private TextView tvOk;
+        private TextView tvNo;
 
         public ViewHolder(View itemView) {
             super(itemView);
             titleTv = (itemView).findViewById(R.id.message_view_title_tv);
             picIv = (itemView).findViewById(R.id.message_view_pic_iv);
             contentTv = (itemView).findViewById(R.id.message_view_content_tv);
+            tvOk = itemView.findViewById(R.id.tv_ok);
+            tvNo = itemView.findViewById(R.id.tv_no);
         }
+    }
+
+    public interface OnApplyListener{
+        void onApply(int type, int position);
     }
 
 }

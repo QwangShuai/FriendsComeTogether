@@ -175,7 +175,7 @@
             android:layout_height="120px"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25px"
-            android:src="@mipmap/hot_message" />
+            android:src="@mipmap/invitation" />
 
         <TextView
             android:id="@+id/invitation_titleTv"
@@ -244,7 +244,7 @@
             android:layout_height="120px"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25px"
-            android:src="@mipmap/system_message" />
+            android:src="@mipmap/comment" />
 
         <TextView
             android:id="@+id/comment_titleTv"
@@ -313,7 +313,7 @@
             android:layout_height="120px"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25px"
-            android:src="@mipmap/hot_message" />
+            android:src="@mipmap/friend" />
 
         <TextView
             android:id="@+id/friend_titleTv"

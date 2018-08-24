@@ -22,6 +22,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.model.InvitationOkModel;
 import com.yiwo.friendscometogether.model.Paymodel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.network.UMConfig;
@@ -92,6 +93,8 @@ public class ApplyActivity extends BaseActivity {
     private Double money;
     private Double perMoney;
 
+    private String yqid = "0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +103,85 @@ public class ApplyActivity extends BaseActivity {
         api = WXAPIFactory.createWXAPI(this, null);
         ButterKnife.bind(this);
         spImp = new SpImp(ApplyActivity.this);
-        getShowView();
+
+        String id = getIntent().getStringExtra("id");
+        String tid = getIntent().getStringExtra("tid");
+        if(!TextUtils.isEmpty(id)&&!TextUtils.isEmpty(tid)){
+            getShowViewTwo(id, tid);
+        }else {
+            getShowView();
+        }
+
+    }
+
+    private void getShowViewTwo(String id, String tid) {
+
+        yqid = id;
+
+        ViseHttp.POST(NetConfig.invitationOkUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.invitationOkUrl))
+                .addParam("id", tid)
+                .addParam("yqid", id)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.e("222", data);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                InvitationOkModel model = gson.fromJson(data, InvitationOkModel.class);
+                                tvNum.setText(num + "");
+                                if_pay = model.getObj().getPfspendtype();
+                                Log.i("789456", if_pay);
+                                String title = model.getObj().getPftitle();
+                                String price = model.getObj().getPfspend();
+                                money = Double.valueOf(price);
+                                perMoney = money;
+                                String begin_time = model.getObj().getPfgotime();
+                                String sex = model.getObj().getPfpeoplesex();
+                                String name = model.getObj().getUsername();
+                                pfID = model.getObj().getId();
+                                tvActiveTitle.setText(title);
+                                tvPrice.setText("¥" + price + "元/人");
+                                tvAllPrice.setText("¥" + price);
+                                tvTime.setText("出发时间: " + begin_time);
+                                tvName.setText(name);
+                                tvSex.setText(sex);
+                                String pic = model.getObj().getPic();
+                                if (!TextUtils.isEmpty(pic)) {
+                                    Glide.with(ApplyActivity.this).load(pic).into(ivTitle);
+                                }
+                                String age = model.getObj().getPfagebegin();
+                                tvAge.setText(age + "岁");
+                                String issingle = model.getObj().getPfmarry();
+                                tvIssingle.setText(issingle);
+                                String city = model.getObj().getPfaddress();
+                                tvCity.setText("活动地点: " + city);
+
+//                                if (sex.equals("无限制")) {
+//                                    apply_num_ll.setVisibility(View.VISIBLE);
+//                                }
+
+                                if (if_pay.equals("2")) {
+                                    setApplyPaymentView(1);
+                                } else if (if_pay.equals("0")) {
+                                    tvPayDecs.setText("现场支付");
+                                } else if (if_pay.equals("1")) {
+                                    tvPayDecs.setText("他人请客");
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
     }
 
     @OnClick({R.id.activity_apply_rl_back, R.id.apply_btn, R.id.iv_jian, R.id.iv_jia, R.id.online_pay})
@@ -225,6 +306,7 @@ public class ApplyActivity extends BaseActivity {
                     .addParam("pfid", pfID)
                     .addParam("phone", etPhoneNum.getText().toString())
                     .addParam("need_paytype", payState + "")
+                    .addParam("id", yqid)
                     .request(new ACallback<String>() {
                         @Override
                         public void onFail(int errCode, String errMsg) {

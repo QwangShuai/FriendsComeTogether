@@ -55,6 +55,7 @@
             android:layout_marginTop="20px">
 
             <TextView
+                android:id="@+id/tv_no"
                 android:textColor="@color/white_ffffff"
                 android:background="@color/yellow_ff9d00"
                 android:gravity="center"
@@ -65,6 +66,7 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/tv_ok"
                 android:layout_marginLeft="130px"
                 android:textColor="@color/white_ffffff"
                 android:background="@color/yellow_ff9d00"

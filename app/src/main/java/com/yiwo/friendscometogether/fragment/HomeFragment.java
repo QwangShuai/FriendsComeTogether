@@ -41,6 +41,7 @@ import com.yiwo.friendscometogether.custom.ScalableCardHelper;
 import com.yiwo.friendscometogether.model.AllBannerModel;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
+import com.yiwo.friendscometogether.model.FriendsTogethermodel;
 import com.yiwo.friendscometogether.model.GoogleCityModel;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.model.HomeTogetherModel;
@@ -167,11 +168,11 @@ public class HomeFragment extends BaseFragment {
                                 banner.setOnBannerListener(new OnBannerListener() {
                                     @Override
                                     public void OnBannerClick(int position) {
-                                        if(bannerModel.getObj().get(position).getFirst_type().equals("0")){
+                                        if (bannerModel.getObj().get(position).getFirst_type().equals("0")) {
                                             Intent intent = new Intent(getContext(), DetailsOfFriendTogetherActivity.class);
                                             intent.putExtra("pfID", bannerModel.getObj().get(position).getLeftid());
                                             startActivity(intent);
-                                        }else if(bannerModel.getObj().get(position).getFirst_type().equals("1")){
+                                        } else if (bannerModel.getObj().get(position).getFirst_type().equals("1")) {
                                             Intent intent = new Intent(getContext(), DetailsOfFriendsActivity.class);
                                             intent.putExtra("fmid", bannerModel.getObj().get(position).getLeftid());
                                             startActivity(intent);
@@ -332,9 +333,9 @@ public class HomeFragment extends BaseFragment {
         adapter.setOnFocusListener(new HomeHotAdapter.OnFocusListener() {
             @Override
             public void onFocus(final int position) {
-                if(mList1.get(position).getFollow().equals("0")){
+                if (mList1.get(position).getFollow().equals("0")) {
                     ViseHttp.POST(NetConfig.userFocusUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userFocusUrl))
                             .addParam("uid", uid)
                             .addParam("likeId", mList1.get(position).getUserID())
                             .request(new ACallback<String>() {
@@ -343,7 +344,7 @@ public class HomeFragment extends BaseFragment {
                                     Log.e("222", "123123");
                                     try {
                                         JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.getInt("code") == 200){
+                                        if (jsonObject.getInt("code") == 200) {
                                             mList1.get(position).setFollow("1");
                                             adapter.notifyDataSetChanged();
                                             toToast(getContext(), "关注成功");
@@ -554,10 +555,39 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && data != null) {
+        if (requestCode == 1 && data != null && resultCode == 1) {
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
             cityTv.setText(model.getName());
             cityId = model.getId();
+            String tokens = getToken(NetConfig.BaseUrl + NetConfig.homeTogetherListUrl);
+            ViseHttp.POST(NetConfig.homeTogetherListUrl)
+                    .addParam("app_key", tokens)
+                    .addParam("page", "1")
+                    .addParam("uid", uid)
+                    .addParam("city_id", cityId)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    HomeTogetherModel model = new Gson().fromJson(data, HomeTogetherModel.class);
+                                    page = 2;
+                                    initTogetherList(model.getObj());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+        } else if (requestCode == 1 && resultCode == 2) {
+            cityId = "";
+            cityTv.setText(latLongString);
             String tokens = getToken(NetConfig.BaseUrl + NetConfig.homeTogetherListUrl);
             ViseHttp.POST(NetConfig.homeTogetherListUrl)
                     .addParam("app_key", tokens)

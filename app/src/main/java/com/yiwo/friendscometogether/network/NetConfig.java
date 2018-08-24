@@ -208,4 +208,8 @@ public class NetConfig {
     public static String messageCommentUrl = "action/ac_public/comment_message_list";
     //系统、热门消息详情
     public static String systemHotMessageDetailsUrl = "action/ac_public/system_hot_content";
+    //获取报名信息(邀请同意时)
+    public static String invitationOkUrl = "action/ac_activity/ActivityInfo";
+    //消息中心邀请(拒绝)
+    public static String invitationNoUrl = "action/ac_activity/refuse";
 }

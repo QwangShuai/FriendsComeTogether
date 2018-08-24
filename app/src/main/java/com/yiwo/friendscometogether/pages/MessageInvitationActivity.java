@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -72,6 +73,45 @@ public class MessageInvitationActivity extends BaseActivity {
                                 mList = model.getObj();
                                 adapter = new MessageInvitationAdapter(mList);
                                 recyclerView.setAdapter(adapter);
+                                adapter.setOnApplyListener(new MessageInvitationAdapter.OnApplyListener() {
+                                    @Override
+                                    public void onApply(int type, final int position) {
+                                        Intent intent = new Intent();
+                                        switch (type){
+                                            case 0:
+                                                ViseHttp.POST(NetConfig.invitationNoUrl)
+                                                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.invitationNoUrl))
+                                                        .addParam("id", mList.get(position).getId())
+                                                        .request(new ACallback<String>() {
+                                                            @Override
+                                                            public void onSuccess(String data) {
+                                                                try {
+                                                                    JSONObject jsonObject1 = new JSONObject(data);
+                                                                    if(jsonObject1.getInt("code") == 200){
+                                                                        mList.remove(position);
+                                                                        adapter.notifyDataSetChanged();
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFail(int errCode, String errMsg) {
+
+                                                            }
+                                                        });
+                                                break;
+                                            case 1:
+                                                intent.setClass(MessageInvitationActivity.this, ApplyActivity.class);
+                                                intent.putExtra("id", mList.get(position).getId());
+                                                intent.putExtra("tid", mList.get(position).getTid());
+                                                startActivity(intent);
+                                                finish();
+                                                break;
+                                        }
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
