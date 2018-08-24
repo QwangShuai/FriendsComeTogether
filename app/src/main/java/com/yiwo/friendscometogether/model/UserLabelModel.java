@@ -53,6 +53,12 @@ public class UserLabelModel {
         private String lname;
         private String luse;
 
+        public ObjBean(String lID, String lname, String luse) {
+            this.lID = lID;
+            this.lname = lname;
+            this.luse = luse;
+        }
+
         public String getLID() {
             return lID;
         }

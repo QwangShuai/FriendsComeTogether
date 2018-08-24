@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -26,6 +27,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FriendRememberUpDataAdapter;
+import com.yiwo.friendscometogether.adapter.FriendTogetherLabelAdapter;
 import com.yiwo.friendscometogether.adapter.FriendTogetherUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.model.AllBannerModel;
@@ -63,22 +65,18 @@ import butterknife.OnClick;
 
 public class FriendsTogetherFragment extends BaseFragment {
     View rootView;
-    @BindView(R.id.fragment_friend_together_banner)
-    Banner banner;
     @BindView(R.id.fragment_friend_together_rv)
     RecyclerView recyclerView;
-    @BindView(R.id.select_city)
-    LinearLayout cityLl;
-    @BindView(R.id.select_lable)
-    LinearLayout lableLl;
-    @BindView(R.id.search_leader)
-    LinearLayout searchLl;
-    @BindView(R.id.fragment_friends_together_city_tv)
-    TextView cityTv;
-    @BindView(R.id.fragment_friends_together_lable_tv)
-    TextView lableTv;
     @BindView(R.id.fragment_friend_together_refreshLayout)
     RefreshLayout refreshLayout;
+    @BindView(R.id.locationRl)
+    RelativeLayout locationRl;
+    @BindView(R.id.searchLl)
+    LinearLayout searchLl11;
+    @BindView(R.id.cityTv)
+    TextView tvCity;
+    @BindView(R.id.rv_label)
+    RecyclerView rvLabel;
 
     private FriendTogetherUpDataAdapter adapter;
     private String[] itemId;
@@ -94,6 +92,9 @@ public class FriendsTogetherFragment extends BaseFragment {
 
     private String sign = "";
 
+    private FriendTogetherLabelAdapter labelAdapter;
+    private List<UserLabelModel.ObjBean> labelList;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -108,42 +109,6 @@ public class FriendsTogetherFragment extends BaseFragment {
     }
 
     private void initData() {
-
-        ViseHttp.POST(NetConfig.allBannerUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.allBannerUrl))
-                .addParam("type", "2")
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if (jsonObject.getInt("code") == 200) {
-                                Gson gson = new Gson();
-                                final AllBannerModel bannerModel = gson.fromJson(data, AllBannerModel.class);
-                                List<String> list = new ArrayList<>();
-                                for (int i = 0; i < bannerModel.getObj().size(); i++) {
-                                    list.add(bannerModel.getObj().get(i).getPic());
-                                }
-                                init(banner, list);
-                                banner.setOnBannerListener(new OnBannerListener() {
-                                    @Override
-                                    public void OnBannerClick(int position) {
-                                        Intent intent = new Intent(getContext(), DetailsOfFriendTogetherActivity.class);
-                                        intent.putExtra("pfID", bannerModel.getObj().get(position).getLeftid());
-                                        startActivity(intent);
-                                    }
-                                });
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
-
-                    }
-                });
 
         refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
@@ -266,143 +231,22 @@ public class FriendsTogetherFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
     }
 
-    @OnClick({R.id.select_city, R.id.select_lable, R.id.search_leader})
+    @OnClick({R.id.locationRl, R.id.searchLl})
     public void OnClick(View v) {
         if (spImp.getUID().equals("0")) {
             startActivity(new Intent(getActivity(), LoginActivity.class));
         } else {
             Log.i("110120", spImp.getUID());
             switch (v.getId()) {
-                case R.id.select_city:
-                    Intent it = new Intent(getActivity(), CityActivity.class);
-                    it.putExtra(ActivityConfig.ACTIVITY, "home");
-                    startActivityForResult(it, 1);
+                case R.id.locationRl:
+                    Intent it1 = new Intent(getActivity(), CityActivity.class);
+                    it1.putExtra(ActivityConfig.ACTIVITY, "home");
+                    startActivityForResult(it1, 1);
                     break;
-                case R.id.select_lable:
-                    AlertDialog.Builder singleChoiceDialog =
-                            new AlertDialog.Builder(getContext());
-                    singleChoiceDialog.setTitle("请选择标签");
-                    // 第二个参数是默认选项，此处设置为0
-                    singleChoiceDialog.setSingleChoiceItems(itemName, 0,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    yourChoiceName = itemName[which];
-                                    yourChoiceId = itemId[which];
-                                }
-                            });
-                    singleChoiceDialog.setPositiveButton("确定",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (TextUtils.isEmpty(yourChoiceName)) {
-                                        lableTv.setText(itemName[0]);
-                                        yourChoiceId = itemId[0];
-                                        sign = yourChoiceId;
-                                        String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
-                                        ViseHttp.POST(NetConfig.friendsTogetherUrl)
-                                                .addParam("app_key", token)
-                                                .addParam("page", "1")
-                                                .addParam("userID", spImp.getUID())
-                                                .addParam("city_id", cityId)
-                                                .addParam("sign", sign)
-                                                .request(new ACallback<String>() {
-                                                    @Override
-                                                    public void onSuccess(String data) {
-                                                        try {
-                                                            JSONObject jsonObject = new JSONObject(data);
-                                                            if (jsonObject.getInt("code") == 200) {
-                                                                Log.e("222", data);
-                                                                FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
-                                                                page = 2;
-                                                                initList(model.getObj());
-                                                            }
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onFail(int errCode, String errMsg) {
-
-                                                    }
-                                                });
-                                    } else {
-                                        lableTv.setText(yourChoiceName);
-                                        yourChoiceName = "";
-                                        sign = yourChoiceId;
-                                        String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
-                                        ViseHttp.POST(NetConfig.friendsTogetherUrl)
-                                                .addParam("app_key", token)
-                                                .addParam("page", "1")
-                                                .addParam("userID", spImp.getUID())
-                                                .addParam("city_id", cityId)
-                                                .addParam("sign", sign)
-                                                .request(new ACallback<String>() {
-                                                    @Override
-                                                    public void onSuccess(String data) {
-                                                        try {
-                                                            JSONObject jsonObject = new JSONObject(data);
-                                                            if (jsonObject.getInt("code") == 200) {
-                                                                Log.e("222", data);
-                                                                FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
-                                                                page = 2;
-                                                                initList(model.getObj());
-                                                            }
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onFail(int errCode, String errMsg) {
-
-                                                    }
-                                                });
-                                    }
-                                }
-                            });
-                    singleChoiceDialog.setNegativeButton("重置", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            sign = "";
-                            lableTv.setText("选择标签");
-                            String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
-                            ViseHttp.POST(NetConfig.friendsTogetherUrl)
-                                    .addParam("app_key", token)
-                                    .addParam("page", "1")
-                                    .addParam("userID", spImp.getUID())
-                                    .addParam("city_id", cityId)
-                                    .addParam("sign", sign)
-                                    .request(new ACallback<String>() {
-                                        @Override
-                                        public void onSuccess(String data) {
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(data);
-                                                if (jsonObject.getInt("code") == 200) {
-                                                    Log.e("222", data);
-                                                    FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
-                                                    page = 2;
-                                                    initList(model.getObj());
-                                                }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFail(int errCode, String errMsg) {
-
-                                        }
-                                    });
-                        }
-                    });
-                    singleChoiceDialog.show();
-                    break;
-                case R.id.search_leader:
-                    Intent intent = new Intent(getContext(), SearchActivity.class);
-                    intent.putExtra("type", "1");
-                    startActivity(intent);
+                case R.id.searchLl:
+                    Intent intent1 = new Intent(getContext(), SearchActivity.class);
+                    intent1.putExtra("type", "1");
+                    startActivity(intent1);
                     break;
             }
         }
@@ -413,7 +257,7 @@ public class FriendsTogetherFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data != null && resultCode == 1) {
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
-            cityTv.setText(model.getName());
+            tvCity.setText(model.getName());
             cityId = model.getId();
             String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
             ViseHttp.POST(NetConfig.friendsTogetherUrl)
@@ -445,7 +289,7 @@ public class FriendsTogetherFragment extends BaseFragment {
                     });
         }else if(requestCode == 1 && resultCode == 2){
             cityId = "";
-            cityTv.setText("选择城市");
+            tvCity.setText("选择城市");
             String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
             ViseHttp.POST(NetConfig.friendsTogetherUrl)
                     .addParam("app_key", token)
@@ -489,12 +333,52 @@ public class FriendsTogetherFragment extends BaseFragment {
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 UserLabelModel userLabelModel = gson.fromJson(data, UserLabelModel.class);
-                                itemId = new String[userLabelModel.getObj().size()];
-                                itemName = new String[userLabelModel.getObj().size()];
-                                for (int i = 0; i < userLabelModel.getObj().size(); i++) {
-                                    itemId[i] = userLabelModel.getObj().get(i).getLID();
-                                    itemName[i] = userLabelModel.getObj().get(i).getLname();
-                                }
+
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                                rvLabel.setLayoutManager(manager);
+
+                                labelList = new ArrayList<>();
+                                labelList.add(new UserLabelModel.ObjBean("", "全部", ""));
+                                labelList.addAll(userLabelModel.getObj());
+                                labelAdapter = new FriendTogetherLabelAdapter(labelList);
+                                rvLabel.setAdapter(labelAdapter);
+
+                                labelAdapter.setOnLabelListener(new FriendTogetherLabelAdapter.OnLabelListener() {
+                                    @Override
+                                    public void onLabel(int position) {
+                                        labelAdapter.setCurrentItem(position);
+                                        String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
+                                        ViseHttp.POST(NetConfig.friendsTogetherUrl)
+                                                .addParam("app_key", token)
+                                                .addParam("page", "1")
+                                                .addParam("userID", spImp.getUID())
+                                                .addParam("city_id", cityId)
+                                                .addParam("sign", labelList.get(position).getLID())
+                                                .request(new ACallback<String>() {
+                                                    @Override
+                                                    public void onSuccess(String data) {
+                                                        try {
+                                                            JSONObject jsonObject = new JSONObject(data);
+                                                            if (jsonObject.getInt("code") == 200) {
+                                                                Log.e("222", data);
+                                                                FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
+                                                                page = 2;
+                                                                initList(model.getObj());
+                                                            }
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFail(int errCode, String errMsg) {
+
+                                                    }
+                                                });
+                                    }
+                                });
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

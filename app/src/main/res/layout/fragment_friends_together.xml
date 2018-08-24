@@ -27,92 +27,78 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/fragment_friend_together_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="372px" />
-
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40px"
-                    android:layout_marginTop="26px">
+                    android:layout_height="64px"
+                    android:layout_marginTop="20px"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/select_city"
-                        android:layout_width="136px"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="80px"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/locationRl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20px">
+
+                        <ImageView
+                            android:id="@+id/locationLv"
+                            android:layout_width="42px"
+                            android:layout_height="42px"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/index_location" />
 
                         <TextView
-                            android:id="@+id/fragment_friends_together_city_tv"
-                            android:layout_width="112px"
+                            android:id="@+id/cityTv"
+                            android:layout_width="120px"
                             android:layout_height="match_parent"
+                            android:layout_marginLeft="10px"
+                            android:layout_toRightOf="@+id/locationLv"
+                            android:ellipsize="end"
                             android:gravity="center"
+                            android:maxLines="1"
                             android:text="选择城市"
                             android:textColor="@color/black_333333"
-                            android:textSize="28px" />
-
-                        <ImageView
-                            android:layout_width="20px"
-                            android:layout_height="20px"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="4px"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/city" />
-                    </LinearLayout>
+                            android:textSize="26px" />
+                    </RelativeLayout>
 
                     <LinearLayout
-                        android:id="@+id/select_lable"
-                        android:layout_width="136px"
+                        android:id="@+id/searchLl"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="30px"
+                        android:layout_marginRight="30px"
+                        android:layout_toRightOf="@+id/locationRl"
+                        android:background="@drawable/bg_search1"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/fragment_friends_together_lable_tv"
-                            android:layout_width="112px"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="选择标签"
-                            android:textColor="@color/black_333333"
-                            android:textSize="28px" />
-
                         <ImageView
-                            android:layout_width="20px"
-                            android:layout_height="20px"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="4px"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/label" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/search_leader"
-                        android:layout_width="136px"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="80px"
-                        android:orientation="horizontal">
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/explore_search_icon" />
 
                         <TextView
-                            android:id="@+id/fragment_friends_together_leader_tv"
-                            android:layout_width="112px"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="搜索领队"
-                            android:textColor="@color/black_333333"
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20px"
+                            android:text="搜索景点/领队"
                             android:textSize="28px" />
 
-                        <ImageView
-                            android:layout_width="20px"
-                            android:layout_height="20px"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="4px"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/serach" />
                     </LinearLayout>
+
                 </RelativeLayout>
+                
+                <View
+                    android:layout_marginTop="24px"
+                    android:background="#F2F2F2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

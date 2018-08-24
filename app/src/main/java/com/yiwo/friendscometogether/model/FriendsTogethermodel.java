@@ -58,6 +58,7 @@ public class FriendsTogethermodel {
          * focusOn : 0
          */
 
+        private String pfgotime;
         private String pfpwd;
         private String wy_accid;
         private String usergrade;
@@ -73,6 +74,14 @@ public class FriendsTogethermodel {
         private String focusOn;
         private String sign;
         private String captain_focusOn;
+
+        public String getPfgotime() {
+            return pfgotime;
+        }
+
+        public void setPfgotime(String pfgotime) {
+            this.pfgotime = pfgotime;
+        }
 
         public String getPfpwd() {
             return pfpwd;

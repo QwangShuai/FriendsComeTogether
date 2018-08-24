@@ -52,7 +52,7 @@ import java.util.List;
 public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendTogetherUpDataAdapter.ViewHolder> {
     List<FriendsTogethermodel.ObjBean> data;
     private Context context;
-//    View v;
+    //    View v;
 //    ImageView iv;
     SpImp spImp;
 
@@ -84,6 +84,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         if (!StringUtils.isEmpty(data.get(position).getUpicurl())) {
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
         }
+        holder.tvStartTime.setText("开始时间: " + data.get(position).getPfgotime());
 //        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
 //            holder.levelTv.setText(data.get(position).getSign().equals("1") ? "签约领队" : "普通领队");
 //        } else {
@@ -210,15 +211,15 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             @Override
             public void onClick(View view) {
                 final Intent intent = new Intent();
-                if(TextUtils.isEmpty(data.get(position).getPfpwd())){
+                if (TextUtils.isEmpty(data.get(position).getPfpwd())) {
                     intent.setClass(context, DetailsOfFriendTogetherActivity.class);
                     intent.putExtra("pfID", data.get(position).getPfID());
                     context.startActivity(intent);
-                }else {
+                } else {
                     LookPasswordDialog lookPasswordDialog = new LookPasswordDialog(context, new LookPasswordDialog.SetPasswordListener() {
                         @Override
                         public void setActivityText(String s) {
-                            if(s.equals(data.get(position).getPfpwd())){
+                            if (s.equals(data.get(position).getPfpwd())) {
                                 intent.setClass(context, DetailsOfFriendTogetherActivity.class);
                                 intent.putExtra("pfID", data.get(position).getPfID());
                                 context.startActivity(intent);
@@ -313,6 +314,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         private Button focusOnBtn;
         //        private LinearLayout focusOnll;
         private LinearLayout llleader;
+        private TextView tvStartTime;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -334,6 +336,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
 //            focusOnLeaderIv = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_iv_focus);
             focusOnBtn = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_btn_top_focus);
             llleader = itemView.findViewById(R.id.consult_leaderLl);
+            tvStartTime = itemView.findViewById(R.id.start_time);
         }
     }
 }
