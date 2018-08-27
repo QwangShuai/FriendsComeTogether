@@ -142,6 +142,12 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        uid = spImp.getUID();
+    }
+
     private void initData() {
 
         uid = spImp.getUID();

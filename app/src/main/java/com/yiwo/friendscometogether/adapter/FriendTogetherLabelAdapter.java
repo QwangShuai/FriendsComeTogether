@@ -51,14 +51,14 @@ public class FriendTogetherLabelAdapter extends RecyclerView.Adapter<FriendToget
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tv.setText(data.get(position).getLname());
+        if(currentItem == position){
+            holder.tv.setSelected(true);
+        }else {
+            holder.tv.setSelected(false);
+        }
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(currentItem == position){
-                    holder.tv.setSelected(true);
-                }else {
-                    holder.tv.setSelected(false);
-                }
                 listener.onLabel(position);
             }
         });

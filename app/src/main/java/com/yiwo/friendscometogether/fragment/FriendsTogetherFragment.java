@@ -348,13 +348,15 @@ public class FriendsTogetherFragment extends BaseFragment {
                                     @Override
                                     public void onLabel(int position) {
                                         labelAdapter.setCurrentItem(position);
+                                        labelAdapter.notifyDataSetChanged();
+                                        sign = labelList.get(position).getLID();
                                         String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
                                         ViseHttp.POST(NetConfig.friendsTogetherUrl)
                                                 .addParam("app_key", token)
                                                 .addParam("page", "1")
                                                 .addParam("userID", spImp.getUID())
                                                 .addParam("city_id", cityId)
-                                                .addParam("sign", labelList.get(position).getLID())
+                                                .addParam("sign", sign)
                                                 .request(new ACallback<String>() {
                                                     @Override
                                                     public void onSuccess(String data) {

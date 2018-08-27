@@ -26,10 +26,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/fragment_friend_remember_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="372px" />
+                <!--<com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                    <!--android:id="@+id/fragment_friend_remember_banner"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="372px" />-->
 
                 <LinearLayout
                     android:id="@+id/searchLl"
@@ -56,6 +56,17 @@
                         android:text="搜索景点/领队"
                         android:textSize="28px" />
                 </LinearLayout>
+                
+                <View
+                    android:layout_marginTop="24px"
+                    android:background="#f2f2f2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

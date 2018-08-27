@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +52,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
+import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.MessageCenterActivity;
 import com.yiwo.friendscometogether.pages.SearchActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -93,6 +96,13 @@ public class HomeFragment extends BaseFragment {
     TextView home_numTv;
     @BindView(R.id.searchLl)
     LinearLayout searchLl;
+    @BindView(R.id.tv_tuijian)
+    TextView tvTuijian;
+    @BindView(R.id.tv_remen)
+    TextView tvRemen;
+    @BindView(R.id.tv_guanzhu)
+    TextView tvGuanzhu;
+
     private LocationManager locationManager;
     private double latitude = 0.0;
     private double longitude = 0.0;
@@ -145,6 +155,12 @@ public class HomeFragment extends BaseFragment {
         getLocation();
         initData();
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        uid = spImp.getUID();
     }
 
     public void initData() {
@@ -267,6 +283,7 @@ public class HomeFragment extends BaseFragment {
         ViseHttp.POST(NetConfig.homeHotFriendsRememberUrl)
                 .addParam("app_key", token)
                 .addParam("uid", uid)
+                .addParam("type", "1")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -432,7 +449,7 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.locationRl, R.id.searchLl, R.id.messageIv})
+    @OnClick({R.id.locationRl, R.id.searchLl, R.id.messageIv, R.id.tv_tuijian, R.id.tv_remen, R.id.tv_guanzhu})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.locationRl:
@@ -453,6 +470,107 @@ public class HomeFragment extends BaseFragment {
             case R.id.messageIv:
 //                home_numTv.setVisibility(View.INVISIBLE);
                 getActivity().startActivity(new Intent(getActivity(), MessageCenterActivity.class));
+                break;
+            case R.id.tv_tuijian:
+                tvTuijian.setTextColor(Color.parseColor("#ff9d00"));
+                tvRemen.setTextColor(Color.parseColor("#333333"));
+                tvGuanzhu.setTextColor(Color.parseColor("#333333"));
+                ViseHttp.POST(NetConfig.homeHotFriendsRememberUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homeHotFriendsRememberUrl))
+                        .addParam("uid", uid)
+                        .addParam("type", "1")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Log.e("222", data);
+                                        HomeHotFriendsRememberModel model = new Gson().fromJson(data, HomeHotFriendsRememberModel.class);
+                                        mList1.clear();
+                                        mList1.addAll(model.getObj().getInfo());
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+                break;
+            case R.id.tv_remen:
+                tvTuijian.setTextColor(Color.parseColor("#333333"));
+                tvRemen.setTextColor(Color.parseColor("#ff9d00"));
+                tvGuanzhu.setTextColor(Color.parseColor("#333333"));
+                ViseHttp.POST(NetConfig.homeHotFriendsRememberUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homeHotFriendsRememberUrl))
+                        .addParam("uid", uid)
+                        .addParam("type", "2")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Log.e("222", data);
+                                        HomeHotFriendsRememberModel model = new Gson().fromJson(data, HomeHotFriendsRememberModel.class);
+                                        mList1.clear();
+                                        mList1.addAll(model.getObj().getInfo());
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+                break;
+            case R.id.tv_guanzhu:
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
+                    Intent intent1 = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent1);
+                } else {
+                    tvTuijian.setTextColor(Color.parseColor("#333333"));
+                    tvRemen.setTextColor(Color.parseColor("#333333"));
+                    tvGuanzhu.setTextColor(Color.parseColor("#ff9d00"));
+                    ViseHttp.POST(NetConfig.homeHotFriendsRememberUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homeHotFriendsRememberUrl))
+                            .addParam("uid", uid)
+                            .addParam("type", "3")
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    Log.e("222", data);
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if (jsonObject.getInt("code") == 200) {
+                                            HomeHotFriendsRememberModel model = new Gson().fromJson(data, HomeHotFriendsRememberModel.class);
+                                            mList1.clear();
+                                            mList1.addAll(model.getObj().getInfo());
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }
                 break;
         }
     }

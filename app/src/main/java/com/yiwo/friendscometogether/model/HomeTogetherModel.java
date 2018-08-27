@@ -60,6 +60,7 @@ public class HomeTogetherModel {
          * follow : 0
          */
 
+        private String pfgotime;
         private String add_user;
         private String look_num;
         private String comment_num;
@@ -74,6 +75,14 @@ public class HomeTogetherModel {
         private String pfpic;
         private String upicurl;
         private String follow;
+
+        public String getPfgotime() {
+            return pfgotime;
+        }
+
+        public void setPfgotime(String pfgotime) {
+            this.pfgotime = pfgotime;
+        }
 
         public String getAdd_user() {
             return add_user;

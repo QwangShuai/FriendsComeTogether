@@ -34,18 +34,18 @@ import java.util.List;
  * Created by Administrator on 2018/8/2.
  */
 
-public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapter.ViewHolder>{
+public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapter.ViewHolder> {
     private Context context;
     private List<HomeTogetherModel.ObjBean> data;
     SpImp spImp;
     private OnFocusListener listener;
 
-    public void setOnFocusListener(OnFocusListener listener){
+    public void setOnFocusListener(OnFocusListener listener) {
         this.listener = listener;
     }
 
     //    private List<HomeHotFriendsRememberModel.ObjBean.VideoBean> list;
-    public HomeTogetherAdapter(List<HomeTogetherModel.ObjBean> data){
+    public HomeTogetherAdapter(List<HomeTogetherModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -61,9 +61,9 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        if(!StringUtils.isEmpty(data.get(position).getPfpic()))
+        if (!StringUtils.isEmpty(data.get(position).getPfpic()))
             Picasso.with(context).load(data.get(position).getPfpic()).into(holder.picIv);
-        if(!StringUtils.isEmpty(data.get(position).getUpicurl()))
+        if (!StringUtils.isEmpty(data.get(position).getUpicurl()))
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
 //        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
 //            holder.levelTv.setText(data.get(position).getSign().equals("0")?"普通领队":"签约领队");
@@ -75,9 +75,11 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         holder.time.setText(data.get(position).getPftime());
         holder.lookNum.setText(data.get(position).getLook_num());
         holder.commentNum.setText(data.get(position).getComment_num());
-        if(data.get(position).getFollow().equals("0")){
+        holder.tvLevel.setText("LV" + data.get(position).getUsergrade());
+        holder.activeStartTime.setText("开始时间: " + data.get(position).getPfgotime());
+        if (data.get(position).getFollow().equals("0")) {
             holder.btnFocus.setText("+关注");
-        }else {
+        } else {
             holder.btnFocus.setText("已关注");
         }
 
@@ -86,7 +88,7 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(spImp.getUID().equals("0")){
+                if (spImp.getUID().equals("0")) {
                     context.startActivity(new Intent(context, LoginActivity.class));
                 } else {
                     Intent intent = new Intent();
@@ -99,7 +101,7 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         holder.btnFocus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(spImp.getUID().equals("0")){
+                if (spImp.getUID().equals("0")) {
                     context.startActivity(new Intent(context, LoginActivity.class));
                 } else {
                     listener.onFocus(position);
@@ -135,6 +137,8 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         private TextView lookNum;
         private TextView commentNum;
         private Button btnFocus;
+        private TextView tvLevel;
+        private TextView activeStartTime;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -149,10 +153,12 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
             lookNum = itemView.findViewById(R.id.look_num);
             commentNum = itemView.findViewById(R.id.comment_num);
             btnFocus = itemView.findViewById(R.id.activity_details_of_friends_btn_focus);
+            tvLevel = itemView.findViewById(R.id.tv_level);
+            activeStartTime = itemView.findViewById(R.id.active_start_time);
         }
     }
 
-    public interface OnFocusListener{
+    public interface OnFocusListener {
         void onFocus(int position);
     }
 
