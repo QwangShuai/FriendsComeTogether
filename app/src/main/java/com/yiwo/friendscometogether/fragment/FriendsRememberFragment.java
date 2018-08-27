@@ -143,6 +143,7 @@ public class FriendsRememberFragment extends BaseFragment {
                                                 .request(new ACallback<String>() {
                                                     @Override
                                                     public void onSuccess(String data) {
+                                                        Log.e("222", data);
                                                         try {
                                                             JSONObject jsonObject = new JSONObject(data);
                                                             int code = jsonObject.getInt("code");

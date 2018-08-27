@@ -143,10 +143,10 @@ public class CreateFriendRememberActivity extends BaseActivity {
 
     private static final int REQUEST_CODE = 0x00000011;
 
-    private String[] itemId;
-    private String[] itemName;
+    /**
+     * 标签id
+     */
     private String yourChoiceId = "";
-    private String yourChoiceName = "";
 
     private SpImp spImp;
     private String uid = "";
@@ -162,6 +162,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
     private List<UserActiveListModel.ObjBean> activeList;
 
     private String password;
+
+    private List<UserLabelModel.ObjBean> labelList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,12 +221,8 @@ public class CreateFriendRememberActivity extends BaseActivity {
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 UserLabelModel userLabelModel = gson.fromJson(data, UserLabelModel.class);
-                                itemId = new String[userLabelModel.getObj().size()];
-                                itemName = new String[userLabelModel.getObj().size()];
-                                for (int i = 0; i < userLabelModel.getObj().size(); i++) {
-                                    itemId[i] = userLabelModel.getObj().get(i).getLID();
-                                    itemName[i] = userLabelModel.getObj().get(i).getLname();
-                                }
+                                labelList = new ArrayList<>();
+                                labelList.addAll(userLabelModel.getObj());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -396,32 +394,27 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 tvFirstIv.setVisibility(View.INVISIBLE);
                 break;
             case R.id.activity_create_friend_remember_rl_label:
-                AlertDialog.Builder singleChoiceDialog =
-                        new AlertDialog.Builder(CreateFriendRememberActivity.this);
-                singleChoiceDialog.setTitle("请选择标签");
-                // 第二个参数是默认选项，此处设置为0
-                singleChoiceDialog.setSingleChoiceItems(itemName, 0,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                yourChoiceName = itemName[which];
-                                yourChoiceId = itemId[which];
-                            }
-                        });
-                singleChoiceDialog.setPositiveButton("确定",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (TextUtils.isEmpty(yourChoiceName)) {
-                                    tvLabel.setText(itemName[0]);
-                                    yourChoiceId = itemId[0];
-                                } else {
-                                    tvLabel.setText(yourChoiceName);
-                                    yourChoiceName = "";
-                                }
-                            }
-                        });
-                singleChoiceDialog.show();
+                OptionsPickerView pvOptions1 = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        //返回的分别是三个级别的选中位置
+//                        String tx = options1Items.get(options1).getPickerViewText() + "-" +
+//                                options2Items.get(options1).get(options2) + "-" +
+//                                options3Items.get(options1).get(options2).get(options3);
+                        tvLabel.setText(labelList.get(options1).getPickerViewText());
+                        yourChoiceId = labelList.get(options1).getLID();
+                    }
+                })
+                        .setTitleText("标签选择")
+                        .setDividerColor(Color.BLACK)
+                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                        .setContentTextSize(20)
+                        .build();
+
+        /*pvOptions.setPicker(options1Items);//一级选择器
+        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
+                pvOptions1.setPicker(labelList);//三级选择器
+                pvOptions1.show();
                 break;
             case R.id.activity_create_friend_remember_rl_active_title:
                 //活动标题

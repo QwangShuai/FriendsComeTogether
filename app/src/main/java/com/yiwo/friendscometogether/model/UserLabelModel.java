@@ -1,5 +1,7 @@
 package com.yiwo.friendscometogether.model;
 
+import com.contrarywind.interfaces.IPickerViewData;
+
 import java.util.List;
 
 /**
@@ -42,7 +44,7 @@ public class UserLabelModel {
         this.obj = obj;
     }
 
-    public static class ObjBean {
+    public static class ObjBean implements IPickerViewData {
         /**
          * lID : 1
          * lname : 旅游
@@ -81,6 +83,11 @@ public class UserLabelModel {
 
         public void setLuse(String luse) {
             this.luse = luse;
+        }
+
+        @Override
+        public String getPickerViewText() {
+            return this.lname;
         }
     }
 }
