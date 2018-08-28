@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.UserRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.EditorFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.ModifyFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.MyFriendRememberActivity;
@@ -105,6 +107,15 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
                 activity.finish();
             }
         });
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(context, DetailsOfFriendsActivity.class);
+                intent.putExtra("fmid", data.get(position).getFmID());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -125,6 +136,7 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
         private RelativeLayout rlDelete;
         private RelativeLayout rlTeamIntercalation;
         private TextView tvModify;
+        private LinearLayout ll;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -139,6 +151,7 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
             rlDelete = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_delete);
             rlTeamIntercalation = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_team_intercalation);
             tvModify = itemView.findViewById(R.id.activity_my_friend_remember_rv_tv_modify);
+            ll = itemView.findViewById(R.id.ll);
         }
     }
 

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
@@ -26,12 +27,19 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoActivity;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.TResult;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -57,16 +65,21 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 import com.yiwo.friendscometogether.utils.StringUtils;
+import com.yiwo.friendscometogether.utils.TokenUtils;
+import com.yiwo.friendscometogether.widget.CustomDatePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -84,7 +97,7 @@ import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
-public class CreateFriendTogetherActivity extends BaseActivity {
+public class CreateFriendTogetherActivity extends TakePhotoActivity {
     @BindView(R.id.activity_create_friend_together_rl_back)
     RelativeLayout rlBack;
     @BindView(R.id.activity_create_friend_together_rl_edit_title)
@@ -166,6 +179,11 @@ public class CreateFriendTogetherActivity extends BaseActivity {
     private String yourChoiceId = "";
     private String yourChoiceName = "";
 
+    private CustomDatePicker customDatePicker1, customDatePicker2;
+    private String now;
+
+    private List<UserLabelModel.ObjBean> labelList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,6 +198,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
         mDay = ca.get(Calendar.DAY_OF_MONTH);
 
         init();
+        initDatePicker();
 
     }
 
@@ -221,7 +240,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
 //        });
 
         ViseHttp.POST(NetConfig.userLabel)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userLabel))
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userLabel))
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -231,12 +250,8 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 UserLabelModel userLabelModel = gson.fromJson(data, UserLabelModel.class);
-                                itemId = new String[userLabelModel.getObj().size()];
-                                itemName = new String[userLabelModel.getObj().size()];
-                                for (int i = 0; i < userLabelModel.getObj().size(); i++) {
-                                    itemId[i] = userLabelModel.getObj().get(i).getLID();
-                                    itemName[i] = userLabelModel.getObj().get(i).getLname();
-                                }
+                                labelList = new ArrayList<>();
+                                labelList.addAll(userLabelModel.getObj());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -252,6 +267,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
         StringUtils.setEditTextInputSpace(etTitle);
         etTitle.addTextChangedListener(new TextWatcher() {
             private CharSequence temp;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 temp = s;
@@ -264,12 +280,13 @@ public class CreateFriendTogetherActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvTitleNum.setText(temp.length()+"/30");
-                map.put("title",temp.toString());
+                tvTitleNum.setText(temp.length() + "/30");
+                map.put("title", temp.toString());
             }
         });
         etContent.addTextChangedListener(new TextWatcher() {
             private CharSequence temp;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 temp = s;
@@ -282,10 +299,35 @@ public class CreateFriendTogetherActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvContentNum.setText(temp.length()+"/2000");
-                map.put("content",temp.toString());
+                tvContentNum.setText(temp.length() + "/2000");
+                map.put("content", temp.toString());
             }
         });
+    }
+
+    private void initDatePicker() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        now = sdf.format(new Date());
+
+        customDatePicker1 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                map.put("begin_time", time);
+                tvTimeStart.setText(time);
+            }
+        }, now, "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker1.showSpecificTime(true); // 不显示时和分
+        customDatePicker1.setIsLoop(false); // 不允许循环滚动
+
+        customDatePicker2 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                map.put("end_time", time);
+                tvTimeEnd.setText(time);
+            }
+        }, now, "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker2.showSpecificTime(true); // 显示时和分
+        customDatePicker2.setIsLoop(false); // 允许循环滚动
     }
 
     @OnClick({R.id.activity_create_friend_together_rl_back,
@@ -323,10 +365,12 @@ public class CreateFriendTogetherActivity extends BaseActivity {
 //                });
 //                break;
             case R.id.activity_create_friend_together_rl_time_start:
-                new DatePickerDialog(CreateFriendTogetherActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
+//                new DatePickerDialog(CreateFriendTogetherActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
+                customDatePicker1.show(now);
                 break;
             case R.id.activity_create_friend_together_rl_time_end:
-                new DatePickerDialog(CreateFriendTogetherActivity.this, onDateSetListenerEnd, mYear, mMonth, mDay).show();
+//                new DatePickerDialog(CreateFriendTogetherActivity.this, onDateSetListenerEnd, mYear, mMonth, mDay).show();
+                customDatePicker2.show(now);
                 break;
             case R.id.activity_create_friend_together_rl_activity_city:
                 Intent it = new Intent(CreateFriendTogetherActivity.this, CityActivity.class);
@@ -338,7 +382,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                     @Override
                     public void setActivityText(CreateFriendsTogetherRequestModel model) {
                         map.put("price", model.getPrice());
-                        if(StringUtils.isEmpty(model.getPrice_type())){
+                        if (StringUtils.isEmpty(model.getPrice_type())) {
                             map.put("price_type", "0");
                         } else {
                             map.put("price_type", model.getPrice_type());
@@ -394,13 +438,37 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                 activitiesRequireDialog.show();
                 break;
             case R.id.activity_create_friend_together_iv_add:
-                //限数量的多选(比喻最多9张)
-                ImageSelector.builder()
-                        .useCamera(true) // 设置是否使用拍照
-                        .setSingle(true)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
-//                        .setSelected(selected) // 把已选的图片传入默认选中。
-                        .start(CreateFriendTogetherActivity.this, REQUEST_CODE); // 打开相册
+//                //限数量的多选(比喻最多9张)
+//                ImageSelector.builder()
+//                        .useCamera(true) // 设置是否使用拍照
+//                        .setSingle(true)  //设置是否单选
+//                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+////                        .setSelected(selected) // 把已选的图片传入默认选中。
+//                        .start(CreateFriendTogetherActivity.this, REQUEST_CODE); // 打开相册
+
+                // 初始化TakePhoto选取头像的配置
+                TakePhoto takePhoto = getTakePhoto();
+                CropOptions.Builder builder = new CropOptions.Builder();
+                builder.setAspectX(1500).setAspectY(744);
+                builder.setWithOwnCrop(true);
+                File file = new File(Environment.getExternalStorageDirectory(),
+                        "/temp/" + System.currentTimeMillis() + ".jpg");
+                if (!file.getParentFile().exists()) {
+                    boolean mkdirs = file.getParentFile().mkdirs();
+                    if (!mkdirs) {
+//                        ToastUtil.showShort("文件目录创建失败");
+                        Toast.makeText(CreateFriendTogetherActivity.this, "文件目录创建失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                Uri imageUri = Uri.fromFile(file);
+                CompressConfig config = new CompressConfig.Builder()
+                        .setMaxSize(102400)
+                        .setMaxPixel(400)
+                        .enableReserveRaw(true)
+                        .create();
+                takePhoto.onEnableCompress(config, true);
+                takePhoto.onPickFromDocumentsWithCrop(imageUri, builder.create());
+
                 break;
             case R.id.activity_create_friend_together_iv_delete:
                 ivDelete.setVisibility(View.GONE);
@@ -408,36 +476,42 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                 tvFirstIv.setVisibility(View.INVISIBLE);
                 break;
             case R.id.activity_create_friend_remember_rl_label:
-                AlertDialog.Builder singleChoiceDialog =
-                        new AlertDialog.Builder(CreateFriendTogetherActivity.this);
-                singleChoiceDialog.setTitle("请选择标签");
-                // 第二个参数是默认选项，此处设置为0
-                singleChoiceDialog.setSingleChoiceItems(itemName, 0,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                yourChoiceName = itemName[which];
-                                yourChoiceId = itemId[which];
-                            }
-                        });
-                singleChoiceDialog.setPositiveButton("确定",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (TextUtils.isEmpty(yourChoiceName)) {
-                                    tvLabel.setText(itemName[0]);
-                                    yourChoiceId = itemId[0];
-                                    map.put("pflable", yourChoiceId);
-                                } else {
-                                    tvLabel.setText(yourChoiceName);
-                                    yourChoiceName = "";
-                                    map.put("pflable", yourChoiceId);
-                                }
-                            }
-                        });
-                singleChoiceDialog.show();
+                OptionsPickerView pvOptions1 = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        //返回的分别是三个级别的选中位置
+//                        String tx = options1Items.get(options1).getPickerViewText() + "-" +
+//                                options2Items.get(options1).get(options2) + "-" +
+//                                options3Items.get(options1).get(options2).get(options3);
+                        tvLabel.setText(labelList.get(options1).getPickerViewText());
+                        yourChoiceId = labelList.get(options1).getLID();
+                        map.put("pflable", yourChoiceId);
+                    }
+                })
+                        .setTitleText("标签选择")
+                        .setDividerColor(Color.BLACK)
+                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                        .setContentTextSize(20)
+                        .build();
+
+        /*pvOptions.setPicker(options1Items);//一级选择器
+        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
+                pvOptions1.setPicker(labelList);//三级选择器
+                pvOptions1.show();
                 break;
         }
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        String url = result.getImage().getCompressPath();
+        Log.e("222", result.getImage().getCompressPath());
+        Glide.with(CreateFriendTogetherActivity.this).load("file://"+url).into(ivTitle);
+        path = url;
+        ivTitle.setVisibility(View.VISIBLE);
+        tvFirstIv.setVisibility(View.VISIBLE);
+        ivDelete.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -666,7 +740,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
 
         map.put("user_id", spImp.getUID());
         if ((map.size() == 18 && findPwd()) || (map.size() == 17 && !findPwd())) {
-            String token = getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
+            String token = TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
             dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendTogetherActivity.this, "请等待...");
             Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
                 @Override
@@ -723,28 +797,35 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                         @Override
                         public void onSuccess(String data) {
                             Log.i("123123", data);
-                            CreateFriendsTogetherModel model = new Gson().fromJson(data, CreateFriendsTogetherModel.class);
-                            if (model.getCode() == 200) {
-                                Log.i("hhh", "执行成功");
-                                popupWindow.dismiss();
-                                if (state == 0) {
-                                    finish();
-                                } else {
-                                    Intent it = new Intent(CreateFriendTogetherActivity.this, FriendTogetherAddContentActivity.class);
-                                    it.putExtra("pfID", model.getObj().getActivity_id()+"");
-                                    WeiboDialogUtils.closeDialog(dialog);
-                                    startActivity(it);
-                                    finish();
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    CreateFriendsTogetherModel model = new Gson().fromJson(data, CreateFriendsTogetherModel.class);
+                                    if (model.getCode() == 200) {
+                                        Log.i("hhh", "执行成功");
+                                        popupWindow.dismiss();
+                                        if (state == 0) {
+                                            finish();
+                                        } else {
+                                            Intent it = new Intent(CreateFriendTogetherActivity.this, FriendTogetherAddContentActivity.class);
+                                            it.putExtra("pfID", model.getObj().getActivity_id() + "");
+                                            WeiboDialogUtils.closeDialog(dialog);
+                                            startActivity(it);
+                                            finish();
+                                        }
+                                    } else {
+                                        Toast.makeText(CreateFriendTogetherActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                                        WeiboDialogUtils.closeDialog(dialog);
+                                    }
                                 }
-                            } else {
-                                toToast(CreateFriendTogetherActivity.this, model.getMessage());
-                                WeiboDialogUtils.closeDialog(dialog);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         }
 
                         @Override
                         public void onFail(int errCode, String errMsg) {
-                            toToast(CreateFriendTogetherActivity.this, errMsg);
+                            Toast.makeText(CreateFriendTogetherActivity.this, errMsg, Toast.LENGTH_SHORT).show();
                             WeiboDialogUtils.closeDialog(dialog);
                         }
                     });
@@ -764,7 +845,7 @@ public class CreateFriendTogetherActivity extends BaseActivity {
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .subscribe(observer);
         } else {
-            toToast(CreateFriendTogetherActivity.this, "请输入完整的创建活动信息");
+            Toast.makeText(CreateFriendTogetherActivity.this, "请输入完整的创建活动信息", Toast.LENGTH_SHORT).show();
             // 获取所有键值对对象的集合
             Set<Map.Entry<String, String>> set = map.entrySet();
             // 遍历键值对对象的集合，得到每一个键值对对象

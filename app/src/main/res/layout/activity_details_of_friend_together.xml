@@ -40,14 +40,15 @@
             android:orientation="vertical">
 
             <ImageView
+                android:adjustViewBounds="true"
                 android:id="@+id/activity_details_of_friends_together_iv_title"
                 android:layout_width="match_parent"
-                android:layout_height="372px"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="15dp"
-                android:scaleType="centerCrop" />
+                android:layout_marginBottom="30px"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/titleTv"

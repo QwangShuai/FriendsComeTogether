@@ -95,7 +95,7 @@ public class ActivitiesRequireDialog extends Dialog {
         marriageNoTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                model.setMarry("0");
+                model.setMarry("1");
                 marriageNoTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
                 marriageNoTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
                 marriageYesTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
@@ -105,7 +105,7 @@ public class ActivitiesRequireDialog extends Dialog {
         marriageYesTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                model.setMarry("1");
+                model.setMarry("0");
                 marriageYesTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
                 marriageYesTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));
                 marriageNoTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);

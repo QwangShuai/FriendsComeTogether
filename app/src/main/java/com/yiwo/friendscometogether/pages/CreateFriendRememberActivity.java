@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,12 +24,19 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoActivity;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.TResult;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -46,16 +55,21 @@ import com.yiwo.friendscometogether.model.UserReleaseModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
+import com.yiwo.friendscometogether.utils.TokenUtils;
+import com.yiwo.friendscometogether.widget.CustomDatePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -72,7 +86,7 @@ import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
-public class CreateFriendRememberActivity extends BaseActivity {
+public class CreateFriendRememberActivity extends TakePhotoActivity {
 
     @BindView(R.id.activity_create_friend_remember_rl_back)
     RelativeLayout rlBack;
@@ -165,6 +179,9 @@ public class CreateFriendRememberActivity extends BaseActivity {
 
     private List<UserLabelModel.ObjBean> labelList;
 
+    private CustomDatePicker customDatePicker1, customDatePicker2;
+    private String now;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,6 +198,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
         spImp = new SpImp(CreateFriendRememberActivity.this);
 
         init();
+        initDatePicker();
 
     }
 
@@ -211,7 +229,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
         });
 
         ViseHttp.POST(NetConfig.userLabel)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userLabel))
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userLabel))
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -236,7 +254,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 });
 
         ViseHttp.POST(NetConfig.userActiveListUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userActiveListUrl))
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.userActiveListUrl))
                 .addParam("uid", uid)
                 .request(new ACallback<String>() {
                     @Override
@@ -288,7 +306,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
         public void afterTextChanged(Editable editable) {
             tvTitleNum.setText(temp.length()+"/30");
             if(temp.length()>=30){
-                toToast(CreateFriendRememberActivity.this, "您输入的字数已经超过了限制");
+                Toast.makeText(CreateFriendRememberActivity.this, "您输入的字数已经超过了限制", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -311,10 +329,33 @@ public class CreateFriendRememberActivity extends BaseActivity {
         public void afterTextChanged(Editable editable) {
             tvContentNum.setText(temp.length()+"/2000");
             if(temp.length()>=2000){
-                toToast(CreateFriendRememberActivity.this, "您输入的字数已经超过了限制");
+                Toast.makeText(CreateFriendRememberActivity.this, "您输入的字数已经超过了限制", Toast.LENGTH_SHORT).show();
             }
         }
     };
+
+    private void initDatePicker() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        now = sdf.format(new Date());
+
+        customDatePicker1 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                tvTimeStart.setText(time);
+            }
+        }, now, "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker1.showSpecificTime(true); // 不显示时和分
+        customDatePicker1.setIsLoop(false); // 不允许循环滚动
+
+        customDatePicker2 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                tvTimeEnd.setText(time);
+            }
+        }, now, "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker2.showSpecificTime(true); // 显示时和分
+        customDatePicker2.setIsLoop(false); // 允许循环滚动
+    }
 
     private String yourChoice = "";
     @OnClick({R.id.activity_create_friend_remember_rl_back, R.id.activity_create_friend_remember_rl_edit_title, R.id.activity_create_friend_remember_rl_edit_content,
@@ -332,10 +373,12 @@ public class CreateFriendRememberActivity extends BaseActivity {
             case R.id.activity_create_friend_remember_rl_edit_content:
                 break;
             case R.id.activity_create_friend_remember_rl_time_start:
-                new DatePickerDialog(CreateFriendRememberActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
+//                new DatePickerDialog(CreateFriendRememberActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
+                customDatePicker1.show(now);
                 break;
             case R.id.activity_create_friend_remember_rl_time_end:
-                new DatePickerDialog(CreateFriendRememberActivity.this, onDateSetListenerEnd, mYear, mMonth, mDay).show();
+//                new DatePickerDialog(CreateFriendRememberActivity.this, onDateSetListenerEnd, mYear, mMonth, mDay).show();
+                customDatePicker2.show(now);
                 break;
             case R.id.activity_create_friend_remember_rl_activity_city:
                 OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
@@ -364,7 +407,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 break;
             case R.id.activity_create_friend_remember_rl_complete:
                 if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(images)||TextUtils.isEmpty(tvLabel.getText().toString())){
-                    toToast(CreateFriendRememberActivity.this, "请完善信息");
+                    Toast.makeText(CreateFriendRememberActivity.this, "请完善信息", Toast.LENGTH_SHORT).show();
                 }else {
                     showCompletePopupwindow();
                 }
@@ -380,13 +423,37 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 setPasswordDialog.show();
                 break;
             case R.id.activity_create_friend_remember_iv_add:
-                //限数量的多选(比喻最多9张)
-                ImageSelector.builder()
-                        .useCamera(true) // 设置是否使用拍照
-                        .setSingle(true)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
-//                        .setSelected(selected) // 把已选的图片传入默认选中。
-                        .start(CreateFriendRememberActivity.this, REQUEST_CODE); // 打开相册
+//                //限数量的多选(比喻最多9张)
+//                ImageSelector.builder()
+//                        .useCamera(true) // 设置是否使用拍照
+//                        .setSingle(true)  //设置是否单选
+//                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+////                        .setSelected(selected) // 把已选的图片传入默认选中。
+//                        .start(CreateFriendRememberActivity.this, REQUEST_CODE); // 打开相册
+
+                // 初始化TakePhoto选取头像的配置
+                TakePhoto takePhoto = getTakePhoto();
+                CropOptions.Builder builder = new CropOptions.Builder();
+                builder.setAspectX(1500).setAspectY(744);
+                builder.setWithOwnCrop(true);
+                File file = new File(Environment.getExternalStorageDirectory(),
+                        "/temp/" + System.currentTimeMillis() + ".jpg");
+                if (!file.getParentFile().exists()) {
+                    boolean mkdirs = file.getParentFile().mkdirs();
+                    if (!mkdirs) {
+//                        ToastUtil.showShort("文件目录创建失败");
+                        Toast.makeText(CreateFriendRememberActivity.this, "文件目录创建失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                Uri imageUri = Uri.fromFile(file);
+                CompressConfig config = new CompressConfig.Builder()
+                        .setMaxSize(102400)
+                        .setMaxPixel(400)
+                        .enableReserveRaw(true)
+                        .create();
+                takePhoto.onEnableCompress(config, true);
+                takePhoto.onPickFromDocumentsWithCrop(imageUri, builder.create());
+
                 break;
             case R.id.activity_create_friend_remember_iv_delete:
                 ivDelete.setVisibility(View.GONE);
@@ -446,7 +513,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                             });
                     singleChoiceDialog1.show();
                 }else {
-                    toToast(CreateFriendRememberActivity.this, "暂无活动");
+                    Toast.makeText(CreateFriendRememberActivity.this, "暂无活动", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.activity_create_friend_remember_rl_is_intercalation:
@@ -478,6 +545,18 @@ public class CreateFriendRememberActivity extends BaseActivity {
                 singleChoiceDialog1.show();
                 break;
         }
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        String url = result.getImage().getCompressPath();
+        Log.e("222", result.getImage().getCompressPath());
+        Glide.with(CreateFriendRememberActivity.this).load("file://"+url).into(ivTitle);
+        images = url;
+        ivTitle.setVisibility(View.VISIBLE);
+        tvFirstIv.setVisibility(View.VISIBLE);
+        ivDelete.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -722,7 +801,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                     public void onNext(File value) {
                         ViseHttp.UPLOAD(NetConfig.userRelease)
                                 .addHeader("Content-Type","multipart/form-data")
-                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userRelease))
                                 .addParam("fmtitle", etTitle.getText().toString())
                                 .addParam("fmcontent", etContent.getText().toString())
                                 .addParam("fmaddress", tvCity.getText().toString())
@@ -742,7 +821,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if (jsonObject.getInt("code") == 200) {
-                                                toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
+                                                Toast.makeText(CreateFriendRememberActivity.this, jsonObject.getString("message") + "", Toast.LENGTH_SHORT).show();
                                                 WeiboDialogUtils.closeDialog(dialog);
                                                 onBackPressed();
                                             }
@@ -820,7 +899,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                     public void onNext(File value) {
                         ViseHttp.UPLOAD(NetConfig.userRelease)
                                 .addHeader("Content-Type","multipart/form-data")
-                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userRelease))
                                 .addParam("fmtitle", etTitle.getText().toString())
                                 .addParam("fmcontent", etContent.getText().toString())
                                 .addParam("fmaddress", tvCity.getText().toString())
@@ -840,7 +919,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if (jsonObject.getInt("code") == 200) {
-                                                toToast(CreateFriendRememberActivity.this, jsonObject.getString("message") + "");
+                                                Toast.makeText(CreateFriendRememberActivity.this, jsonObject.getString("message") + "", Toast.LENGTH_SHORT).show();
                                                 WeiboDialogUtils.closeDialog(dialog);
                                                 onBackPressed();
                                             }
@@ -918,7 +997,7 @@ public class CreateFriendRememberActivity extends BaseActivity {
                     public void onNext(File value) {
                         ViseHttp.UPLOAD(NetConfig.userRelease)
                                 .addHeader("Content-Type","multipart/form-data")
-                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userRelease))
                                 .addParam("fmtitle", etTitle.getText().toString())
                                 .addParam("fmcontent", etContent.getText().toString())
                                 .addParam("fmaddress", tvCity.getText().toString())

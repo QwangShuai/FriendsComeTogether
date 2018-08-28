@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
@@ -23,12 +24,19 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoActivity;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.TResult;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -53,14 +61,19 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 import com.yiwo.friendscometogether.utils.StringUtils;
+import com.yiwo.friendscometogether.utils.TokenUtils;
+import com.yiwo.friendscometogether.widget.CustomDatePicker;
 
 import org.json.JSONArray;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -78,7 +91,7 @@ import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
-public class EditorMainFriendTogetherActivity extends BaseActivity {
+public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
     @BindView(R.id.activity_editor_main_friend_together_rl_back)
     RelativeLayout rlBack;
     @BindView(R.id.activity_editor_main_friend_together_rl_edit_title)
@@ -148,6 +161,9 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
     String pfID = "";
     GetEditorFriendTogetherModel.ObjBean bean = new GetEditorFriendTogetherModel.ObjBean();
 
+    private CustomDatePicker customDatePicker1, customDatePicker2;
+    private String now;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +178,7 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
         mDay = ca.get(Calendar.DAY_OF_MONTH);
 
         init();
+        initDatePicker();
 
     }
 
@@ -250,6 +267,31 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
         });
     }
 
+    private void initDatePicker() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        now = sdf.format(new Date());
+
+        customDatePicker1 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                map.put("pfgotime", time);
+                tvTimeStart.setText(time);
+            }
+        }, now, "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker1.showSpecificTime(true); // 不显示时和分
+        customDatePicker1.setIsLoop(false); // 不允许循环滚动
+
+        customDatePicker2 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                map.put("pfendtime", time);
+                tvTimeEnd.setText(time);
+            }
+        }, now, "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker2.showSpecificTime(true); // 显示时和分
+        customDatePicker2.setIsLoop(false); // 允许循环滚动
+    }
+
     @OnClick({R.id.activity_editor_main_friend_together_rl_back,
             R.id.activity_editor_main_friend_together_rl_time_start, R.id.activity_editor_main_friend_together_rl_time_end, R.id.activity_editor_main_friend_together_rl_activity_city,
             R.id.activity_editor_main_friend_together_rl_price, R.id.activity_editor_main_friend_together_rl_complete, R.id.activity_editor_main_friend_together_rl_enter_activities,
@@ -285,10 +327,12 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
 //                });
 //                break;
             case R.id.activity_editor_main_friend_together_rl_time_start:
-                new DatePickerDialog(EditorMainFriendTogetherActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
+//                new DatePickerDialog(EditorMainFriendTogetherActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
+                customDatePicker1.show(now);
                 break;
             case R.id.activity_editor_main_friend_together_rl_time_end:
-                new DatePickerDialog(EditorMainFriendTogetherActivity.this, onDateSetListenerEnd, mYear, mMonth, mDay).show();
+//                new DatePickerDialog(EditorMainFriendTogetherActivity.this, onDateSetListenerEnd, mYear, mMonth, mDay).show();
+                customDatePicker2.show(now);
                 break;
             case R.id.activity_editor_main_friend_together_rl_activity_city:
                 Intent it = new Intent(EditorMainFriendTogetherActivity.this, CityActivity.class);
@@ -356,13 +400,37 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
                 activitiesRequireDialog.show();
                 break;
             case R.id.activity_editor_main_friend_together_iv_add:
-                //限数量的多选(比喻最多9张)
-                ImageSelector.builder()
-                        .useCamera(true) // 设置是否使用拍照
-                        .setSingle(true)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
-//                        .setSelected(selected) // 把已选的图片传入默认选中。
-                        .start(EditorMainFriendTogetherActivity.this, REQUEST_CODE); // 打开相册
+//                //限数量的多选(比喻最多9张)
+//                ImageSelector.builder()
+//                        .useCamera(true) // 设置是否使用拍照
+//                        .setSingle(true)  //设置是否单选
+//                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+////                        .setSelected(selected) // 把已选的图片传入默认选中。
+//                        .start(EditorMainFriendTogetherActivity.this, REQUEST_CODE); // 打开相册
+
+                // 初始化TakePhoto选取头像的配置
+                TakePhoto takePhoto = getTakePhoto();
+                CropOptions.Builder builder = new CropOptions.Builder();
+                builder.setAspectX(1500).setAspectY(744);
+                builder.setWithOwnCrop(true);
+                File file = new File(Environment.getExternalStorageDirectory(),
+                        "/temp/" + System.currentTimeMillis() + ".jpg");
+                if (!file.getParentFile().exists()) {
+                    boolean mkdirs = file.getParentFile().mkdirs();
+                    if (!mkdirs) {
+//                        ToastUtil.showShort("文件目录创建失败");
+                        Toast.makeText(EditorMainFriendTogetherActivity.this, "文件目录创建失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                Uri imageUri = Uri.fromFile(file);
+                CompressConfig config = new CompressConfig.Builder()
+                        .setMaxSize(102400)
+                        .setMaxPixel(400)
+                        .enableReserveRaw(true)
+                        .create();
+                takePhoto.onEnableCompress(config, true);
+                takePhoto.onPickFromDocumentsWithCrop(imageUri, builder.create());
+
                 break;
             case R.id.activity_editor_main_friend_together_iv_delete:
                 map.put("if_pic", "1");
@@ -371,6 +439,18 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
                 tvFirstIv.setVisibility(View.INVISIBLE);
                 break;
         }
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        String url = result.getImage().getCompressPath();
+        Log.e("222", result.getImage().getCompressPath());
+        Glide.with(EditorMainFriendTogetherActivity.this).load("file://" + url).into(ivTitle);
+        path = url;
+        ivTitle.setVisibility(View.VISIBLE);
+        tvFirstIv.setVisibility(View.VISIBLE);
+        ivDelete.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -549,7 +629,7 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
     public void onComplete() {
         map.put("user_id", spImp.getUID());
         if ((map.size() == 18 && findPwd()) || (map.size() == 17 && !findPwd())) {
-            final String token = getToken(NetConfig.BaseUrl + NetConfig.editorFriendTogetherUrl);
+            final String token = TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.editorFriendTogetherUrl);
             if (StringUtils.isEmpty(path)) {
                 ViseHttp.POST(NetConfig.editorFriendTogetherUrl)
                         .addParams(map)
@@ -565,7 +645,7 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
                                     finish();
 
                                 } else {
-                                    toToast(EditorMainFriendTogetherActivity.this, model.getMessage());
+                                    Toast.makeText(EditorMainFriendTogetherActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -636,13 +716,13 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
                                     finish();
 
                                 } else {
-                                    toToast(EditorMainFriendTogetherActivity.this, model.getMessage());
+                                    Toast.makeText(EditorMainFriendTogetherActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                toToast(EditorMainFriendTogetherActivity.this, errMsg);
+                                Toast.makeText(EditorMainFriendTogetherActivity.this, errMsg, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -663,7 +743,7 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
             }
 
         } else {
-            toToast(EditorMainFriendTogetherActivity.this, "请输入完整的创建活动信息");
+            Toast.makeText(EditorMainFriendTogetherActivity.this, "请输入完整的创建活动信息", Toast.LENGTH_SHORT).show();
             // 获取所有键值对对象的集合
             Set<Map.Entry<String, String>> set = map.entrySet();
             // 遍历键值对对象的集合，得到每一个键值对对象
@@ -684,8 +764,8 @@ public class EditorMainFriendTogetherActivity extends BaseActivity {
         // 遍历键值对对象的集合，得到每一个键值对对象
         for (Map.Entry<String, String> me : set) {
             // 根据键值对对象获取键和值
-            if ("follow_pass".equals(me.getKey())) {
-                Log.i("follow_pass", "找到了密码");
+            if ("pfpwd".equals(me.getKey())) {
+                Log.i("pfpwd", "找到了密码");
                 b = true;
                 break;
             }
