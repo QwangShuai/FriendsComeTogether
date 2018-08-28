@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -144,6 +145,10 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
     TextView tvIsIntercalation;
     @BindView(R.id.activity_create_friend_remember_tv_encryption)
     TextView tvPassword;
+    @BindView(R.id.rl_more)
+    RelativeLayout rlMore;
+    @BindView(R.id.ll_content)
+    LinearLayout llContent;
 
     private int mYear;
     private int mMonth;
@@ -362,7 +367,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
             R.id.activity_create_friend_remember_rl_time_start, R.id.activity_create_friend_remember_rl_time_end, R.id.activity_create_friend_remember_rl_activity_city,
             R.id.activity_create_friend_remember_rl_price, R.id.activity_create_friend_remember_rl_complete, R.id.activity_create_friend_remember_rl_set_password,
             R.id.activity_create_friend_remember_iv_add, R.id.activity_create_friend_remember_iv_delete, R.id.activity_create_friend_remember_rl_label,
-            R.id.activity_create_friend_remember_rl_active_title, R.id.activity_create_friend_remember_rl_is_intercalation})
+            R.id.activity_create_friend_remember_rl_active_title, R.id.activity_create_friend_remember_rl_is_intercalation, R.id.rl_more})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_create_friend_remember_rl_back:
@@ -543,6 +548,10 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
                             }
                         });
                 singleChoiceDialog1.show();
+                break;
+            case R.id.rl_more:
+                rlMore.setVisibility(View.GONE);
+                llContent.setVisibility(View.VISIBLE);
                 break;
         }
     }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.netease.nim.uikit.api.NimUIKit;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
@@ -38,7 +39,7 @@ public class SetActivity extends BaseActivity {
                 break;
             case R.id.activity_set_rl_upload:
 //                toToast(this,"检查更新");
-                startActivity(new Intent(SetActivity.this, UpdateActivity.class));
+//                startActivity(new Intent(SetActivity.this, UpdateActivity.class));
                 break;
             case R.id.activity_set_rl_feedback:
 //                toToast(this,"意见反馈");
@@ -70,6 +71,9 @@ public class SetActivity extends BaseActivity {
                             @Override
                             public void sureBtnListener() {
                                 spImp.setUID("0");
+                                spImp.setYXID("0");
+                                spImp.setYXTOKEN("0");
+                                NimUIKit.logout();
                                 finish();
                             }
                         });

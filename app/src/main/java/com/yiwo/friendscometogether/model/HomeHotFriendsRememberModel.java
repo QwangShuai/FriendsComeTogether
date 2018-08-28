@@ -215,9 +215,18 @@ public class HomeHotFriendsRememberModel {
              * img : http://47.92.136.19/uploads/videos/20180723/20180723/518fb806764967b97ee7f59a7d2d2795.jpg
              */
 
+            private String vID;
             private String vname;
             private String vurl;
             private String img;
+
+            public String getVID() {
+                return vID;
+            }
+
+            public void setVID(String vID) {
+                this.vID = vID;
+            }
 
             public String getVname() {
                 return vname;

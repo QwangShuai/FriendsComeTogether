@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.UserFocusModel;
 import com.yiwo.friendscometogether.pages.InvitationActivity;
+import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 
 import java.util.List;
 
@@ -77,6 +79,15 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
                 }
             }
         });
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("uid", data.get(position).getLikeuserID());
+                intent.setClass(context, OtherInformationActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -94,6 +105,7 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
         private TextView tvActivityId;
         private TextView tv2;
         private TextView tv1;
+        private LinearLayout ll;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -105,6 +117,7 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
             tvActivityId = itemView.findViewById(R.id.activity_my_focus_rv_tv_activity_id);
             tv2 = itemView.findViewById(R.id.activity_my_focus_rv_tv_2);
             tv1 = itemView.findViewById(R.id.activity_my_focus_rv_tv_1);
+            ll = itemView.findViewById(R.id.ll);
         }
     }
 

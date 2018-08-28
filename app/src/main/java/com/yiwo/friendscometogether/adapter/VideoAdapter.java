@@ -48,6 +48,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 it.putExtra("videoUrl",data.get(position).getVurl());
                 it.putExtra("title",data.get(position).getVname());
                 it.putExtra("picUrl",data.get(position).getImg());
+                it.putExtra("vid",data.get(position).getVID());
                 context.startActivity(it);
             }
         });

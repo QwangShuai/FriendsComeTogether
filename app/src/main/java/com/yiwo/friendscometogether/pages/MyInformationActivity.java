@@ -5,7 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,12 +16,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoActivity;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.TResult;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -33,6 +42,7 @@ import com.yiwo.friendscometogether.model.UserModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
+import com.yiwo.friendscometogether.utils.TokenUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,8 +63,11 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
-public class MyInformationActivity extends BaseActivity {
+public class MyInformationActivity extends TakePhotoActivity {
 
     @BindView(R.id.activity_my_information_rl_back)
     RelativeLayout rlBack;
@@ -157,7 +170,7 @@ public class MyInformationActivity extends BaseActivity {
 
         uid = spImp.getUID();
         ViseHttp.POST(NetConfig.userInformation)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userInformation))
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.userInformation))
                 .addParam("uid", uid)
                 .request(new ACallback<String>() {
                     @Override
@@ -309,15 +322,126 @@ public class MyInformationActivity extends BaseActivity {
                 onSave();
                 break;
             case R.id.activity_my_information_iv_avatar:
-                //限数量的多选(比喻最多9张)
-                ImageSelector.builder()
-                        .useCamera(true) // 设置是否使用拍照
-                        .setSingle(true)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
-//                        .setSelected(selected) // 把已选的图片传入默认选中。
-                        .start(MyInformationActivity.this, REQUEST_CODE); // 打开相册
+//                //限数量的多选(比喻最多9张)
+//                ImageSelector.builder()
+//                        .useCamera(true) // 设置是否使用拍照
+//                        .setSingle(true)  //设置是否单选
+//                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+////                        .setSelected(selected) // 把已选的图片传入默认选中。
+//                        .start(MyInformationActivity.this, REQUEST_CODE); // 打开相册
+
+                // 初始化TakePhoto选取头像的配置
+                TakePhoto takePhoto = getTakePhoto();
+                CropOptions.Builder builder = new CropOptions.Builder();
+                builder.setAspectX(800).setAspectY(800);
+                builder.setWithOwnCrop(true);
+                File file = new File(Environment.getExternalStorageDirectory(),
+                        "/temp/" + System.currentTimeMillis() + ".jpg");
+                if (!file.getParentFile().exists()) {
+                    boolean mkdirs = file.getParentFile().mkdirs();
+                    if (!mkdirs) {
+//                        ToastUtil.showShort("文件目录创建失败");
+                        Toast.makeText(MyInformationActivity.this, "文件目录创建失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                Uri imageUri = Uri.fromFile(file);
+                CompressConfig config = new CompressConfig.Builder()
+                        .setMaxSize(102400)
+                        .setMaxPixel(400)
+                        .enableReserveRaw(true)
+                        .create();
+                takePhoto.onEnableCompress(config, true);
+                takePhoto.onPickFromDocumentsWithCrop(imageUri, builder.create());
+
                 break;
         }
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        final String url = result.getImage().getCompressPath();
+        Log.e("222", result.getImage().getCompressPath());
+        Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
+            @Override
+            public void subscribe(final ObservableEmitter<File> e) throws Exception {
+                Luban.with(MyInformationActivity.this)
+                        .load(url)
+                        .ignoreBy(100)
+                        .filter(new CompressionPredicate() {
+                            @Override
+                            public boolean apply(String path) {
+                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                            }
+                        })
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                // TODO 压缩成功后调用，返回压缩后的图片文件
+                                e.onNext(file);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // TODO 当压缩过程出现问题时调用
+                            }
+                        }).launch();
+            }
+        });
+        Observer<File> observer = new Observer<File>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(File value) {
+
+                ViseHttp.UPLOAD(NetConfig.userUploadHeaderUrl)
+                        .addHeader("Content-Type","multipart/form-data")
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userUploadHeaderUrl))
+                        .addParam("uid", uid)
+                        .addFile("images", value)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    Log.e("222", data);
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        Toast.makeText(MyInformationActivity.this, "头像上传成功", Toast.LENGTH_SHORT).show();
+                                        Glide.with(MyInformationActivity.this).load("file://"+url).into(ivAvatar);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.observeOn(Schedulers.newThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
     @Override
@@ -344,7 +468,7 @@ public class MyInformationActivity extends BaseActivity {
 
                     ViseHttp.UPLOAD(NetConfig.userUploadHeaderUrl)
                             .addHeader("Content-Type","multipart/form-data")
-                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userUploadHeaderUrl))
+                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userUploadHeaderUrl))
                             .addParam("uid", uid)
                             .addFile("images", value)
                             .request(new ACallback<String>() {
@@ -354,7 +478,7 @@ public class MyInformationActivity extends BaseActivity {
                                         Log.e("222", data);
                                         JSONObject jsonObject = new JSONObject(data);
                                         if(jsonObject.getInt("code") == 200){
-                                            toToast(MyInformationActivity.this, "头像上传成功");
+                                            Toast.makeText(MyInformationActivity.this, "头像上传成功", Toast.LENGTH_SHORT).show();
                                             Picasso.with(MyInformationActivity.this).load("file://"+list.get(0)).into(ivAvatar);
                                         }
                                     } catch (JSONException e) {
@@ -391,7 +515,7 @@ public class MyInformationActivity extends BaseActivity {
     private void onSave() {
 
         ViseHttp.POST(NetConfig.saveUserInformationUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.saveUserInformationUrl))
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.saveUserInformationUrl))
                 .addParam("uid", uid)
                 .addParam("username", TextUtils.isEmpty(etUsername.getText().toString())?etUsername.getHint().toString():etUsername.getText().toString())
                 .addParam("usersex", tvSex.getText().toString().equals("男")?"1":"2")
@@ -406,7 +530,7 @@ public class MyInformationActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
-                                toToast(MyInformationActivity.this, "保存成功");
+                                Toast.makeText(MyInformationActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             }
                         } catch (JSONException e) {

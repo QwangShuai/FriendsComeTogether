@@ -212,4 +212,6 @@ public class NetConfig {
     public static String invitationOkUrl = "action/ac_activity/ActivityInfo";
     //消息中心邀请(拒绝)
     public static String invitationNoUrl = "action/ac_activity/refuse";
+    //视频相关活动
+    public static String videoActiveUrl = "action/ac_activity/video_activity";
 }
