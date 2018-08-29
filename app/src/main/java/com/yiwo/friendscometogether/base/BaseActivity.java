@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
+import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.MyFriendRememberActivity;
@@ -32,6 +33,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        MyApplication.getInstance().addActivity(this);
     }
     /**
      * 检测当的网络（WLAN、3G/2G）状态

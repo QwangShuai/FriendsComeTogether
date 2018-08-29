@@ -218,7 +218,8 @@
         <activity android:name=".pages.SearchListActivity" />
         <activity
             android:name=".pages.VideoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity android:name=".pages.ModifyFriendRememberActivity" />
         <activity android:name=".pages.ModifyIntercalationActivity" />
 

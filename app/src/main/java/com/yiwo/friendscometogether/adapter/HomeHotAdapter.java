@@ -78,14 +78,10 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
         holder.childrenLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (spImp.getUID().equals("0")) {
-                    context.startActivity(new Intent(context, LoginActivity.class));
-                } else {
-                    Intent intent = new Intent();
-                    intent.setClass(context, DetailsOfFriendsActivity.class);
-                    intent.putExtra("fmid", data.get(position).getFmID());
-                    context.startActivity(intent);
-                }
+                Intent intent = new Intent();
+                intent.setClass(context, DetailsOfFriendsActivity.class);
+                intent.putExtra("fmid", data.get(position).getFmID());
+                context.startActivity(intent);
             }
         });
 //        } else {

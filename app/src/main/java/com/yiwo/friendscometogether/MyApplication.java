@@ -4,6 +4,7 @@ package com.yiwo.friendscometogether;
  * Created by Administrator on 2018/7/13.
  */
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -33,6 +34,9 @@ import com.yiwo.friendscometogether.network.UMConfig;
 import com.yiwo.friendscometogether.utils.FTPTimeCount;
 import com.yiwo.friendscometogether.utils.TimeCount;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import cn.jpush.android.api.JPushInterface;
 
 
@@ -48,6 +52,13 @@ public class MyApplication extends Application {
     public static String Version_Name;
     public static String Phone_model;
     public static String Phone_system_version;
+
+    private List<Activity> mList = new LinkedList<Activity>();
+    private static MyApplication instance;
+
+    public MyApplication() {
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -58,10 +69,10 @@ public class MyApplication extends Application {
         JPushInterface.init(this);
         UMShareAPI.get(this);
         UMConfigure.setLogEnabled(true);
-        UMConfigure.init(this,"5b5579fbb27b0a608200000d"
-                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+        UMConfigure.init(this, "5b5579fbb27b0a608200000d"
+                , "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         {
-            PlatformConfig.setWeixin(UMConfig.WECHAT_APPID,UMConfig.WECHAT_APPSECRET);
+            PlatformConfig.setWeixin(UMConfig.WECHAT_APPID, UMConfig.WECHAT_APPSECRET);
         }
         ViseHttp.init(this);
         ViseHttp.CONFIG()
@@ -69,9 +80,8 @@ public class MyApplication extends Application {
                 .baseUrl(NetConfig.BaseUrl);
 
         //oncreate方法中写
-        timecount =  new TimeCount(60000, 1000);
-        ftptimecount =  new FTPTimeCount(60000, 1000);
-
+        timecount = new TimeCount(60000, 1000);
+        ftptimecount = new FTPTimeCount(60000, 1000);
 
 
         if (NIMUtil.isMainProcess(this)) {
@@ -82,6 +92,36 @@ public class MyApplication extends Application {
             NimUIKit.init(this);
         }
 
+    }
+
+    public synchronized static MyApplication getInstance() {
+        if (null == instance) {
+            instance = new MyApplication();
+        }
+        return instance;
+    }
+
+    // add Activity
+    public void addActivity(Activity activity) {
+        mList.add(activity);
+    }
+
+    public void exit() {
+        try {
+            for (Activity activity : mList) {
+                if (activity != null)
+                    activity.finish();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            System.exit(0);
+        }
+    }
+
+    public void onLowMemory() {
+        super.onLowMemory();
+        System.gc();
     }
 
     @Override

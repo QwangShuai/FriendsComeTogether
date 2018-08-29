@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.netease.nim.uikit.api.NimUIKit;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
+import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.PopDialog;
@@ -74,7 +75,7 @@ public class SetActivity extends BaseActivity {
                                 spImp.setYXID("0");
                                 spImp.setYXTOKEN("0");
                                 NimUIKit.logout();
-                                finish();
+                                MyApplication.getInstance().exit();
                             }
                         });
                 dialog.show();

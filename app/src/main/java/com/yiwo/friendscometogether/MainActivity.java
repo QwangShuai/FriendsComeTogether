@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.fragment.ChatFragment;
@@ -91,12 +92,15 @@ public class MainActivity extends FragmentActivity {
     @BindView(R.id.tv_my)
     TextView tvMy;
 
+    private long exitTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         ButterKnife.bind(MainActivity.this);
+        MyApplication.getInstance().addActivity(this);
         getPermissions();
 //        initView();
 
@@ -304,4 +308,24 @@ public class MainActivity extends FragmentActivity {
             ActivityCompat.requestPermissions(this, permissions, 1);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        // TODO 自动生成的方法存根
+        backtrack();
+    }
+
+    /**
+     * 退出销毁所有activity
+     */
+    private void backtrack() {
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            MyApplication.getInstance().exit();
+            exitTime = 0;
+        }
+    }
+
 }
