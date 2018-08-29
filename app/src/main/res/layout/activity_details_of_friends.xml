@@ -116,7 +116,7 @@
                 android:layout_marginLeft="20px"
                 android:layout_marginRight="20px"
                 android:layout_marginTop="10px"
-                android:background="#E5E5E5" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -331,7 +331,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="12px"
-                    android:background="#F5F5F5" />
+                    android:background="@color/line" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -437,7 +437,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="12px"
-                    android:background="#F5F5F5" />
+                    android:background="@color/line" />
 
             </RelativeLayout>
 

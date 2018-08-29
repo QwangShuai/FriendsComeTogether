@@ -68,7 +68,7 @@
                 android:layout_marginRight="40px"
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:background="#F2F2F2" />
+                android:background="@color/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,7 +104,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F2F2F2" />
+                android:background="@color/line" />
 
             <LinearLayout
                 android:layout_marginTop="24px"
@@ -173,7 +173,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2px"
-                    android:background="#F2F2F2" />
+                    android:background="@color/line" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -247,7 +247,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F2F2F2" />
+                android:background="@color/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -281,7 +281,7 @@
                 android:layout_marginRight="40px"
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:background="#F2F2F2" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/apply_num_ll"
@@ -340,7 +340,7 @@
                 android:layout_marginRight="40px"
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:background="#F2F2F2" />
+                android:background="@color/line" />
 
             <LinearLayout
                 android:id="@+id/apply_vessel_ll"
@@ -379,7 +379,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="12px"
-                    android:background="#F2F2F2" />
+                    android:background="@color/line" />
             </LinearLayout>
 
         </LinearLayout>

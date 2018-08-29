@@ -50,7 +50,7 @@
             <View
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/activity_real_name_tv_name"
-                android:background="#E5E5E5"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="2px"/>
 
@@ -86,7 +86,7 @@
             <View
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/activity_real_name_tv_idnum"
-                android:background="#E5E5E5"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="2px"/>
 

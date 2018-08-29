@@ -91,7 +91,7 @@
                 
                 <View
                     android:layout_marginTop="24px"
-                    android:background="#F2F2F2"
+                    android:background="@color/line"
                     android:layout_width="match_parent"
                     android:layout_height="2px"/>
 

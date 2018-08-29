@@ -89,7 +89,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:visibility="gone"
@@ -189,7 +189,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_create_friend_remember_rl_active_title"
@@ -238,7 +238,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_create_friend_remember_rl_time_start"
@@ -287,7 +287,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_create_friend_remember_rl_time_end"
@@ -336,7 +336,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_create_friend_remember_rl_activity_city"
@@ -385,7 +385,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:focusable="true"
@@ -440,7 +440,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_create_friend_remember_rl_label"
@@ -491,7 +491,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_create_friend_remember_rl_set_password"
@@ -541,7 +541,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_create_friend_remember_rl_is_intercalation"

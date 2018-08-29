@@ -450,7 +450,7 @@
                 android:layout_marginTop="20px"
                 android:layout_width="match_parent"
                 android:layout_height="20px"
-                android:background="#f2f2f2" />
+                android:background="@color/line" />
 
             <TextView
                 android:id="@+id/participantsTv"
@@ -480,7 +480,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20px"
                 android:layout_marginTop="20px"
-                android:background="@color/black_f8f8f8" />
+                android:background="@color/line" />
             <!--<TextView-->
             <!--android:textSize="32px"-->
             <!--android:textColor="@color/black_333333"-->
@@ -506,7 +506,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20px"
-                android:background="@color/black_f8f8f8" />
+                android:background="@color/line" />
 
             <TextView
                 android:id="@+id/comment_tv"

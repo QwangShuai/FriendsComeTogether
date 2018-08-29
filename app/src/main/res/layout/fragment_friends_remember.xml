@@ -59,7 +59,7 @@
                 
                 <View
                     android:layout_marginTop="24px"
-                    android:background="#f2f2f2"
+                    android:background="@color/line"
                     android:layout_width="match_parent"
                     android:layout_height="2px"/>
 

@@ -80,7 +80,7 @@
             </RelativeLayout>
 
             <View
-                android:background="#F8F8F8"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
 

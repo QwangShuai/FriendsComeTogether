@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.yiwo.friendscometogether.pages.UserAgreementActivity">
+
     <RelativeLayout
         android:id="@+id/activity_user_agreement_rl_top"
         style="@style/rl_top_bar">
@@ -25,6 +26,7 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
     <WebView
         android:id="@+id/activity_user_agreement_webview"
         android:layout_width="match_parent"

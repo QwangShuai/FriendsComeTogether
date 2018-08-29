@@ -50,7 +50,7 @@
 
                 <View
                     android:layout_below="@+id/fragment_my_head_bg"
-                    android:background="#F8F8F8"
+                    android:background="@color/line"
                     android:layout_width="match_parent"
                     android:layout_height="20px"/>
 
@@ -169,7 +169,7 @@
             </RelativeLayout>
             
             <View
-                android:background="#E5E5E5"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="2px"/>
 
@@ -281,7 +281,7 @@
             </LinearLayout>
             
             <View
-                android:background="#F8F8F8"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
 
@@ -301,7 +301,7 @@
             </RelativeLayout>
             
             <View
-                android:background="#E5E5E5"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="2px"/>
 
@@ -413,7 +413,7 @@
             </LinearLayout>
 
             <View
-                android:background="#F8F8F8"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
 
@@ -451,7 +451,7 @@
             </RelativeLayout>
 
             <View
-                android:background="#F8F8F8"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
 
@@ -489,7 +489,7 @@
             </RelativeLayout>
 
             <View
-                android:background="#F8F8F8"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
 
@@ -527,7 +527,7 @@
             </RelativeLayout>
 
             <View
-                android:background="#F1F1F1"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="20px"/>
 
@@ -565,7 +565,7 @@
             </RelativeLayout>
 
             <View
-                android:background="#F8F8F8"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
 
@@ -603,7 +603,7 @@
             </RelativeLayout>
 
             <View
-                android:background="#F8F8F8"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
 
@@ -640,7 +640,7 @@
 
                 <View
                     android:layout_alignParentBottom="true"
-                    android:background="#F8F8F8"
+                    android:background="@color/line"
                     android:layout_width="match_parent"
                     android:layout_height="12px"/>
 
@@ -680,7 +680,7 @@
             </RelativeLayout>
 
             <View
-                android:background="#F1F1F1"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="20px"/>
 
@@ -718,7 +718,7 @@
             </RelativeLayout>
 
             <View
-                android:background="#F8F8F8"
+                android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
 

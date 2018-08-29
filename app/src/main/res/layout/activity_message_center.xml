@@ -93,7 +93,7 @@
         android:layout_height="2px"
         android:layout_marginLeft="20px"
         android:layout_marginRight="20px"
-        android:background="@color/gray_e5e5e5" />
+        android:background="@color/line" />
 
     <RelativeLayout
         android:id="@+id/set_message_rl"
@@ -162,7 +162,7 @@
         android:layout_height="2px"
         android:layout_marginLeft="20px"
         android:layout_marginRight="20px"
-        android:background="@color/gray_e5e5e5" />
+        android:background="@color/line" />
 
     <RelativeLayout
         android:id="@+id/invitation_message_rl"
@@ -231,7 +231,7 @@
         android:layout_height="2px"
         android:layout_marginLeft="20px"
         android:layout_marginRight="20px"
-        android:background="@color/gray_e5e5e5" />
+        android:background="@color/line" />
 
     <RelativeLayout
         android:id="@+id/comment_message_rl"
@@ -300,7 +300,7 @@
         android:layout_height="2px"
         android:layout_marginLeft="20px"
         android:layout_marginRight="20px"
-        android:background="@color/gray_e5e5e5" />
+        android:background="@color/line" />
 
     <RelativeLayout
         android:id="@+id/friend_message_rl"
@@ -367,5 +367,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="20px"
-        android:background="@color/black_f8f8f8" />
+        android:background="@color/line" />
 </LinearLayout>

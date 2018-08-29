@@ -9,7 +9,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="20px"
-        android:background="#F2F2F2" />
+        android:background="@color/line" />
 
     <ImageView
         android:id="@+id/fragment_friend_together_rv_iv_title"
@@ -201,7 +201,7 @@
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:layout_margin="20px"
-        android:background="@color/gray_e5e5e5"></View>
+        android:background="@color/line"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -86,7 +86,7 @@
         android:layout_marginTop="30px"
         android:layout_marginLeft="35px"
         android:layout_marginRight="35px"
-        android:background="#E5E5E5"
+        android:background="@color/line"
         android:layout_width="match_parent"
         android:layout_height="2px"/>
     
@@ -123,7 +123,7 @@
     </RelativeLayout>
     
     <View
-        android:background="#F8F8F8"
+        android:background="@color/line"
         android:layout_width="match_parent"
         android:layout_height="12px"/>
 

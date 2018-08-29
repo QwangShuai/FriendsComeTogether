@@ -45,7 +45,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="12px"
-        android:background="#F8F8F8" />
+        android:background="@color/line" />
 
     <RelativeLayout
         android:id="@+id/activity_create_friend_remember_rl_active_title"
@@ -94,7 +94,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="12px"
-        android:background="#F8F8F8" />
+        android:background="@color/line" />
 
     <RadioGroup
         android:visibility="gone"

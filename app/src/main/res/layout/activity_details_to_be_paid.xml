@@ -130,7 +130,7 @@
         </RelativeLayout>
 
         <View
-            android:background="#E5E5E5"
+            android:background="@color/line"
             android:layout_width="match_parent"
             android:layout_height="2px"/>
 
@@ -193,7 +193,7 @@
         
         <View
             android:layout_marginTop="20px"
-            android:background="#F1F1F1"
+            android:background="@color/line"
             android:layout_width="match_parent"
             android:layout_height="20px"/>
 
@@ -206,7 +206,7 @@
         android:layout_height="100px">
 
         <View
-            android:background="#E5E5E5"
+            android:background="@color/line"
             android:layout_width="match_parent"
             android:layout_height="2px"/>
 

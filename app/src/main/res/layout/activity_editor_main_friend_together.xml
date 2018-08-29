@@ -25,17 +25,17 @@
 
         <RelativeLayout
             android:id="@+id/activity_editor_main_friend_together_rl_complete"
-            android:layout_alignParentRight="true"
             android:layout_width="100px"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
 
             <TextView
-                android:layout_centerInParent="true"
-                android:textColor="@color/white_ffffff"
-                android:textSize="30px"
-                android:text="完成"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="完成"
+                android:textColor="@color/white_ffffff"
+                android:textSize="30px" />
 
         </RelativeLayout>
 
@@ -52,24 +52,24 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:id="@+id/activity_editor_main_friend_together_rl_edit_title"
                 android:layout_width="match_parent"
-                android:layout_height="88px">
+                android:layout_height="88px"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <EditText
-                    android:maxLength="30"
-                    android:gravity="start"
-                    android:background="@null"
                     android:id="@+id/activity_editor_main_friend_together_tv_title"
                     android:layout_width="490px"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40px"
+                    android:background="@null"
                     android:ellipsize="end"
-                    android:lines="1"
+                    android:gravity="start"
                     android:hint="请输入友记标题"
+                    android:lines="1"
+                    android:maxLength="30"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
@@ -89,14 +89,14 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:id="@+id/activity_editor_main_friend_together_rl_edit_content"
                 android:layout_width="match_parent"
-                android:layout_height="250px">
+                android:layout_height="250px"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,10 +119,6 @@
                     android:textSize="28px" />
 
                 <EditText
-                    android:maxLength="2000"
-                    android:gravity="start"
-                    android:background="@null"
-                    android:hint="请输入具体内容"
                     android:id="@+id/activity_editor_main_friend_together_tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="170px"
@@ -130,8 +126,12 @@
                     android:layout_marginLeft="40px"
                     android:layout_marginRight="40px"
                     android:layout_marginTop="8px"
+                    android:background="@null"
                     android:ellipsize="end"
+                    android:gravity="start"
+                    android:hint="请输入具体内容"
                     android:lines="4"
+                    android:maxLength="2000"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
@@ -143,52 +143,52 @@
 
                 <ImageView
                     android:id="@+id/activity_editor_main_friend_together_iv_add"
-                    android:padding="20px"
-                    android:background="@drawable/bg_dialog_price_un_select"
-                    android:src="@mipmap/add_image"
-                    android:layout_centerInParent="true"
                     android:layout_width="120px"
-                    android:layout_height="120px" />
+                    android:layout_height="120px"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_dialog_price_un_select"
+                    android:padding="20px"
+                    android:src="@mipmap/add_image" />
 
                 <ImageView
                     android:id="@+id/activity_editor_main_friend_together_iv_title"
-                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="330px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30px"
                     android:layout_marginRight="30px"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:visibility="invisible" />
 
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/activity_editor_main_friend_together_iv_delete"
-                    android:layout_marginRight="10px"
-                    android:layout_alignParentRight="true"
-                    android:src="@mipmap/delete"
                     android:layout_width="40px"
-                    android:layout_height="40px" />
+                    android:layout_height="40px"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10px"
+                    android:src="@mipmap/delete"
+                    android:visibility="gone" />
 
                 <TextView
-                    android:visibility="invisible"
                     android:id="@+id/activity_editor_main_friend_together_tv_first_iv"
-                    android:background="#4D000000"
-                    android:gravity="center"
-                    android:textSize="28px"
-                    android:textColor="@color/white_ffffff"
-                    android:text="首图"
+                    android:layout_width="match_parent"
+                    android:layout_height="80px"
                     android:layout_alignBottom="@+id/activity_editor_main_friend_together_iv_title"
                     android:layout_marginLeft="30px"
                     android:layout_marginRight="30px"
-                    android:layout_width="match_parent"
-                    android:layout_height="80px" />
+                    android:background="#4D000000"
+                    android:gravity="center"
+                    android:text="首图"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="28px"
+                    android:visibility="invisible" />
 
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_editor_main_friend_together_rl_time_start"
@@ -238,7 +238,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_editor_main_friend_together_rl_time_end"
@@ -288,7 +288,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_editor_main_friend_together_rl_activity_city"
@@ -338,7 +338,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_editor_main_friend_together_rl_price"
@@ -384,10 +384,11 @@
                     android:textSize="28px" />
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_editor_main_friend_together_rl_person_require"
@@ -433,10 +434,11 @@
                     android:textSize="28px" />
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_editor_main_friend_together_rl_activities_require"
@@ -482,10 +484,11 @@
                     android:textSize="28px" />
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
-                android:background="#F8F8F8" />
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/activity_editor_main_friend_together_rl_enter_activities"

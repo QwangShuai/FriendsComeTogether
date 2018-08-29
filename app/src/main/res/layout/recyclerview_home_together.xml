@@ -231,6 +231,6 @@
         android:layout_height="1px"
         android:layout_marginBottom="10px"
         android:layout_marginTop="24px"
-        android:background="@color/gray_e5e5e5" />
+        android:background="@color/line" />
 
 </LinearLayout>

@@ -62,7 +62,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="12px"
-            android:background="@color/black_f8f8f8" />
+            android:background="@color/line" />
 
         <RelativeLayout
             android:id="@+id/activity_set_rl_feedback"
@@ -90,7 +90,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="12px"
-            android:background="@color/black_f8f8f8" />
+            android:background="@color/line" />
 
         <RelativeLayout
             android:id="@+id/activity_set_rl_clear_cache"
@@ -120,7 +120,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="12px"
-            android:background="@color/black_f8f8f8" />
+            android:background="@color/line" />
 
         <RelativeLayout
             android:id="@+id/activity_set_rl_user_agreement"
@@ -148,7 +148,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="12px"
-            android:background="@color/black_f8f8f8" />
+            android:background="@color/line" />
     </LinearLayout>
 
     <Button

@@ -52,7 +52,7 @@
     </RelativeLayout>
     
     <View
-        android:background="#E5E5E5"
+        android:background="@color/line"
         android:layout_marginRight="40px"
         android:layout_marginLeft="40px"
         android:layout_width="match_parent"
