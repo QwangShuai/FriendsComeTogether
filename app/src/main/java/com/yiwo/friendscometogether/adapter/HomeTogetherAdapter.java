@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
@@ -79,8 +80,15 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         holder.activeStartTime.setText("开始时间: " + data.get(position).getPfgotime());
         if (data.get(position).getFollow().equals("0")) {
             holder.btnFocus.setText("+关注");
+            Glide.with(context).load(R.mipmap.focus_on_empty_y).into(holder.ivFocus);
         } else {
             holder.btnFocus.setText("已关注");
+            Glide.with(context).load(R.mipmap.focus_on_y).into(holder.ivFocus);
+        }
+        if(data.get(position).getSign().equals("1")){
+            Glide.with(context).load(R.mipmap.sign_yellow).into(holder.ivLevel);
+        }else {
+            Glide.with(context).load(R.mipmap.sign_gray).into(holder.ivLevel);
         }
 
         holder.titleTv.setText(data.get(position).getPftitle());
@@ -98,7 +106,7 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
                 }
             }
         });
-        holder.btnFocus.setOnClickListener(new View.OnClickListener() {
+        holder.llFocus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (spImp.getUID().equals("0")) {
@@ -139,6 +147,9 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         private Button btnFocus;
         private TextView tvLevel;
         private TextView activeStartTime;
+        private ImageView ivLevel;
+        private ImageView ivFocus;
+        private LinearLayout llFocus;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -155,6 +166,9 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
             btnFocus = itemView.findViewById(R.id.activity_details_of_friends_btn_focus);
             tvLevel = itemView.findViewById(R.id.tv_level);
             activeStartTime = itemView.findViewById(R.id.active_start_time);
+            ivLevel = itemView.findViewById(R.id.iv_level);
+            ivFocus = itemView.findViewById(R.id.iv_focus);
+            llFocus = itemView.findViewById(R.id.ll_focus);
         }
     }
 

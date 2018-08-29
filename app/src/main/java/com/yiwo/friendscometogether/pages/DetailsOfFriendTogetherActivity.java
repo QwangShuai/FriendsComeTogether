@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.squareup.picasso.Picasso;
@@ -111,6 +112,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
     TextView tvCommentMore;
     @BindView(R.id.username)
     TextView tvUsername;
+    @BindView(R.id.iv_sign)
+    ImageView ivSign;
 
     private Unbinder unbinder;
     private ParticipantsItemAdapter adapter;
@@ -205,7 +208,12 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         if (!StringUtils.isEmpty(model.getCaptain()))
             leaderID = model.getCaptain();
         if (!StringUtils.isEmpty(model.getShow_pic())) {
-            Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getShow_pic()).into(titleIv);
+            Glide.with(DetailsOfFriendTogetherActivity.this).load(model.getShow_pic()).into(titleIv);
+        }
+        if(model.getIf_sign().equals("1")){
+            Glide.with(DetailsOfFriendTogetherActivity.this).load(R.mipmap.sign_yellow).into(ivSign);
+        }else {
+            Glide.with(DetailsOfFriendTogetherActivity.this).load(R.mipmap.sign_gray).into(ivSign);
         }
         titleTv.setText(model.getTitle());
         viewsTv.setText("浏览量: " + model.getLook());

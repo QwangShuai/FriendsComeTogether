@@ -23,6 +23,7 @@
         android:layout_marginTop="16px">
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/titleTv"
             android:layout_width="520px"
             android:layout_height="wrap_content"
@@ -41,21 +42,21 @@
             android:layout_marginLeft="20px"
             android:layout_marginTop="10px"
             android:ellipsize="end"
-            android:maxLines="4"
+            android:lines="3"
             android:text="开头讲个段子。在决定下笔写游记之前，我在朋友圈征集和酒有关旅行故事，很多人问我，要和酒有关的故事，还是要旅行故事？我说两者兼..."
             android:textColor="@color/black_333333"
             android:textSize="28px" />
 
         <TextView
             android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/contentTv"
             android:layout_marginLeft="20px"
             android:layout_marginTop="10px"
             android:text="开始时间"
-            android:textSize="28px"
             android:textColor="#424242"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="28px" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/vessel"
@@ -124,37 +125,62 @@
                 <!--android:layout_height="33px" />-->
 
                 <!--</LinearLayout>-->
-                <Button
-                    android:id="@+id/recyclerview_fragment_friend_together_btn_top_focus"
-                    android:layout_width="120px"
-                    android:layout_height="42px"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5px"
-                    android:background="@drawable/bg_btn_red"
-                    android:text="+ 关注"
-                    android:textColor="@color/white_ffffff"
-                    android:textSize="26px" />
+                <!--<Button-->
+                    <!--android:id="@+id/recyclerview_fragment_friend_together_btn_top_focus"-->
+                    <!--android:layout_width="120px"-->
+                    <!--android:layout_height="42px"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginTop="5px"-->
+                    <!--android:background="@drawable/bg_btn_red"-->
+                    <!--android:text="+ 关注"-->
+                    <!--android:textColor="@color/white_ffffff"-->
+                    <!--android:textSize="26px" />-->
+
+                <RelativeLayout
+                    android:layout_marginTop="23px"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="138px"
+                    android:layout_height="40px">
+
+                    <ImageView
+                        android:id="@+id/iv_level"
+                        android:src="@mipmap/hg_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/tv_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20px"
+                        android:text="队长"
+                        android:textColor="@color/white_ffffff"
+                        android:textSize="26px" />
+                </RelativeLayout>
+
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/levelBg"
-                android:layout_width="107px"
-                android:layout_height="30px"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="102px"
-                android:background="@mipmap/level_bg">
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/levelBg"-->
+            <!--android:layout_width="107px"-->
+            <!--android:layout_height="30px"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="102px"-->
+            <!--android:background="@mipmap/level_bg">-->
 
-                <TextView
-                    android:id="@+id/levelTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="19px"
-                    android:text="LV0"
-                    android:textColor="@color/white_ffffff"
-                    android:textSize="20px" />
-            </RelativeLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/levelTv"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="19px"-->
+            <!--android:text="LV0"-->
+            <!--android:textColor="@color/white_ffffff"-->
+            <!--android:textSize="20px" />-->
+            <!--</RelativeLayout>-->
 
             <TextView
                 android:id="@+id/item_person"

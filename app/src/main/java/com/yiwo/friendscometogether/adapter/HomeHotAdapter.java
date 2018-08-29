@@ -37,7 +37,7 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
     SpImp spImp;
     private OnFocusListener listener;
 
-    public void setOnFocusListener(OnFocusListener listener){
+    public void setOnFocusListener(OnFocusListener listener) {
         this.listener = listener;
     }
 
@@ -65,11 +65,12 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
         if (!TextUtils.isEmpty(data.get(position).getUpicurl())) {
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
         }
-        if(data.get(position).getFollow().equals("0")){
+        if (data.get(position).getFollow().equals("0")) {
             holder.btnFocus.setText("+关注");
-        }else {
+        } else {
             holder.btnFocus.setText("已关注");
         }
+        holder.tvLevel.setText("LV" + data.get(position).getUsergrade());
         holder.timeTv.setText(data.get(position).getFmtime());
         holder.viewsTv.setText(data.get(position).getFmlook());
         holder.messageTv.setText(data.get(position).getFmcomment());
@@ -132,6 +133,7 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
         private LinearLayout vesselLl;
         private LinearLayout childrenLl;
         private Button btnFocus;
+        private TextView tvLevel;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -145,10 +147,11 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
             vesselLl = itemView.findViewById(R.id.home_hot_vessel);
             childrenLl = itemView.findViewById(R.id.home_hot_children);
             btnFocus = itemView.findViewById(R.id.activity_details_of_friends_btn_focus);
+            tvLevel = itemView.findViewById(R.id.tv_level);
         }
     }
 
-    public interface OnFocusListener{
+    public interface OnFocusListener {
         void onFocus(int position);
     }
 

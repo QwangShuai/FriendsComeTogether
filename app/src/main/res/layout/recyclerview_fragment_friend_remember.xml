@@ -69,10 +69,10 @@
             android:layout_marginRight="20px"
             android:layout_alignParentRight="true"
             android:id="@+id/activity_details_of_friends_btn_focus"
-            android:textSize="28px"
-            android:textColor="@color/white_ffffff"
+            android:textSize="30px"
+            android:textColor="#FF9D00"
             android:text="+ 关注"
-            android:background="@drawable/bg_btn_red"
+            android:background="@null"
             android:layout_width="120px"
             android:layout_height="56px" />
 
@@ -84,7 +84,6 @@
         android:layout_marginLeft="20px"
         android:textColor="#333333"
         android:textSize="36px"
-        android:textStyle="bold"
         android:text="标题标题"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

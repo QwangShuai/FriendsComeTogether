@@ -151,6 +151,7 @@ public class RegisterActivity extends BaseActivity {
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
+                            Log.e("222", data);
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
                                 int code = jsonObject.optInt("code");
@@ -169,6 +170,7 @@ public class RegisterActivity extends BaseActivity {
                                                 public void onSuccess(LoginInfo loginInfo) {
                                                     NimUIKit.loginSuccess(account);
                                                     toToast(RegisterActivity.this, "登录成功");
+                                                    finish();
                                                     NimUIKit.setMsgForwardFilter(new MsgForwardFilter() {
                                                         @Override
                                                         public boolean shouldIgnore(IMMessage message) {

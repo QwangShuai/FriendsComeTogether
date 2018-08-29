@@ -81,7 +81,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20px"
-                            android:text="搜索景点/领队"
+                            android:text="搜索标题/队长"
                             android:textSize="28px" />
                     </LinearLayout>
 
@@ -124,25 +124,27 @@
                         android:id="@+id/tv_tuijian"
                         android:textColor="@color/yellow_ff9d00"
                         android:gravity="center"
-                        android:textSize="30px"
+                        android:textSize="32px"
                         android:text="推荐"
                         android:layout_weight="1"
                         android:layout_width="0px"
                         android:layout_height="match_parent" />
 
                     <TextView
+                        android:textColor="@color/black_333333"
                         android:id="@+id/tv_remen"
                         android:gravity="center"
-                        android:textSize="30px"
+                        android:textSize="32px"
                         android:text="热门"
                         android:layout_weight="1"
                         android:layout_width="0px"
                         android:layout_height="match_parent" />
 
                     <TextView
+                        android:textColor="@color/black_333333"
                         android:id="@+id/tv_guanzhu"
                         android:gravity="center"
-                        android:textSize="30px"
+                        android:textSize="32px"
                         android:text="关注"
                         android:layout_weight="1"
                         android:layout_width="0px"

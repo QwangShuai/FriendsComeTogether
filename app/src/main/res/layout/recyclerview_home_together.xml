@@ -26,6 +26,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:id="@+id/activity_details_of_friends_btn_focus"
@@ -35,6 +36,32 @@
             android:background="@drawable/bg_btn_red"
             android:layout_width="120px"
             android:layout_height="56px" />
+
+        <LinearLayout
+            android:id="@+id/ll_focus"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_focus"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/focus_on_y"
+                android:layout_width="37px"
+                android:layout_height="34px" />
+
+            <TextView
+                android:layout_marginLeft="6px"
+                android:layout_gravity="center_vertical"
+                android:textSize="30px"
+                android:textColor="@color/black_333333"
+                android:text="关注"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -61,9 +88,9 @@
             android:layout_marginRight="6px"
             android:layout_toLeftOf="@+id/home_together_pic_iv"
             android:ellipsize="end"
-            android:lines="4"
+            android:lines="3"
             android:text="开头讲个段子。在决定下笔写游记之前，我在朋友圈征集和酒有关旅行故事，很多人问我，要和酒有关的故事，还是要旅行故事？我说两者兼..."
-            android:textColor="@color/black_333333"
+            android:textColor="#636363"
             android:textSize="28px" />
 
         <TextView
@@ -103,6 +130,7 @@
             android:layout_height="wrap_content" />
 
         <RelativeLayout
+            android:id="@+id/rl_level"
             android:layout_width="102px"
             android:layout_height="30px"
             android:layout_below="@+id/nickname"
@@ -129,6 +157,15 @@
 
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/iv_level"
+            android:layout_marginLeft="12px"
+            android:layout_toRightOf="@+id/rl_level"
+            android:layout_below="@+id/nickname"
+            android:src="@mipmap/sign_gray"
+            android:layout_width="42px"
+            android:layout_height="42px" />
+
         <TextView
             android:layout_marginRight="25px"
             android:layout_alignParentRight="true"
@@ -152,7 +189,7 @@
             <ImageView
                 android:layout_marginLeft="20px"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/views"
+                android:src="@mipmap/eyes_gray"
                 android:layout_width="28px"
                 android:layout_height="19px" />
 
@@ -161,16 +198,16 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:layout_marginLeft="6px"
-                android:textColor="#FF9D00"
+                android:textColor="#969696"
                 android:textSize="24px"
                 android:text="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <ImageView
-                android:layout_marginLeft="20px"
+                android:layout_marginLeft="30px"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/index_message"
+                android:src="@mipmap/comment_gray"
                 android:layout_width="26px"
                 android:layout_height="24px" />
 
@@ -179,7 +216,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:layout_marginLeft="6px"
-                android:textColor="#FF9D00"
+                android:textColor="#969696"
                 android:textSize="24px"
                 android:text="1"
                 android:layout_width="wrap_content"

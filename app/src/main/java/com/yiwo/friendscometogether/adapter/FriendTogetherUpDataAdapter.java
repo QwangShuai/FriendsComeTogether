@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.squareup.picasso.Picasso;
@@ -85,58 +86,60 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
         }
         holder.tvStartTime.setText("开始时间: " + data.get(position).getPfgotime());
-//        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
-//            holder.levelTv.setText(data.get(position).getSign().equals("1") ? "签约领队" : "普通领队");
-//        } else {
-//            holder.levelTv.setText("暂无领队");
-//        }
+        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
+            if(data.get(position).getSign().equals("1")){
+                Glide.with(context).load(R.mipmap.hg_yellow).into(holder.ivLevel);
+            }else {
+                Glide.with(context).load(R.mipmap.hg_gray).into(holder.ivLevel);
+            }
+        }
 
 //        holder.levelBg.setBackgroundResource(data.get(position).getUsergrade().equals("1") ? R.mipmap.level_golden_yellow : R.mipmap.level_red);
-        holder.levelTv.setText("LV" + data.get(position).getUsergrade());
+//        holder.levelTv.setText("LV" + data.get(position).getUsergrade());
         holder.personTv.setText("参与人数：" + data.get(position).getHave_num() + "/" + data.get(position).getPfpeople());
         holder.focusOnIv.setImageResource(data.get(position).getFocusOn().equals("0") ? R.mipmap.focus_on_empty_y : R.mipmap.focus_on_y);
-        holder.focusOnBtn.setText(data.get(position).getCaptain_focusOn().equals("0") ? "+ 关注" : "已关注");
-        holder.focusOnBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (spImp.getUID().equals("0")) {
-                    context.startActivity(new Intent(context, LoginActivity.class));
-                } else {
-                    ViseHttp.POST(NetConfig.focusOnLeaderUrl)
-                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.focusOnLeaderUrl))
-                            .addParam("userID", spImp.getUID())
-                            .addParam("attention_userID", data.get(position).getCaptain())
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    try {
-                                        JSONObject js = new JSONObject(data);
-                                        if (js.getInt("code") == 200) {
-                                            FocusOnLeaderModel model = new Gson().fromJson(data, FocusOnLeaderModel.class);
-                                            if (model.getCode() == 200) {
-                                                if (model.getObj().getAttention().equals("0")) {
-                                                    holder.focusOnBtn.setText("+ 关注");
-                                                } else {
-                                                    holder.focusOnBtn.setText("已关注");
-                                                }
-                                            }
-                                        } else {
-                                            Toast.makeText(context, js.getString("message"), Toast.LENGTH_SHORT).show();
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
-
-                                }
-                            });
-                }
-            }
-        });
+//        holder.focusOnBtn.setText(data.get(position).getCaptain_focusOn().equals("0") ? "+ 关注" : "已关注");
+//        holder.focusOnBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (spImp.getUID().equals("0")) {
+//                    context.startActivity(new Intent(context, LoginActivity.class));
+//                } else {
+//                    ViseHttp.POST(NetConfig.focusOnLeaderUrl)
+//                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.focusOnLeaderUrl))
+//                            .addParam("userID", spImp.getUID())
+//                            .addParam("attention_userID", data.get(position).getCaptain())
+//                            .request(new ACallback<String>() {
+//                                @Override
+//                                public void onSuccess(String data) {
+//                                    try {
+//                                        JSONObject js = new JSONObject(data);
+//                                        if (js.getInt("code") == 200) {
+//                                            FocusOnLeaderModel model = new Gson().fromJson(data, FocusOnLeaderModel.class);
+//                                            if (model.getCode() == 200) {
+//                                                if (model.getObj().getAttention().equals("0")) {
+//                                                    holder.focusOnBtn.setText("+ 关注");
+//                                                } else {
+//                                                    holder.focusOnBtn.setText("已关注");
+//                                                }
+//                                            }
+//                                        } else {
+//                                            Toast.makeText(context, js.getString("message"), Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    }
+//
+//                                }
+//
+//                                @Override
+//                                public void onFail(int errCode, String errMsg) {
+//
+//                                }
+//                            });
+//                }
+//            }
+//        });
 //        holder.focusOnll.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -303,18 +306,19 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         private RecyclerView vessel;
         private ImageView headIv;
         private ImageView focusOnIv;
-        private RelativeLayout levelBg;
-        private TextView levelTv;
+//        private RelativeLayout levelBg;
+//        private TextView levelTv;
         private TextView personTv;
         private LinearLayout look_overLl;
         private LinearLayout consult_leaderLl;
         private LinearLayout focus_on_activitiesLl;
         private LinearLayout ll;
         private LinearLayout personll;
-        private Button focusOnBtn;
+//        private Button focusOnBtn;
         //        private LinearLayout focusOnll;
         private LinearLayout llleader;
         private TextView tvStartTime;
+        private ImageView ivLevel;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -322,9 +326,9 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             titleTv = (itemView).findViewById(R.id.titleTv);
             contentTv = (itemView).findViewById(R.id.contentTv);
             vessel = (itemView).findViewById(R.id.vessel);
-            levelBg = (itemView).findViewById(R.id.item_levelBg);
+//            levelBg = (itemView).findViewById(R.id.item_levelBg);
             headIv = (itemView).findViewById(R.id.headIv);
-            levelTv = (itemView).findViewById(R.id.levelTv);
+//            levelTv = (itemView).findViewById(R.id.levelTv);
             personTv = (itemView).findViewById(R.id.item_person);
             look_overLl = (itemView).findViewById(R.id.look_overLl);
             focusOnIv = (itemView).findViewById(R.id.focus_on_iv);
@@ -334,9 +338,10 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             personll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll_person_content);
 //            focusOnll = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_ll_top_focus);
 //            focusOnLeaderIv = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_iv_focus);
-            focusOnBtn = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_btn_top_focus);
+//            focusOnBtn = (itemView).findViewById(R.id.recyclerview_fragment_friend_together_btn_top_focus);
             llleader = itemView.findViewById(R.id.consult_leaderLl);
             tvStartTime = itemView.findViewById(R.id.start_time);
+            ivLevel = itemView.findViewById(R.id.iv_level);
         }
     }
 }

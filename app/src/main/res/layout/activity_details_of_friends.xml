@@ -207,18 +207,20 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_marginBottom="20px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
                 android:layout_marginRight="20px"
                 android:layout_marginTop="26px"
-                android:background="@mipmap/poly_box">
+                android:background="@drawable/bg_details_friend_remember_content">
 
                 <LinearLayout
+                    android:layout_marginBottom="20px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40px"
-                    android:layout_marginTop="50px"
+                    android:layout_marginTop="20px"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -317,15 +319,6 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="40px"
-                    android:layout_marginLeft="46px"
-                    android:gravity="center"
-                    android:text="详细信息"
-                    android:textColor="@color/black_333333"
-                    android:textSize="28px" />
 
             </RelativeLayout>
 

@@ -80,6 +80,7 @@ public class HomeHotFriendsRememberModel {
              * type : 1
              */
 
+            private String usergrade;
             private String userID;
             private String userphone;
             private String upicurl;
@@ -94,6 +95,14 @@ public class HomeHotFriendsRememberModel {
             private String username;
             private String follow;
             private String type;
+
+            public String getUsergrade() {
+                return usergrade;
+            }
+
+            public void setUsergrade(String usergrade) {
+                this.usergrade = usergrade;
+            }
 
             public String getUserID() {
                 return userID;
