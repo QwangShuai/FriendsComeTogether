@@ -710,13 +710,21 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
         relaseTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onComplete(0);
+                if(TextUtils.isEmpty(path)){
+                    Toast.makeText(CreateFriendTogetherActivity.this, "请上传图片", Toast.LENGTH_SHORT).show();
+                }else {
+                    onComplete(0);
+                }
             }
         });
         nextTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onComplete(1);
+                if(TextUtils.isEmpty(path)){
+                    Toast.makeText(CreateFriendTogetherActivity.this, "请上传图片", Toast.LENGTH_SHORT).show();
+                }else {
+                    onComplete(1);
+                }
             }
         });
         cancleTv.setOnClickListener(new View.OnClickListener() {
