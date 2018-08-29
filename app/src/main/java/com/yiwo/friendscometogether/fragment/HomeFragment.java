@@ -223,7 +223,7 @@ public class HomeFragment extends BaseFragment {
                         .request(new ACallback<String>() {
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishRefresh();
+                                refreshlayout.finishRefresh(1000);
                             }
 
                             @Override
@@ -237,7 +237,7 @@ public class HomeFragment extends BaseFragment {
                                         mList.addAll(model.getObj());
                                         togetherAdapter.notifyDataSetChanged();
                                     }
-                                    refreshlayout.finishRefresh();
+                                    refreshlayout.finishRefresh(1000);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -257,7 +257,7 @@ public class HomeFragment extends BaseFragment {
                         .request(new ACallback<String>() {
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishLoadMore();
+                                refreshlayout.finishLoadMore(1000);
                             }
 
                             @Override
@@ -270,7 +270,7 @@ public class HomeFragment extends BaseFragment {
                                         mList.addAll(model.getObj());
                                         togetherAdapter.notifyDataSetChanged();
                                     }
-                                    refreshlayout.finishLoadMore();
+                                    refreshlayout.finishLoadMore(1000);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

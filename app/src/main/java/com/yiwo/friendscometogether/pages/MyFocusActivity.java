@@ -88,7 +88,7 @@ public class MyFocusActivity extends BaseActivity {
                                         adapter.notifyDataSetChanged();
                                         page = 2;
                                         Log.e("222", page+"");
-                                        refreshlayout.finishRefresh();
+                                        refreshlayout.finishRefresh(1000);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -97,7 +97,7 @@ public class MyFocusActivity extends BaseActivity {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishRefresh();
+                                refreshlayout.finishRefresh(1000);
                             }
                         });
             }
@@ -121,7 +121,7 @@ public class MyFocusActivity extends BaseActivity {
                                         adapter.notifyDataSetChanged();
                                         page = page + 1;
                                         Log.e("222", page+"");
-                                        refreshlayout.finishLoadMore();
+                                        refreshlayout.finishLoadMore(1000);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -130,7 +130,7 @@ public class MyFocusActivity extends BaseActivity {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishLoadMore();
+                                refreshlayout.finishLoadMore(1000);
                             }
                         });
             }

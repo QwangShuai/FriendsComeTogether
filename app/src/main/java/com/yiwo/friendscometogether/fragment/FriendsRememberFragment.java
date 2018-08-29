@@ -249,7 +249,7 @@ public class FriendsRememberFragment extends BaseFragment {
                                     } else {
                                         toToast(getContext(), jsonObject.getString("message"));
                                     }
-                                    refreshlayout.finishRefresh();
+                                    refreshlayout.finishRefresh(1000);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -257,7 +257,7 @@ public class FriendsRememberFragment extends BaseFragment {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishRefresh();
+                                refreshlayout.finishRefresh(1000);
                             }
                         });
             }
@@ -285,7 +285,7 @@ public class FriendsRememberFragment extends BaseFragment {
                                     } else {
                                         toToast(getContext(), jsonObject.getString("message"));
                                     }
-                                    refreshlayout.finishLoadMore();
+                                    refreshlayout.finishLoadMore(1000);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -293,7 +293,7 @@ public class FriendsRememberFragment extends BaseFragment {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishLoadMore();
+                                refreshlayout.finishLoadMore(1000);
                             }
                         });
             }

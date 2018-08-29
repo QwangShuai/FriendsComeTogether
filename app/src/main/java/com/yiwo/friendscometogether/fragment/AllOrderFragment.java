@@ -105,9 +105,9 @@ public class AllOrderFragment extends OrderBaseFragment {
                                         mList.clear();
                                         mList.addAll(model.getObj());
                                         adapter.notifyDataSetChanged();
-                                        refreshlayout.finishRefresh();
+                                        refreshlayout.finishRefresh(1000);
                                     }
-                                    refreshlayout.finishRefresh();
+                                    refreshlayout.finishRefresh(1000);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -115,7 +115,7 @@ public class AllOrderFragment extends OrderBaseFragment {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishRefresh();
+                                refreshlayout.finishRefresh(1000);
                             }
                         });
             }
@@ -139,9 +139,9 @@ public class AllOrderFragment extends OrderBaseFragment {
                                         page = page + 1;
                                         mList.addAll(model.getObj());
                                         adapter.notifyDataSetChanged();
-                                        refreshlayout.finishLoadMore();
+                                        refreshlayout.finishLoadMore(1000);
                                     }
-                                    refreshlayout.finishLoadMore();
+                                    refreshlayout.finishLoadMore(1000);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -149,7 +149,7 @@ public class AllOrderFragment extends OrderBaseFragment {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishLoadMore();
+                                refreshlayout.finishLoadMore(1000);
                             }
                         });
             }

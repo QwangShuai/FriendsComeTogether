@@ -135,7 +135,7 @@ public class FriendsTogetherFragment extends BaseFragment {
                                         mList.addAll(model.getObj());
                                         adapter.notifyDataSetChanged();
                                     }
-                                    refreshlayout.finishRefresh();
+                                    refreshlayout.finishRefresh(1000);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -143,7 +143,7 @@ public class FriendsTogetherFragment extends BaseFragment {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishRefresh();
+                                refreshlayout.finishRefresh(1000);
                             }
                         });
             }
@@ -170,7 +170,7 @@ public class FriendsTogetherFragment extends BaseFragment {
                                         mList.addAll(model.getObj());
                                         adapter.notifyDataSetChanged();
                                     }
-                                    refreshlayout.finishLoadMore();
+                                    refreshlayout.finishLoadMore(1000);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -178,7 +178,7 @@ public class FriendsTogetherFragment extends BaseFragment {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishLoadMore();
+                                refreshlayout.finishLoadMore(1000);
                             }
                         });
             }

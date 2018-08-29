@@ -84,7 +84,7 @@ public class StartActiveActivity extends BaseActivity {
                                         mList.clear();
                                         mList.addAll(model.getObj());
                                         adapter.notifyDataSetChanged();
-                                        refreshlayout.finishRefresh();
+                                        refreshlayout.finishRefresh(1000);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -93,7 +93,7 @@ public class StartActiveActivity extends BaseActivity {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishRefresh();
+                                refreshlayout.finishRefresh(1000);
                             }
                         });
             }
@@ -116,7 +116,7 @@ public class StartActiveActivity extends BaseActivity {
                                         InitiativesModel model = new Gson().fromJson(data, InitiativesModel.class);
                                         mList.addAll(model.getObj());
                                         adapter.notifyDataSetChanged();
-                                        refreshlayout.finishLoadMore();
+                                        refreshlayout.finishLoadMore(1000);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -125,7 +125,7 @@ public class StartActiveActivity extends BaseActivity {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                refreshlayout.finishLoadMore();
+                                refreshlayout.finishLoadMore(1000);
                             }
                         });
             }
