@@ -11,7 +11,7 @@
         style="@style/rl_top_bar">
 
         <TextView
-            android:text="我的收藏"
+            android:text="我关注的活动"
             style="@style/tv_top_title" />
 
         <RelativeLayout
