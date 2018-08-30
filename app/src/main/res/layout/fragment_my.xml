@@ -693,7 +693,7 @@
                     android:id="@+id/fragment_my_iv_focus_activitys"
                     android:layout_marginLeft="34px"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/my_join_activitys"
+                    android:src="@mipmap/focus_on_y"
                     android:layout_width="40px"
                     android:layout_height="40px" />
 
