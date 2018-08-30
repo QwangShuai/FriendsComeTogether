@@ -39,12 +39,10 @@ import com.yiwo.friendscometogether.adapter.HomeHotAdapter;
 import com.yiwo.friendscometogether.adapter.HomeTogetherAdapter;
 import com.yiwo.friendscometogether.adapter.VideoAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
-import com.yiwo.friendscometogether.custom.ScalableCardHelper;
 import com.yiwo.friendscometogether.model.AllBannerModel;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
-import com.yiwo.friendscometogether.model.FriendsTogethermodel;
-import com.yiwo.friendscometogether.model.GoogleCityModel;
+import com.yiwo.friendscometogether.model.BaiduCityModel;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.model.HomeTogetherModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
@@ -116,9 +114,6 @@ public class HomeFragment extends BaseFragment {
             switch (msg.what) {
                 case 1:
                     getCity();
-                    break;
-                case 2:
-                    cityTv.setText(latLongString);
                     break;
             }
         }
@@ -392,13 +387,13 @@ public class HomeFragment extends BaseFragment {
         home_hotVideoRv.setLayoutManager(manager);
         videoAdapter = new VideoAdapter(data);
         home_hotVideoRv.setAdapter(videoAdapter);
-        ScalableCardHelper cardHelper = new ScalableCardHelper(new ScalableCardHelper.OnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-//                toToast(getContext(),data.get(position).getVurl());
-            }
-        });
-        cardHelper.attachToRecyclerView(home_hotVideoRv);
+//        ScalableCardHelper cardHelper = new ScalableCardHelper(new ScalableCardHelper.OnPageChangeListener() {
+//            @Override
+//            public void onPageSelected(int position) {
+////                toToast(getContext(),data.get(position).getVurl());
+//            }
+//        });
+//        cardHelper.attachToRecyclerView(home_hotVideoRv);
     }
 
     public void initTogetherList(final List<HomeTogetherModel.ObjBean> data) {
@@ -599,9 +594,9 @@ public class HomeFragment extends BaseFragment {
     public void getCity() {
         try {
             // 去谷歌的地理位置获取中去解析经纬度对应的地理位置
-            String url = "http://maps.google.cn/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true&language=zh-CN";
+//            String url = "http://maps.google.cn/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true&language=zh-CN";
+            String url = "http://api.map.baidu.com/geocoder?output=json&location=" + latitude + "," + longitude + "&key=8dDPAEEMwPNZgxg4YhNUXqWoV8GNItO1";
 
-//            String url = "http://maps.google.cn/maps/api/geocode/json?latlng=" + "46.2122837132" + "," + "128.4605692798" + "&sensor=true&language=zh-CN";
             ViseHttp.GET(url)
                     .addHeader("Accept-Language", "zh-CN")
                     .request(new ACallback<String>() {
@@ -609,19 +604,12 @@ public class HomeFragment extends BaseFragment {
                         public void onSuccess(String data) {
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
-                                JSONArray resultArray = jsonObject
-                                        .getJSONArray("results");
-//                                if (resultArray.length() > 0) {
-//                                    JSONObject subObject = resultArray.getJSONObject(1);
-//                                    String address = subObject
-//                                            .getString("formatted_address");
-//                                    latLongString = address;
-//                                    Log.i("所在城市", latLongString);
-//                                    handler.sendEmptyMessage(2);
-//                                }
-                                Gson gson = new Gson();
-                                GoogleCityModel model = gson.fromJson(data, GoogleCityModel.class);
-                                latLongString = model.getResults().get(0).getAddress_components().get(3).getLong_name();
+                                if (jsonObject.getString("status").equals("OK")) {
+                                    Gson gson = new Gson();
+                                    BaiduCityModel model = gson.fromJson(data, BaiduCityModel.class);
+                                    latLongString = model.getResult().getAddressComponent().getCity();
+                                    cityTv.setText(latLongString);
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -632,38 +620,6 @@ public class HomeFragment extends BaseFragment {
 
                         }
                     });
-//            OkHttpUtils.get()
-//                    .tag(this)
-//                    .url(url)
-//                    .addHeader("Accept-Language", "zh-CN")
-//                    .build()
-//                    .execute(new StringCallback() {
-//                        @Override
-//                        public void onError(Request request, Exception e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onResponse(String response) {
-//                            try {
-//                                JSONObject jsonObject = new JSONObject(response);
-//                                JSONArray resultArray = jsonObject
-//                                        .getJSONArray("results");
-//                                if (resultArray.length() > 0) {
-//                                    JSONObject subObject = resultArray.getJSONObject(1);
-//                                    String address = subObject
-//                                            .getString("formatted_address");
-//                                    latLongString = address;
-//                                    Log.i("所在城市", latLongString);
-//                                    handler.sendEmptyMessage(2);
-//                                }
-//
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    });
-
 
         } catch (Exception e) {
             e.printStackTrace();

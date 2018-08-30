@@ -32,8 +32,9 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:layout_toLeftOf="@+id/searchLl"
                         android:id="@+id/locationRl"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20px">
 
@@ -46,26 +47,25 @@
 
                         <TextView
                             android:id="@+id/cityTv"
-                            android:layout_width="96px"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10px"
                             android:layout_toRightOf="@+id/locationLv"
                             android:ellipsize="end"
-                            android:gravity="center"
+                            android:gravity="center_vertical"
                             android:maxLines="1"
                             android:text="哈尔滨"
                             android:textColor="@color/black_333333"
-                            android:textSize="32px" />
+                            android:textSize="26px" />
                     </RelativeLayout>
-
 
                     <LinearLayout
                         android:id="@+id/searchLl"
-                        android:layout_width="468px"
+                        android:layout_width="430px"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="30px"
+                        android:layout_marginLeft="20px"
                         android:layout_marginRight="30px"
-                        android:layout_toRightOf="@+id/locationRl"
+                        android:layout_toLeftOf="@+id/messageIv"
                         android:background="@drawable/bg_search1"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -91,8 +91,8 @@
                         android:layout_height="44px"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="20px"
-                        android:src="@mipmap/index_message" />
+                        android:layout_marginRight="30px"
+                        android:src="@mipmap/msg_black" />
 
                     <TextView
                         android:visibility="gone"

@@ -10,9 +10,9 @@
     <RelativeLayout style="@style/rl_top_bar">
 
         <RelativeLayout
-            android:layout_width="100px"
             android:id="@+id/rl_set_return"
-            style="@style/rl_return">
+            style="@style/rl_return"
+            android:layout_width="100px">
 
             <ImageView style="@style/iv_return" />
 
@@ -33,44 +33,44 @@
         android:src="@mipmap/hhh" />
 
     <EditText
-        android:background="@null"
-        android:gravity="center_vertical"
-        android:textSize="32px"
         android:id="@+id/login_phoneEt"
-        android:layout_marginLeft="50px"
-        android:layout_marginRight="50px"
         android:layout_width="match_parent"
         android:layout_height="52px"
-        android:layout_marginTop="67px"
-        android:ems="11"
-        android:hint="  请输入手机号"
-        android:inputType="phone"
-        android:maxLength="11" />
-
-    <EditText
-        android:background="@null"
-        android:gravity="center_vertical"
-        android:textSize="32px"
-        android:id="@+id/login_pwEt"
         android:layout_marginLeft="50px"
         android:layout_marginRight="50px"
+        android:layout_marginTop="67px"
+        android:background="@null"
+        android:ems="11"
+        android:gravity="center_vertical"
+        android:hint="  请输入手机号"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:textSize="32px" />
+
+    <EditText
+        android:id="@+id/login_pwEt"
         android:layout_width="match_parent"
         android:layout_height="52px"
         android:layout_gravity="center"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
         android:layout_marginTop="42px"
+        android:background="@null"
         android:ems="16"
+        android:gravity="center_vertical"
         android:hint="  请输入密码"
         android:inputType="textPassword"
-        android:maxLength="16" />
+        android:maxLength="16"
+        android:textSize="32px" />
 
     <Button
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:layout_gravity="center"
-        android:layout_marginTop="62px"
         android:layout_marginLeft="50px"
         android:layout_marginRight="50px"
+        android:layout_marginTop="62px"
         android:background="@drawable/login_btn"
         android:text="登录"
         android:textColor="@color/white_ffffff" />
@@ -82,10 +82,10 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_centerVertical="true"
             android:id="@+id/login_registerTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginRight="56px"
             android:layout_toLeftOf="@+id/login_divider"
             android:text="注册"
@@ -96,38 +96,38 @@
             android:id="@+id/login_divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:text="|"
             android:textColor="@color/gray_979797" />
 
         <TextView
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/login_divider"
             android:id="@+id/login_forgetPwTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="55px"
+            android:layout_toRightOf="@+id/login_divider"
             android:text="忘记密码"
             android:textColor="@color/black_626262"
             android:textSize="28px" />
     </RelativeLayout>
 
-    <TextView
-        android:textColor="@color/gray_cacaca"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100px"
-        android:gravity="center"
-        android:text="第三方登录"
-        android:textSize="28px" />
+    <!--<TextView-->
+    <!--android:textColor="@color/gray_cacaca"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginTop="100px"-->
+    <!--android:gravity="center"-->
+    <!--android:text="第三方登录"-->
+    <!--android:textSize="28px" />-->
 
-    <ImageView
-        android:layout_marginTop="43px"
-        android:id="@+id/login_wechatIv"
-        android:layout_width="60px"
-        android:layout_height="60px"
-        android:layout_gravity="center"
-        app:srcCompat="@mipmap/wechat" />
+    <!--<ImageView-->
+    <!--android:layout_marginTop="43px"-->
+    <!--android:id="@+id/login_wechatIv"-->
+    <!--android:layout_width="60px"-->
+    <!--android:layout_height="60px"-->
+    <!--android:layout_gravity="center"-->
+    <!--app:srcCompat="@mipmap/wechat" />-->
 </LinearLayout>

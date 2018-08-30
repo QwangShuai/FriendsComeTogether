@@ -7,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
@@ -25,9 +24,11 @@ import java.util.List;
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
     List<HomeHotFriendsRememberModel.ObjBean.VideoBean> data;
     Context context;
-    public VideoAdapter(List<HomeHotFriendsRememberModel.ObjBean.VideoBean> data){
+
+    public VideoAdapter(List<HomeHotFriendsRememberModel.ObjBean.VideoBean> data) {
         this.data = data;
     }
+
     @Override
     public VideoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
@@ -39,16 +40,17 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(VideoAdapter.ViewHolder holder, final int position) {
-        Picasso.with(context).load(data.get(position).getImg()).into(holder.videoIv);
-        holder.videoTv.setText(data.get(position).getVname());
+//        Picasso.with(context).load(data.get(position).getImg()).into(holder.videoIv);
+//        holder.videoTv.setText(data.get(position).getVname());
+        Glide.with(context).load(data.get(position).getImg()).into(holder.iv);
         holder.videoRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(context, VideoActivity.class);
-                it.putExtra("videoUrl",data.get(position).getVurl());
-                it.putExtra("title",data.get(position).getVname());
-                it.putExtra("picUrl",data.get(position).getImg());
-                it.putExtra("vid",data.get(position).getVID());
+                it.putExtra("videoUrl", data.get(position).getVurl());
+                it.putExtra("title", data.get(position).getVname());
+                it.putExtra("picUrl", data.get(position).getImg());
+                it.putExtra("vid", data.get(position).getVID());
                 context.startActivity(it);
             }
         });
@@ -58,15 +60,19 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     public int getItemCount() {
         return data == null ? 0 : data.size();
     }
+
     class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView videoIv;
-        TextView videoTv;
-        RelativeLayout videoRl;
+        //        ImageView videoIv;
+//        TextView videoTv;
+        private LinearLayout videoRl;
+        private ImageView iv;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            videoIv = (itemView).findViewById(R.id.home_hot_video_iv);
-            videoTv = (itemView).findViewById(R.id.home_hot_video_tv);
-            videoRl = (itemView).findViewById(R.id.home_hot_video_rl);
+//            videoIv = (itemView).findViewById(R.id.home_hot_video_iv);
+//            videoTv = (itemView).findViewById(R.id.home_hot_video_tv);
+            videoRl = (itemView).findViewById(R.id.ll_video);
+            iv = itemView.findViewById(R.id.iv_video);
         }
     }
 }

@@ -92,6 +92,15 @@ public class WelcomeActivity extends BaseActivity {
                         @Override
                         public void onFailed(int i) {
                             toToast(WelcomeActivity.this, "登录失败");
+                            Intent intent = new Intent();
+                            if(TextUtils.isEmpty(spImp.getYd())){
+                                intent.setClass(WelcomeActivity.this, GuideActivity.class);
+                                startActivity(intent);
+                            }else {
+                                intent.setClass(WelcomeActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                            finish();
                         }
 
                         @Override
