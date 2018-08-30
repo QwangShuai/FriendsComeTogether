@@ -17,6 +17,23 @@
             android:text="聊天"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        
+        <RelativeLayout
+            android:id="@+id/rl_my_friend"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="@color/white_ffffff"
+                android:text="我的好友"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

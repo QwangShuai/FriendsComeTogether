@@ -1,12 +1,15 @@
 package com.yiwo.friendscometogether.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.business.session.module.MsgForwardFilter;
@@ -27,6 +30,9 @@ import com.netease.nimlib.sdk.msg.model.SystemMessage;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.pages.LoginActivity;
+import com.yiwo.friendscometogether.pages.MyFriendActivity;
+import com.yiwo.friendscometogether.sp.SpImp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +45,14 @@ import butterknife.OnClick;
 public class ChatFragment extends BaseFragment{
     View rootView;
 
+    @BindView(R.id.rl_my_friend)
+    RelativeLayout rlMyFriend;
+
     private String account;
     private String token;
+
+    private SpImp spImp;
+    private String uid = "";
 
     @Nullable
     @Override
@@ -49,8 +61,32 @@ public class ChatFragment extends BaseFragment{
 //        ScreenAdapterTools.getInstance().loadView(rootView);
 
         ButterKnife.bind(this, rootView);
+        spImp = new SpImp(getContext());
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        uid = spImp.getUID();
+    }
+
+    @OnClick({R.id.rl_my_friend})
+    public void onClick(View view){
+        Intent intent = new Intent();
+        switch (view.getId()){
+            case R.id.rl_my_friend:
+                uid = spImp.getUID();
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyFriendActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 
     private void liaotian() {
