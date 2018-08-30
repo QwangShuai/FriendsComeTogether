@@ -30,6 +30,7 @@ import com.yiwo.friendscometogether.pages.LookHistoryActivity;
 import com.yiwo.friendscometogether.pages.MyCollectionActivity;
 import com.yiwo.friendscometogether.pages.MyCommentActivity;
 import com.yiwo.friendscometogether.pages.MyDraftActivity;
+import com.yiwo.friendscometogether.pages.MyFocusActiveActivity;
 import com.yiwo.friendscometogether.pages.MyFocusActivity;
 import com.yiwo.friendscometogether.pages.MyFriendActivity;
 import com.yiwo.friendscometogether.pages.MyFriendRememberActivity;
@@ -107,6 +108,8 @@ public class MyFragment extends BaseFragment {
     RelativeLayout rlSet;
     @BindView(R.id.fragment_my_rl_my_friend)
     RelativeLayout rlFriend;
+    @BindView(R.id.fragment_my_rl_focus_activitys)
+    RelativeLayout rlMyFocusActive;
 
     private SpImp spImp;
     private String uid = "";
@@ -181,7 +184,7 @@ public class MyFragment extends BaseFragment {
             R.id.fragment_my_rl_focus, R.id.fragment_my_rl_collection, R.id.fragment_my_rl_comment, R.id.fragment_my_rl_history, R.id.fragment_my_ll_draft,
             R.id.fragment_my_ll_create_friend_remember, R.id.fragment_my_person_set, R.id.fragment_my_ll_my_friend_remember, R.id.fragment_my_ll_my_intercalation,
             R.id.fragment_my_rl_initiating_activities, R.id.fragment_my_rl_join_activitys, R.id.fragment_my_rl_picture,R.id.fragment_my_rl_create_activity,
-            R.id.fragment_my_set, R.id.fragment_my_rl_my_friend})
+            R.id.fragment_my_set, R.id.fragment_my_rl_my_friend, R.id.fragment_my_rl_focus_activitys})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -365,6 +368,16 @@ public class MyFragment extends BaseFragment {
             case R.id.fragment_my_rl_my_friend:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
                     intent.setClass(getContext(), MyFriendActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.fragment_my_rl_focus_activitys:
+                //我关注的活动
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), MyFocusActiveActivity.class);
                     startActivity(intent);
                 } else {
                     intent.setClass(getContext(), LoginActivity.class);

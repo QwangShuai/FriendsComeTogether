@@ -86,10 +86,10 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
             Picasso.with(context).load(data.get(position).getUpicurl()).into(holder.headIv);
         }
         holder.tvStartTime.setText("开始时间: " + data.get(position).getPfgotime());
-        if(!StringUtils.isEmpty(data.get(position).getCaptain())&&!data.get(position).getCaptain().equals("0")){
-            if(data.get(position).getSign().equals("1")){
+        if (!StringUtils.isEmpty(data.get(position).getCaptain()) && !data.get(position).getCaptain().equals("0")) {
+            if (data.get(position).getSign().equals("1")) {
                 Glide.with(context).load(R.mipmap.hg_yellow).into(holder.ivLevel);
-            }else {
+            } else {
                 Glide.with(context).load(R.mipmap.hg_gray).into(holder.ivLevel);
             }
         }
@@ -193,10 +193,10 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
                                     if (model.getCode() == 200) {
                                         if (model.getObj().equals("1")) {
                                             holder.focusOnIv.setImageResource(R.mipmap.focus_on_y);
-//                                        Toast.makeText(context, "关注成功", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "关注成功", Toast.LENGTH_SHORT).show();
                                         } else {
                                             holder.focusOnIv.setImageResource(R.mipmap.focus_on_empty_y);
-//                                        Toast.makeText(context, "取消成功", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "取消成功", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
@@ -306,7 +306,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         private RecyclerView vessel;
         private ImageView headIv;
         private ImageView focusOnIv;
-//        private RelativeLayout levelBg;
+        //        private RelativeLayout levelBg;
 //        private TextView levelTv;
         private TextView personTv;
         private LinearLayout look_overLl;
@@ -314,7 +314,7 @@ public class FriendTogetherUpDataAdapter extends RecyclerView.Adapter<FriendToge
         private LinearLayout focus_on_activitiesLl;
         private LinearLayout ll;
         private LinearLayout personll;
-//        private Button focusOnBtn;
+        //        private Button focusOnBtn;
         //        private LinearLayout focusOnll;
         private LinearLayout llleader;
         private TextView tvStartTime;

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.custom.LookPasswordDialog;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
@@ -78,10 +79,24 @@ public class HomeHotAdapter extends RecyclerView.Adapter<HomeHotAdapter.ViewHold
         holder.childrenLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(context, DetailsOfFriendsActivity.class);
-                intent.putExtra("fmid", data.get(position).getFmID());
-                context.startActivity(intent);
+                final Intent intent = new Intent();
+                if(TextUtils.isEmpty(data.get(position).getAccesspassword())){
+                    intent.setClass(context, DetailsOfFriendsActivity.class);
+                    intent.putExtra("fmid", data.get(position).getFmID());
+                    context.startActivity(intent);
+                }else {
+                    LookPasswordDialog lookPasswordDialog = new LookPasswordDialog(context, new LookPasswordDialog.SetPasswordListener() {
+                        @Override
+                        public void setActivityText(String s) {
+                            if(s.equals(data.get(position).getAccesspassword())){
+                                intent.setClass(context, DetailsOfFriendsActivity.class);
+                                intent.putExtra("fmid", data.get(position).getFmID());
+                                context.startActivity(intent);
+                            }
+                        }
+                    });
+                    lookPasswordDialog.show();
+                }
             }
         });
 //        } else {

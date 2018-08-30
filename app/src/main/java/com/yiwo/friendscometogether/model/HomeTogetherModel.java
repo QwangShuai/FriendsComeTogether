@@ -11,7 +11,7 @@ public class HomeTogetherModel {
     /**
      * code : 200
      * message : 操作成功!
-     * obj : [{"add_user":"43","look_num":"0","comment_num":"0","pftime":"2018-08-14","sign":"0","username":"3606_43","usergrade":"0","captain":"43","pftitle":"来啊，快活啊。反正有大把时光","pfcontent":"不仅仅是玩，还有一些你想不到的事儿！","pfID":"130","pfpic":"http://47.92.136.19/uploads/xingcheng/20180814/20180814/4fbea42afa775429c5d295a7bcc6246e.jpeg","upicurl":"http://47.92.136.19/uploads/header/2018/08/14/0727be2d504beb7c7c15d1f08d6c0639153421613519.jpg","follow":"0"},{"add_user":"38","look_num":"0","comment_num":"0","pftime":"2018-08-13","sign":"0","username":"呃呃呃呃呃","usergrade":"0","captain":"38","pftitle":"九寨沟","pfcontent":"我qxqyposuntoumuo","pfID":"129","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/f5f0e94856bf955c09b65af96d4dc651.png","upicurl":"http://47.92.136.19/uploads/header/2018/08/14/6b81e28b6b2dfb96fb950228fa7e5ddb15342346516.jpg","follow":"1"},{"add_user":"1","look_num":"0","comment_num":"0","pftime":"2018-08-13","sign":"0","username":"明年","usergrade":"0","captain":"31","pftitle":"来自登山模板","pfcontent":"123123123123123123","pfID":"128","pfpic":"http://47.92.136.19/uploads/activity/20180813/20180813/88c5543dc4c309e1c321096a2c2a3274.jpg","upicurl":"http://47.92.136.19/uploads/header/2018/08/02/dd65ab4c08a39c50897459c02104b6bb153317457712.jpg","follow":"1"},{"add_user":"38","look_num":"0","comment_num":"0","pftime":"2018-08-13","sign":"0","username":"呃呃呃呃呃","usergrade":"0","captain":"38","pftitle":"去大理","pfcontent":"Rom 破破破破破","pfID":"127","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/688e7e11ee19ba81194dcf0d9f7efa2e.png","upicurl":"http://47.92.136.19/uploads/header/2018/08/14/6b81e28b6b2dfb96fb950228fa7e5ddb15342346516.jpg","follow":"1"},{"add_user":"7","look_num":"0","comment_num":"0","pftime":"2018-08-13","sign":"0","username":"吃了","usergrade":"0","captain":"7","pftitle":"测试成功","pfcontent":"测试成功","pfID":"126","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/61cde24c8f29c05fa072142ffc56fd3e.jpeg","upicurl":"http://47.92.136.19/uploads/header/2018/08/14/e046ce4cc65dee1e7fb83a564981889a15342152253.jpg","follow":"0"},{"add_user":"39","look_num":"0","comment_num":"0","pftime":"2018-08-13","sign":"0","username":"旅行家","usergrade":"0","captain":"39","pftitle":"大美九寨沟，全景精华2日游","pfcontent":"两天的时间，可以慢慢地欣赏九寨沟的水之美。九寨沟景区由\u201cY\u201d字形的树正沟、日则沟、则查洼沟三条主沟构成。第一天游览两条沟，第二天补上剩下的一条。如果追求较好的观赏和拍摄效果，可以早上先去镜海看倒影，上午游览树正沟，拍照效果最佳，下午游览日则沟和则查洼沟。","pfID":"125","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/1f30ff7ab970068af1ae09f440999165.png","upicurl":"http://47.92.136.19/uploads/header/2018/08/11/750ed5b31e9e6c2d4186feabcc569b58153395189511.jpg","follow":"1"},{"add_user":"1","look_num":"121","comment_num":"121","pftime":"2018-08-13","sign":"0","username":"吃了","usergrade":"0","captain":"7","pftitle":"测测测！测测测！","pfcontent":"测测测！测测测！测测测！测测测！测测测！测测测！111","pfID":"124","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/2e65a141e8d78b37b478c38e04cdaef6.jpg","upicurl":"http://47.92.136.19/uploads/header/2018/08/14/e046ce4cc65dee1e7fb83a564981889a15342152253.jpg","follow":"1"},{"add_user":"39","look_num":"0","comment_num":"0","pftime":"2018-08-13","sign":"0","username":"旅行家","usergrade":"0","captain":"39","pftitle":"桂林山水两日经典悠游","pfcontent":"桂林、阳朔那么多景点，两天时间该怎么玩儿？咱只挑最经典的内容，去看看象鼻山、靖江王城、兴坪古镇、十里画廊，再游漓江、看《印象刘三姐》、体验遇龙河漂流，以及逛逛阳朔西街，不紧不慢，两天足矣！","pfID":"123","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/4a89b8a240cdc498309e213222b1eaaf.png","upicurl":"http://47.92.136.19/uploads/header/2018/08/11/750ed5b31e9e6c2d4186feabcc569b58153395189511.jpg","follow":"1"},{"add_user":"39","look_num":"0","comment_num":"0","pftime":"2018-08-13","sign":"0","username":"旅行家","usergrade":"0","captain":"39","pftitle":"海拉尔+满洲里经典两日游","pfcontent":"参观海拉尔的民族博物院、战争纪念园，游览满洲里国门、中俄互市贸易区、套娃广场和呼伦湖，尽赏民族文化、异域风情和自然魅力。","pfID":"122","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/724cec5e7a13c35cb3d6cbcbbd5f591f.png","upicurl":"http://47.92.136.19/uploads/header/2018/08/11/750ed5b31e9e6c2d4186feabcc569b58153395189511.jpg","follow":"1"},{"add_user":"39","look_num":"0","comment_num":"0","pftime":"2018-08-13","sign":"0","username":"旅行家","usergrade":"0","captain":"39","pftitle":"游丽江---泸沽湖","pfcontent":"泸沽湖景色之美为世人广为称道，中国明代旅行家徐霞客在其著作《徐霞客游记》中这样描述泸沽湖：\u201c内贮四池，池水各占一色，皆澄澈异常，自生光彩。池上有三峰中峙。\u201d明代诗人胡墩赋更是将泸沽湖比作神仙之源；美籍地理学家人约瑟夫·洛克在美国《国家地理》撰文认为泸沽湖是\u201c整个云南最漂亮的一个湖泊，无法想象还有比这更美的水景。\u201d ","pfID":"121","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/1d9561e1c974db3bff8a6f81ff95d6ee.png","upicurl":"http://47.92.136.19/uploads/header/2018/08/11/750ed5b31e9e6c2d4186feabcc569b58153395189511.jpg","follow":"1"}]
+     * obj : [{"pfpwd":"11","pfgotime":"2018-09-05 00:00","add_user":"7","look_num":"2","comment_num":"0","pftime":"2018-08-30","sign":"0","username":"吃了","usergrade":"0","captain":"7","pftitle":"测试密码","pfcontent":"哈哈","pfID":"31","pfpic":"http://47.92.136.19/uploads/xingcheng/20180830/f001d17fa2ae88d5bd1527b76c962b2e.jpg","upicurl":"http://47.92.136.19/uploads/header/2018/08/28/b467dae87d8731602eb8386df9dbf172153544049715.jpg","follow":"0"},{"pfpwd":"","pfgotime":"2018-08-29 17:13","add_user":"52","look_num":"28","comment_num":"0","pftime":"2018-08-29","sign":"0","username":"6008_52","usergrade":"0","captain":"52","pftitle":"1友聚","pfcontent":"1","pfID":"30","pfpic":"http://47.92.136.19/uploads/xingcheng/20180829/b2d5368c1297202692f43e7442addaba.jpg","upicurl":"http://47.92.136.19//01786557e4a6fa0000018c1bf080ca.png","follow":"0"},{"pfpwd":"","pfgotime":"2018-09-01 15:37","add_user":"1","look_num":"93","comment_num":"60","pftime":"2018-08-29","sign":"1","username":"zp","usergrade":"0","captain":"1","pftitle":"伪满皇宫博物院","pfcontent":"游览景区，曾是清朝末代皇帝爱新觉罗·溥仪充当伪满洲国傀儡皇帝时的宫殿。这里陈列的上千件历史文物，向人们诉说着日本侵略中国东北的史实。","pfID":"29","pfpic":"http://47.92.136.19/uploads/activity/20180829/37179b0274ac12718c1f79d7df54dc8c.png","upicurl":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg","follow":"0"},{"pfpwd":"","pfgotime":"2018-09-01 15:17","add_user":"1","look_num":"146","comment_num":"86","pftime":"2018-08-29","sign":"0","username":"旅行家","usergrade":"0","captain":"39","pftitle":"都江堰水利工程","pfcontent":"工程由鱼嘴分水堤、飞沙堰溢洪道、宝瓶口引水口三大主体工程和百丈堤、人字堤等附属工程构成，把汹涌的岷江分隔成外江和内江，外江排洪，内江引水灌溉，使川西平原成为\u201c水旱从人\u201d的\u201c天府之国\u201d。","pfID":"28","pfpic":"http://47.92.136.19/uploads/activity/20180829/aa56aa43324ef47704e37f87c50d98b2.png","upicurl":"http://47.92.136.19/uploads/header/2018/08/11/750ed5b31e9e6c2d4186feabcc569b58153395189511.jpg","follow":"0"},{"pfpwd":"","pfgotime":"2018-08-29 14:42","add_user":"1","look_num":"163","comment_num":"65","pftime":"2018-08-29","sign":"0","username":"明年","usergrade":"0","captain":"31","pftitle":"古水北镇","pfcontent":"古水北镇景区内划船，游玩","pfID":"27","pfpic":"http://47.92.136.19/uploads/activity/20180829/5cbc568858dbdf831ab92413c7c9ff13.png","upicurl":"http://47.92.136.19/uploads/header/2018/08/02/dd65ab4c08a39c50897459c02104b6bb153317457712.jpg","follow":"0"},{"pfpwd":"1234","pfgotime":"2018-09-01 00:00","add_user":"39","look_num":"3","comment_num":"0","pftime":"2018-08-29","sign":"0","username":"旅行家","usergrade":"0","captain":"39","pftitle":"西安汉中2日游","pfcontent":"坐上高铁，翻越秦岭，从关中平原到汉中盆地，从北方到南方。","pfID":"26","pfpic":"http://47.92.136.19/uploads/xingcheng/20180829/b29b901c83ef8a8ea8b31fc83320358a.jpg","upicurl":"http://47.92.136.19/uploads/header/2018/08/11/750ed5b31e9e6c2d4186feabcc569b58153395189511.jpg","follow":"1"},{"pfpwd":"","pfgotime":"2018-09-08 14:17","add_user":"1","look_num":"104","comment_num":"60","pftime":"2018-08-29","sign":"0","username":"吃了","usergrade":"0","captain":"7","pftitle":"五大连池","pfcontent":"游玩五大连池景区","pfID":"25","pfpic":"http://47.92.136.19/uploads/activity/20180829/17f8fa6479554b044343cf2de34fa122.png","upicurl":"http://47.92.136.19/uploads/header/2018/08/28/b467dae87d8731602eb8386df9dbf172153544049715.jpg","follow":"0"},{"pfpwd":"1234","pfgotime":"2018-11-01 00:00","add_user":"39","look_num":"3","comment_num":"0","pftime":"2018-08-29","sign":"0","username":"旅行家","usergrade":"0","captain":"39","pftitle":"青海湖东1日游","pfcontent":"一天的行程，你就能够玩转青海湖！小编为你精心设计了这条一日游行程，把最好玩最精彩最值得一去的景点浓缩在一日的行程里，让你一日也能看尽青海湖的美。","pfID":"24","pfpic":"http://47.92.136.19/uploads/xingcheng/20180829/5012c078745c81134e65ca273f2f3507.jpg","upicurl":"http://47.92.136.19/uploads/header/2018/08/11/750ed5b31e9e6c2d4186feabcc569b58153395189511.jpg","follow":"1"},{"pfpwd":"","pfgotime":"2018-09-01 13:16","add_user":"1","look_num":"126","comment_num":"100","pftime":"2018-08-29","sign":"1","username":"zp","usergrade":"0","captain":"1","pftitle":"长白山","pfcontent":"登顶长白山，看天池美景","pfID":"23","pfpic":"http://47.92.136.19/uploads/activity/20180829/557b8675cd06059e8a522d08fcc5bcd9.png","upicurl":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg","follow":"0"},{"pfpwd":"","pfgotime":"2018-09-01 00:00","add_user":"7","look_num":"41","comment_num":"0","pftime":"2018-08-28","sign":"0","username":"吃了","usergrade":"0","captain":"7","pftitle":"测试密码","pfcontent":"哈哈","pfID":"22","pfpic":"http://47.92.136.19/uploads/xingcheng/20180828/77e5f1ac76fb54b49a85fb3b09eaaada.jpg","upicurl":"http://47.92.136.19/uploads/header/2018/08/28/b467dae87d8731602eb8386df9dbf172153544049715.jpg","follow":"0"}]
      */
 
     private int code;
@@ -44,22 +44,25 @@ public class HomeTogetherModel {
 
     public static class ObjBean {
         /**
-         * add_user : 43
-         * look_num : 0
+         * pfpwd : 11
+         * pfgotime : 2018-09-05 00:00
+         * add_user : 7
+         * look_num : 2
          * comment_num : 0
-         * pftime : 2018-08-14
+         * pftime : 2018-08-30
          * sign : 0
-         * username : 3606_43
+         * username : 吃了
          * usergrade : 0
-         * captain : 43
-         * pftitle : 来啊，快活啊。反正有大把时光
-         * pfcontent : 不仅仅是玩，还有一些你想不到的事儿！
-         * pfID : 130
-         * pfpic : http://47.92.136.19/uploads/xingcheng/20180814/20180814/4fbea42afa775429c5d295a7bcc6246e.jpeg
-         * upicurl : http://47.92.136.19/uploads/header/2018/08/14/0727be2d504beb7c7c15d1f08d6c0639153421613519.jpg
+         * captain : 7
+         * pftitle : 测试密码
+         * pfcontent : 哈哈
+         * pfID : 31
+         * pfpic : http://47.92.136.19/uploads/xingcheng/20180830/f001d17fa2ae88d5bd1527b76c962b2e.jpg
+         * upicurl : http://47.92.136.19/uploads/header/2018/08/28/b467dae87d8731602eb8386df9dbf172153544049715.jpg
          * follow : 0
          */
 
+        private String pfpwd;
         private String pfgotime;
         private String add_user;
         private String look_num;
@@ -75,6 +78,14 @@ public class HomeTogetherModel {
         private String pfpic;
         private String upicurl;
         private String follow;
+
+        public String getPfpwd() {
+            return pfpwd;
+        }
+
+        public void setPfpwd(String pfpwd) {
+            this.pfpwd = pfpwd;
+        }
 
         public String getPfgotime() {
             return pfgotime;

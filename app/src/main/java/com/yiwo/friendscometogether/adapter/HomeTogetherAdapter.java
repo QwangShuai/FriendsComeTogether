@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.custom.LookPasswordDialog;
 import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.HomeTogetherModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -96,13 +98,23 @@ public class HomeTogetherAdapter extends RecyclerView.Adapter<HomeTogetherAdapte
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (spImp.getUID().equals("0")) {
-                    context.startActivity(new Intent(context, LoginActivity.class));
-                } else {
-                    Intent intent = new Intent();
+                final Intent intent = new Intent();
+                if (TextUtils.isEmpty(data.get(position).getPfpwd())) {
                     intent.setClass(context, DetailsOfFriendTogetherActivity.class);
                     intent.putExtra("pfID", data.get(position).getPfID());
                     context.startActivity(intent);
+                } else {
+                    LookPasswordDialog lookPasswordDialog = new LookPasswordDialog(context, new LookPasswordDialog.SetPasswordListener() {
+                        @Override
+                        public void setActivityText(String s) {
+                            if (s.equals(data.get(position).getPfpwd())) {
+                                intent.setClass(context, DetailsOfFriendTogetherActivity.class);
+                                intent.putExtra("pfID", data.get(position).getPfID());
+                                context.startActivity(intent);
+                            }
+                        }
+                    });
+                    lookPasswordDialog.show();
                 }
             }
         });

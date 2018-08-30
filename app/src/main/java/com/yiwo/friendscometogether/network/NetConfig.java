@@ -214,4 +214,6 @@ public class NetConfig {
     public static String invitationNoUrl = "action/ac_activity/refuse";
     //视频相关活动
     public static String videoActiveUrl = "action/ac_activity/video_activity";
+    //我关注的活动
+    public static String MyFocusActiveUrl = "action/ac_user/party_follow_attention";
 }
