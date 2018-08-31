@@ -67,7 +67,7 @@ public class SetActivity extends BaseActivity {
                 break;
             case R.id.activity_set_exit_login_bt:
 //                toToast(this,"退出登录");
-                PopDialog dialog = new PopDialog(this, "退出登录", "确认", "取消",
+                PopDialog dialog = new PopDialog(this, "提示：为了保证您的信息安全，在注销登录后，应用程序将会关闭。再次使用请手动启动程序。", "确认", "取消",
                         new PopDialog.PopDialogListener() {
                             @Override
                             public void sureBtnListener() {
