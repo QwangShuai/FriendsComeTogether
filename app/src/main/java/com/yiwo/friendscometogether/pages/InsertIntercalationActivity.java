@@ -124,7 +124,7 @@ public class InsertIntercalationActivity extends BaseActivity {
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setMaxSelectCount(9 - mList.size()) // 图片的最大选择数量，小于等于0时，不限数量。
 //                        .setSelected(selected) // 把已选的图片传入默认选中。
                         .start(InsertIntercalationActivity.this, REQUEST_CODE); // 打开相册
             }
@@ -145,7 +145,7 @@ public class InsertIntercalationActivity extends BaseActivity {
         etContent.addTextChangedListener(textContentWatcher);
 
         ViseHttp.POST(NetConfig.intercalationLocationUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.intercalationLocationUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.intercalationLocationUrl))
                 .addParam("id", fmID)
                 .request(new ACallback<String>() {
                     @Override
@@ -192,8 +192,8 @@ public class InsertIntercalationActivity extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            tvContentNum.setText(temp.length()+"/2000");
-            if(temp.length()>=2000){
+            tvContentNum.setText(temp.length() + "/2000");
+            if (temp.length() >= 2000) {
                 toToast(InsertIntercalationActivity.this, "您输入的字数已经超过了限制");
             }
         }
@@ -214,26 +214,26 @@ public class InsertIntercalationActivity extends BaseActivity {
     }
 
     @OnClick({R.id.activity_insert_intercalation_rl_back, R.id.activity_insert_intercalation_rl_complete, R.id.activity_insert_intercalation_rl_intercalation_location})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.activity_insert_intercalation_rl_back:
                 onBackPressed();
                 break;
             case R.id.activity_insert_intercalation_rl_complete:
-                if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())){
+                if (TextUtils.isEmpty(etTitle.getText().toString()) || TextUtils.isEmpty(etContent.getText().toString())) {
                     toToast(InsertIntercalationActivity.this, "请完善信息");
-                }else {
-                    if(mList.size() == 0){
+                } else {
+                    if (mList.size() == 0) {
                         toToast(InsertIntercalationActivity.this, "请至少上传一张图片");
-                    }else {
+                    } else {
                         complete();
                     }
                 }
                 break;
             case R.id.activity_insert_intercalation_rl_intercalation_location:
-                if(itemName.length == 0){
+                if (itemName.length == 0) {
                     toToast(InsertIntercalationActivity.this, "暂无子标题");
-                }else {
+                } else {
                     AlertDialog.Builder singleChoiceDialog =
                             new AlertDialog.Builder(InsertIntercalationActivity.this);
                     singleChoiceDialog.setTitle("请选择标签");
@@ -298,7 +298,7 @@ public class InsertIntercalationActivity extends BaseActivity {
                             public void onSuccess(File file) {
                                 // TODO 压缩成功后调用，返回压缩后的图片文件
                                 files.add(file);
-                                if(files.size() == list.size()){
+                                if (files.size() == list.size()) {
                                     for (int i = 0; i < files.size(); i++) {
                                         map.put("images[" + i + "]", files.get(i));
                                     }
@@ -324,20 +324,20 @@ public class InsertIntercalationActivity extends BaseActivity {
             public void onNext(Map<String, File> value) {
 
                 String describe = "";
-                for(int i = 0; i<mList.size(); i++){
-                    describe = describe+mList.get(i).getDescribe()+"|";
+                for (int i = 0; i < mList.size(); i++) {
+                    describe = describe + mList.get(i).getDescribe() + "|";
                 }
                 Log.e("222", describe);
 
                 ViseHttp.UPLOAD(NetConfig.insertIntercalationUrl)
-                        .addHeader("Content-Type","multipart/form-data")
+                        .addHeader("Content-Type", "multipart/form-data")
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.insertIntercalationUrl))
                         .addParam("title", etTitle.getText().toString())
                         .addParam("content", etContent.getText().toString())
                         .addParam("id", fmID)
                         .addParam("uid", uid)
                         .addParam("describe", describe)
-                        .addParam("position", itemId.length == 0?"0":yourChoiceId)
+                        .addParam("position", itemId.length == 0 ? "0" : yourChoiceId)
                         .addFiles(value)
                         .request(new ACallback<String>() {
                             @Override
@@ -345,7 +345,7 @@ public class InsertIntercalationActivity extends BaseActivity {
                                 Log.e("222", data);
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
+                                    if (jsonObject.getInt("code") == 200) {
                                         toToast(InsertIntercalationActivity.this, "创建成功");
                                         WeiboDialogUtils.closeDialog(dialog);
                                         onBackPressed();

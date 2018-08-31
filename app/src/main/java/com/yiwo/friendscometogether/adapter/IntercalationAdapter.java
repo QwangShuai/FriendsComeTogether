@@ -61,6 +61,7 @@ public class IntercalationAdapter extends RecyclerView.Adapter<IntercalationAdap
         } else {
             holder.rlImg.setVisibility(View.VISIBLE);
             holder.ivDelete.setVisibility(View.VISIBLE);
+            holder.rlAdd.setVisibility(View.VISIBLE);
         }
         if (getItemViewType(position) == TYPE_ADD) {
             holder.tvPicNum.setText(position + "/9");

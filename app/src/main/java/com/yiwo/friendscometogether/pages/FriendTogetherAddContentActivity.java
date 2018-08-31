@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -72,7 +73,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
     private SpImp spImp;
     private String uid = "";
     private String id = "";
-    Map<String,String> textmap;
+    Map<String, String> textmap;
     private List<File> files = new ArrayList<>();
 
     private Dialog dialog;
@@ -108,7 +109,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setMaxSelectCount(9 - mList.size()) // 图片的最大选择数量，小于等于0时，不限数量。
 //                        .setSelected(selected) // 把已选的图片传入默认选中。
                         .start(FriendTogetherAddContentActivity.this, REQUEST_CODE); // 打开相册
             }
@@ -128,6 +129,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
         StringUtils.setEditTextInputSpace(etTitle);
         etTitle.addTextChangedListener(new TextWatcher() {
             CharSequence temp;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 temp = s;
@@ -140,7 +142,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvTitle.setText(temp.length()+"/30");
+                tvTitle.setText(temp.length() + "/30");
             }
         });
         etContent.addTextChangedListener(textContentWatcher);
@@ -177,9 +179,9 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_add_content_rl_complete:
-                if(mList.size() == 0){
+                if (mList.size() == 0) {
                     toToast(FriendTogetherAddContentActivity.this, "请至少上传一张图片");
-                }else {
+                } else {
                     complete();
                 }
                 break;
@@ -218,7 +220,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                             public void onSuccess(File file) {
                                 // TODO 压缩成功后调用，返回压缩后的图片文件
                                 files.add(file);
-                                if(files.size() == list.size()){
+                                if (files.size() == list.size()) {
                                     for (int i = 0; i < files.size(); i++) {
                                         map.put("activity_files[" + i + "]", files.get(i));
                                     }
@@ -244,7 +246,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
             public void onNext(Map<String, File> value) {
                 textmap = new HashMap<>();
                 for (int i = 0; i < mList.size(); i++) {
-                    textmap.put("textarea_img["+i+"]",mList.get(i).getDescribe());
+                    textmap.put("textarea_img[" + i + "]", mList.get(i).getDescribe());
                 }
                 ViseHttp.UPLOAD(NetConfig.addContentFriendTogetherUrl)
                         .addHeader("Content-Type", "multipart/form-data")
@@ -261,8 +263,8 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                                 JSONObject obj = null;
                                 try {
                                     obj = new JSONObject(data);
-                                    if(obj.getInt("code")==200){
-                                        toToast(FriendTogetherAddContentActivity.this,"内容添加成功");
+                                    if (obj.getInt("code") == 200) {
+                                        toToast(FriendTogetherAddContentActivity.this, "内容添加成功");
                                         WeiboDialogUtils.closeDialog(dialog);
                                         finish();
                                     }

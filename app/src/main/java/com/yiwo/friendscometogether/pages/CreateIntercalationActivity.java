@@ -125,7 +125,7 @@ public class CreateIntercalationActivity extends BaseActivity {
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setMaxSelectCount(9 - mList.size()) // 图片的最大选择数量，小于等于0时，不限数量。
 //                        .setSelected(selected) // 把已选的图片传入默认选中。
                         .start(CreateIntercalationActivity.this, REQUEST_CODE); // 打开相册
             }
@@ -191,9 +191,9 @@ public class CreateIntercalationActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_create_intercalation_rl_complete:
-                if(mList.size() == 0){
+                if (mList.size() == 0) {
                     toToast(CreateIntercalationActivity.this, "请至少上传一张图片");
-                }else {
+                } else {
                     complete();
                 }
                 break;
@@ -233,8 +233,8 @@ public class CreateIntercalationActivity extends BaseActivity {
                             public void onSuccess(File file) {
                                 // TODO 压缩成功后调用，返回压缩后的图片文件
                                 files.add(file);
-                                Log.e("222", list.size() + "..."+files.size());
-                                if(files.size() == list.size()){
+                                Log.e("222", list.size() + "..." + files.size());
+                                if (files.size() == list.size()) {
                                     for (int i = 0; i < files.size(); i++) {
                                         map.put("images[" + i + "]", files.get(i));
                                     }

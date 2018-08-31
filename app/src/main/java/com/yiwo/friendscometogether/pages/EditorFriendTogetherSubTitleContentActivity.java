@@ -95,7 +95,7 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
 
     private SpImp spImp;
     private String uid = "";
-    private String id = "",title="",content="";
+    private String id = "", title = "", content = "";
 
     private List<File> files = new ArrayList<>();
 
@@ -123,19 +123,19 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
         id = intent.getStringExtra("id");
 
         ViseHttp.POST(NetConfig.getActiveIntercalationInfoUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.getActiveIntercalationInfoUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getActiveIntercalationInfoUrl))
                 .addParam("title_id", id)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 GetActiveIntercalationInfoModel model = gson.fromJson(data, GetActiveIntercalationInfoModel.class);
                                 etTitle.setText(model.getObj().getPfptitle());
                                 etContent.setText(model.getObj().getPfpcontent());
-                                GridLayoutManager manager1 = new GridLayoutManager(EditorFriendTogetherSubTitleContentActivity.this, 3){
+                                GridLayoutManager manager1 = new GridLayoutManager(EditorFriendTogetherSubTitleContentActivity.this, 3) {
                                     @Override
                                     public boolean canScrollVertically() {
                                         return false;
@@ -148,18 +148,18 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                                 picAdapter.setOnModifyListener(new ModifyFriendTogetherIntercalationPicAdapter.OnModifyListener() {
                                     @Override
                                     public void onModify(int type, final int position) {
-                                        switch (type){
+                                        switch (type) {
                                             case 1:
                                                 //删除图片
                                                 ViseHttp.POST(NetConfig.delActivePicUrl)
-                                                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.delActivePicUrl))
+                                                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.delActivePicUrl))
                                                         .addParam("image_id", mList1.get(position).getPfpID())
                                                         .request(new ACallback<String>() {
                                                             @Override
                                                             public void onSuccess(String data) {
                                                                 try {
                                                                     JSONObject jsonObject1 = new JSONObject(data);
-                                                                    if(jsonObject1.getInt("code") == 200){
+                                                                    if (jsonObject1.getInt("code") == 200) {
                                                                         mList1.remove(position);
                                                                         picAdapter.notifyDataSetChanged();
                                                                         toToast(EditorFriendTogetherSubTitleContentActivity.this, "删除图片成功");
@@ -183,16 +183,16 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                                                     @Override
                                                     public void onReturn(final String title) {
                                                         ViseHttp.POST(NetConfig.modifyActivePicInfoUrl)
-                                                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.modifyActivePicInfoUrl))
+                                                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.modifyActivePicInfoUrl))
                                                                 .addParam("pfpID", mList1.get(position).getPfpID())
-                                                                .addParam("img_info", title+"")
+                                                                .addParam("img_info", title + "")
                                                                 .request(new ACallback<String>() {
                                                                     @Override
                                                                     public void onSuccess(String data) {
                                                                         try {
                                                                             JSONObject jsonObject1 = new JSONObject(data);
-                                                                            if(jsonObject1.getInt("code") == 200){
-                                                                                mList1.get(position).setPfpcontent(title+"");
+                                                                            if (jsonObject1.getInt("code") == 200) {
+                                                                                mList1.get(position).setPfpcontent(title + "");
                                                                                 picAdapter.notifyDataSetChanged();
                                                                                 toToast(EditorFriendTogetherSubTitleContentActivity.this, "修改成功");
                                                                             }
@@ -237,7 +237,7 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setMaxSelectCount(9 - mList.size()) // 图片的最大选择数量，小于等于0时，不限数量。
 //                        .setSelected(selected) // 把已选的图片传入默认选中。
                         .start(EditorFriendTogetherSubTitleContentActivity.this, REQUEST_CODE); // 打开相册
             }
@@ -305,9 +305,9 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_editor_friend_together_sub_title_content_rl_complete:
-                if(mList.size() == 0){
+                if (mList.size() == 0) {
                     toToast(EditorFriendTogetherSubTitleContentActivity.this, "请至少上传一张图片");
-                }else {
+                } else {
                     complete();
                 }
                 break;
@@ -347,8 +347,8 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                             public void onSuccess(File file) {
                                 // TODO 压缩成功后调用，返回压缩后的图片文件
                                 files.add(file);
-                                Log.e("222", list.size() + "..."+files.size());
-                                if(files.size() == list.size()){
+                                Log.e("222", list.size() + "..." + files.size());
+                                if (files.size() == list.size()) {
                                     for (int i = 0; i < files.size(); i++) {
                                         map.put("activity_files[" + i + "]", files.get(i));
                                     }
@@ -373,9 +373,9 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
             @Override
             public void onNext(Map<String, File> value) {
 
-                Map<String,String> describe = new HashMap<>();
+                Map<String, String> describe = new HashMap<>();
                 for (int i = 0; i < mList.size(); i++) {
-                    describe.put("textarea_img["+i+"]",mList.get(i).getDescribe());
+                    describe.put("textarea_img[" + i + "]", mList.get(i).getDescribe());
                 }
 
                 ViseHttp.UPLOAD(NetConfig.editorFriendTogetherSubtitleContentUrl)
