@@ -23,6 +23,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.OtherInformationActiveAdapter;
 import com.yiwo.friendscometogether.adapter.OtherInformationWorksAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.custom.FriendDescribeDialog;
 import com.yiwo.friendscometogether.model.OtherInformationModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -221,28 +222,36 @@ public class OtherInformationActivity extends BaseActivity {
                     intent.setClass(OtherInformationActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    ViseHttp.POST(NetConfig.addFriendsUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addFriendsUrl))
-                            .addParam("uid", uid)
-                            .addParam("friendId", otherUid)
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(data);
-                                        if (jsonObject.getInt("code") == 200) {
-                                            toToast(OtherInformationActivity.this, "添加成功");
+                    FriendDescribeDialog dialog = new FriendDescribeDialog(OtherInformationActivity.this);
+                    dialog.show();
+                    dialog.setOnReturnListener(new FriendDescribeDialog.OnReturnListener() {
+                        @Override
+                        public void onReturn(String title) {
+                            ViseHttp.POST(NetConfig.addFriendsUrl)
+                                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addFriendsUrl))
+                                    .addParam("uid", uid)
+                                    .addParam("friendId", otherUid)
+                                    .addParam("describe", title)
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String data) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(data);
+                                                if (jsonObject.getInt("code") == 200) {
+                                                    toToast(OtherInformationActivity.this, "好友请求已发送");
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
 
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
 
-                                }
-                            });
+                                        }
+                                    });
+                        }
+                    });
                 }
                 break;
         }

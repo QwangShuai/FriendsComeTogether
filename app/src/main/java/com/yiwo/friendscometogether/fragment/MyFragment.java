@@ -127,6 +127,21 @@ public class MyFragment extends BaseFragment {
     }
 
     @Override
+    public void onNetChange(int netMobile) {
+        // TODO Auto-generated method stub
+        //在这个判断，根据需要做处理
+        if (netMobile == 1) {
+            Log.e("2222", "inspectNet:连接wifi");
+            onStart();
+        } else if (netMobile == 0) {
+            Log.e("2222", "inspectNet:连接移动数据");
+            onStart();
+        } else if (netMobile == -1) {
+            Log.e("2222", "inspectNet:当前没有网络");
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         uid = spImp.getUID();

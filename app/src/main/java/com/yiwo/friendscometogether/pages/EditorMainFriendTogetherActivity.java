@@ -204,6 +204,22 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
             map.put("pfendtime", bean.getPfendtime());
             map.put("city_id", bean.getCity());
             map.put("if_pic", "0");
+            //人均费用
+            map.put("pfspend", bean.getPfspend());
+            map.put("pfspendtype", bean.getPfspendtype());
+            map.put("pfspendexplain", bean.getPfspendexplain());
+            tvPrice.setText(bean.getPfspend());
+            //人数要求
+            map.put("min_num", bean.getMin_num());
+            map.put("max_num", bean.getMax_num());
+            tvPriceRequire.setText(bean.getMin_num() + "~" + bean.getMax_num());
+            //活动要求
+            map.put("pfpeoplesex", bean.getPfpeoplesex());
+            map.put("pfagebegin", bean.getPfagebegin());
+            map.put("pfageend", bean.getPfageend());
+            map.put("pfmarry", bean.getPfmarry());
+            map.put("pfwarning", bean.getPfwarning());
+            tvActivityRequire.setText("已填写");
         }
         Observable.just("").subscribeOn(Schedulers.newThread()).subscribe(new Observer<String>() {
             @Override
@@ -367,7 +383,7 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
                             pwdTv.setText(s);
                         } else {
                             map.put("pfpwd", s);
-                            pwdTv.setText("参加活动需输入密码");
+                            pwdTv.setText("不设密码");
                         }
 
                     }

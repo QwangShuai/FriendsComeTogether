@@ -178,7 +178,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
             rvComment.setVisibility(View.GONE);
             tvCommentMore.setVisibility(View.GONE);
         } else if (data.size() > 0 && data.size() < 5) {
-            LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this){
+            LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this) {
                 @Override
                 public boolean canScrollVertically() {
                     return false;
@@ -189,8 +189,8 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
             commentListAdapter = new FriendTogetherCommentListAdapter(data);
             rvComment.setAdapter(commentListAdapter);
             tvCommentMore.setVisibility(View.GONE);
-        }else {
-            LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this){
+        } else {
+            LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendTogetherActivity.this) {
                 @Override
                 public boolean canScrollVertically() {
                     return false;
@@ -210,9 +210,9 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         if (!StringUtils.isEmpty(model.getShow_pic())) {
             Glide.with(DetailsOfFriendTogetherActivity.this).load(model.getShow_pic()).into(titleIv);
         }
-        if(model.getIf_sign().equals("1")){
+        if (model.getIf_sign().equals("1")) {
             Glide.with(DetailsOfFriendTogetherActivity.this).load(R.mipmap.sign_yellow).into(ivSign);
-        }else {
+        } else {
             Glide.with(DetailsOfFriendTogetherActivity.this).load(R.mipmap.sign_gray).into(ivSign);
         }
         titleTv.setText(model.getTitle());
@@ -294,11 +294,11 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.details_applyTv:
-                if(TextUtils.isEmpty(spImp.getUID())||spImp.getUID().equals("0")){
+                if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
                     Intent intent = new Intent(DetailsOfFriendTogetherActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
+                } else {
                     ViseHttp.POST(NetConfig.isRealNameUrl)
                             .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.isRealNameUrl))
                             .addParam("userID", spImp.getUID())
@@ -342,7 +342,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
             case R.id.activity_details_of_friends_together_ll_share:
 
                 ViseHttp.POST(NetConfig.activeShareUrl)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.activeShareUrl))
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeShareUrl))
                         .addParam("id", pfID)
                         .addParam("type", "0")
                         .request(new ACallback<String>() {
@@ -350,7 +350,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                             public void onSuccess(String data) {
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
+                                    if (jsonObject.getInt("code") == 200) {
                                         Gson gson = new Gson();
                                         final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
                                         new ShareAction(DetailsOfFriendTogetherActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
@@ -376,46 +376,25 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 break;
             case R.id.activity_details_of_friends_together_ll_focus_on:
                 String userID = spImp.getUID();
-                ViseHttp.POST(NetConfig.focusOnToFriendTogetherUrl)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.focusOnToFriendTogetherUrl))
-                        .addParam("userID", userID)
-                        .addParam("pfID", pfID)
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                FocusOnToFriendTogetherModel model = new Gson().fromJson(result, FocusOnToFriendTogetherModel.class);
-                                if (model.getCode() == 200) {
-                                    if (model.getObj().equals("1")) {
-                                        focusOnIv.setImageResource(R.mipmap.focus_on_y);
-//                                        toToast(DetailsOfFriendTogetherActivity.this, "关注成功");
-                                    } else {
-                                        focusOnIv.setImageResource(R.mipmap.focus_on_empty_y);
-//                                        toToast(DetailsOfFriendTogetherActivity.this, "取消成功");
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
-
-                            }
-                        });
-                break;
-            case R.id.activity_details_of_friends_together_btn_top_focus:
-                if (!StringUtils.isEmpty(leaderID) && !leaderID.equals("0")) {
-                    ViseHttp.POST(NetConfig.focusOnLeaderUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.focusOnLeaderUrl))
-                            .addParam("userID", spImp.getUID())
-                            .addParam("attention_userID", leaderID)
+                if (spImp.getUID().equals("0") || TextUtils.isEmpty(spImp.getUID())) {
+                    Intent intent1 = new Intent(DetailsOfFriendTogetherActivity.this, LoginActivity.class);
+                    startActivity(intent1);
+                } else {
+                    ViseHttp.POST(NetConfig.focusOnToFriendTogetherUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.focusOnToFriendTogetherUrl))
+                            .addParam("userID", userID)
+                            .addParam("pfID", pfID)
                             .request(new ACallback<String>() {
                                 @Override
-                                public void onSuccess(String data) {
-                                    FocusOnLeaderModel model = new Gson().fromJson(data, FocusOnLeaderModel.class);
+                                public void onSuccess(String result) {
+                                    FocusOnToFriendTogetherModel model = new Gson().fromJson(result, FocusOnToFriendTogetherModel.class);
                                     if (model.getCode() == 200) {
-                                        if (model.getObj().getAttention().equals("0")) {
-                                            focusOnBtn.setText("+ 关注");
+                                        if (model.getObj().equals("1")) {
+                                            focusOnIv.setImageResource(R.mipmap.focus_on_y);
+                                            toToast(DetailsOfFriendTogetherActivity.this, "关注成功");
                                         } else {
-                                            focusOnBtn.setText("已关注");
+                                            focusOnIv.setImageResource(R.mipmap.focus_on_empty_y);
+                                            toToast(DetailsOfFriendTogetherActivity.this, "取消成功");
                                         }
                                     }
                                 }
@@ -425,8 +404,39 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
 
                                 }
                             });
+                }
+                break;
+            case R.id.activity_details_of_friends_together_btn_top_focus:
+                if (spImp.getUID().equals("0") || TextUtils.isEmpty(spImp.getUID())) {
+                    Intent intent1 = new Intent(DetailsOfFriendTogetherActivity.this, LoginActivity.class);
+                    startActivity(intent1);
                 } else {
-                    toToast(DetailsOfFriendTogetherActivity.this, "暂无领队");
+                    if (!StringUtils.isEmpty(leaderID) && !leaderID.equals("0")) {
+                        ViseHttp.POST(NetConfig.focusOnLeaderUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.focusOnLeaderUrl))
+                                .addParam("userID", spImp.getUID())
+                                .addParam("attention_userID", leaderID)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        FocusOnLeaderModel model = new Gson().fromJson(data, FocusOnLeaderModel.class);
+                                        if (model.getCode() == 200) {
+                                            if (model.getObj().getAttention().equals("0")) {
+                                                focusOnBtn.setText("+ 关注");
+                                            } else {
+                                                focusOnBtn.setText("已关注");
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    } else {
+                        toToast(DetailsOfFriendTogetherActivity.this, "暂无领队");
+                    }
                 }
                 break;
             case R.id.headIv:

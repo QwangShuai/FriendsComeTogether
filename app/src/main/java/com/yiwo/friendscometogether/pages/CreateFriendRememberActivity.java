@@ -56,6 +56,7 @@ import com.yiwo.friendscometogether.model.UserReleaseModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
+import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.widget.CustomDatePicker;
 
@@ -421,8 +422,13 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
                 SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendRememberActivity.this, new SetPasswordDialog.SetPasswordListener() {
                     @Override
                     public void setActivityText(String s) {
-                        password = s;
-                        tvPassword.setText("已添加密码("+s+")");
+                        if (!StringUtils.isEmpty(s)) {
+                            password = s;
+                            tvPassword.setText("已添加密码(" + s + ")");
+                        }else {
+                            password = s;
+                            tvPassword.setText("不设密码");
+                        }
                     }
                 });
                 setPasswordDialog.show();
@@ -561,7 +567,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
         super.takeSuccess(result);
         String url = result.getImage().getCompressPath();
         Log.e("222", result.getImage().getCompressPath());
-        Glide.with(CreateFriendRememberActivity.this).load("file://"+url).into(ivTitle);
+        Picasso.with(CreateFriendRememberActivity.this).load("file://"+url).into(ivTitle);
         images = url;
         ivTitle.setVisibility(View.VISIBLE);
         tvFirstIv.setVisibility(View.VISIBLE);

@@ -245,6 +245,14 @@
         <activity android:name=".pages.MessageCommentActivity" />
         <activity android:name=".pages.GuideActivity" />
         <activity android:name=".pages.MyFocusActiveActivity"></activity>
+
+
+        <receiver android:name=".broadcastreceiver.NetBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

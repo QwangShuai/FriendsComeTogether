@@ -49,6 +49,7 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
         if(!TextUtils.isEmpty(data.get(position).getPic())){
             Picasso.with(context).load(data.get(position).getPic()).into(holder.picIv);
         }
+        holder.tvContent.setText(data.get(position).getDescribe());
         holder.tvNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +74,7 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
         private ImageView picIv;
         private TextView tvNo;
         private TextView tvOk;
+        private TextView tvContent;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -80,6 +82,7 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
             picIv = (itemView).findViewById(R.id.message_view_pic_iv);
             tvNo = itemView.findViewById(R.id.tv_no);
             tvOk = itemView.findViewById(R.id.tv_ok);
+            tvContent = itemView.findViewById(R.id.message_view_content_tv);
         }
     }
 

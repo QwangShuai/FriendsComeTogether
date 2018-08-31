@@ -563,7 +563,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10px"
                         android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_encryption_right"
-                        android:text="暂无密码"
+                        android:text="不设密码"
                         android:textColor="@color/black_333333"
                         android:textSize="28px" />
 

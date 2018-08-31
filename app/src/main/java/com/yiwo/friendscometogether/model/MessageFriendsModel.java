@@ -53,6 +53,7 @@ public class MessageFriendsModel {
          * pic : http://47.92.136.19/woshou.jpg
          */
 
+        private String describe;
         private String fID;
         private String userID;
         private String fuserID;
@@ -60,6 +61,14 @@ public class MessageFriendsModel {
         private String radio;
         private String title;
         private String pic;
+
+        public String getDescribe() {
+            return describe;
+        }
+
+        public void setDescribe(String describe) {
+            this.describe = describe;
+        }
 
         public String getFID() {
             return fID;

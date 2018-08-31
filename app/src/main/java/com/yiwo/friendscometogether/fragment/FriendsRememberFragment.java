@@ -94,8 +94,7 @@ public class FriendsRememberFragment extends BaseFragment {
         ButterKnife.bind(this, rootView);
         spImp = new SpImp(getContext());
 
-        getLable();
-        initData();
+
 
         return rootView;
     }
@@ -104,6 +103,23 @@ public class FriendsRememberFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         uid = spImp.getUID();
+    }
+
+    @Override
+    public void onNetChange(int netMobile) {
+        // TODO Auto-generated method stub
+        //在这个判断，根据需要做处理
+        if (netMobile == 1) {
+            Log.e("2222", "inspectNet:连接wifi");
+            getLable();
+            initData();
+        } else if (netMobile == 0) {
+            Log.e("2222", "inspectNet:连接移动数据");
+            getLable();
+            initData();
+        } else if (netMobile == -1) {
+            Log.e("2222", "inspectNet:当前没有网络");
+        }
     }
 
     public void getLable() {

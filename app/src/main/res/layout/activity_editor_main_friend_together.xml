@@ -529,7 +529,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10px"
                     android:layout_toLeftOf="@+id/activity_editor_main_friend_together_iv_enter_activities_right"
-                    android:text="参加活动需输入密码"
+                    android:text="不设密码"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 

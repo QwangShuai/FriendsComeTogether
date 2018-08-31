@@ -38,7 +38,6 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.JsonBean;
@@ -48,6 +47,7 @@ import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
+import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.widget.CustomDatePicker;
 
@@ -493,8 +493,13 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                 SetPasswordDialog setPasswordDialog = new SetPasswordDialog(ModifyFriendRememberActivity.this, new SetPasswordDialog.SetPasswordListener() {
                     @Override
                     public void setActivityText(String s) {
-                        password = s;
-                        tvPassword.setText("已添加密码("+s+")");
+                        if (!StringUtils.isEmpty(s)) {
+                            password = s;
+                            tvPassword.setText("已添加密码(" + s + ")");
+                        }else {
+                            password = s;
+                            tvPassword.setText("不设密码");
+                        }
                     }
                 });
                 setPasswordDialog.show();

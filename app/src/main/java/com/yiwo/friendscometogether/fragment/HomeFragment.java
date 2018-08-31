@@ -40,9 +40,9 @@ import com.yiwo.friendscometogether.adapter.HomeTogetherAdapter;
 import com.yiwo.friendscometogether.adapter.VideoAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.model.AllBannerModel;
-import com.yiwo.friendscometogether.model.CityModel;
-import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.BaiduCityModel;
+import com.yiwo.friendscometogether.model.CityModel;
+import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.HomeHotFriendsRememberModel;
 import com.yiwo.friendscometogether.model.HomeTogetherModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
@@ -59,7 +59,6 @@ import com.yiwo.friendscometogether.utils.UserUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -144,12 +143,32 @@ public class HomeFragment extends BaseFragment {
 //            parent.removeView(rootView);
 //        }
 
+//        initReceiver();
+
         ButterKnife.bind(this, rootView);
         ScreenAdapterTools.getInstance().loadView(rootView);
         spImp = new SpImp(getContext());
-        getLocation();
-        initData();
+//        getLocation();
+//        initData();
         return rootView;
+    }
+
+
+    @Override
+    public void onNetChange(int netMobile) {
+        // TODO Auto-generated method stub
+        //在这个判断，根据需要做处理
+        if (netMobile == 1) {
+            Log.e("2222", "inspectNet:连接wifi");
+            getLocation();
+            initData();
+        } else if (netMobile == 0) {
+            Log.e("2222", "inspectNet:连接移动数据");
+            getLocation();
+            initData();
+        } else if (netMobile == -1) {
+            Log.e("2222", "inspectNet:当前没有网络");
+        }
     }
 
     @Override
@@ -413,20 +432,20 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onFocus(final int position) {
                 if (!StringUtils.isEmpty(data.get(position).getCaptain()) && !data.get(position).getCaptain().equals("0")) {
-                    ViseHttp.POST(NetConfig.focusOnLeaderUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.focusOnLeaderUrl))
+                    ViseHttp.POST(NetConfig.focusOnToFriendTogetherUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.focusOnToFriendTogetherUrl))
                             .addParam("userID", spImp.getUID())
-                            .addParam("attention_userID", data.get(position).getCaptain())
+                            .addParam("pfID", data.get(position).getPfID())
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {
-                                    FocusOnLeaderModel model = new Gson().fromJson(data, FocusOnLeaderModel.class);
+                                    FocusOnToFriendTogetherModel model = new Gson().fromJson(data, FocusOnToFriendTogetherModel.class);
                                     if (model.getCode() == 200) {
-                                        if (model.getObj().getAttention().equals("0")) {
-                                            mList.get(position).setFollow("0");
+                                        if (model.getObj().equals("1")) {
+                                            mList.get(position).setFollow("1");
                                             togetherAdapter.notifyDataSetChanged();
                                         } else {
-                                            mList.get(position).setFollow("1");
+                                            mList.get(position).setFollow("0");
                                             togetherAdapter.notifyDataSetChanged();
                                         }
                                     }
@@ -598,7 +617,6 @@ public class HomeFragment extends BaseFragment {
             String url = "http://api.map.baidu.com/geocoder?output=json&location=" + latitude + "," + longitude + "&key=8dDPAEEMwPNZgxg4YhNUXqWoV8GNItO1";
 
             ViseHttp.GET(url)
-                    .addHeader("Accept-Language", "zh-CN")
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {

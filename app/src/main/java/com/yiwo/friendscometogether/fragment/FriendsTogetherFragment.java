@@ -104,8 +104,23 @@ public class FriendsTogetherFragment extends BaseFragment {
         ButterKnife.bind(this, rootView);
 
         spImp = new SpImp(getContext());
-        initData();
+//        initData();
         return rootView;
+    }
+
+    @Override
+    public void onNetChange(int netMobile) {
+        // TODO Auto-generated method stub
+        //在这个判断，根据需要做处理
+        if (netMobile == 1) {
+            Log.e("2222", "inspectNet:连接wifi");
+            initData();
+        } else if (netMobile == 0) {
+            Log.e("2222", "inspectNet:连接移动数据");
+            initData();
+        } else if (netMobile == -1) {
+            Log.e("2222", "inspectNet:当前没有网络");
+        }
     }
 
     private void initData() {

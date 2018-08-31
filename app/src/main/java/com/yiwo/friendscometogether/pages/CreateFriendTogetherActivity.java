@@ -405,7 +405,7 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
                             pwdTv.setText(s);
                         } else {
                             map.put("follow_pass", s);
-                            pwdTv.setText("参加活动需输入密码");
+                            pwdTv.setText("不设密码");
                         }
 
                     }

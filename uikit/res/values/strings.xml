@@ -17,7 +17,7 @@
     <string name="close">关闭</string>
     <string name="menu">菜单</string>
     <string name="now_allow_space">不能含有空格</string>
-    <string name="readed">已读</string>
+    <string name="readed"></string>
 
     <!-- session -->
     <string name="input_panel_photo">图 片</string>
@@ -32,7 +32,7 @@
     <string name="delete_has_blank">删 除</string>
     <string name="voice_to_text">转文字</string>
     <string name="forward_to_person">转发到个人</string>
-    <string name="forward_to_team">转发到群组</string>
+    <string name="forward_to_team">转发到聊天室</string>
     <string name="withdrawn_msg">撤 回</string>
     <string name="save">保存</string>
     <string name="main_msg_list_delete_chatting">删除该聊天</string>

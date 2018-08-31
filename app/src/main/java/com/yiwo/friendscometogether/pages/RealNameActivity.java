@@ -87,20 +87,28 @@ public class RealNameActivity extends BaseActivity {
         uid = spImp.getUID();
 
         ViseHttp.POST(NetConfig.userRealNameInfoUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userRealNameInfoUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRealNameInfoUrl))
                 .addParam("id", uid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 UserRealNameInfoModel model = gson.fromJson(data, UserRealNameInfoModel.class);
                                 status = model.getObj().getUsercodeok();
-                                if(model.getObj().getUsercodeok().equals("0")||model.getObj().getUsercodeok().equals("3")){
+                                if (model.getObj().getUsercodeok().equals("0") || model.getObj().getUsercodeok().equals("3")) {
 
-                                }else {
+                                } else if (model.getObj().getUsercodeok().equals("2")) {
+                                    rlComplete.setVisibility(View.GONE);
+                                    etName.setText(model.getObj().getUsertruename());
+                                    etIdNum.setText(model.getObj().getUsercodenum());
+                                    Picasso.with(RealNameActivity.this).load(model.getObj().getUsercode()).into(ivId1);
+                                    Picasso.with(RealNameActivity.this).load(model.getObj().getUsercodeback()).into(ivId2);
+                                    ivId1.setVisibility(View.VISIBLE);
+                                    ivId2.setVisibility(View.VISIBLE);
+                                } else {
                                     etName.setText(model.getObj().getUsertruename());
                                     etIdNum.setText(model.getObj().getUsercodenum());
                                     Picasso.with(RealNameActivity.this).load(model.getObj().getUsercode()).into(ivId1);
@@ -147,11 +155,11 @@ public class RealNameActivity extends BaseActivity {
                         .start(RealNameActivity.this, REQUEST_CODE1); // 打开相册
                 break;
             case R.id.activity_real_name_rl_complete:
-                if(status.equals("0")||status.equals("3")){
+                if (status.equals("0") || status.equals("3")) {
                     onComplete();
-                }else if(status.equals("1")){
+                } else if (status.equals("1")) {
                     toToast(RealNameActivity.this, "审核中");
-                }else {
+                } else {
                     toToast(RealNameActivity.this, "已通过审核");
                 }
                 break;
@@ -160,10 +168,10 @@ public class RealNameActivity extends BaseActivity {
 
     private void onComplete() {
 
-        if(TextUtils.isEmpty(etName.getText().toString())||TextUtils.isEmpty(etIdNum.getText().toString())||
-                TextUtils.isEmpty(userImg)||TextUtils.isEmpty(userImgBack)){
+        if (TextUtils.isEmpty(etName.getText().toString()) || TextUtils.isEmpty(etIdNum.getText().toString()) ||
+                TextUtils.isEmpty(userImg) || TextUtils.isEmpty(userImgBack)) {
             toToast(RealNameActivity.this, "请完善信息");
-        }else {
+        } else {
             Observable<List<File>> observable = Observable.create(new ObservableOnSubscribe<List<File>>() {
                 @Override
                 public void subscribe(ObservableEmitter<List<File>> e) throws Exception {
@@ -182,8 +190,8 @@ public class RealNameActivity extends BaseActivity {
                 @Override
                 public void onNext(List<File> value) {
                     ViseHttp.UPLOAD(NetConfig.realNameUrl)
-                            .addHeader("Content-Type","multipart/form-data")
-                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.realNameUrl))
+                            .addHeader("Content-Type", "multipart/form-data")
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.realNameUrl))
                             .addParam("uid", uid)
                             .addParam("name", etName.getText().toString())
                             .addParam("code", etIdNum.getText().toString())
@@ -194,7 +202,7 @@ public class RealNameActivity extends BaseActivity {
                                 public void onSuccess(String data) {
                                     try {
                                         JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.getInt("code") == 200){
+                                        if (jsonObject.getInt("code") == 200) {
                                             toToast(RealNameActivity.this, "已提交审核");
                                             onBackPressed();
                                         }

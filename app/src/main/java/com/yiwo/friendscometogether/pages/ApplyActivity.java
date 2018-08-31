@@ -310,11 +310,12 @@ public class ApplyActivity extends BaseActivity {
                     .request(new ACallback<String>() {
                         @Override
                         public void onFail(int errCode, String errMsg) {
-
+                            Log.e("222", errMsg);
                         }
 
                         @Override
                         public void onSuccess(String data) {
+                            Log.e("222", data);
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if (jsonObject.getInt("code") == 200) {

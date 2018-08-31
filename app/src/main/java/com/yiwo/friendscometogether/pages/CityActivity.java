@@ -102,7 +102,7 @@ public class CityActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (!list.get(position).getId().equals("-1")||position==0) {
-                    toToast(CityActivity.this, list.get(position).getName());
+//                    toToast(CityActivity.this, list.get(position).getName());
                     String ac = getIntent().getStringExtra(ActivityConfig.ACTIVITY);
                     Intent it = new Intent();
                     if (ac.equals("youju")) {

@@ -31,6 +31,16 @@
             android:layout_marginTop="20px"
             android:scaleType="centerCrop" />
 
+        <TextView
+            android:layout_marginTop="20px"
+            android:id="@+id/message_view_content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="完全搞不清楚状况的我"
+            android:textColor="@color/black_333333"
+            android:textSize="30px" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2px"
