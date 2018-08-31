@@ -1,9 +1,7 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,24 +11,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.vise.xsnow.http.ViseHttp;
-import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.UserRememberModel;
-import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.EditorFriendRememberActivity;
-import com.yiwo.friendscometogether.pages.ModifyFriendRememberActivity;
-import com.yiwo.friendscometogether.pages.MyFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.TeamIntercalationActivity;
-import com.yiwo.friendscometogether.utils.TokenUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -97,16 +85,6 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
                 context.startActivity(intent);
             }
         });
-        holder.tvModify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(context, ModifyFriendRememberActivity.class);
-                intent.putExtra("id", data.get(position).getFmID());
-                context.startActivity(intent);
-                activity.finish();
-            }
-        });
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,7 +113,6 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
         private RelativeLayout rlEditor;
         private RelativeLayout rlDelete;
         private RelativeLayout rlTeamIntercalation;
-        private TextView tvModify;
         private LinearLayout ll;
 
         public ViewHolder(View itemView) {
@@ -150,7 +127,6 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
             rlEditor = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_editor);
             rlDelete = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_delete);
             rlTeamIntercalation = itemView.findViewById(R.id.activity_my_friend_remember_rv_rl_team_intercalation);
-            tvModify = itemView.findViewById(R.id.activity_my_friend_remember_rv_tv_modify);
             ll = itemView.findViewById(R.id.ll);
         }
     }

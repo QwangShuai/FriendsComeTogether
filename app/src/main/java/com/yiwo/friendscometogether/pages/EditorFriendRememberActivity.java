@@ -59,6 +59,8 @@ public class EditorFriendRememberActivity extends BaseActivity {
     SwipeMenuRecyclerView recyclerView;
     @BindView(R.id.activity_editor_friend_remember_tv_add)
     TextView tvAdd;
+    @BindView(R.id.rl_modify)
+    RelativeLayout rlModify;
 
     private EditorFriendRememberAdapter adapter;
     private List<EditorFriendRememberModel.ObjBean.RenewListBean> mList;
@@ -182,7 +184,7 @@ public class EditorFriendRememberActivity extends BaseActivity {
         }
     };
 
-    @OnClick({R.id.activity_editor_friend_remember_rl_back, R.id.activity_editor_friend_remember_tv_add})
+    @OnClick({R.id.activity_editor_friend_remember_rl_back, R.id.activity_editor_friend_remember_tv_add, R.id.rl_modify})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -194,6 +196,11 @@ public class EditorFriendRememberActivity extends BaseActivity {
                 intent.putExtra("id", id);
                 startActivity(intent);
                 onBackPressed();
+                break;
+            case R.id.rl_modify:
+                intent.setClass(EditorFriendRememberActivity.this, ModifyFriendRememberActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
                 break;
         }
     }

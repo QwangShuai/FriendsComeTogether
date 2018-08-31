@@ -244,15 +244,15 @@
         <activity android:name=".pages.MessageFriendsActivity" />
         <activity android:name=".pages.MessageCommentActivity" />
         <activity android:name=".pages.GuideActivity" />
-        <activity android:name=".pages.MyFocusActiveActivity"></activity>
+        <activity android:name=".pages.MyFocusActiveActivity" />
 
-
-        <receiver android:name=".broadcastreceiver.NetBroadcastReceiver" >
+        <receiver android:name=".broadcastreceiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
+        <activity android:name=".pages.PicWebActivity"></activity>
     </application>
 
 </manifest>

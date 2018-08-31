@@ -257,6 +257,64 @@ public class HomeFragment extends BaseFragment {
                                 }
                             }
                         });
+                tvTuijian.setTextColor(Color.parseColor("#ff9d00"));
+                tvRemen.setTextColor(Color.parseColor("#333333"));
+                tvGuanzhu.setTextColor(Color.parseColor("#333333"));
+                ViseHttp.POST(NetConfig.homeHotFriendsRememberUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homeHotFriendsRememberUrl))
+                        .addParam("uid", uid)
+                        .addParam("type", "1")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Log.e("222", data);
+                                        HomeHotFriendsRememberModel model = new Gson().fromJson(data, HomeHotFriendsRememberModel.class);
+                                        mList1.clear();
+                                        mList1.addAll(model.getObj().getInfo());
+                                        adapter.notifyDataSetChanged();
+                                        initVideoList(model.getObj().getVideo());
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+                ViseHttp.POST(NetConfig.allBannerUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.allBannerUrl))
+                        .addParam("type", "1")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Gson gson = new Gson();
+                                        final AllBannerModel bannerModel = gson.fromJson(data, AllBannerModel.class);
+                                        List<String> list = new ArrayList<>();
+                                        for (int i = 0; i < bannerModel.getObj().size(); i++) {
+                                            list.add(bannerModel.getObj().get(i).getPic());
+                                        }
+                                        init(banner, list);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {

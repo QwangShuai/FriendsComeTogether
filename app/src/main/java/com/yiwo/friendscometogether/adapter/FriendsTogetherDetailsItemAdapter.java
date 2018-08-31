@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.FriendsTogetherDetailsModel;
+import com.yiwo.friendscometogether.pages.PicWebActivity;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
 import java.util.List;
@@ -37,11 +39,20 @@ public class FriendsTogetherDetailsItemAdapter extends RecyclerView.Adapter<Frie
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         if(!StringUtils.isEmpty(data.get(position).getPic())){
             Picasso.with(context).load(data.get(position).getPic()).into(holder.item_picIv);
         }
         holder.item_titleTv.setText(data.get(position).getText_info());
+        holder.item_picIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("pic", data.get(position).getLook_pic_url());
+                intent.setClass(context, PicWebActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

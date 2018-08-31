@@ -438,8 +438,17 @@ public class FriendsTogetherDetailsModel {
                  * text_info :
                  */
 
+                private String look_pic_url;
                 private String pic;
                 private String text_info;
+
+                public String getLook_pic_url() {
+                    return look_pic_url;
+                }
+
+                public void setLook_pic_url(String look_pic_url) {
+                    this.look_pic_url = look_pic_url;
+                }
 
                 public String getPic() {
                     return pic;
