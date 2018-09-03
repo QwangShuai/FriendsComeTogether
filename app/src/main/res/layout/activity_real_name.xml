@@ -103,10 +103,46 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/activity_real_name_rl_sign"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/activity_real_name_rl_idnum"
+            android:layout_marginTop="26px"
+            android:layout_width="600px"
+            android:layout_height="40px">
+
+            <TextView
+                android:id="@+id/activity_real_name_tv_sign"
+                android:textSize="28px"
+                android:textColor="@color/black_333333"
+                android:text="签证机关:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/activity_real_name_tv_sign"
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="2px"/>
+
+            <EditText
+                android:layout_marginLeft="10px"
+                android:layout_toRightOf="@+id/activity_real_name_tv_sign"
+                android:gravity="center_vertical"
+                android:background="@null"
+                android:id="@+id/activity_real_name_et_sign"
+                android:textSize="28px"
+                android:textColor="@color/black_333333"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/activity_real_name_tv_uploadid"
             android:layout_marginTop="40px"
-            android:layout_below="@+id/activity_real_name_rl_idnum"
+            android:layout_below="@+id/activity_real_name_rl_sign"
             android:layout_centerHorizontal="true"
             android:textColor="#626262"
             android:textSize="28px"
@@ -159,7 +195,7 @@
                     android:id="@+id/activity_real_name_iv_id_1"
                     android:visibility="gone"
                     android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
             </RelativeLayout>
@@ -199,7 +235,7 @@
                     android:id="@+id/activity_real_name_iv_id_2"
                     android:visibility="gone"
                     android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
             </RelativeLayout>

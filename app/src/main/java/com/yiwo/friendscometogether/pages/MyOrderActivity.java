@@ -72,7 +72,7 @@ public class MyOrderActivity extends BaseActivity {
                 tvTopTitle.setText("待支付");
                 break;
             case 2:
-                tvTopTitle.setText("待行程");
+                tvTopTitle.setText("进行中");
                 break;
             case 3:
                 tvTopTitle.setText("待评价");

@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.UserRealNameInfoModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -38,6 +40,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class RealNameActivity extends BaseActivity {
 
@@ -57,6 +62,8 @@ public class RealNameActivity extends BaseActivity {
     EditText etName;
     @BindView(R.id.activity_real_name_et_idnum)
     EditText etIdNum;
+    @BindView(R.id.activity_real_name_et_sign)
+    EditText etSign;
 
     private static final int REQUEST_CODE = 0x00000011;
     private static final int REQUEST_CODE1 = 0x00000012;
@@ -68,6 +75,8 @@ public class RealNameActivity extends BaseActivity {
     private String uid = "";
 
     private String status = "";
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,17 +177,47 @@ public class RealNameActivity extends BaseActivity {
 
     private void onComplete() {
 
-        if (TextUtils.isEmpty(etName.getText().toString()) || TextUtils.isEmpty(etIdNum.getText().toString()) ||
+        if (TextUtils.isEmpty(etName.getText().toString()) || TextUtils.isEmpty(etIdNum.getText().toString()) || TextUtils.isEmpty(etSign.getText().toString()) ||
                 TextUtils.isEmpty(userImg) || TextUtils.isEmpty(userImgBack)) {
             toToast(RealNameActivity.this, "请完善信息");
         } else {
             Observable<List<File>> observable = Observable.create(new ObservableOnSubscribe<List<File>>() {
                 @Override
-                public void subscribe(ObservableEmitter<List<File>> e) throws Exception {
-                    List<File> list = new ArrayList<>();
-                    list.add(new File(userImg));
-                    list.add(new File(userImgBack));
-                    e.onNext(list);
+                public void subscribe(final ObservableEmitter<List<File>> e) throws Exception {
+                    dialog = WeiboDialogUtils.createLoadingDialog(RealNameActivity.this, "请等待...");
+                    List<String> list = new ArrayList<>();
+                    list.add(userImg);
+                    list.add(userImgBack);
+                    final List<File> files = new ArrayList<>();
+                    Luban.with(RealNameActivity.this)
+                            .load(list)
+                            .ignoreBy(100)
+                            .filter(new CompressionPredicate() {
+                                @Override
+                                public boolean apply(String path) {
+                                    return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                }
+                            })
+                            .setCompressListener(new OnCompressListener() {
+                                @Override
+                                public void onStart() {
+                                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                }
+
+                                @Override
+                                public void onSuccess(File file) {
+                                    // TODO 压缩成功后调用，返回压缩后的图片文件
+                                    files.add(file);
+                                    if (files.size() == 2) {
+                                        e.onNext(files);
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    // TODO 当压缩过程出现问题时调用
+                                }
+                            }).launch();
                 }
             });
             Observer<List<File>> observer = new Observer<List<File>>() {
@@ -195,25 +234,35 @@ public class RealNameActivity extends BaseActivity {
                             .addParam("uid", uid)
                             .addParam("name", etName.getText().toString())
                             .addParam("code", etIdNum.getText().toString())
+                            .addParam("visa", etSign.getText().toString())
                             .addFile("usercode", value.get(0))
                             .addFile("usercodeback", value.get(1))
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {
+                                    Log.e("22222", data + "::::");
                                     try {
-                                        JSONObject jsonObject = new JSONObject(data);
+                                        JSONObject jsonObject = new JSONObject();
+                                        if (!TextUtils.isEmpty(data)) {
+                                            jsonObject = new JSONObject(data);
+                                        }
                                         if (jsonObject.getInt("code") == 200) {
                                             toToast(RealNameActivity.this, "已提交审核");
-                                            onBackPressed();
+                                        }
+                                        if (jsonObject.getInt("code") == 400) {
+                                            toToast(RealNameActivity.this, jsonObject.getString("message"));
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    onBackPressed();
+                                    WeiboDialogUtils.closeDialog(dialog);
                                 }
 
                                 @Override
                                 public void onFail(int errCode, String errMsg) {
-
+                                    Log.e("22222", errMsg);
+                                    WeiboDialogUtils.closeDialog(dialog);
                                 }
                             });
                 }

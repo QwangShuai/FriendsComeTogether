@@ -111,7 +111,7 @@ public class UIKitOptions {
     /**
      * 全局是否使用消息已读，如果设置为false，UIKit 组件将不会发送、接收已读回执
      */
-    public boolean shouldHandleReceipt = true;
+    public boolean shouldHandleReceipt = false;
 
     /**
      * 文本框最大输入字符数目
