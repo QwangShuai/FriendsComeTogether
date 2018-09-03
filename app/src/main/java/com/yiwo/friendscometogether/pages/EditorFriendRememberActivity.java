@@ -61,11 +61,16 @@ public class EditorFriendRememberActivity extends BaseActivity {
     TextView tvAdd;
     @BindView(R.id.rl_modify)
     RelativeLayout rlModify;
+    @BindView(R.id.tv_title)
+    TextView tvTopTitle;
+    @BindView(R.id.rl_complete)
+    RelativeLayout rlComplete;
 
     private EditorFriendRememberAdapter adapter;
     private List<EditorFriendRememberModel.ObjBean.RenewListBean> mList;
 
     private String id = "";
+    private String draft = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,10 @@ public class EditorFriendRememberActivity extends BaseActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+        draft = intent.getStringExtra("draft");
+        if(draft.equals("2")){
+            rlComplete.setVisibility(View.VISIBLE);
+        }
         ViseHttp.POST(NetConfig.editorFriendRememberUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.editorFriendRememberUrl))
                 .addParam("id", id)
@@ -184,7 +193,7 @@ public class EditorFriendRememberActivity extends BaseActivity {
         }
     };
 
-    @OnClick({R.id.activity_editor_friend_remember_rl_back, R.id.activity_editor_friend_remember_tv_add, R.id.rl_modify})
+    @OnClick({R.id.activity_editor_friend_remember_rl_back, R.id.activity_editor_friend_remember_tv_add, R.id.rl_modify, R.id.rl_complete})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -194,13 +203,37 @@ public class EditorFriendRememberActivity extends BaseActivity {
             case R.id.activity_editor_friend_remember_tv_add:
                 intent.setClass(EditorFriendRememberActivity.this, CreateIntercalationActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("type", draft);
                 startActivity(intent);
-                onBackPressed();
                 break;
             case R.id.rl_modify:
                 intent.setClass(EditorFriendRememberActivity.this, ModifyFriendRememberActivity.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
+                break;
+            case R.id.rl_complete:
+                ViseHttp.POST(NetConfig.releaseDraftUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.releaseDraftUrl))
+                        .addParam("id", id)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        toToast(EditorFriendRememberActivity.this, "发布成功");
+                                        finish();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
         }
     }

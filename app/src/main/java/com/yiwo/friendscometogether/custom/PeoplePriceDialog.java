@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -27,22 +28,30 @@ import java.util.Map;
 public class PeoplePriceDialog extends Dialog {
 
     private Context context;
-    private TextView showTv,treatTv,payTv,submitBtn,contentTv;
-    private EditText priceEt,otherEt;
+    private TextView showTv, treatTv, payTv, submitBtn, contentTv;
+    private EditText priceEt, otherEt;
     private RelativeLayout closeRl;
     CreateFriendsTogetherRequestModel model = new CreateFriendsTogetherRequestModel();
+    private String price;
+    private String price_type;
+    private String price_info;
+
     public interface PeoplePriceListener {
         /**
          * 回调函数，用于在Dialog的监听事件触发后刷新Activity的UI显示
          */
         void setActivityText(CreateFriendsTogetherRequestModel model);
     }
+
     private PeoplePriceListener listener;
 
-    public PeoplePriceDialog(@NonNull Context context,PeoplePriceListener listener) {
+    public PeoplePriceDialog(@NonNull Context context, String price, String price_type, String price_info, PeoplePriceListener listener) {
         super(context);
         this.context = context;
         this.listener = listener;
+        this.price = price;
+        this.price_type = price_type;
+        this.price_info = price_info;
     }
 
     @Override
@@ -66,6 +75,25 @@ public class PeoplePriceDialog extends Dialog {
         priceEt = (EditText) view.findViewById(R.id.dialog_people_price_et_price);
         otherEt = (EditText) view.findViewById(R.id.dialog_people_price_et_explain);
         closeRl = (RelativeLayout) view.findViewById(R.id.dialog_people_price_rl_close);
+
+        if(!TextUtils.isEmpty(price_type)){
+            if(price_type.equals("0")){
+                model.setPrice_type("0");
+                setViewColor(0);
+            }else if(price_type.equals("1")){
+                model.setPrice_type("1");
+                setViewColor(1);
+            }else if(price_type.equals("2")){
+                model.setPrice_type("2");
+                setViewColor(2);
+            }
+        }
+        priceEt.setText(price);
+        if(!TextUtils.isEmpty(price)){
+            priceEt.setSelection(price.length());
+        }
+        otherEt.setText(price_info);
+
         closeRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,26 +125,26 @@ public class PeoplePriceDialog extends Dialog {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!StringUtils.isEmpty(priceEt.getText().toString())){
+                if (!StringUtils.isEmpty(priceEt.getText().toString())) {
                     model.setPrice(priceEt.getText().toString());
                     model.setPrice_info(otherEt.getText().toString());
                     listener.setActivityText(model);
                     dismiss();
                 } else {
-                    Toast.makeText(context,"花费为空，请重新输入",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "花费为空，请重新输入", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    public void setViewColor(int key){
+    public void setViewColor(int key) {
         showTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
         showTv.setTextColor(context.getResources().getColor(R.color.black_333333));
         treatTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
         treatTv.setTextColor(context.getResources().getColor(R.color.black_333333));
         payTv.setBackgroundResource(R.drawable.bg_dialog_price_un_select);
         payTv.setTextColor(context.getResources().getColor(R.color.black_333333));
-        switch (key){
+        switch (key) {
             case 0:
                 showTv.setBackgroundResource(R.drawable.bg_dialog_price_select);
                 showTv.setTextColor(context.getResources().getColor(R.color.red_F71F1F));

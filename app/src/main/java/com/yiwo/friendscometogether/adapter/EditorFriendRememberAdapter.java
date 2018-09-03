@@ -51,7 +51,7 @@ public class EditorFriendRememberAdapter extends RecyclerView.Adapter<EditorFrie
                 intent.putExtra("id", data.get(position).getFfID());
                 intent.setClass(context, ModifyIntercalationActivity.class);
                 context.startActivity(intent);
-                activity.finish();
+//                activity.finish();
             }
         });
     }

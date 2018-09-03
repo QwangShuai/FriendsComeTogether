@@ -735,7 +735,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
         ScreenAdapterTools.getInstance().loadView(view);
 
         TextView tvRelease = view.findViewById(R.id.popupwindow_complete_tv_release);
-        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
+//        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
         TextView tvNext = view.findViewById(R.id.popupwindow_complete_tv_next);
         TextView tvCancel = view.findViewById(R.id.popupwindow_complete_tv_cancel);
 
@@ -868,7 +868,105 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
             }
         });
 
-        tvSave.setOnClickListener(new View.OnClickListener() {
+//        tvSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
+//                    @Override
+//                    public void subscribe(final ObservableEmitter<File> e) throws Exception {
+////                        File file = new File(images);
+//                        dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendRememberActivity.this, "请等待...");
+//                        Luban.with(CreateFriendRememberActivity.this)
+//                                .load(images)
+//                                .ignoreBy(100)
+//                                .filter(new CompressionPredicate() {
+//                                    @Override
+//                                    public boolean apply(String path) {
+//                                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+//                                    }
+//                                })
+//                                .setCompressListener(new OnCompressListener() {
+//                                    @Override
+//                                    public void onStart() {
+//                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+//                                    }
+//
+//                                    @Override
+//                                    public void onSuccess(File file) {
+//                                        // TODO 压缩成功后调用，返回压缩后的图片文件
+//                                        e.onNext(file);
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(Throwable e) {
+//                                        // TODO 当压缩过程出现问题时调用
+//                                    }
+//                                }).launch();
+//                    }
+//                });
+//                Observer<File> observer = new Observer<File>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(File value) {
+//                        ViseHttp.UPLOAD(NetConfig.userRelease)
+//                                .addHeader("Content-Type","multipart/form-data")
+//                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+//                                .addParam("fmtitle", etTitle.getText().toString())
+//                                .addParam("fmcontent", etContent.getText().toString())
+//                                .addParam("fmaddress", tvCity.getText().toString())
+//                                .addParam("uid", uid)
+//                                .addParam("fmlable", yourChoiceId)
+//                                .addParam("fmgotime", tvTimeStart.getText().toString())
+//                                .addParam("fmendtime", tvTimeEnd.getText().toString())
+//                                .addParam("percapitacost", etPrice.getText().toString())
+//                                .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+//                                .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
+//                                .addParam("accesspassword", password)
+//                                .addParam("type", "1")
+//                                .addFile("fmpic", value)
+//                                .request(new ACallback<String>() {
+//                                    @Override
+//                                    public void onSuccess(String data) {
+//                                        try {
+//                                            JSONObject jsonObject = new JSONObject(data);
+//                                            if (jsonObject.getInt("code") == 200) {
+//                                                Toast.makeText(CreateFriendRememberActivity.this, jsonObject.getString("message") + "", Toast.LENGTH_SHORT).show();
+//                                                WeiboDialogUtils.closeDialog(dialog);
+//                                                onBackPressed();
+//                                            }
+//                                        } catch (JSONException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onFail(int errCode, String errMsg) {
+//
+//                                    }
+//                                });
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                };
+//                observable.observeOn(Schedulers.newThread())
+//                        .subscribeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(observer);
+//            }
+//        });
+
+        tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
@@ -932,104 +1030,6 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
                                     @Override
                                     public void onSuccess(String data) {
                                         try {
-                                            JSONObject jsonObject = new JSONObject(data);
-                                            if (jsonObject.getInt("code") == 200) {
-                                                Toast.makeText(CreateFriendRememberActivity.this, jsonObject.getString("message") + "", Toast.LENGTH_SHORT).show();
-                                                WeiboDialogUtils.closeDialog(dialog);
-                                                onBackPressed();
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFail(int errCode, String errMsg) {
-
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                };
-                observable.observeOn(Schedulers.newThread())
-                        .subscribeOn(AndroidSchedulers.mainThread())
-                        .subscribe(observer);
-            }
-        });
-
-        tvNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
-                    @Override
-                    public void subscribe(final ObservableEmitter<File> e) throws Exception {
-//                        File file = new File(images);
-                        dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendRememberActivity.this, "请等待...");
-                        Luban.with(CreateFriendRememberActivity.this)
-                                .load(images)
-                                .ignoreBy(100)
-                                .filter(new CompressionPredicate() {
-                                    @Override
-                                    public boolean apply(String path) {
-                                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                                    }
-                                })
-                                .setCompressListener(new OnCompressListener() {
-                                    @Override
-                                    public void onStart() {
-                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                                    }
-
-                                    @Override
-                                    public void onSuccess(File file) {
-                                        // TODO 压缩成功后调用，返回压缩后的图片文件
-                                        e.onNext(file);
-                                    }
-
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        // TODO 当压缩过程出现问题时调用
-                                    }
-                                }).launch();
-                    }
-                });
-                Observer<File> observer = new Observer<File>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(File value) {
-                        ViseHttp.UPLOAD(NetConfig.userRelease)
-                                .addHeader("Content-Type","multipart/form-data")
-                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userRelease))
-                                .addParam("fmtitle", etTitle.getText().toString())
-                                .addParam("fmcontent", etContent.getText().toString())
-                                .addParam("fmaddress", tvCity.getText().toString())
-                                .addParam("uid", uid)
-                                .addParam("fmlable", yourChoiceId)
-                                .addParam("fmgotime", tvTimeStart.getText().toString())
-                                .addParam("fmendtime", tvTimeEnd.getText().toString())
-                                .addParam("percapitacost", etPrice.getText().toString())
-                                .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
-                                .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
-                                .addParam("accesspassword", password)
-                                .addParam("type", "0")
-                                .addFile("fmpic", value)
-                                .request(new ACallback<String>() {
-                                    @Override
-                                    public void onSuccess(String data) {
-                                        try {
                                             Log.e("222", data);
                                             JSONObject jsonObject = new JSONObject(data);
                                             if (jsonObject.getInt("code") == 200) {
@@ -1037,6 +1037,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
                                                 UserReleaseModel userReleaseModel = gson.fromJson(data, UserReleaseModel.class);
                                                 Intent intent = new Intent();
                                                 intent.putExtra("id", userReleaseModel.getObj().getId()+"");
+                                                intent.putExtra("type", "0");
                                                 intent.setClass(CreateFriendRememberActivity.this, CreateIntercalationActivity.class);
                                                 WeiboDialogUtils.closeDialog(dialog);
                                                 startActivity(intent);

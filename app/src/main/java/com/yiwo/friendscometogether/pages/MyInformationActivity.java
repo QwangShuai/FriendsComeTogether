@@ -186,7 +186,7 @@ public class MyInformationActivity extends TakePhotoActivity {
                                     Picasso.with(MyInformationActivity.this).load(userModel.getObj().getHeadeimg()).into(ivAvatar);
                                 }
                                 tvNickname.setText("昵称: " + userModel.getObj().getUsername());
-                                if(userModel.getObj().getSex().equals("1")){
+                                if(userModel.getObj().getSex().equals("0")){
                                     Picasso.with(MyInformationActivity.this).load(R.mipmap.nan).into(ivSex);
                                 }else {
                                     Picasso.with(MyInformationActivity.this).load(R.mipmap.nv).into(ivSex);
@@ -197,7 +197,7 @@ public class MyInformationActivity extends TakePhotoActivity {
                                     rlSignTeam.setVisibility(View.VISIBLE);
                                 }
                                 etUsername.setHint(userModel.getObj().getUsername());
-                                tvSex.setText(userModel.getObj().getSex().equals("1")?"男":"女");
+                                tvSex.setText(userModel.getObj().getSex().equals("0")?"男":"女");
                                 tvLocation.setText(userModel.getObj().getUseraddress());
                                 etSign.setHint(userModel.getObj().getUserautograph());
                                 tvBirthday.setText(userModel.getObj().getUserbirthday());
@@ -283,7 +283,7 @@ public class MyInformationActivity extends TakePhotoActivity {
                 new DatePickerDialog(MyInformationActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
                 break;
             case R.id.activity_my_information_rl_register_time:
-                new DatePickerDialog(MyInformationActivity.this, onRegisterDateSetListener, mYear, mMonth, mDay).show();
+//                new DatePickerDialog(MyInformationActivity.this, onRegisterDateSetListener, mYear, mMonth, mDay).show();
                 break;
             case R.id.activity_my_information_rl_is_single:
                 final String[] items1 = { "是","否" };
@@ -518,11 +518,11 @@ public class MyInformationActivity extends TakePhotoActivity {
                 .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.saveUserInformationUrl))
                 .addParam("uid", uid)
                 .addParam("username", TextUtils.isEmpty(etUsername.getText().toString())?etUsername.getHint().toString():etUsername.getText().toString())
-                .addParam("usersex", tvSex.getText().toString().equals("男")?"1":"2")
+                .addParam("usersex", tvSex.getText().toString().equals("男")?"0":"1")
                 .addParam("useraddress", tvLocation.getText().toString())
                 .addParam("userautograph", TextUtils.isEmpty(etSign.getText().toString())?etSign.getHint().toString():etSign.getText().toString())
                 .addParam("userbirthday", tvBirthday.getText().toString())
-                .addParam("usertime", tvRegister.getText().toString())
+//                .addParam("usertime", tvRegister.getText().toString())
                 .addParam("usermarry", tvSingle.getText().toString().equals("是")?"1":"2")
                 .request(new ACallback<String>() {
                     @Override

@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,8 +14,12 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -80,6 +86,8 @@ public class CreateIntercalationActivity extends BaseActivity {
     EditText etContent;
     @BindView(R.id.activity_create_intercalation_tv_text_num)
     TextView tvContentNum;
+    @BindView(R.id.activity_create_intercalation_tv_complete)
+    TextView tvComplete;
 
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
@@ -93,6 +101,10 @@ public class CreateIntercalationActivity extends BaseActivity {
     private List<File> files = new ArrayList<>();
 
     private Dialog dialog;
+
+    private PopupWindow popupWindow;
+
+    private String type = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +123,12 @@ public class CreateIntercalationActivity extends BaseActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+        type = intent.getStringExtra("type");
+        if(type.equals("1")){
+            tvComplete.setText("发布");
+        }else if(type.equals("2")){
+            tvComplete.setText("保存");
+        }
 
         uid = spImp.getUID();
         mList = new ArrayList<>();
@@ -194,16 +212,77 @@ public class CreateIntercalationActivity extends BaseActivity {
                 if (mList.size() == 0) {
                     toToast(CreateIntercalationActivity.this, "请至少上传一张图片");
                 } else {
-                    complete();
+                    if(type.equals("0")){
+                        showCompletePopupwindow();
+                    }else if(type.equals("1")){
+                        complete(0);
+                    }else if(type.equals("2")){
+                        complete(1);
+                    }
                 }
                 break;
         }
     }
 
+    private void showCompletePopupwindow() {
+
+        View view = LayoutInflater.from(CreateIntercalationActivity.this).inflate(R.layout.popupwindow_complete, null);
+        ScreenAdapterTools.getInstance().loadView(view);
+
+        TextView tvRelease = view.findViewById(R.id.popupwindow_complete_tv_release);
+//        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
+        TextView tvNext = view.findViewById(R.id.popupwindow_complete_tv_next);
+        TextView tvCancel = view.findViewById(R.id.popupwindow_complete_tv_cancel);
+        tvNext.setText("保存草稿");
+
+        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        // 设置点击窗口外边窗口消失
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        // 设置popWindow的显示和消失动画
+        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.alpha = 0.5f;
+        getWindow().setAttributes(params);
+        popupWindow.update();
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            // 在dismiss中恢复透明度
+            public void onDismiss() {
+                WindowManager.LayoutParams params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
+            }
+        });
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+        tvRelease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                complete(0);
+            }
+        });
+        tvNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                complete(1);
+            }
+        });
+    }
+
     /**
      * 发布
      */
-    private void complete() {
+    private void complete(final int type) {
 
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
@@ -272,6 +351,7 @@ public class CreateIntercalationActivity extends BaseActivity {
                         .addParam("content", etContent.getText().toString())
                         .addParam("id", id)
                         .addParam("uid", uid)
+                        .addParam("type", type + "")
                         .addParam("describe", describe)
                         .addFiles(value)
                         .request(new ACallback<String>() {

@@ -66,6 +66,7 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.putExtra("id", data.get(position).getFmID());
+                intent.putExtra("draft", "1");
                 intent.setClass(context, EditorFriendRememberActivity.class);
                 context.startActivity(intent);
             }

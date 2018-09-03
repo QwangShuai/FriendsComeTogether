@@ -130,7 +130,7 @@
 
             <ImageView
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/views"
+                android:src="@mipmap/eyes_gray"
                 android:layout_width="28px"
                 android:layout_height="20px" />
 
@@ -138,7 +138,7 @@
                 android:layout_marginLeft="6px"
                 android:id="@+id/fragment_friend_remember_rv_tv_look_num"
                 android:gravity="center"
-                android:textColor="#FF9D00"
+                android:textColor="#969696"
                 android:textSize="24px"
                 android:text="1234"
                 android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
 
             <ImageView
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/index_message"
+                android:src="@mipmap/comment_gray"
                 android:layout_width="26px"
                 android:layout_height="24px" />
 
@@ -164,7 +164,7 @@
                 android:layout_marginLeft="6px"
                 android:id="@+id/fragment_friend_remember_rv_tv_comment_num"
                 android:gravity="center"
-                android:textColor="#FF9D00"
+                android:textColor="#969696"
                 android:textSize="24px"
                 android:text="1234"
                 android:layout_width="wrap_content"

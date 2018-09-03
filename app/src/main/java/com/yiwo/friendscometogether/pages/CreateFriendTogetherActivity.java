@@ -378,19 +378,21 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
                 startActivityForResult(it, CITY_REQUEST);
                 break;
             case R.id.activity_create_friend_together_rl_price:
-                PeoplePriceDialog peoplePriceDialog = new PeoplePriceDialog(CreateFriendTogetherActivity.this, new PeoplePriceDialog.PeoplePriceListener() {
-                    @Override
-                    public void setActivityText(CreateFriendsTogetherRequestModel model) {
-                        map.put("price", model.getPrice());
-                        if (StringUtils.isEmpty(model.getPrice_type())) {
-                            map.put("price_type", "0");
-                        } else {
-                            map.put("price_type", model.getPrice_type());
-                        }
-                        map.put("price_info", model.getPrice_info());
-                        tvPrice.setText(model.getPrice());
-                    }
-                });
+                PeoplePriceDialog peoplePriceDialog = new PeoplePriceDialog(CreateFriendTogetherActivity.this, map.get("price"),
+                        map.get("price_type"), map.get("price_info"),
+                        new PeoplePriceDialog.PeoplePriceListener() {
+                            @Override
+                            public void setActivityText(CreateFriendsTogetherRequestModel model) {
+                                map.put("price", model.getPrice());
+                                if (StringUtils.isEmpty(model.getPrice_type())) {
+                                    map.put("price_type", "0");
+                                } else {
+                                    map.put("price_type", model.getPrice_type());
+                                }
+                                map.put("price_info", model.getPrice_info());
+                                tvPrice.setText(model.getPrice());
+                            }
+                        });
                 peoplePriceDialog.show();
                 break;
             case R.id.activity_create_friend_together_rl_complete:
@@ -413,7 +415,8 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
                 setPasswordDialog.show();
                 break;
             case R.id.activity_create_friend_together_rl_person_require:
-                PeopleRequireDialog peopleRequireDialog = new PeopleRequireDialog(CreateFriendTogetherActivity.this, new PeopleRequireDialog.PeopleRequireListener() {
+                PeopleRequireDialog peopleRequireDialog = new PeopleRequireDialog(CreateFriendTogetherActivity.this, map.get("min_num"),
+                        map.get("max_num"), new PeopleRequireDialog.PeopleRequireListener() {
                     @Override
                     public void setActivityText(CreateFriendsTogetherRequestModel model) {
                         map.put("min_num", model.getMin_num());
@@ -424,17 +427,19 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
                 peopleRequireDialog.show();
                 break;
             case R.id.activity_create_friend_together_rl_activities_require:
-                ActivitiesRequireDialog activitiesRequireDialog = new ActivitiesRequireDialog(CreateFriendTogetherActivity.this, new ActivitiesRequireDialog.ActivitiesRequireListener() {
-                    @Override
-                    public void setActivityText(CreateFriendsTogetherRequestModel model) {
-                        map.put("peoplesex", model.getPeoplesex());
-                        map.put("age_begin", model.getAge_begin());
-                        map.put("age_end", model.getAge_end());
-                        map.put("marry", model.getMarry());
-                        map.put("warning", model.getWarning());
-                        tvActivityRequire.setText("已填写");
-                    }
-                });
+                ActivitiesRequireDialog activitiesRequireDialog = new ActivitiesRequireDialog(CreateFriendTogetherActivity.this,
+                        map.get("age_begin"), map.get("age_end"), map.get("peoplesex"), map.get("marry"), map.get("warning"),
+                        new ActivitiesRequireDialog.ActivitiesRequireListener() {
+                            @Override
+                            public void setActivityText(CreateFriendsTogetherRequestModel model) {
+                                map.put("peoplesex", model.getPeoplesex());
+                                map.put("age_begin", model.getAge_begin());
+                                map.put("age_end", model.getAge_end());
+                                map.put("marry", model.getMarry());
+                                map.put("warning", model.getWarning());
+                                tvActivityRequire.setText("已填写");
+                            }
+                        });
                 activitiesRequireDialog.show();
                 break;
             case R.id.activity_create_friend_together_iv_add:
@@ -507,7 +512,7 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
         super.takeSuccess(result);
         String url = result.getImage().getCompressPath();
         Log.e("222", result.getImage().getCompressPath());
-        Glide.with(CreateFriendTogetherActivity.this).load("file://"+url).into(ivTitle);
+        Glide.with(CreateFriendTogetherActivity.this).load("file://" + url).into(ivTitle);
         path = url;
         ivTitle.setVisibility(View.VISIBLE);
         tvFirstIv.setVisibility(View.VISIBLE);
@@ -710,9 +715,9 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
         relaseTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(path)){
+                if (TextUtils.isEmpty(path)) {
                     Toast.makeText(CreateFriendTogetherActivity.this, "请上传图片", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     onComplete(0);
                 }
             }
@@ -720,9 +725,9 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
         nextTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(path)){
+                if (TextUtils.isEmpty(path)) {
                     Toast.makeText(CreateFriendTogetherActivity.this, "请上传图片", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     onComplete(1);
                 }
             }

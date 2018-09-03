@@ -356,7 +356,8 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
                 startActivityForResult(it, CITY_REQUEST);
                 break;
             case R.id.activity_editor_main_friend_together_rl_price:
-                PeoplePriceDialog peoplePriceDialog = new PeoplePriceDialog(EditorMainFriendTogetherActivity.this, new PeoplePriceDialog.PeoplePriceListener() {
+                PeoplePriceDialog peoplePriceDialog = new PeoplePriceDialog(EditorMainFriendTogetherActivity.this, map.get("pfspend"),
+                        map.get("pfspendtype"), map.get("pfspendexplain"), new PeoplePriceDialog.PeoplePriceListener() {
                     @Override
                     public void setActivityText(CreateFriendsTogetherRequestModel model) {
                         map.put("pfspend", model.getPrice());
@@ -391,7 +392,8 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
                 setPasswordDialog.show();
                 break;
             case R.id.activity_editor_main_friend_together_rl_person_require:
-                PeopleRequireDialog peopleRequireDialog = new PeopleRequireDialog(EditorMainFriendTogetherActivity.this, new PeopleRequireDialog.PeopleRequireListener() {
+                PeopleRequireDialog peopleRequireDialog = new PeopleRequireDialog(EditorMainFriendTogetherActivity.this,
+                        map.get("min_num"), map.get("max_num"), new PeopleRequireDialog.PeopleRequireListener() {
                     @Override
                     public void setActivityText(CreateFriendsTogetherRequestModel model) {
                         map.put("min_num", model.getMin_num());
@@ -402,17 +404,19 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
                 peopleRequireDialog.show();
                 break;
             case R.id.activity_editor_main_friend_together_rl_activities_require:
-                ActivitiesRequireDialog activitiesRequireDialog = new ActivitiesRequireDialog(EditorMainFriendTogetherActivity.this, new ActivitiesRequireDialog.ActivitiesRequireListener() {
-                    @Override
-                    public void setActivityText(CreateFriendsTogetherRequestModel model) {
-                        map.put("pfpeoplesex", model.getPeoplesex());
-                        map.put("pfagebegin", model.getAge_begin());
-                        map.put("pfageend", model.getAge_end());
-                        map.put("pfmarry", model.getMarry());
-                        map.put("pfwarning", model.getWarning());
-                        tvActivityRequire.setText("已填写");
-                    }
-                });
+                ActivitiesRequireDialog activitiesRequireDialog = new ActivitiesRequireDialog(EditorMainFriendTogetherActivity.this,
+                        map.get("pfagebegin"), map.get("pfageend"), map.get("pfpeoplesex"), map.get("pfmarry"), map.get("pfwarning"),
+                        new ActivitiesRequireDialog.ActivitiesRequireListener() {
+                            @Override
+                            public void setActivityText(CreateFriendsTogetherRequestModel model) {
+                                map.put("pfpeoplesex", model.getPeoplesex());
+                                map.put("pfagebegin", model.getAge_begin());
+                                map.put("pfageend", model.getAge_end());
+                                map.put("pfmarry", model.getMarry());
+                                map.put("pfwarning", model.getWarning());
+                                tvActivityRequire.setText("已填写");
+                            }
+                        });
                 activitiesRequireDialog.show();
                 break;
             case R.id.activity_editor_main_friend_together_iv_add:

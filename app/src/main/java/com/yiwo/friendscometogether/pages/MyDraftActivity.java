@@ -118,8 +118,9 @@ public class MyDraftActivity extends BaseActivity {
                     case 0:
                         //编辑友记
                         Intent intent = new Intent();
-                        intent.setClass(MyDraftActivity.this, ModifyFriendRememberActivity.class);
+                        intent.setClass(MyDraftActivity.this, EditorFriendRememberActivity.class);
                         intent.putExtra("id", mList.get(adapterPosition).getFmID());
+                        intent.putExtra("draft", "2");
                         startActivity(intent);
                         onBackPressed();
                         break;
