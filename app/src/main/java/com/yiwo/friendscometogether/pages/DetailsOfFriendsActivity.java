@@ -197,11 +197,17 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                 Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getContent().getUserpic()).into(ivAvatar);
                                 tvNickname.setText(model.getObj().getContent().getUsername());
                                 tvLevel.setText("LV"+model.getObj().getContent().getUsergrade());
-                                tvRelatedActive.setText(model.getObj().getActivityInfo().getPfcontent());
-                                tvRelatedCTime.setText(model.getObj().getActivityInfo().getPftime());
-                                tvRelatedLookNum.setText(model.getObj().getActivityInfo().getPflook());
-                                tvRelatedCommentNum.setText(model.getObj().getActivityInfo().getPfcomment());
-                                Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getActivityInfo().getPfpic()).into(ivActiveTitle);
+
+                                if(!TextUtils.isEmpty(model.getObj().getActivityInfo().getPfID())){
+                                    tvRelatedActive.setText(model.getObj().getActivityInfo().getPfcontent());
+                                    tvRelatedCTime.setText(model.getObj().getActivityInfo().getPftime());
+                                    tvRelatedLookNum.setText(model.getObj().getActivityInfo().getPflook());
+                                    tvRelatedCommentNum.setText(model.getObj().getActivityInfo().getPfcomment());
+                                    Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getActivityInfo().getPfpic()).into(ivActiveTitle);
+                                }else {
+                                    rlActiveContent.setVisibility(View.GONE);
+                                }
+
                                 LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendsActivity.this) {
                                     @Override
                                     public boolean canScrollVertically() {

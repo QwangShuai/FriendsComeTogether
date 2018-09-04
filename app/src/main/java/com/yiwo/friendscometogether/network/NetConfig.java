@@ -218,4 +218,8 @@ public class NetConfig {
     public static String MyFocusActiveUrl = "action/ac_user/party_follow_attention";
     //好友列表
     public static String MyFriendListUrl = "action/ac_user/Myfriend";
+    //删除好友
+    public static String deleteFriendUrl = "action/ac_user/DeleteUser";
+    //将好友拉入黑名单
+    public static String blackFriendUrl = "action/ac_user/BlackUser";
 }

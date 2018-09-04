@@ -390,15 +390,24 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String result) {
-                                    FocusOnToFriendTogetherModel model = new Gson().fromJson(result, FocusOnToFriendTogetherModel.class);
-                                    if (model.getCode() == 200) {
-                                        if (model.getObj().equals("1")) {
-                                            focusOnIv.setImageResource(R.mipmap.focus_on_y);
-                                            toToast(DetailsOfFriendTogetherActivity.this, "关注成功");
-                                        } else {
-                                            focusOnIv.setImageResource(R.mipmap.focus_on_empty_y);
-                                            toToast(DetailsOfFriendTogetherActivity.this, "取消成功");
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(result);
+                                        if(jsonObject.getInt("code") == 200){
+                                            FocusOnToFriendTogetherModel model = new Gson().fromJson(result, FocusOnToFriendTogetherModel.class);
+                                            if (model.getCode() == 200) {
+                                                if (model.getObj().equals("1")) {
+                                                    focusOnIv.setImageResource(R.mipmap.focus_on_y);
+                                                    toToast(DetailsOfFriendTogetherActivity.this, "关注成功");
+                                                } else {
+                                                    focusOnIv.setImageResource(R.mipmap.focus_on_empty_y);
+                                                    toToast(DetailsOfFriendTogetherActivity.this, "取消成功");
+                                                }
+                                            }
+                                        }else if(jsonObject.getInt("code") == 400) {
+                                            toToast(DetailsOfFriendTogetherActivity.this, jsonObject.getString("message"));
                                         }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
                                 }
 
@@ -422,13 +431,22 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                                 .request(new ACallback<String>() {
                                     @Override
                                     public void onSuccess(String data) {
-                                        FocusOnLeaderModel model = new Gson().fromJson(data, FocusOnLeaderModel.class);
-                                        if (model.getCode() == 200) {
-                                            if (model.getObj().getAttention().equals("0")) {
-                                                focusOnBtn.setText("+ 关注");
-                                            } else {
-                                                focusOnBtn.setText("已关注");
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.getInt("code") == 200){
+                                                FocusOnLeaderModel model = new Gson().fromJson(data, FocusOnLeaderModel.class);
+                                                if (model.getCode() == 200) {
+                                                    if (model.getObj().getAttention().equals("0")) {
+                                                        focusOnBtn.setText("+ 关注");
+                                                    } else {
+                                                        focusOnBtn.setText("已关注");
+                                                    }
+                                                }
+                                            }else if(jsonObject.getInt("code") == 400){
+                                                toToast(DetailsOfFriendTogetherActivity.this, jsonObject.getString("message"));
                                             }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
                                     }
 

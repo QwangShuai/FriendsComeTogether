@@ -2,17 +2,21 @@ package com.yiwo.friendscometogether.pages;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.MyFriendAdapter;
+import com.yiwo.friendscometogether.custom.MyFriendDialog;
 import com.yiwo.friendscometogether.model.MyFriendModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -21,7 +25,6 @@ import com.yiwo.friendscometogether.utils.TokenUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,6 +46,7 @@ public class MyFriendActivity extends AppCompatActivity {
 
     private SpImp spImp;
     private String uid = "";
+    private String account = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class MyFriendActivity extends AppCompatActivity {
     private void initData() {
 
         uid = spImp.getUID();
+        account = spImp.getYXID();
 
         sideBar = (ZzLetterSideBar) findViewById(R.id.sidebar);
         dialog = (TextView) findViewById(R.id.tv_dialog);
@@ -79,6 +84,7 @@ public class MyFriendActivity extends AppCompatActivity {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        Log.e("222", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
@@ -88,6 +94,79 @@ public class MyFriendActivity extends AppCompatActivity {
                                 mDatas = model.getObj();
                                 adapter = new MyFriendAdapter(MyFriendActivity.this, mDatas);
                                 listView.setAdapter(adapter);
+
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        liaotian(mDatas.get(i).getWy_accid());
+                                    }
+                                });
+                                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                                    @Override
+                                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                                        MyFriendDialog friendDialog = new MyFriendDialog(MyFriendActivity.this, new MyFriendDialog.OnMyFriendListener() {
+                                            @Override
+                                            public void onReturn(int type) {
+                                                switch (type){
+                                                    case 0:
+                                                        //删除好友
+                                                        ViseHttp.POST(NetConfig.deleteFriendUrl)
+                                                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.deleteFriendUrl))
+                                                                .addParam("id", mDatas.get(i).getId())
+                                                                .request(new ACallback<String>() {
+                                                                    @Override
+                                                                    public void onSuccess(String data) {
+                                                                        try {
+                                                                            JSONObject jsonObject1 = new JSONObject(data);
+                                                                            if(jsonObject1.getInt("code") == 200){
+                                                                                Toast.makeText(MyFriendActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                                                                                mDatas.remove(i);
+                                                                                adapter.updateListView(mDatas);
+                                                                            }
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFail(int errCode, String errMsg) {
+
+                                                                    }
+                                                                });
+                                                        break;
+                                                    case 1:
+                                                        //拉黑
+                                                        ViseHttp.POST(NetConfig.blackFriendUrl)
+                                                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.blackFriendUrl))
+                                                                .addParam("id", mDatas.get(i).getId())
+                                                                .request(new ACallback<String>() {
+                                                                    @Override
+                                                                    public void onSuccess(String data) {
+                                                                        try {
+                                                                            JSONObject jsonObject1 = new JSONObject(data);
+                                                                            if(jsonObject1.getInt("code") == 200){
+                                                                                Toast.makeText(MyFriendActivity.this, "已加入黑名单", Toast.LENGTH_SHORT).show();
+                                                                                mDatas.remove(i);
+                                                                                adapter.updateListView(mDatas);
+                                                                            }
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFail(int errCode, String errMsg) {
+
+                                                                    }
+                                                                });
+                                                        break;
+                                                }
+                                            }
+                                        });
+                                        friendDialog.show();
+                                        return true;
+                                    }
+                                });
 
                                 //update data
 //                                adapter.updateListView(mDatas);
@@ -114,6 +193,11 @@ public class MyFriendActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void liaotian(String liaotianAccount) {
+        NimUIKit.setAccount(account);
+        NimUIKit.startP2PSession(MyFriendActivity.this, liaotianAccount);
     }
 
     @OnClick({R.id.activity_my_friend_rl_back})

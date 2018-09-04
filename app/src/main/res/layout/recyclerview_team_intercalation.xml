@@ -26,12 +26,11 @@
             android:layout_width="300px"
             android:layout_height="200px" />
 
-        <com.yiwo.friendscometogether.custom.CImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_marginLeft="30px"
             android:layout_marginTop="30px"
             android:id="@+id/activity_team_intercalation_rv_iv_avatar"
             android:layout_toRightOf="@+id/activity_team_intercalation_rv_iv"
-            android:src="@mipmap/ic_launcher"
             android:layout_width="80px"
             android:layout_height="80px" />
 

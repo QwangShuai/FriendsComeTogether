@@ -8,18 +8,30 @@
 
     <RelativeLayout
         android:id="@+id/activity_my_friend_rl_top"
-        style="@style/rl_top_bar">
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/black">
 
         <TextView
-            style="@style/tv_top_title"
-            android:text="我的好友" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的好友"
+            android:textColor="@color/white_ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:id="@+id/activity_my_friend_rl_back"
-            android:layout_width="100px"
+            android:layout_width="50dp"
             android:layout_height="match_parent">
 
-            <ImageView style="@style/iv_return" />
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="13dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/back_w" />
 
         </RelativeLayout>
 
