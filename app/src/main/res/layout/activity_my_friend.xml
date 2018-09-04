@@ -11,27 +11,57 @@
         style="@style/rl_top_bar">
 
         <TextView
-            android:text="我的好友"
-            style="@style/tv_top_title" />
+            style="@style/tv_top_title"
+            android:text="我的好友" />
 
         <RelativeLayout
             android:id="@+id/activity_my_friend_rl_back"
             android:layout_width="100px"
             android:layout_height="match_parent">
 
-            <ImageView
-                style="@style/iv_return" />
+            <ImageView style="@style/iv_return" />
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-    <fragment
-        android:layout_below="@+id/activity_my_friend_rl_top"
-        android:id="@+id/contact_list_fragment"
-        android:name="com.netease.nim.uikit.business.contact.ContactsFragment"
+    <!--<fragment-->
+    <!--android:id="@+id/contact_list_fragment"-->
+    <!--android:name="com.netease.nim.uikit.business.contact.ContactsFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@+id/activity_my_friend_rl_top"/>-->
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </fragment>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_my_friend_rl_top">
+
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+        <!--触摸时显示的字母-->
+        <TextView
+            android:id="@+id/tv_dialog"
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/tv_dialog_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:visibility="gone" />
+        <!--右侧字母栏-->
+        <me.zhouzhuo.zzletterssidebar.ZzLetterSideBar
+            android:id="@+id/sidebar"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

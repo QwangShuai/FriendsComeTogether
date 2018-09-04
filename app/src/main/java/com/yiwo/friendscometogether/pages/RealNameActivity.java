@@ -64,6 +64,8 @@ public class RealNameActivity extends BaseActivity {
     EditText etIdNum;
     @BindView(R.id.activity_real_name_et_sign)
     EditText etSign;
+    @BindView(R.id.activity_real_name_rl_sign)
+    RelativeLayout rlSign;
 
     private static final int REQUEST_CODE = 0x00000011;
     private static final int REQUEST_CODE1 = 0x00000012;
@@ -117,6 +119,7 @@ public class RealNameActivity extends BaseActivity {
                                     Picasso.with(RealNameActivity.this).load(model.getObj().getUsercodeback()).into(ivId2);
                                     ivId1.setVisibility(View.VISIBLE);
                                     ivId2.setVisibility(View.VISIBLE);
+                                    rlSign.setVisibility(View.GONE);
                                 } else {
                                     etName.setText(model.getObj().getUsertruename());
                                     etIdNum.setText(model.getObj().getUsercodenum());
@@ -124,6 +127,7 @@ public class RealNameActivity extends BaseActivity {
                                     Picasso.with(RealNameActivity.this).load(model.getObj().getUsercodeback()).into(ivId2);
                                     ivId1.setVisibility(View.VISIBLE);
                                     ivId2.setVisibility(View.VISIBLE);
+                                    rlSign.setVisibility(View.GONE);
                                 }
                             }
                         } catch (JSONException e) {

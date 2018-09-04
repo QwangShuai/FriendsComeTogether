@@ -219,6 +219,9 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         viewsTv.setText("浏览量: " + model.getLook());
         focus_onTv.setText("关注: " + model.getPffavorite());
         tvUsername.setText(model.getCapttain_name());
+
+        levelTv.setText("LV" + model.getLevel());
+
         if (!model.getCaptain().equals("0")) {
             if (!StringUtils.isEmpty(model.getCapttain_pic())) {
                 Picasso.with(DetailsOfFriendTogetherActivity.this).load(model.getCapttain_pic()).into(headIv);

@@ -216,4 +216,6 @@ public class NetConfig {
     public static String videoActiveUrl = "action/ac_activity/video_activity";
     //我关注的活动
     public static String MyFocusActiveUrl = "action/ac_user/party_follow_attention";
+    //好友列表
+    public static String MyFriendListUrl = "action/ac_user/Myfriend";
 }

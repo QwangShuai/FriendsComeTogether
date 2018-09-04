@@ -317,6 +317,7 @@ public class MyInformationActivity extends TakePhotoActivity {
                 Intent intent = new Intent();
                 intent.setClass(MyInformationActivity.this, RealNameActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.activity_my_information_rl_save:
                 onSave();

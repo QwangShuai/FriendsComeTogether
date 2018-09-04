@@ -83,8 +83,8 @@ dependencies {
     api 'com.jakewharton:butterknife:8.4.0'
     implementation 'com.android.support:design:26.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-//    compile 'com.squareup.okhttp3:okhttp:3.8.1'
-//    compile 'com.zhy:okhttputils:2.0.0'
+    //    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    //    compile 'com.zhy:okhttputils:2.0.0'
     compile 'com.google.code.gson:gson:2.2.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -117,4 +117,5 @@ dependencies {
     implementation 'com.github.dueeeke.dkplayer:dkplayer-arm64:2.5.3'
     implementation 'com.github.dueeeke.dkplayer:dkplayer-x86:2.5.3'
     implementation 'com.github.dueeeke.dkplayer:dkplayer-x86_64:2.5.3'
+    compile 'me.zhouzhuo.zzletterssidebar:zz-letters-sidebar:1.0.2'
 }

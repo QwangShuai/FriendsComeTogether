@@ -135,7 +135,7 @@
                 android:layout_height="19px"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="6px"
-                android:src="@mipmap/views" />
+                android:src="@mipmap/eyes_gray" />
 
             <TextView
                 android:layout_centerVertical="true"
@@ -146,7 +146,7 @@
                 android:layout_toRightOf="@+id/views"
                 android:gravity="center_vertical"
                 android:text="1234"
-                android:textColor="@color/yellow_ff9d00"
+                android:textColor="#969696"
                 android:textSize="24px" />
 
             <ImageView
@@ -157,7 +157,7 @@
                 android:layout_height="24px"
                 android:layout_marginRight="6px"
                 android:layout_marginTop="13px"
-                android:src="@mipmap/message_hot" />
+                android:src="@mipmap/comment_gray" />
 
             <TextView
                 android:layout_centerVertical="true"
@@ -167,7 +167,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="1234"
-                android:textColor="@color/yellow_ff9d00"
+                android:textColor="#969696"
                 android:textSize="24px" />
         </RelativeLayout>
 
