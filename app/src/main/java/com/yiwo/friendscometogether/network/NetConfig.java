@@ -222,4 +222,10 @@ public class NetConfig {
     public static String deleteFriendUrl = "action/ac_user/DeleteUser";
     //将好友拉入黑名单
     public static String blackFriendUrl = "action/ac_user/BlackUser";
+    //黑名单列表
+    public static String blackUserListUrl = "action/ac_user/BlacklistInfo";
+    //取消拉黑
+    public static String userCancelBlackUrl = "action/ac_user/CancelBlackout";
+    //彻底删除(黑名单)
+    public static String deleteBlackUserUrl = "action/ac_user/DeleteBlackUser";
 }

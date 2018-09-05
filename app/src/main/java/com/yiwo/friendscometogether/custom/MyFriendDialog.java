@@ -6,11 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 
 /**
@@ -23,11 +20,13 @@ public class MyFriendDialog extends Dialog {
     private TextView tvDelete;
     private TextView tvBlack;
     private OnMyFriendListener listener;
+    private int type;
 
-    public MyFriendDialog(@NonNull Context context, OnMyFriendListener listener) {
+    public MyFriendDialog(@NonNull Context context, int type, OnMyFriendListener listener) {
         super(context);
         this.context = context;
         this.listener = listener;
+        this.type = type;
     }
 
     @Override
@@ -44,6 +43,10 @@ public class MyFriendDialog extends Dialog {
         setContentView(view);
         tvDelete = view.findViewById(R.id.tv_delete_friend);
         tvBlack = view.findViewById(R.id.tv_add_black);
+        if(type == 2){
+            tvDelete.setText("彻底删除");
+            tvBlack.setText("移出黑名单");
+        }
         tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

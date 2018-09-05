@@ -369,6 +369,8 @@ public class FriendsRememberFragment extends BaseFragment {
                     startActivity(intent);
                 } else {
                     if (mList.get(position).getLook().equals("0")) {
+                        mList.get(position).setLook("1");
+                        adapter.notifyDataSetChanged();
                         ViseHttp.POST(NetConfig.userFocusUrl)
                                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userFocusUrl))
                                 .addParam("uid", uid)
@@ -379,8 +381,6 @@ public class FriendsRememberFragment extends BaseFragment {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if (jsonObject.getInt("code") == 200) {
-                                                mList.get(position).setLook("1");
-                                                adapter.notifyDataSetChanged();
                                                 toToast(getContext(), "关注成功");
                                             }
                                         } catch (JSONException e) {

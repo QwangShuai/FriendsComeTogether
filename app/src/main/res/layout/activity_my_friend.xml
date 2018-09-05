@@ -34,6 +34,23 @@
                 android:src="@mipmap/back_w" />
 
         </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/activity_my_friend_rl_black"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="黑名单"
+                android:textColor="@color/white_ffffff"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

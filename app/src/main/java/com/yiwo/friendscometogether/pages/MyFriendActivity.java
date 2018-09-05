@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -37,6 +38,8 @@ public class MyFriendActivity extends AppCompatActivity {
 
     @BindView(R.id.activity_my_friend_rl_back)
     RelativeLayout rlBack;
+    @BindView(R.id.activity_my_friend_rl_black)
+    RelativeLayout rlBlack;
 
     private ListView listView;
     private ZzLetterSideBar sideBar;
@@ -56,8 +59,12 @@ public class MyFriendActivity extends AppCompatActivity {
         ButterKnife.bind(MyFriendActivity.this);
         spImp = new SpImp(MyFriendActivity.this);
 
-        initData();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
     }
 
     private void initData() {
@@ -104,7 +111,7 @@ public class MyFriendActivity extends AppCompatActivity {
                                 listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                                     @Override
                                     public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                                        MyFriendDialog friendDialog = new MyFriendDialog(MyFriendActivity.this, new MyFriendDialog.OnMyFriendListener() {
+                                        MyFriendDialog friendDialog = new MyFriendDialog(MyFriendActivity.this, 1, new MyFriendDialog.OnMyFriendListener() {
                                             @Override
                                             public void onReturn(int type) {
                                                 switch (type){
@@ -200,11 +207,16 @@ public class MyFriendActivity extends AppCompatActivity {
         NimUIKit.startP2PSession(MyFriendActivity.this, liaotianAccount);
     }
 
-    @OnClick({R.id.activity_my_friend_rl_back})
+    @OnClick({R.id.activity_my_friend_rl_back, R.id.activity_my_friend_rl_black})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.activity_my_friend_rl_back:
                 onBackPressed();
+                break;
+            case R.id.activity_my_friend_rl_black:
+                intent.setClass(MyFriendActivity.this, BlackUserActivity.class);
+                startActivity(intent);
                 break;
         }
     }

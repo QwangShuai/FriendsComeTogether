@@ -252,7 +252,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".pages.PicWebActivity"></activity>
+        <activity android:name=".pages.PicWebActivity" />
+        <activity android:name=".pages.BlackUserActivity"></activity>
     </application>
 
 </manifest>
