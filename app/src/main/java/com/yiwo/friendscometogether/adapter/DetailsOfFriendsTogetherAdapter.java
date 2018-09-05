@@ -18,18 +18,19 @@ import java.util.List;
  * Created by Administrator on 2018/7/19.
  */
 
-public class DetailsOfFriendsTogetherAdapter  extends RecyclerView.Adapter<DetailsOfFriendsTogetherAdapter.ViewHolder>{
+public class DetailsOfFriendsTogetherAdapter extends RecyclerView.Adapter<DetailsOfFriendsTogetherAdapter.ViewHolder> {
     private Context context;
     List<FriendsTogetherDetailsModel.ObjBean.InfoListBean> data;
     private FriendsTogetherDetailsItemAdapter adapter;
-    public DetailsOfFriendsTogetherAdapter(List<FriendsTogetherDetailsModel.ObjBean.InfoListBean> data){
+
+    public DetailsOfFriendsTogetherAdapter(List<FriendsTogetherDetailsModel.ObjBean.InfoListBean> data) {
         this.data = data;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_details_friends_together_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_details_friends_together_item, parent, false);
         ScreenAdapterTools.getInstance().loadView(view);
         DetailsOfFriendsTogetherAdapter.ViewHolder holder = new DetailsOfFriendsTogetherAdapter.ViewHolder(view);
         return holder;
@@ -39,7 +40,7 @@ public class DetailsOfFriendsTogetherAdapter  extends RecyclerView.Adapter<Detai
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.titleTv.setText(data.get(position).getTitle());
         holder.contentTv.setText(data.get(position).getContent());
-        LinearLayoutManager manager = new LinearLayoutManager(context){
+        LinearLayoutManager manager = new LinearLayoutManager(context) {
             @Override
             public boolean canScrollVertically() {
                 return false;

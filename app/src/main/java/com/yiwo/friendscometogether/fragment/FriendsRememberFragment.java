@@ -94,8 +94,6 @@ public class FriendsRememberFragment extends BaseFragment {
         ButterKnife.bind(this, rootView);
         spImp = new SpImp(getContext());
 
-
-
         return rootView;
     }
 

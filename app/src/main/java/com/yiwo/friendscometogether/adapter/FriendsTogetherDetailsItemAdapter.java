@@ -12,10 +12,12 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.imagepreview.Consts;
+import com.yiwo.friendscometogether.imagepreview.ImagePreviewActivity;
 import com.yiwo.friendscometogether.model.FriendsTogetherDetailsModel;
-import com.yiwo.friendscometogether.pages.PicWebActivity;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,10 +49,17 @@ public class FriendsTogetherDetailsItemAdapter extends RecyclerView.Adapter<Frie
         holder.item_picIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("pic", data.get(position).getLook_pic_url());
-                intent.setClass(context, PicWebActivity.class);
+                List<String> urlList = new ArrayList<>();
+                for (int i = 0; i<data.size(); i++){
+                    urlList.add(data.get(i).getPic());
+                }
+                Intent intent = new Intent(context, ImagePreviewActivity.class);
+                intent.putStringArrayListExtra("imageList", (ArrayList<String>) urlList);
+                intent.putExtra(Consts.START_ITEM_POSITION, position);
+                intent.putExtra(Consts.START_IAMGE_POSITION, position);
+//                ActivityOptions compat = ActivityOptions.makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
                 context.startActivity(intent);
+//                getActivity().overridePendingTransition(R.anim.photoview_open, 0);
             }
         });
     }

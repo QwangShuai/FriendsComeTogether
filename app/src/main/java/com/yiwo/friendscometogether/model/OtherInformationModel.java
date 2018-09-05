@@ -11,7 +11,7 @@ public class OtherInformationModel {
     /**
      * code : 200
      * message : 获取成功
-     * obj : {"info":{"userpic":"http://47.92.136.19/uploads/header/2018/08/14/e046ce4cc65dee1e7fb83a564981889a15342152253.jpg","username":"吃了","wy_accid":"yy15244615473","wy_token":"c52f69e327c6c8e5cad8635de42662e7","usergrade":"0","userautograph":"恶魔","age":"25岁","address":"内蒙古","constellation":"摩羯座","userlike":"0","userbelike":"0","uid":"7","GiveCount":2},"ListPicNews":[{"fmID":"85","fmtitle":"泰山七日游","fmlook":"182","fmgood":"0","fmcomment":"0","fmfavorite":"5","fmpic":"http://47.92.136.19/uploads/article/20180810/20180810/a5fba7bdbdef8beb653129c024d56cb8.jpeg"}],"ListActiviy":[{"pfID":"102","pftitle":"几哈","pfpic":"http://47.92.136.19/uploads/xingcheng/20180802/20180802/0fa03a6c61ac405be84cbe2755400c10.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"},{"pfID":"104","pftitle":"哦嗖嗖嗖","pfpic":"http://47.92.136.19/uploads/xingcheng/20180802/20180802/d95ecae3fe60a4f5b9354d298b91490a.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"},{"pfID":"116","pftitle":"噜啦啦噜啦啦","pfpic":"http://47.92.136.19/uploads/xingcheng/20180810/20180810/19389386e012033588d35742d0849b64.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"},{"pfID":"119","pftitle":"测试","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/6f979b90e86d550e2e79657e6dd926d0.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"},{"pfID":"120","pftitle":"测试一下","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/3aa3f4376c5b7f623303f812f0b7b875.jpeg","pflook":"1","pfcomment":"0","pffavorite":"0"},{"pfID":"126","pftitle":"测试成功","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/61cde24c8f29c05fa072142ffc56fd3e.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"}]}
+     * obj : {"info":{"userpic":"http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg","username":"我们旅游吧","wy_accid":"yy18346038613","wy_token":"9a9311810bbe4e185c99b29f20a6b8c0","usergrade":"1","userautograph":"啊分经济区w\u2006y\u2006y","age":"19岁","address":"北京","constellation":"处女座","follow":"1","friends":"1","leader":"0","userlike":"0","userbelike":"1","uid":"38","GiveCount":0},"ListPicNews":[{"fmID":"147","fmtitle":"yyy","fmlook":"1","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180905/0fd4c74377b3846611082ed7558a3784.png","fmcomment":0},{"fmID":"146","fmtitle":"一只喵","fmlook":"5","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180905/4039b2ce333519b8ebfa8521c4456286.png","fmcomment":0},{"fmID":"143","fmtitle":"他天天","fmlook":"15","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180904/b1335b84feb3e1bf259b5a2d46b14133.png","fmcomment":0},{"fmID":"109","fmtitle":"fff","fmlook":"3","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180827/89d863240ab6c7b44b26fd313b82d546.png","fmcomment":0},{"fmID":"106","fmtitle":"00","fmlook":"13","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180824/2018bc18aaf1de2a33bedc0322a60955.png","fmcomment":0},{"fmID":"102","fmtitle":"uuu","fmlook":"15","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180824/e9a9eb2e50a55b7691c7044b567a74bd.png","fmcomment":0},{"fmID":"101","fmtitle":"兔兔兔兔头","fmlook":"32","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180827/dad9994c1fa1ce720b707fbb098019a3.png","fmcomment":0},{"fmID":"100","fmtitle":"哈尔滨","fmlook":"13","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180823/9c2ca633c5212bcc34798897f753039c.png","fmcomment":0}],"ListActiviy":[{"pfID":"35","pftitle":"bab","pfpic":"http://47.92.136.19/uploads/xingcheng/20180831/32fae1d5a04b7cf68d6df3f625d8f35c.png","pflook":"18","pfcomment":"0","pffavorite":"1"},{"pfID":"17","pftitle":"邀请活动","pfpic":"http://47.92.136.19/uploads/xingcheng/20180824/b1182096d06b02b2d0781d0e03088b26.jpg","pflook":"23","pfcomment":"0","pffavorite":"0"},{"pfID":"16","pftitle":"七台河7天乐","pfpic":"http://47.92.136.19/uploads/xingcheng/20180824/3f8967756e8d4617caf884748d740a00.jpeg","pflook":"8","pfcomment":"0","pffavorite":"0"},{"pfID":"15","pftitle":"这是一个测试","pfpic":"http://47.92.136.19/uploads/xingcheng/20180823/d863429653e806c73207f4c3efb15874.jpeg","pflook":"16","pfcomment":"0","pffavorite":"0"},{"pfID":"13","pftitle":"活动","pfpic":"http://47.92.136.19/uploads/xingcheng/20180822/20180822/65ec430f285c5517ca1bb7c2c1fc8533.png","pflook":"31","pfcomment":"0","pffavorite":"0"},{"pfID":"12","pftitle":"粑粑","pfpic":"http://47.92.136.19/","pflook":"11","pfcomment":"0","pffavorite":"0"},{"pfID":"11","pftitle":"粑粑","pfpic":"http://47.92.136.19/","pflook":"5","pfcomment":"0","pffavorite":"0"},{"pfID":"10","pftitle":"哈哈哈哈哈哈哈","pfpic":"http://47.92.136.19/","pflook":"2","pfcomment":"0","pffavorite":"0"},{"pfID":"9","pftitle":"哈哈哈哈哈哈哈","pfpic":"http://47.92.136.19/","pflook":"2","pfcomment":"0","pffavorite":"0"},{"pfID":"7","pftitle":"炒白菜吃不吃","pfpic":"http://47.92.136.19/uploads/xingcheng/20180821/20180821/da99cff29dd6e753c17b6d1616d635ec.png","pflook":"12","pfcomment":"0","pffavorite":"0"},{"pfID":"6","pftitle":"哈哈哈哈哈哈","pfpic":"http://47.92.136.19/uploads/xingcheng/20180822/20180822/490e842863fcb405ae59116dbf8cbd5d.png","pflook":"8","pfcomment":"0","pffavorite":"0"},{"pfID":"4","pftitle":"大海啊全是水","pfpic":"http://47.92.136.19/uploads/xingcheng/20180820/20180820/96d3a1fd92b7f9c83636971631119579.png","pflook":"83","pfcomment":"0","pffavorite":"0"}]}
      */
 
     private int code;
@@ -44,9 +44,9 @@ public class OtherInformationModel {
 
     public static class ObjBean {
         /**
-         * info : {"userpic":"http://47.92.136.19/uploads/header/2018/08/14/e046ce4cc65dee1e7fb83a564981889a15342152253.jpg","username":"吃了","wy_accid":"yy15244615473","wy_token":"c52f69e327c6c8e5cad8635de42662e7","usergrade":"0","userautograph":"恶魔","age":"25岁","address":"内蒙古","constellation":"摩羯座","userlike":"0","userbelike":"0","uid":"7","GiveCount":2}
-         * ListPicNews : [{"fmID":"85","fmtitle":"泰山七日游","fmlook":"182","fmgood":"0","fmcomment":"0","fmfavorite":"5","fmpic":"http://47.92.136.19/uploads/article/20180810/20180810/a5fba7bdbdef8beb653129c024d56cb8.jpeg"}]
-         * ListActiviy : [{"pfID":"102","pftitle":"几哈","pfpic":"http://47.92.136.19/uploads/xingcheng/20180802/20180802/0fa03a6c61ac405be84cbe2755400c10.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"},{"pfID":"104","pftitle":"哦嗖嗖嗖","pfpic":"http://47.92.136.19/uploads/xingcheng/20180802/20180802/d95ecae3fe60a4f5b9354d298b91490a.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"},{"pfID":"116","pftitle":"噜啦啦噜啦啦","pfpic":"http://47.92.136.19/uploads/xingcheng/20180810/20180810/19389386e012033588d35742d0849b64.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"},{"pfID":"119","pftitle":"测试","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/6f979b90e86d550e2e79657e6dd926d0.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"},{"pfID":"120","pftitle":"测试一下","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/3aa3f4376c5b7f623303f812f0b7b875.jpeg","pflook":"1","pfcomment":"0","pffavorite":"0"},{"pfID":"126","pftitle":"测试成功","pfpic":"http://47.92.136.19/uploads/xingcheng/20180813/20180813/61cde24c8f29c05fa072142ffc56fd3e.jpeg","pflook":"0","pfcomment":"0","pffavorite":"0"}]
+         * info : {"userpic":"http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg","username":"我们旅游吧","wy_accid":"yy18346038613","wy_token":"9a9311810bbe4e185c99b29f20a6b8c0","usergrade":"1","userautograph":"啊分经济区w\u2006y\u2006y","age":"19岁","address":"北京","constellation":"处女座","follow":"1","friends":"1","leader":"0","userlike":"0","userbelike":"1","uid":"38","GiveCount":0}
+         * ListPicNews : [{"fmID":"147","fmtitle":"yyy","fmlook":"1","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180905/0fd4c74377b3846611082ed7558a3784.png","fmcomment":0},{"fmID":"146","fmtitle":"一只喵","fmlook":"5","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180905/4039b2ce333519b8ebfa8521c4456286.png","fmcomment":0},{"fmID":"143","fmtitle":"他天天","fmlook":"15","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180904/b1335b84feb3e1bf259b5a2d46b14133.png","fmcomment":0},{"fmID":"109","fmtitle":"fff","fmlook":"3","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180827/89d863240ab6c7b44b26fd313b82d546.png","fmcomment":0},{"fmID":"106","fmtitle":"00","fmlook":"13","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180824/2018bc18aaf1de2a33bedc0322a60955.png","fmcomment":0},{"fmID":"102","fmtitle":"uuu","fmlook":"15","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180824/e9a9eb2e50a55b7691c7044b567a74bd.png","fmcomment":0},{"fmID":"101","fmtitle":"兔兔兔兔头","fmlook":"32","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180827/dad9994c1fa1ce720b707fbb098019a3.png","fmcomment":0},{"fmID":"100","fmtitle":"哈尔滨","fmlook":"13","fmgood":"0","fmfavorite":"0","fmpic":"http://47.92.136.19/uploads/article/20180823/9c2ca633c5212bcc34798897f753039c.png","fmcomment":0}]
+         * ListActiviy : [{"pfID":"35","pftitle":"bab","pfpic":"http://47.92.136.19/uploads/xingcheng/20180831/32fae1d5a04b7cf68d6df3f625d8f35c.png","pflook":"18","pfcomment":"0","pffavorite":"1"},{"pfID":"17","pftitle":"邀请活动","pfpic":"http://47.92.136.19/uploads/xingcheng/20180824/b1182096d06b02b2d0781d0e03088b26.jpg","pflook":"23","pfcomment":"0","pffavorite":"0"},{"pfID":"16","pftitle":"七台河7天乐","pfpic":"http://47.92.136.19/uploads/xingcheng/20180824/3f8967756e8d4617caf884748d740a00.jpeg","pflook":"8","pfcomment":"0","pffavorite":"0"},{"pfID":"15","pftitle":"这是一个测试","pfpic":"http://47.92.136.19/uploads/xingcheng/20180823/d863429653e806c73207f4c3efb15874.jpeg","pflook":"16","pfcomment":"0","pffavorite":"0"},{"pfID":"13","pftitle":"活动","pfpic":"http://47.92.136.19/uploads/xingcheng/20180822/20180822/65ec430f285c5517ca1bb7c2c1fc8533.png","pflook":"31","pfcomment":"0","pffavorite":"0"},{"pfID":"12","pftitle":"粑粑","pfpic":"http://47.92.136.19/","pflook":"11","pfcomment":"0","pffavorite":"0"},{"pfID":"11","pftitle":"粑粑","pfpic":"http://47.92.136.19/","pflook":"5","pfcomment":"0","pffavorite":"0"},{"pfID":"10","pftitle":"哈哈哈哈哈哈哈","pfpic":"http://47.92.136.19/","pflook":"2","pfcomment":"0","pffavorite":"0"},{"pfID":"9","pftitle":"哈哈哈哈哈哈哈","pfpic":"http://47.92.136.19/","pflook":"2","pfcomment":"0","pffavorite":"0"},{"pfID":"7","pftitle":"炒白菜吃不吃","pfpic":"http://47.92.136.19/uploads/xingcheng/20180821/20180821/da99cff29dd6e753c17b6d1616d635ec.png","pflook":"12","pfcomment":"0","pffavorite":"0"},{"pfID":"6","pftitle":"哈哈哈哈哈哈","pfpic":"http://47.92.136.19/uploads/xingcheng/20180822/20180822/490e842863fcb405ae59116dbf8cbd5d.png","pflook":"8","pfcomment":"0","pffavorite":"0"},{"pfID":"4","pftitle":"大海啊全是水","pfpic":"http://47.92.136.19/uploads/xingcheng/20180820/20180820/96d3a1fd92b7f9c83636971631119579.png","pflook":"83","pfcomment":"0","pffavorite":"0"}]
          */
 
         private InfoBean info;
@@ -79,19 +79,22 @@ public class OtherInformationModel {
 
         public static class InfoBean {
             /**
-             * userpic : http://47.92.136.19/uploads/header/2018/08/14/e046ce4cc65dee1e7fb83a564981889a15342152253.jpg
-             * username : 吃了
-             * wy_accid : yy15244615473
-             * wy_token : c52f69e327c6c8e5cad8635de42662e7
-             * usergrade : 0
-             * userautograph : 恶魔
-             * age : 25岁
-             * address : 内蒙古
-             * constellation : 摩羯座
+             * userpic : http://47.92.136.19/uploads/header/2018/08/16/e833291d6bf838e3be831414c4346960153439944612.jpg
+             * username : 我们旅游吧
+             * wy_accid : yy18346038613
+             * wy_token : 9a9311810bbe4e185c99b29f20a6b8c0
+             * usergrade : 1
+             * userautograph : 啊分经济区w y y
+             * age : 19岁
+             * address : 北京
+             * constellation : 处女座
+             * follow : 1
+             * friends : 1
+             * leader : 0
              * userlike : 0
-             * userbelike : 0
-             * uid : 7
-             * GiveCount : 2
+             * userbelike : 1
+             * uid : 38
+             * GiveCount : 0
              */
 
             private String userpic;
@@ -103,10 +106,13 @@ public class OtherInformationModel {
             private String age;
             private String address;
             private String constellation;
+            private String follow;
+            private String friends;
+            private String leader;
             private String userlike;
             private String userbelike;
             private String uid;
-            private String GiveCount;
+            private int GiveCount;
 
             public String getUserpic() {
                 return userpic;
@@ -180,6 +186,30 @@ public class OtherInformationModel {
                 this.constellation = constellation;
             }
 
+            public String getFollow() {
+                return follow;
+            }
+
+            public void setFollow(String follow) {
+                this.follow = follow;
+            }
+
+            public String getFriends() {
+                return friends;
+            }
+
+            public void setFriends(String friends) {
+                this.friends = friends;
+            }
+
+            public String getLeader() {
+                return leader;
+            }
+
+            public void setLeader(String leader) {
+                this.leader = leader;
+            }
+
             public String getUserlike() {
                 return userlike;
             }
@@ -204,33 +234,33 @@ public class OtherInformationModel {
                 this.uid = uid;
             }
 
-            public String getGiveCount() {
+            public int getGiveCount() {
                 return GiveCount;
             }
 
-            public void setGiveCount(String GiveCount) {
+            public void setGiveCount(int GiveCount) {
                 this.GiveCount = GiveCount;
             }
         }
 
         public static class ListPicNewsBean {
             /**
-             * fmID : 85
-             * fmtitle : 泰山七日游
-             * fmlook : 182
+             * fmID : 147
+             * fmtitle : yyy
+             * fmlook : 1
              * fmgood : 0
+             * fmfavorite : 0
+             * fmpic : http://47.92.136.19/uploads/article/20180905/0fd4c74377b3846611082ed7558a3784.png
              * fmcomment : 0
-             * fmfavorite : 5
-             * fmpic : http://47.92.136.19/uploads/article/20180810/20180810/a5fba7bdbdef8beb653129c024d56cb8.jpeg
              */
 
             private String fmID;
             private String fmtitle;
             private String fmlook;
             private String fmgood;
-            private String fmcomment;
             private String fmfavorite;
             private String fmpic;
+            private int fmcomment;
 
             public String getFmID() {
                 return fmID;
@@ -264,14 +294,6 @@ public class OtherInformationModel {
                 this.fmgood = fmgood;
             }
 
-            public String getFmcomment() {
-                return fmcomment;
-            }
-
-            public void setFmcomment(String fmcomment) {
-                this.fmcomment = fmcomment;
-            }
-
             public String getFmfavorite() {
                 return fmfavorite;
             }
@@ -287,16 +309,24 @@ public class OtherInformationModel {
             public void setFmpic(String fmpic) {
                 this.fmpic = fmpic;
             }
+
+            public int getFmcomment() {
+                return fmcomment;
+            }
+
+            public void setFmcomment(int fmcomment) {
+                this.fmcomment = fmcomment;
+            }
         }
 
         public static class ListActiviyBean {
             /**
-             * pfID : 102
-             * pftitle : 几哈
-             * pfpic : http://47.92.136.19/uploads/xingcheng/20180802/20180802/0fa03a6c61ac405be84cbe2755400c10.jpeg
-             * pflook : 0
+             * pfID : 35
+             * pftitle : bab
+             * pfpic : http://47.92.136.19/uploads/xingcheng/20180831/32fae1d5a04b7cf68d6df3f625d8f35c.png
+             * pflook : 18
              * pfcomment : 0
-             * pffavorite : 0
+             * pffavorite : 1
              */
 
             private String pfID;

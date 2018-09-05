@@ -29,6 +29,8 @@ import com.yiwo.friendscometogether.adapter.DetailsOfFriendsIntercalation1Adapte
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsIntercalationAdapter;
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.imagepreview.Consts;
+import com.yiwo.friendscometogether.imagepreview.ImagePreviewActivity;
 import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.model.DetailsRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -278,7 +280,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
     @OnClick({R.id.activity_details_of_friends_rl_back, R.id.activity_details_of_friends_ll_intercalation, R.id.activity_details_of_friends_ll_comment,
             R.id.activity_details_of_friends_ll_share, R.id.activity_details_of_friends_ll_praise, R.id.activity_details_of_friends_ll_star,
-            R.id.activity_details_of_friends_iv_avatar, R.id.activity_details_of_friends_btn_focus, R.id.activity_details_of_friends_rl_activity})
+            R.id.activity_details_of_friends_iv_avatar, R.id.activity_details_of_friends_btn_focus, R.id.activity_details_of_friends_rl_activity,
+            R.id.activity_details_of_friends_iv_title})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -508,6 +511,18 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 intent.putExtra("pfID", model.getObj().getActivityInfo().getPfID());
                 intent.setClass(DetailsOfFriendsActivity.this, DetailsOfFriendTogetherActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.activity_details_of_friends_iv_title:
+                //查看图片
+                List<String> urlList = new ArrayList<>();
+                urlList.add(model.getObj().getContent().getFmpic());
+                intent.setClass(DetailsOfFriendsActivity.this, ImagePreviewActivity.class);
+                intent.putStringArrayListExtra("imageList", (ArrayList<String>) urlList);
+                intent.putExtra(Consts.START_ITEM_POSITION, 0);
+                intent.putExtra(Consts.START_IAMGE_POSITION, 0);
+//                ActivityOptions compat = ActivityOptions.makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
+                startActivity(intent);
+//                getActivity().overridePendingTransition(R.anim.photoview_open, 0);
                 break;
         }
     }

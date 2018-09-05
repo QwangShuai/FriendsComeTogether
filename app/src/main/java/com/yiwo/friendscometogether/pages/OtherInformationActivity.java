@@ -75,6 +75,8 @@ public class OtherInformationActivity extends BaseActivity {
     RecyclerView rvWorks;
     @BindView(R.id.activity_other_information_rv_active)
     RecyclerView rvActive;
+    @BindView(R.id.iv_sign_yellow)
+    ImageView ivSign;
 
     private String otherUid = "";
 
@@ -112,6 +114,7 @@ public class OtherInformationActivity extends BaseActivity {
         ViseHttp.POST(NetConfig.otherUserInformationUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.otherUserInformationUrl))
                 .addParam("uid", otherUid)
+                .addParam("cid", uid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -132,7 +135,18 @@ public class OtherInformationActivity extends BaseActivity {
                                 tvConstellation.setText(model.getObj().getInfo().getConstellation());
                                 tvFocusNum.setText(model.getObj().getInfo().getUserlike());
                                 tvFansNum.setText(model.getObj().getInfo().getUserbelike());
-                                tvPraiseNum.setText(model.getObj().getInfo().getGiveCount());
+                                tvPraiseNum.setText(model.getObj().getInfo().getGiveCount()+"");
+
+                                if(model.getObj().getInfo().getFriends().equals("1")){
+                                    tvSendMessage.setText("发消息");
+                                }else if(model.getObj().getInfo().getFriends().equals("0")){
+                                    tvSendMessage.setText("加好友");
+                                }
+
+                                if(model.getObj().getInfo().getLeader().equals("1")){
+                                    ivSign.setVisibility(View.VISIBLE);
+                                }
+
                                 LinearLayoutManager manager = new LinearLayoutManager(OtherInformationActivity.this) {
                                     @Override
                                     public boolean canScrollVertically() {
@@ -213,7 +227,42 @@ public class OtherInformationActivity extends BaseActivity {
                     intent.setClass(OtherInformationActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    liaotian(model.getObj().getInfo().getWy_accid());
+                    if(model.getObj().getInfo().getFriends().equals("1")){
+                        liaotian(model.getObj().getInfo().getWy_accid());
+                    }else if(model.getObj().getInfo().getFriends().equals("0")){
+                        FriendDescribeDialog dialog = new FriendDescribeDialog(OtherInformationActivity.this);
+                        dialog.show();
+                        dialog.setOnReturnListener(new FriendDescribeDialog.OnReturnListener() {
+                            @Override
+                            public void onReturn(String title) {
+                                ViseHttp.POST(NetConfig.addFriendsUrl)
+                                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addFriendsUrl))
+                                        .addParam("uid", uid)
+                                        .addParam("friendId", otherUid)
+                                        .addParam("describe", title)
+                                        .request(new ACallback<String>() {
+                                            @Override
+                                            public void onSuccess(String data) {
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(data);
+                                                    if (jsonObject.getInt("code") == 200) {
+                                                        toToast(OtherInformationActivity.this, "好友请求已发送");
+                                                    }else {
+                                                        toToast(OtherInformationActivity.this, jsonObject.getString("message"));
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFail(int errCode, String errMsg) {
+
+                                            }
+                                        });
+                            }
+                        });
+                    }
 //                    team();
                 }
                 break;
@@ -239,6 +288,8 @@ public class OtherInformationActivity extends BaseActivity {
                                                 JSONObject jsonObject = new JSONObject(data);
                                                 if (jsonObject.getInt("code") == 200) {
                                                     toToast(OtherInformationActivity.this, "好友请求已发送");
+                                                }else {
+                                                    toToast(OtherInformationActivity.this, jsonObject.getString("message"));
                                                 }
                                             } catch (JSONException e) {
                                                 e.printStackTrace();

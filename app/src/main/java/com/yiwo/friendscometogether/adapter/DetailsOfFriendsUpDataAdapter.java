@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,11 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.imagepreview.Consts;
+import com.yiwo.friendscometogether.imagepreview.ImagePreviewActivity;
 import com.yiwo.friendscometogether.model.DetailsRememberModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,9 +42,25 @@ public class DetailsOfFriendsUpDataAdapter extends RecyclerView.Adapter<DetailsO
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         Picasso.with(context).load(data.get(position).getFfpurl()).into(holder.ivTitle);
         holder.tvContent.setText(data.get(position).getFfptitle());
+        holder.ivTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> urlList = new ArrayList<>();
+                for (int i = 0; i<data.size(); i++){
+                    urlList.add(data.get(i).getFfpurl());
+                }
+                Intent intent = new Intent(context, ImagePreviewActivity.class);
+                intent.putStringArrayListExtra("imageList", (ArrayList<String>) urlList);
+                intent.putExtra(Consts.START_ITEM_POSITION, position);
+                intent.putExtra(Consts.START_IAMGE_POSITION, position);
+//                ActivityOptions compat = ActivityOptions.makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
+                context.startActivity(intent);
+//                getActivity().overridePendingTransition(R.anim.photoview_open, 0);
+            }
+        });
     }
 
     @Override

@@ -33,6 +33,8 @@ import com.yiwo.friendscometogether.adapter.FriendTogetherCommentListAdapter;
 import com.yiwo.friendscometogether.adapter.FriendTogetherUpDataAdapter;
 import com.yiwo.friendscometogether.adapter.ParticipantsItemAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.imagepreview.Consts;
+import com.yiwo.friendscometogether.imagepreview.ImagePreviewActivity;
 import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.model.FocusOnLeaderModel;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
@@ -48,6 +50,7 @@ import com.yiwo.friendscometogether.utils.TokenUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -290,7 +293,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
 
     @OnClick({R.id.details_applyTv, R.id.activity_details_of_friends_together_rl_back, R.id.activity_details_of_friends_together_ll_share,
             R.id.activity_details_of_friends_together_ll_focus_on, R.id.activity_details_of_friends_together_btn_top_focus,
-            R.id.headIv, R.id.consult_leaderLl, R.id.comment_more})
+            R.id.headIv, R.id.consult_leaderLl, R.id.comment_more, R.id.activity_details_of_friends_together_iv_title})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.activity_details_of_friends_together_rl_back:
@@ -481,6 +484,17 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
                 intent1.setClass(DetailsOfFriendTogetherActivity.this, ActiveEvaluationActivity.class);
                 intent1.putExtra("pfID", pfID);
                 startActivity(intent1);
+                break;
+            case R.id.activity_details_of_friends_together_iv_title:
+                List<String> urlList = new ArrayList<>();
+                urlList.add(model.getObj().getShow_pic());
+                Intent intent = new Intent(DetailsOfFriendTogetherActivity.this, ImagePreviewActivity.class);
+                intent.putStringArrayListExtra("imageList", (ArrayList<String>) urlList);
+                intent.putExtra(Consts.START_ITEM_POSITION, 0);
+                intent.putExtra(Consts.START_IAMGE_POSITION, 0);
+//                ActivityOptions compat = ActivityOptions.makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName());
+                startActivity(intent);
+//                getActivity().overridePendingTransition(R.anim.photoview_open, 0);
                 break;
         }
     }

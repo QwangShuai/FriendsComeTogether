@@ -51,7 +51,7 @@
                     android:gravity="center"
                     android:textColor="@color/white_ffffff"
                     android:textSize="36px"
-                    android:text="发消息"
+                    android:text="加好友"
                     android:layout_width="188px"
                     android:layout_height="64px" />
 
@@ -99,7 +99,7 @@
                         android:background="@mipmap/level_bg"
                         android:layout_marginTop="10px"
                         android:layout_below="@+id/activity_other_information_tv_nickname"
-                        android:layout_width="183px"
+                        android:layout_width="163px"
                         android:layout_height="50px">
 
                         <TextView
@@ -115,6 +115,17 @@
                             android:layout_height="wrap_content" />
 
                     </RelativeLayout>
+                    
+                    <ImageView
+                        android:visibility="gone"
+                        android:scaleType="fitXY"
+                        android:id="@+id/iv_sign_yellow"
+                        android:layout_toRightOf="@+id/activity_other_information_rl_sign_team"
+                        android:layout_below="@+id/activity_other_information_tv_nickname"
+                        android:layout_marginTop="10px"
+                        android:src="@mipmap/sign_yellow"
+                        android:layout_width="50px"
+                        android:layout_height="50px" />
 
                 </RelativeLayout>
 
