@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
@@ -27,6 +28,7 @@ import com.yiwo.friendscometogether.pages.CreateFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.JoinActiveActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.LookHistoryActivity;
+import com.yiwo.friendscometogether.pages.MessageCenterActivity;
 import com.yiwo.friendscometogether.pages.MyCollectionActivity;
 import com.yiwo.friendscometogether.pages.MyCommentActivity;
 import com.yiwo.friendscometogether.pages.MyDraftActivity;
@@ -105,11 +107,17 @@ public class MyFragment extends BaseFragment {
     @BindView(R.id.fragment_my_rl_create_activity)
     RelativeLayout rlCreateActivity;
     @BindView(R.id.fragment_my_set)
-    RelativeLayout rlSet;
+    RelativeLayout rlMessage;
     @BindView(R.id.fragment_my_rl_my_friend)
     RelativeLayout rlFriend;
     @BindView(R.id.fragment_my_rl_focus_activitys)
     RelativeLayout rlMyFocusActive;
+    @BindView(R.id.fragment_my_tv_level)
+    TextView tvLevel;
+    @BindView(R.id.iv_is_sign)
+    ImageView ivIsSign;
+    @BindView(R.id.fragment_my_rl_set)
+    RelativeLayout rlSet;
 
     private SpImp spImp;
     private String uid = "";
@@ -161,21 +169,24 @@ public class MyFragment extends BaseFragment {
                                 if (jsonObject.getInt("code") == 200) {
                                     Gson gson = new Gson();
                                     UserModel userModel = gson.fromJson(data, UserModel.class);
-                                    if(TextUtils.isEmpty(userModel.getObj().getHeadeimg())){
+                                    if (TextUtils.isEmpty(userModel.getObj().getHeadeimg())) {
                                         Picasso.with(getContext()).load(R.mipmap.my_head).into(ivAvatar);
-                                    }else {
+                                    } else {
                                         Picasso.with(getContext()).load(userModel.getObj().getHeadeimg()).into(ivAvatar);
                                     }
                                     tvNickname.setText("昵称: " + userModel.getObj().getUsername());
-                                    if(userModel.getObj().getSex().equals("0")){
+                                    if (userModel.getObj().getSex().equals("0")) {
                                         Picasso.with(getContext()).load(R.mipmap.nan).into(ivSex);
-                                    }else {
+                                    } else {
                                         Picasso.with(getContext()).load(R.mipmap.nv).into(ivSex);
                                     }
-                                    if(userModel.getObj().getSign().equals("0")){
-                                        rlSignTeam.setVisibility(View.GONE);
-                                    }else {
-                                        rlSignTeam.setVisibility(View.VISIBLE);
+                                    //等级部分
+                                    rlSignTeam.setVisibility(View.VISIBLE);
+                                    tvLevel.setText("LV" + userModel.getObj().getUsergrade());
+                                    if (userModel.getObj().getSign().equals("0")) {
+                                        Glide.with(getContext()).load(R.mipmap.sign_gray).into(ivIsSign);
+                                    } else {
+                                        Glide.with(getContext()).load(R.mipmap.sign_yellow).into(ivIsSign);
                                     }
                                 }
                             } catch (JSONException e) {
@@ -198,8 +209,8 @@ public class MyFragment extends BaseFragment {
     @OnClick({R.id.fragment_my_ll_look_more, R.id.fragment_my_ll_to_pay, R.id.fragment_my_ll_to_trip, R.id.fragment_my_ll_to_comment, R.id.fragment_my_ll_return_price,
             R.id.fragment_my_rl_focus, R.id.fragment_my_rl_collection, R.id.fragment_my_rl_comment, R.id.fragment_my_rl_history, R.id.fragment_my_ll_draft,
             R.id.fragment_my_ll_create_friend_remember, R.id.fragment_my_person_set, R.id.fragment_my_ll_my_friend_remember, R.id.fragment_my_ll_my_intercalation,
-            R.id.fragment_my_rl_initiating_activities, R.id.fragment_my_rl_join_activitys, R.id.fragment_my_rl_picture,R.id.fragment_my_rl_create_activity,
-            R.id.fragment_my_set, R.id.fragment_my_rl_my_friend, R.id.fragment_my_rl_focus_activitys})
+            R.id.fragment_my_rl_initiating_activities, R.id.fragment_my_rl_join_activitys, R.id.fragment_my_rl_picture, R.id.fragment_my_rl_create_activity,
+            R.id.fragment_my_set, R.id.fragment_my_rl_my_friend, R.id.fragment_my_rl_focus_activitys, R.id.fragment_my_rl_set})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -373,7 +384,7 @@ public class MyFragment extends BaseFragment {
             case R.id.fragment_my_set:
                 //跳转设置页面
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
-                    intent.setClass(getContext(), SetActivity.class);
+                    intent.setClass(getContext(), MessageCenterActivity.class);
                     startActivity(intent);
                 } else {
                     intent.setClass(getContext(), LoginActivity.class);
@@ -393,6 +404,15 @@ public class MyFragment extends BaseFragment {
                 //我关注的活动
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
                     intent.setClass(getContext(), MyFocusActiveActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.fragment_my_rl_set:
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    intent.setClass(getContext(), SetActivity.class);
                     startActivity(intent);
                 } else {
                     intent.setClass(getContext(), LoginActivity.class);

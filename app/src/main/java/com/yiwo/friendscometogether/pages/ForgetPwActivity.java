@@ -139,18 +139,17 @@ public class ForgetPwActivity extends BaseActivity {
                     .addParam("phone", phone)
                     .addParam("CodeId", codeID)
                     .addParam("password", pwd)
-//                    .addParams("confirm_password",cpwd)
+                    .addParam("Confirmpassword",cpwd)
                     .addParam("code", code)
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
+                            Log.e("222", data);
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
                                 int code = jsonObject.optInt("code");
                                 if (code == 200) {
-                                    Log.i("我的UID", jsonObject.optString("obj").toString());
-                                    JSONObject js = new JSONObject(jsonObject.optString("obj"));
-                                    spImp.setUID(js.optString("uid"));
+                                    toToast(c, jsonObject.optString("message").toString());
                                     finish();
                                 } else {
                                     toToast(c, jsonObject.optString("message").toString());

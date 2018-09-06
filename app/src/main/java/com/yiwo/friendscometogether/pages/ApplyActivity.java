@@ -247,6 +247,9 @@ public class ApplyActivity extends BaseActivity {
     }
 
     public void getShowView() {
+
+        String tel = getIntent().getStringExtra("tel");
+        etPhoneNum.setText(tel);
         tvNum.setText(num + "");
         if_pay = getIntent().getStringExtra("if_pay");
         Log.i("789456", if_pay);

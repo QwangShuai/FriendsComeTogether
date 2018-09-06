@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.squareup.picasso.Picasso;
@@ -138,9 +139,15 @@ public class OtherInformationActivity extends BaseActivity {
                                 tvPraiseNum.setText(model.getObj().getInfo().getGiveCount()+"");
 
                                 if(model.getObj().getInfo().getFriends().equals("1")){
-                                    tvSendMessage.setText("发消息");
+                                    Glide.with(OtherInformationActivity.this).load(R.mipmap.other_send_msg).into(ivAddFriend);
                                 }else if(model.getObj().getInfo().getFriends().equals("0")){
-                                    tvSendMessage.setText("加好友");
+                                    Glide.with(OtherInformationActivity.this).load(R.mipmap.add_friend).into(ivAddFriend);
+                                }
+
+                                if(model.getObj().getInfo().getFollow().equals("1")){
+                                    tvSendMessage.setText("已关注");
+                                }else if(model.getObj().getInfo().getFollow().equals("0")){
+                                    tvSendMessage.setText("加关注");
                                 }
 
                                 if(model.getObj().getInfo().getLeader().equals("1")){
@@ -227,6 +234,77 @@ public class OtherInformationActivity extends BaseActivity {
                     intent.setClass(OtherInformationActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
+
+                    ViseHttp.POST(NetConfig.userFocusUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+                            .addParam("uid", uid)
+                            .addParam("likeId", otherUid)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            toToast(OtherInformationActivity.this, "关注成功");
+                                            tvSendMessage.setText("已关注");
+                                        }else {
+                                            toToast(OtherInformationActivity.this, jsonObject.getString("message"));
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+
+//                    if(model.getObj().getInfo().getFriends().equals("1")){
+//                        liaotian(model.getObj().getInfo().getWy_accid());
+//                    }else if(model.getObj().getInfo().getFriends().equals("0")){
+//                        FriendDescribeDialog dialog = new FriendDescribeDialog(OtherInformationActivity.this);
+//                        dialog.show();
+//                        dialog.setOnReturnListener(new FriendDescribeDialog.OnReturnListener() {
+//                            @Override
+//                            public void onReturn(String title) {
+//                                ViseHttp.POST(NetConfig.addFriendsUrl)
+//                                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addFriendsUrl))
+//                                        .addParam("uid", uid)
+//                                        .addParam("friendId", otherUid)
+//                                        .addParam("describe", title)
+//                                        .request(new ACallback<String>() {
+//                                            @Override
+//                                            public void onSuccess(String data) {
+//                                                try {
+//                                                    JSONObject jsonObject = new JSONObject(data);
+//                                                    if (jsonObject.getInt("code") == 200) {
+//                                                        toToast(OtherInformationActivity.this, "好友请求已发送");
+//                                                    }else {
+//                                                        toToast(OtherInformationActivity.this, jsonObject.getString("message"));
+//                                                    }
+//                                                } catch (JSONException e) {
+//                                                    e.printStackTrace();
+//                                                }
+//                                            }
+//
+//                                            @Override
+//                                            public void onFail(int errCode, String errMsg) {
+//
+//                                            }
+//                                        });
+//                            }
+//                        });
+//                    }
+//                    team();
+                }
+                break;
+            case R.id.activity_other_information_iv_add_friend:
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
+                    intent.setClass(OtherInformationActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
                     if(model.getObj().getInfo().getFriends().equals("1")){
                         liaotian(model.getObj().getInfo().getWy_accid());
                     }else if(model.getObj().getInfo().getFriends().equals("0")){
@@ -263,46 +341,6 @@ public class OtherInformationActivity extends BaseActivity {
                             }
                         });
                     }
-//                    team();
-                }
-                break;
-            case R.id.activity_other_information_iv_add_friend:
-                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
-                    intent.setClass(OtherInformationActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                } else {
-                    FriendDescribeDialog dialog = new FriendDescribeDialog(OtherInformationActivity.this);
-                    dialog.show();
-                    dialog.setOnReturnListener(new FriendDescribeDialog.OnReturnListener() {
-                        @Override
-                        public void onReturn(String title) {
-                            ViseHttp.POST(NetConfig.addFriendsUrl)
-                                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addFriendsUrl))
-                                    .addParam("uid", uid)
-                                    .addParam("friendId", otherUid)
-                                    .addParam("describe", title)
-                                    .request(new ACallback<String>() {
-                                        @Override
-                                        public void onSuccess(String data) {
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(data);
-                                                if (jsonObject.getInt("code") == 200) {
-                                                    toToast(OtherInformationActivity.this, "好友请求已发送");
-                                                }else {
-                                                    toToast(OtherInformationActivity.this, jsonObject.getString("message"));
-                                                }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFail(int errCode, String errMsg) {
-
-                                        }
-                                    });
-                        }
-                    });
                 }
                 break;
         }

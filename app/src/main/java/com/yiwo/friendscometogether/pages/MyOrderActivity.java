@@ -98,7 +98,7 @@ public class MyOrderActivity extends BaseActivity {
                         tvTopTitle.setText("待支付");
                         break;
                     case 2:
-                        tvTopTitle.setText("待行程");
+                        tvTopTitle.setText("进行中");
                         break;
                     case 3:
                         tvTopTitle.setText("待评价");
@@ -135,7 +135,7 @@ public class MyOrderActivity extends BaseActivity {
         mTitleList = new ArrayList<>();
         mTitleList.add("全部");
         mTitleList.add("待支付");
-        mTitleList.add("待行程");
+        mTitleList.add("进行中");
         mTitleList.add("待评价");
         mTitleList.add("退款");
         //设置tablayout模式
