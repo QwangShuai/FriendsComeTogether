@@ -1,5 +1,7 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -81,6 +83,10 @@ public class ApplyActivity extends BaseActivity {
     TextView tvAllPrice;
     @BindView(R.id.online_pay)
     TextView tvOnlinePay;
+    @BindView(R.id.apply_ll_is_noname)
+    LinearLayout llIsNoname;
+    @BindView(R.id.apply_is_noname)
+    TextView tvIsNoname;
 
     private String yourChoice = "";
     private int payState = 0;
@@ -95,6 +101,12 @@ public class ApplyActivity extends BaseActivity {
 
     private String yqid = "0";
 
+    /**
+     * 是否匿名
+     */
+    private String isNoname = "";
+    private String isNonameChoice = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,9 +118,9 @@ public class ApplyActivity extends BaseActivity {
 
         String id = getIntent().getStringExtra("id");
         String tid = getIntent().getStringExtra("tid");
-        if(!TextUtils.isEmpty(id)&&!TextUtils.isEmpty(tid)){
+        if (!TextUtils.isEmpty(id) && !TextUtils.isEmpty(tid)) {
             getShowViewTwo(id, tid);
-        }else {
+        } else {
             getShowView();
         }
 
@@ -119,18 +131,20 @@ public class ApplyActivity extends BaseActivity {
         yqid = id;
 
         ViseHttp.POST(NetConfig.invitationOkUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.invitationOkUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.invitationOkUrl))
                 .addParam("id", tid)
                 .addParam("yqid", id)
+                .addParam("uid", spImp.getUID())
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         Log.e("222", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 InvitationOkModel model = gson.fromJson(data, InvitationOkModel.class);
+                                etPhoneNum.setText(model.getObj().getPhone());
                                 tvNum.setText(num + "");
                                 if_pay = model.getObj().getPfspendtype();
                                 Log.i("789456", if_pay);
@@ -184,7 +198,7 @@ public class ApplyActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.activity_apply_rl_back, R.id.apply_btn, R.id.iv_jian, R.id.iv_jia, R.id.online_pay})
+    @OnClick({R.id.activity_apply_rl_back, R.id.apply_btn, R.id.iv_jian, R.id.iv_jia, R.id.online_pay, R.id.apply_ll_is_noname})
 //,R.id.apply_sex_tv
     public void OnClick(View v) {
         switch (v.getId()) {
@@ -210,6 +224,35 @@ public class ApplyActivity extends BaseActivity {
                 break;
             case R.id.online_pay:
                 apply();
+                break;
+            case R.id.apply_ll_is_noname:
+                //是否匿名
+                final String[] items1 = {"是", "否"};
+
+                AlertDialog.Builder singleChoiceDialog1 =
+                        new AlertDialog.Builder(ApplyActivity.this);
+                singleChoiceDialog1.setTitle("请选择是否匿名");
+                // 第二个参数是默认选项，此处设置为0
+                singleChoiceDialog1.setSingleChoiceItems(items1, 0,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                isNonameChoice = items1[which];
+                            }
+                        });
+                singleChoiceDialog1.setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (TextUtils.isEmpty(isNonameChoice)) {
+                                    tvIsNoname.setText("是");
+                                } else {
+                                    tvIsNoname.setText(isNonameChoice);
+                                    isNonameChoice = "";
+                                }
+                            }
+                        });
+                singleChoiceDialog1.show();
                 break;
         }
 
@@ -304,6 +347,7 @@ public class ApplyActivity extends BaseActivity {
             }
             ViseHttp.POST(NetConfig.applyActivityUrl)
                     .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.applyActivityUrl))
+                    .addParam("noname", tvIsNoname.getText().toString().equals("是") ? "1" : "0")
                     .addParam("user_id", user_id)
                     .addParam("num", peopleNum)
                     .addParam("pfid", pfID)

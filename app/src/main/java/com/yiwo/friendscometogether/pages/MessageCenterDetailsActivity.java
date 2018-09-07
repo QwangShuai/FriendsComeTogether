@@ -51,18 +51,18 @@ public class MessageCenterDetailsActivity extends BaseActivity {
 
         mesId = getIntent().getStringExtra("mesid");
         ViseHttp.POST(NetConfig.systemHotMessageDetailsUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.systemHotMessageDetailsUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.systemHotMessageDetailsUrl))
                 .addParam("mes_id", mesId)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 SystemHotMessageDetailsModel model = gson.fromJson(data, SystemHotMessageDetailsModel.class);
                                 titleTv.setText(model.getObj().getMes_title());
-                                if(!TextUtils.isEmpty(model.getObj().getMes_pic())){
+                                if (!TextUtils.isEmpty(model.getObj().getMes_pic())) {
                                     Picasso.with(MessageCenterDetailsActivity.this).load(model.getObj().getMes_pic()).into(picIv);
                                 }
                                 contentTv.setText(model.getObj().getMes_message());

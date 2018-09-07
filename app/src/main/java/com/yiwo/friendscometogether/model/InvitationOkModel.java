@@ -56,6 +56,7 @@ public class InvitationOkModel {
          * typename : 线上收取
          */
 
+        private String phone;
         private String id;
         private String username;
         private String pic;
@@ -68,6 +69,14 @@ public class InvitationOkModel {
         private String pfspend;
         private String pfspendtype;
         private String typename;
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
 
         public String getId() {
             return id;

@@ -57,6 +57,7 @@ import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherModel;
 import com.yiwo.friendscometogether.model.CreateFriendsTogetherRequestModel;
+import com.yiwo.friendscometogether.model.FriendsTogethermodel;
 import com.yiwo.friendscometogether.model.GetEditorFriendTogetherModel;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.model.UserLabelModel;
@@ -533,10 +534,13 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
             ivDelete.setVisibility(View.VISIBLE);
 //            file = new File("" + scList.get(0));
         }
-        if (requestCode == CITY_REQUEST && data != null) {
+        if (requestCode == CITY_REQUEST && data != null && resultCode == 1) {
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
             tvCity.setText(model.getName());
             map.put("city", model.getId());
+        } else if (requestCode == CITY_REQUEST && resultCode == 2) {
+            tvCity.setText("");
+            map.remove("city");
         }
     }
 

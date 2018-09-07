@@ -61,6 +61,8 @@ public class MessageCenterActivity extends BaseActivity {
     TextView tvFriendTime;
     @BindView(R.id.iv_friend)
     ImageView ivFriend;
+    @BindView(R.id.rl_clean)
+    RelativeLayout rlClean;
 
     private SpImp spImp;
 

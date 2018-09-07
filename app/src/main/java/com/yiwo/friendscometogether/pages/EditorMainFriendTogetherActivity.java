@@ -487,10 +487,13 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
             ivDelete.setVisibility(View.VISIBLE);
 //            file = new File("" + scList.get(0));
         }
-        if (requestCode == CITY_REQUEST && data != null) {
+        if (requestCode == CITY_REQUEST && data != null && resultCode == 1) {
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
             tvCity.setText(model.getName());
             map.put("city_id", model.getId());
+        } else if (requestCode == CITY_REQUEST && resultCode == 2) {
+            tvCity.setText("");
+            map.remove("city_id");
         }
     }
 

@@ -63,6 +63,9 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
 //                listener.onReply(position, data.get(position).getPfID());
 //            }
 //        });
+        if(data.get(position).getList().size() == 0){
+            holder.tvComment.setText("暂无评价");
+        }
         if (data.get(position).getList().size() > 0) {
             holder.recyclerView.setVisibility(View.VISIBLE);
             LinearLayoutManager manager = new LinearLayoutManager(context);
@@ -103,6 +106,7 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
         private TextView tvTime;
         private RecyclerView recyclerView;
         private RelativeLayout rlFriendRemember;
+        private TextView tvComment;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -112,6 +116,7 @@ public class MyActiveCommentAdapter extends RecyclerView.Adapter<MyActiveComment
             tvTime = itemView.findViewById(R.id.activity_active_comment_rv_time_tv);
             recyclerView = itemView.findViewById(R.id.activity_active_comment_rv_rv);
             rlFriendRemember = itemView.findViewById(R.id.rl_friend_remember);
+            tvComment = itemView.findViewById(R.id.activity_active_comment_rv_tv);
         }
     }
     public interface OnReplyListener{
