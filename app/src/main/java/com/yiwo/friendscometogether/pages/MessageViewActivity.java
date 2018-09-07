@@ -178,11 +178,70 @@ public class MessageViewActivity extends BaseActivity {
         messageRv.setAdapter(adapter);
     }
 
-    @OnClick({R.id.activity_message_view_rl_back})
+    @OnClick({R.id.activity_message_view_rl_back, R.id.rl_clean})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.activity_message_view_rl_back:
                 finish();
+                break;
+            case R.id.rl_clean:
+                if(type.equals("1")){
+                    ViseHttp.POST(NetConfig.deleteMessageUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteMessageUrl))
+                            .addParam("user_id", spImp.getUID())
+                            .addParam("type", "1")
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    Log.e("22222", data);
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            toToast(MessageViewActivity.this, "已清空");
+                                            mList.clear();
+                                            adapter.notifyDataSetChanged();
+                                        }else {
+                                            toToast(MessageViewActivity.this, jsonObject.getString("message"));
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }else if(type.equals("0")){
+                    ViseHttp.POST(NetConfig.deleteMessageUrl)
+                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteMessageUrl))
+                            .addParam("user_id", spImp.getUID())
+                            .addParam("type", "0")
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    Log.e("22222", data);
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            toToast(MessageViewActivity.this, "已清空");
+                                            mList.clear();
+                                            adapter.notifyDataSetChanged();
+                                        }else {
+                                            toToast(MessageViewActivity.this, jsonObject.getString("message"));
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }
                 break;
         }
     }

@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.pages;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -168,11 +169,40 @@ public class MessageCommentActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.activity_message_comment_rl_back})
+    @OnClick({R.id.activity_message_comment_rl_back, R.id.rl_clean})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.activity_message_comment_rl_back:
                 finish();
+                break;
+            case R.id.rl_clean:
+                ViseHttp.POST(NetConfig.deleteMessageUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteMessageUrl))
+                        .addParam("user_id", spImp.getUID())
+                        .addParam("type", "2")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("22222", data);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        toToast(MessageCommentActivity.this, "已清空");
+                                        mList.clear();
+                                        adapter.notifyDataSetChanged();
+                                    }else {
+                                        toToast(MessageCommentActivity.this, jsonObject.getString("message"));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
         }
     }

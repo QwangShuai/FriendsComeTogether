@@ -128,11 +128,40 @@ public class MessageInvitationActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.activity_message_invitation_rl_back})
+    @OnClick({R.id.activity_message_invitation_rl_back, R.id.rl_clean})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.activity_message_invitation_rl_back:
                 MessageInvitationActivity.this.finish();
+                break;
+            case R.id.rl_clean:
+                ViseHttp.POST(NetConfig.deleteMessageUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteMessageUrl))
+                        .addParam("user_id", spImp.getUID())
+                        .addParam("type", "4")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("22222", data);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        toToast(MessageInvitationActivity.this, "已清空");
+                                        mList.clear();
+                                        adapter.notifyDataSetChanged();
+                                    }else {
+                                        toToast(MessageInvitationActivity.this, jsonObject.getString("message"));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
         }
     }

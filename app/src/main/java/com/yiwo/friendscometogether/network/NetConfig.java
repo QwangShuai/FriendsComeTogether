@@ -228,4 +228,6 @@ public class NetConfig {
     public static String userCancelBlackUrl = "action/ac_user/CancelBlackout";
     //彻底删除(黑名单)
     public static String deleteBlackUserUrl = "action/ac_user/DeleteBlackUser";
+    //清空消息
+    public static String deleteMessageUrl = "action/ac_public/clear_message";
 }

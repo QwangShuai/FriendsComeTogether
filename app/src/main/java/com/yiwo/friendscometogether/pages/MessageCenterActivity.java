@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -74,8 +75,12 @@ public class MessageCenterActivity extends BaseActivity {
         ButterKnife.bind(this);
         spImp = new SpImp(MessageCenterActivity.this);
 
-        initData();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
     }
 
     private void initData() {
@@ -130,7 +135,8 @@ public class MessageCenterActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.hot_message_rl, R.id.set_message_rl, R.id.activity_message_center_rl_back, R.id.invitation_message_rl, R.id.comment_message_rl, R.id.friend_message_rl})
+    @OnClick({R.id.hot_message_rl, R.id.set_message_rl, R.id.activity_message_center_rl_back, R.id.invitation_message_rl, R.id.comment_message_rl, R.id.friend_message_rl,
+            R.id.rl_clean})
     public void OnClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
@@ -163,6 +169,39 @@ public class MessageCenterActivity extends BaseActivity {
                 ivFriend.setVisibility(View.GONE);
                 intent.setClass(MessageCenterActivity.this, MessageFriendsActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.rl_clean:
+                ViseHttp.POST(NetConfig.deleteMessageUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteMessageUrl))
+                        .addParam("user_id", spImp.getUID())
+                        .addParam("type", "5")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("22222", data);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        toToast(MessageCenterActivity.this, "已清空");
+                                        onStart();
+                                        ivHot.setVisibility(View.GONE);
+                                        ivSystem.setVisibility(View.GONE);
+                                        ivInvitation.setVisibility(View.GONE);
+                                        ivComment.setVisibility(View.GONE);
+                                        ivFriend.setVisibility(View.GONE);
+                                    }else {
+                                        toToast(MessageCenterActivity.this, jsonObject.getString("message"));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
         }
     }
