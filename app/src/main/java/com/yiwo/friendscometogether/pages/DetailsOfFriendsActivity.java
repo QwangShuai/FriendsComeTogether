@@ -186,7 +186,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                 }else {
                                     tvEndTime.setText("结束时间: "+model.getObj().getContent().getFmendtime());
                                 }
-                                if(TextUtils.isEmpty(model.getObj().getContent().getPercapitacost())){
+                                if(TextUtils.isEmpty(model.getObj().getContent().getPercapitacost())||model.getObj().getContent().getPercapitacost().equals("0.00")){
                                     llMoney.setVisibility(View.GONE);
                                 }else {
                                     tvPrice.setText("人均费用: ¥"+model.getObj().getContent().getPercapitacost());

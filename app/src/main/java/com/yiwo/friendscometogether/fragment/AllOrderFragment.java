@@ -186,6 +186,7 @@ public class AllOrderFragment extends OrderBaseFragment {
                                                 .request(new ACallback<String>() {
                                                     @Override
                                                     public void onSuccess(String data) {
+                                                        Log.e("222", data);
                                                         try {
                                                             JSONObject pay = new JSONObject(data);
                                                             if (pay.getInt("code") == 200) {

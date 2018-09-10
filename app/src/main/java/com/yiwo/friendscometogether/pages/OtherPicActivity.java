@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.adapter.GridDividerItemDecoration;
 import com.yiwo.friendscometogether.adapter.OtherPicAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.MyPicListModel;
@@ -61,6 +63,7 @@ public class OtherPicActivity extends BaseActivity {
 
         GridLayoutManager manager = new GridLayoutManager(OtherPicActivity.this, 2);
         recyclerView.setLayoutManager(manager);
+        recyclerView.addItemDecoration(new GridDividerItemDecoration(10, Color.parseColor("#f2f2f2")));
 
         ViseHttp.POST(NetConfig.myPictureListUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.myPictureListUrl))

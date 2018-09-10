@@ -24,7 +24,7 @@
         android:layout_below="@+id/dialog_pic_describe_rl_close"
         android:textSize="32px"
         android:textColor="@color/black_333333"
-        android:text="备注"
+        android:text="留言"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -42,7 +42,7 @@
             android:textColor="@color/black_333333"
             android:gravity="start"
             android:textSize="28px"
-            android:hint="请输入备注"
+            android:hint="请输入留言"
             android:background="@null"
             android:layout_marginLeft="20px"
             android:layout_marginTop="20px"

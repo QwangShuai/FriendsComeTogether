@@ -30,6 +30,11 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
     private Context context;
     private List<UserFocusModel.ObjBean> data;
     private OnFocusCancelListener listener;
+    private OnFocusInvitationListener listener1;
+
+    public void setOnInvitationListener(OnFocusInvitationListener listener1){
+        this.listener1 = listener1;
+    }
 
     public void setOnFocusCancelListener(OnFocusCancelListener listener) {
         this.listener = listener;
@@ -69,14 +74,7 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
         holder.tv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(data.get(position).getActivity_id().equals("0")){
-                    Intent intent = new Intent();
-                    intent.putExtra("otheruid", data.get(position).getLikeuserID());
-                    intent.setClass(context, InvitationActivity.class);
-                    context.startActivity(intent);
-                }else {
-                    Toast.makeText(context, "已参加活动，无法邀请", Toast.LENGTH_SHORT).show();
-                }
+                listener1.onInvitation(position);
             }
         });
         holder.ll.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +117,10 @@ public class MyFocusAdapter extends RecyclerView.Adapter<MyFocusAdapter.ViewHold
             tv1 = itemView.findViewById(R.id.activity_my_focus_rv_tv_1);
             ll = itemView.findViewById(R.id.ll);
         }
+    }
+
+    public interface OnFocusInvitationListener{
+        void onInvitation(int position);
     }
 
     public interface OnFocusCancelListener {

@@ -127,7 +127,7 @@
             android:gravity="center"
             android:textSize="24px"
             android:textColor="@color/white_ffffff"
-            android:text="邀请他"
+            android:text="邀请Ta"
             android:layout_width="140px"
             android:layout_height="50px" />
 

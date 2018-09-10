@@ -111,6 +111,10 @@ public class MyInformationActivity extends TakePhotoActivity {
     TextView tvLevel;
     @BindView(R.id.activity_my_information_rl_save)
     RelativeLayout rlSave;
+    @BindView(R.id.tv_level)
+    TextView tvTopLevel;
+    @BindView(R.id.iv_is_sign)
+    ImageView ivIsSign;
 
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
@@ -170,7 +174,7 @@ public class MyInformationActivity extends TakePhotoActivity {
 
         uid = spImp.getUID();
         ViseHttp.POST(NetConfig.userInformation)
-                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.userInformation))
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userInformation))
                 .addParam("uid", uid)
                 .request(new ACallback<String>() {
                     @Override
@@ -180,31 +184,33 @@ public class MyInformationActivity extends TakePhotoActivity {
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 UserModel userModel = gson.fromJson(data, UserModel.class);
-                                if(TextUtils.isEmpty(userModel.getObj().getHeadeimg())){
+                                if (TextUtils.isEmpty(userModel.getObj().getHeadeimg())) {
                                     Picasso.with(MyInformationActivity.this).load(R.mipmap.my_head).into(ivAvatar);
-                                }else {
+                                } else {
                                     Picasso.with(MyInformationActivity.this).load(userModel.getObj().getHeadeimg()).into(ivAvatar);
                                 }
                                 tvNickname.setText("昵称: " + userModel.getObj().getUsername());
-                                if(userModel.getObj().getSex().equals("0")){
+                                if (userModel.getObj().getSex().equals("0")) {
                                     Picasso.with(MyInformationActivity.this).load(R.mipmap.nan).into(ivSex);
-                                }else {
+                                } else {
                                     Picasso.with(MyInformationActivity.this).load(R.mipmap.nv).into(ivSex);
                                 }
-                                if(userModel.getObj().getSign().equals("0")){
-                                    rlSignTeam.setVisibility(View.GONE);
-                                }else {
-                                    rlSignTeam.setVisibility(View.VISIBLE);
+
+                                tvTopLevel.setText("LV" + userModel.getObj().getUsergrade());
+                                if (userModel.getObj().getSign().equals("0")) {
+                                    Glide.with(MyInformationActivity.this).load(R.mipmap.sign_gray).into(ivIsSign);
+                                } else {
+                                    Glide.with(MyInformationActivity.this).load(R.mipmap.sign_yellow).into(ivIsSign);
                                 }
                                 etUsername.setHint(userModel.getObj().getUsername());
-                                tvSex.setText(userModel.getObj().getSex().equals("0")?"男":"女");
+                                tvSex.setText(userModel.getObj().getSex().equals("0") ? "男" : "女");
                                 tvLocation.setText(userModel.getObj().getUseraddress());
                                 etSign.setHint(userModel.getObj().getUserautograph());
                                 tvBirthday.setText(userModel.getObj().getUserbirthday());
                                 tvRegister.setText(userModel.getObj().getUsertime());
                                 tvRealName.setText(userModel.getObj().getUsercodeok());
-                                tvSingle.setText(userModel.getObj().getUsermarry().equals("1")?"是":"否");
-                                tvLevel.setText(userModel.getObj().getUsergrade());
+                                tvSingle.setText(userModel.getObj().getUsermarry().equals("1") ? "是" : "否");
+                                tvLevel.setText("LV" + userModel.getObj().getUsergrade());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -221,16 +227,17 @@ public class MyInformationActivity extends TakePhotoActivity {
     }
 
     private String yourChoice = "";
+
     @OnClick({R.id.activity_my_information_rl_back, R.id.activity_my_information_rl_sex, R.id.activity_my_information_rl_location, R.id.activity_my_information_rl_birthday,
             R.id.activity_my_information_rl_register_time, R.id.activity_my_information_rl_is_single, R.id.activity_my_information_rl_real_name, R.id.activity_my_information_rl_save,
             R.id.activity_my_information_iv_avatar})
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.activity_my_information_rl_back:
                 onBackPressed();
                 break;
             case R.id.activity_my_information_rl_sex:
-                final String[] items = { "男","女" };
+                final String[] items = {"男", "女"};
 
                 AlertDialog.Builder singleChoiceDialog =
                         new AlertDialog.Builder(MyInformationActivity.this);
@@ -247,9 +254,9 @@ public class MyInformationActivity extends TakePhotoActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(TextUtils.isEmpty(yourChoice)){
+                                if (TextUtils.isEmpty(yourChoice)) {
                                     tvSex.setText("男");
-                                }else {
+                                } else {
                                     tvSex.setText(yourChoice);
                                     yourChoice = "";
                                 }
@@ -286,7 +293,7 @@ public class MyInformationActivity extends TakePhotoActivity {
 //                new DatePickerDialog(MyInformationActivity.this, onRegisterDateSetListener, mYear, mMonth, mDay).show();
                 break;
             case R.id.activity_my_information_rl_is_single:
-                final String[] items1 = { "是","否" };
+                final String[] items1 = {"是", "否"};
 
                 AlertDialog.Builder singleChoiceDialog1 =
                         new AlertDialog.Builder(MyInformationActivity.this);
@@ -303,9 +310,9 @@ public class MyInformationActivity extends TakePhotoActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(TextUtils.isEmpty(yourChoice)){
+                                if (TextUtils.isEmpty(yourChoice)) {
                                     tvSingle.setText("是");
-                                }else {
+                                } else {
                                     tvSingle.setText(yourChoice);
                                     yourChoice = "";
                                 }
@@ -404,7 +411,7 @@ public class MyInformationActivity extends TakePhotoActivity {
             public void onNext(File value) {
 
                 ViseHttp.UPLOAD(NetConfig.userUploadHeaderUrl)
-                        .addHeader("Content-Type","multipart/form-data")
+                        .addHeader("Content-Type", "multipart/form-data")
                         .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userUploadHeaderUrl))
                         .addParam("uid", uid)
                         .addFile("images", value)
@@ -414,9 +421,9 @@ public class MyInformationActivity extends TakePhotoActivity {
                                 try {
                                     Log.e("222", data);
                                     JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
+                                    if (jsonObject.getInt("code") == 200) {
                                         Toast.makeText(MyInformationActivity.this, "头像上传成功", Toast.LENGTH_SHORT).show();
-                                        Glide.with(MyInformationActivity.this).load("file://"+url).into(ivAvatar);
+                                        Glide.with(MyInformationActivity.this).load("file://" + url).into(ivAvatar);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -468,7 +475,7 @@ public class MyInformationActivity extends TakePhotoActivity {
                 public void onNext(File value) {
 
                     ViseHttp.UPLOAD(NetConfig.userUploadHeaderUrl)
-                            .addHeader("Content-Type","multipart/form-data")
+                            .addHeader("Content-Type", "multipart/form-data")
                             .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userUploadHeaderUrl))
                             .addParam("uid", uid)
                             .addFile("images", value)
@@ -478,9 +485,9 @@ public class MyInformationActivity extends TakePhotoActivity {
                                     try {
                                         Log.e("222", data);
                                         JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.getInt("code") == 200){
+                                        if (jsonObject.getInt("code") == 200) {
                                             Toast.makeText(MyInformationActivity.this, "头像上传成功", Toast.LENGTH_SHORT).show();
-                                            Picasso.with(MyInformationActivity.this).load("file://"+list.get(0)).into(ivAvatar);
+                                            Picasso.with(MyInformationActivity.this).load("file://" + list.get(0)).into(ivAvatar);
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -516,21 +523,21 @@ public class MyInformationActivity extends TakePhotoActivity {
     private void onSave() {
 
         ViseHttp.POST(NetConfig.saveUserInformationUrl)
-                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.saveUserInformationUrl))
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.saveUserInformationUrl))
                 .addParam("uid", uid)
-                .addParam("username", TextUtils.isEmpty(etUsername.getText().toString())?etUsername.getHint().toString():etUsername.getText().toString())
-                .addParam("usersex", tvSex.getText().toString().equals("男")?"0":"1")
+                .addParam("username", TextUtils.isEmpty(etUsername.getText().toString()) ? etUsername.getHint().toString() : etUsername.getText().toString())
+                .addParam("usersex", tvSex.getText().toString().equals("男") ? "0" : "1")
                 .addParam("useraddress", tvLocation.getText().toString())
-                .addParam("userautograph", TextUtils.isEmpty(etSign.getText().toString())?etSign.getHint().toString():etSign.getText().toString())
+                .addParam("userautograph", TextUtils.isEmpty(etSign.getText().toString()) ? etSign.getHint().toString() : etSign.getText().toString())
                 .addParam("userbirthday", tvBirthday.getText().toString())
 //                .addParam("usertime", tvRegister.getText().toString())
-                .addParam("usermarry", tvSingle.getText().toString().equals("是")?"1":"2")
+                .addParam("usermarry", tvSingle.getText().toString().equals("是") ? "1" : "2")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Toast.makeText(MyInformationActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             }

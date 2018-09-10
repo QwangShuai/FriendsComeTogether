@@ -32,7 +32,7 @@
     <string name="delete_has_blank">删 除</string>
     <string name="voice_to_text">转文字</string>
     <string name="forward_to_person">转发到个人</string>
-    <string name="forward_to_team">转发到聊天室</string>
+    <string name="forward_to_team">转发到群聊</string>
     <string name="withdrawn_msg">撤 回</string>
     <string name="save">保存</string>
     <string name="main_msg_list_delete_chatting">删除该聊天</string>

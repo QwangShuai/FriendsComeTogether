@@ -107,24 +107,33 @@
 
                     <RelativeLayout
                         android:id="@+id/activity_my_information_rl_sign_team"
-                        android:background="@mipmap/level_red"
+                        android:background="@mipmap/level_bg"
                         android:layout_marginTop="14px"
                         android:layout_below="@+id/activity_my_information_tv_nickname"
-                        android:layout_width="183px"
-                        android:layout_height="60px">
+                        android:layout_width="153px"
+                        android:layout_height="50px">
 
                         <TextView
-                            android:layout_marginRight="10px"
-                            android:layout_marginBottom="3px"
-                            android:layout_alignParentBottom="true"
+                            android:id="@+id/tv_level"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="22px"
                             android:layout_alignParentRight="true"
                             android:textColor="@color/white_ffffff"
                             android:textSize="30px"
-                            android:text="签约领队"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
                     </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_is_sign"
+                        android:layout_marginLeft="10px"
+                        android:layout_toRightOf="@+id/activity_my_information_rl_sign_team"
+                        android:layout_marginTop="14px"
+                        android:layout_below="@+id/activity_my_information_tv_nickname"
+                        android:src="@mipmap/sign_gray"
+                        android:layout_width="50px"
+                        android:layout_height="50px" />
 
                 </RelativeLayout>
 
@@ -155,6 +164,7 @@
                     android:layout_height="wrap_content" />
 
                 <EditText
+                    android:textColorHint="@color/black_333333"
                     android:gravity="end"
                     android:maxLength="12"
                     android:hint="请输入昵称"
@@ -282,6 +292,7 @@
                     android:layout_height="wrap_content" />
 
                 <EditText
+                    android:textColorHint="@color/black_333333"
                     android:layout_marginLeft="100px"
                     android:layout_toRightOf="@+id/activity_my_information_iv_sign"
                     android:maxLines="1"
@@ -372,7 +383,7 @@
                 <TextView
                     android:id="@+id/activity_my_information_tv_register_time"
                     android:layout_marginRight="38px"
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/gray_979797"
                     android:textSize="28px"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
