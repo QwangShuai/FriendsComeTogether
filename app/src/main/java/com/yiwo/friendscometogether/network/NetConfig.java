@@ -230,4 +230,6 @@ public class NetConfig {
     public static String deleteBlackUserUrl = "action/ac_user/DeleteBlackUser";
     //清空消息
     public static String deleteMessageUrl = "action/ac_public/clear_message";
+    //活动草稿发布接口
+    public static String activeDraftReleaseUrl = "action/ac_activity/show_activity";
 }

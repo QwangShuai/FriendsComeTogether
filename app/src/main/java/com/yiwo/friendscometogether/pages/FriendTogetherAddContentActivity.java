@@ -2,6 +2,8 @@ package com.yiwo.friendscometogether.pages;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +11,12 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -77,6 +83,8 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
     private List<File> files = new ArrayList<>();
 
     private Dialog dialog;
+
+    private PopupWindow popupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,16 +190,71 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                 if (mList.size() == 0) {
                     toToast(FriendTogetherAddContentActivity.this, "请至少上传一张图片");
                 } else {
-                    complete();
+                    showCompletePopupwindow();
                 }
                 break;
         }
     }
 
+    private void showCompletePopupwindow() {
+
+        View view = LayoutInflater.from(FriendTogetherAddContentActivity.this).inflate(R.layout.popupwindow_complete, null);
+        ScreenAdapterTools.getInstance().loadView(view);
+
+        TextView tvRelease = view.findViewById(R.id.popupwindow_complete_tv_release);
+//        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
+        TextView tvNext = view.findViewById(R.id.popupwindow_complete_tv_next);
+        TextView tvCancel = view.findViewById(R.id.popupwindow_complete_tv_cancel);
+        tvNext.setText("保存草稿");
+
+        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        // 设置点击窗口外边窗口消失
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        // 设置popWindow的显示和消失动画
+        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.alpha = 0.5f;
+        getWindow().setAttributes(params);
+        popupWindow.update();
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            // 在dismiss中恢复透明度
+            public void onDismiss() {
+                WindowManager.LayoutParams params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
+            }
+        });
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+        tvRelease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                complete("2");
+            }
+        });
+        tvNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                complete("0");
+            }
+        });
+    }
+
     /**
      * 发布
      */
-    private void complete() {
+    private void complete(final String type) {
         dialog = WeiboDialogUtils.createLoadingDialog(FriendTogetherAddContentActivity.this, "请等待...");
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
@@ -255,6 +318,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
                         .addParam("content", etContent.getText().toString())
                         .addParam("activity_id", id)
                         .addParam("user_id", uid)
+                        .addParam("get_type", type)
                         .addParams(textmap)
                         .addFiles(value)
                         .request(new ACallback<String>() {

@@ -134,7 +134,7 @@ public class StartActiveActivity extends BaseActivity {
         Log.i("id", spImp.getUID());
         ViseHttp.POST(NetConfig.initiativesListUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.initiativesListUrl))
-                .addParam("page", page + "")
+                .addParam("page", "1")
                 .addParam("user_id", spImp.getUID())
                 .request(new ACallback<String>() {
                     @Override
@@ -143,7 +143,7 @@ public class StartActiveActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200) {
-                                page = page + 1;
+                                page = 2;
                                 InitiativesModel model = new Gson().fromJson(data, InitiativesModel.class);
                                 initData(model.getObj());
                             }

@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,9 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 /**
@@ -40,6 +44,7 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
     private Context context;
     private List<InitiativesModel.ObjBean> data;
     SpImp spImp;
+
     public StartActiveAdapter(List<InitiativesModel.ObjBean> data) {
         this.data = data;
     }
@@ -56,21 +61,36 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        if(!StringUtils.isEmpty(data.get(position).getPfpic())){
+        if (!StringUtils.isEmpty(data.get(position).getPfpic())) {
             Picasso.with(context).load(data.get(position).getPfpic()).into(holder.picIv);
         }
         holder.titleTv.setText(data.get(position).getPftitle());
-        holder.beginTimeTv.setText("开始时间："+data.get(position).getPfgotime());
-        holder.endTimeTv.setText("结束时间："+data.get(position).getPfendtime());
-        holder.priceTv.setText("人均费用："+data.get(position).getPfspend());
-        holder.applyTv.setText("报名人数："+data.get(position).getJoin_num());
-        holder.viewsyTv.setText("浏览："+data.get(position).getPflook());
-        holder.focusOnTv.setText("关注："+data.get(position).getFocusOn());
+        holder.beginTimeTv.setText("开始时间：" + data.get(position).getPfgotime());
+        holder.endTimeTv.setText("结束时间：" + data.get(position).getPfendtime());
+        holder.priceTv.setText("人均费用：" + data.get(position).getPfspend());
+        holder.applyTv.setText("报名人数：" + data.get(position).getJoin_num());
+        holder.viewsyTv.setText("浏览：" + data.get(position).getPflook());
+        holder.focusOnTv.setText("关注：" + data.get(position).getFocusOn());
+        if (data.get(position).getPfexamine().equals("0")) {
+            holder.tvDraft.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvDraft.setVisibility(View.GONE);
+        }
+        if (data.get(position).getIf_over().equals("1")) {
+            holder.tvDelete.setText("删除");
+        } else {
+            holder.tvDelete.setText("取消活动");
+        }
         holder.editorRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(context, EditorFriendTogetherActivity.class);
-                it.putExtra("pfID",data.get(position).getPfID());
+                if (data.get(position).getPfexamine().equals("0")) {
+                    it.putExtra("type", "0");
+                } else if (data.get(position).getPfexamine().equals("2")) {
+                    it.putExtra("type", "2");
+                }
+                it.putExtra("pfID", data.get(position).getPfID());
                 context.startActivity(it);
             }
         });
@@ -94,38 +114,77 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
         holder.cancleRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditContentDialog dialog = new EditContentDialog(context, new EditContentDialog.OnReturnListener() {
-                    @Override
-                    public void onReturn(String content) {
-                        if (StringUtils.isEmpty(content)){
-                            Toast.makeText(context,"取消原因不能为空",Toast.LENGTH_SHORT).show();
-                        } else {
-                            ViseHttp.POST(NetConfig.cancleActivityUrl)
-                                    .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.cancleActivityUrl))
-                                    .addParam("user_id",spImp.getUID())
-                                    .addParam("pfID",data.get(position).getPfID())
-                                    .addParam("info",content)
-                                    .request(new ACallback<String>() {
-                                        @Override
-                                        public void onSuccess(String obj) {
-                                            FocusOnToFriendTogetherModel model = new Gson().fromJson(obj,FocusOnToFriendTogetherModel.class);
-                                            if(model.getCode()==200){
+                if (data.get(position).getIf_over().equals("0")) {
+                    EditContentDialog dialog = new EditContentDialog(context, new EditContentDialog.OnReturnListener() {
+                        @Override
+                        public void onReturn(String content) {
+                            if (StringUtils.isEmpty(content)) {
+                                Toast.makeText(context, "取消原因不能为空", Toast.LENGTH_SHORT).show();
+                            } else {
+                                ViseHttp.POST(NetConfig.cancleActivityUrl)
+                                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.cancleActivityUrl))
+                                        .addParam("user_id", spImp.getUID())
+                                        .addParam("pfID", data.get(position).getPfID())
+                                        .addParam("info", content)
+                                        .request(new ACallback<String>() {
+                                            @Override
+                                            public void onSuccess(String obj) {
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(obj);
+                                                    if(jsonObject.getInt("code") == 200){
+                                                        FocusOnToFriendTogetherModel model = new Gson().fromJson(obj, FocusOnToFriendTogetherModel.class);
+                                                        if (model.getCode() == 200) {
+                                                            data.remove(position);
+                                                            notifyItemRemoved(position);
+                                                            notifyDataSetChanged();
+                                                            Toast.makeText(context, "活动取消成功", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFail(int errCode, String errMsg) {
+
+                                            }
+                                        });
+                            }
+                        }
+                    });
+                    dialog.show();
+                }else {
+                    ViseHttp.POST(NetConfig.cancleActivityUrl)
+                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.cancleActivityUrl))
+                            .addParam("user_id", spImp.getUID())
+                            .addParam("pfID", data.get(position).getPfID())
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String obj) {
+                                    Log.e("22222", obj);
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(obj);
+                                        if(jsonObject.getInt("code") == 200){
+                                            FocusOnToFriendTogetherModel model = new Gson().fromJson(obj, FocusOnToFriendTogetherModel.class);
+                                            if (model.getCode() == 200) {
                                                 data.remove(position);
                                                 notifyItemRemoved(position);
                                                 notifyDataSetChanged();
-                                                Toast.makeText(context,"活动取消成功",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
                                             }
                                         }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
 
-                                        @Override
-                                        public void onFail(int errCode, String errMsg) {
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
 
-                                        }
-                                    });
-                        }
-                    }
-                });
-                dialog.show();
+                                }
+                            });
+                }
             }
         });
     }
@@ -154,6 +213,8 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
         private RelativeLayout editorRl;
         private LinearLayout ll;
         private RelativeLayout rlChatRoom;
+        private TextView tvDraft;
+        private TextView tvDelete;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -169,6 +230,8 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
             editorRl = (itemView).findViewById(R.id.recyclerview_start_active_rl_editor_activity);
             ll = itemView.findViewById(R.id.ll);
             rlChatRoom = itemView.findViewById(R.id.rl_chat_room);
+            tvDraft = itemView.findViewById(R.id.tv_draft);
+            tvDelete = itemView.findViewById(R.id.tv_delete);
         }
     }
 

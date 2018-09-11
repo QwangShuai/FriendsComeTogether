@@ -57,6 +57,7 @@ public class InitiativesModel {
          * join_num : 1
          */
 
+        private String if_over;
         private String roomid;
         private String pfexamine;
         private String pfID;
@@ -68,6 +69,14 @@ public class InitiativesModel {
         private String pflook;
         private String focusOn;
         private String join_num;
+
+        public String getIf_over() {
+            return if_over;
+        }
+
+        public void setIf_over(String if_over) {
+            this.if_over = if_over;
+        }
 
         public String getRoomid() {
             return roomid;

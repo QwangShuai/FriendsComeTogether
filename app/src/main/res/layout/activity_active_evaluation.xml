@@ -11,7 +11,7 @@
         style="@style/rl_top_bar">
 
         <TextView
-            android:text="往期评价"
+            android:text="往期活动评价"
             style="@style/tv_top_title" />
 
         <RelativeLayout

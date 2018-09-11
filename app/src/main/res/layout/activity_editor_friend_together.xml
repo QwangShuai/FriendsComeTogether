@@ -23,6 +23,23 @@
                 style="@style/iv_return" />
 
         </RelativeLayout>
+        
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_complete"
+            android:layout_alignParentRight="true"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textSize="28px"
+                android:textColor="@color/white_ffffff"
+                android:text="发布"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

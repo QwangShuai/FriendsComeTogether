@@ -64,10 +64,14 @@ public class EditorFriendTogetherActivity extends BaseActivity {
     SwipeMenuRecyclerView recyclerView;
     @BindView(R.id.activity_editor_friend_together_tv_add)
     TextView tvAdd;
+    @BindView(R.id.rl_complete)
+    RelativeLayout rlComplete;
+
     GetEditorFriendTogetherModel.ObjBean bean = new GetEditorFriendTogetherModel.ObjBean();
     private EditorFriendTogetherAdapter adapter;
     private List<GetEditorFriendTogetherModel.ObjBean.TitleListBean> mList;
     private String id = "";
+    private String type = "";
 
     private String userJoin = "";
 
@@ -146,6 +150,11 @@ public class EditorFriendTogetherActivity extends BaseActivity {
     private void initData() {
         Intent intent = getIntent();
         id = intent.getStringExtra("pfID");
+        type = intent.getStringExtra("type");
+        if(type.equals("0")){
+            rlComplete.setVisibility(View.VISIBLE);
+        }
+
         ViseHttp.POST(NetConfig.getEditorFriendTogetherUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getEditorFriendTogetherUrl))
                 .addParam("activity_id", id)
@@ -190,7 +199,7 @@ public class EditorFriendTogetherActivity extends BaseActivity {
     }
 
     @OnClick({R.id.activity_editor_friend_together_rl_back, R.id.activity_editor_friend_together_tv_add,
-            R.id.activity_editor_friend_together_rl})
+            R.id.activity_editor_friend_together_rl, R.id.rl_complete})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -204,9 +213,9 @@ public class EditorFriendTogetherActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_editor_friend_together_rl:
-                if(userJoin.equals("1")){
+                if (userJoin.equals("1")) {
                     toToast(EditorFriendTogetherActivity.this, "该活动已有参加人员，暂不能修改活动信息");
-                }else {
+                } else {
                     intent.setClass(EditorFriendTogetherActivity.this, EditorMainFriendTogetherActivity.class);
                     intent.putExtra("bean", (Serializable) bean);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -214,6 +223,29 @@ public class EditorFriendTogetherActivity extends BaseActivity {
                     startActivity(intent);
                     onBackPressed();
                 }
+                break;
+            case R.id.rl_complete:
+                ViseHttp.POST(NetConfig.activeDraftReleaseUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.activeDraftReleaseUrl))
+                        .addParam("activity_id", id)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        toToast(EditorFriendTogetherActivity.this, "发布成功");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 break;
         }
     }
