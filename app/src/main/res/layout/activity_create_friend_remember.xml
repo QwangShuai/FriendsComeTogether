@@ -403,9 +403,12 @@
                         android:layout_marginRight="40px"
                         android:src="@mipmap/right" />
 
-                    <TextView
+                    <EditText
+                        android:gravity="end"
+                        android:background="@null"
+                        android:hint="请输入活动地点"
                         android:id="@+id/activity_create_friend_remember_tv_activity_city"
-                        android:layout_width="wrap_content"
+                        android:layout_width="360px"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10px"
@@ -441,7 +444,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="12px"
                         android:layout_toRightOf="@+id/activity_create_friend_remember_iv_price"
-                        android:text="人均费用"
+                        android:text="费用"
                         android:textColor="@color/black_333333"
                         android:textSize="28px" />
 

@@ -78,6 +78,8 @@ public class OtherInformationActivity extends BaseActivity {
     RecyclerView rvActive;
     @BindView(R.id.iv_sign_yellow)
     ImageView ivSign;
+    @BindView(R.id.activity_other_information_tv_is_single)
+    TextView tvIsSingle;
 
     private String otherUid = "";
 
@@ -136,21 +138,22 @@ public class OtherInformationActivity extends BaseActivity {
                                 tvConstellation.setText(model.getObj().getInfo().getConstellation());
                                 tvFocusNum.setText(model.getObj().getInfo().getUserlike());
                                 tvFansNum.setText(model.getObj().getInfo().getUserbelike());
-                                tvPraiseNum.setText(model.getObj().getInfo().getGiveCount()+"");
+                                tvPraiseNum.setText(model.getObj().getInfo().getGiveCount() + "");
+                                tvIsSingle.setText(model.getObj().getInfo().getUsermarry());
 
-                                if(model.getObj().getInfo().getFriends().equals("1")){
+                                if (model.getObj().getInfo().getFriends().equals("1")) {
                                     Glide.with(OtherInformationActivity.this).load(R.mipmap.other_send_msg).into(ivAddFriend);
-                                }else if(model.getObj().getInfo().getFriends().equals("0")){
+                                } else if (model.getObj().getInfo().getFriends().equals("0")) {
                                     Glide.with(OtherInformationActivity.this).load(R.mipmap.add_friend).into(ivAddFriend);
                                 }
 
-                                if(model.getObj().getInfo().getFollow().equals("1")){
+                                if (model.getObj().getInfo().getFollow().equals("1")) {
                                     tvSendMessage.setText("已关注");
-                                }else if(model.getObj().getInfo().getFollow().equals("0")){
+                                } else if (model.getObj().getInfo().getFollow().equals("0")) {
                                     tvSendMessage.setText("加关注");
                                 }
 
-                                if(model.getObj().getInfo().getLeader().equals("1")){
+                                if (model.getObj().getInfo().getLeader().equals("1")) {
                                     ivSign.setVisibility(View.VISIBLE);
                                 }
 
@@ -236,7 +239,7 @@ public class OtherInformationActivity extends BaseActivity {
                 } else {
 
                     ViseHttp.POST(NetConfig.userFocusUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userFocusUrl))
                             .addParam("uid", uid)
                             .addParam("likeId", otherUid)
                             .request(new ACallback<String>() {
@@ -244,10 +247,10 @@ public class OtherInformationActivity extends BaseActivity {
                                 public void onSuccess(String data) {
                                     try {
                                         JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.getInt("code") == 200){
+                                        if (jsonObject.getInt("code") == 200) {
                                             toToast(OtherInformationActivity.this, "关注成功");
                                             tvSendMessage.setText("已关注");
-                                        }else {
+                                        } else {
                                             toToast(OtherInformationActivity.this, jsonObject.getString("message"));
                                         }
                                     } catch (JSONException e) {
@@ -305,9 +308,9 @@ public class OtherInformationActivity extends BaseActivity {
                     intent.setClass(OtherInformationActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    if(model.getObj().getInfo().getFriends().equals("1")){
+                    if (model.getObj().getInfo().getFriends().equals("1")) {
                         liaotian(model.getObj().getInfo().getWy_accid());
-                    }else if(model.getObj().getInfo().getFriends().equals("0")){
+                    } else if (model.getObj().getInfo().getFriends().equals("0")) {
                         FriendDescribeDialog dialog = new FriendDescribeDialog(OtherInformationActivity.this);
                         dialog.show();
                         dialog.setOnReturnListener(new FriendDescribeDialog.OnReturnListener() {
@@ -325,7 +328,7 @@ public class OtherInformationActivity extends BaseActivity {
                                                     JSONObject jsonObject = new JSONObject(data);
                                                     if (jsonObject.getInt("code") == 200) {
                                                         toToast(OtherInformationActivity.this, "好友请求已发送");
-                                                    }else {
+                                                    } else {
                                                         toToast(OtherInformationActivity.this, jsonObject.getString("message"));
                                                     }
                                                 } catch (JSONException e) {

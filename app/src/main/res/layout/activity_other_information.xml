@@ -227,6 +227,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="60px" />
 
+                <TextView
+                    android:id="@+id/activity_other_information_tv_is_single"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:background="@drawable/bg_other_information"
+                    android:textSize="28px"
+                    android:textColor="@color/white_ffffff"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="60px" />
+
             </LinearLayout>
 
             <LinearLayout

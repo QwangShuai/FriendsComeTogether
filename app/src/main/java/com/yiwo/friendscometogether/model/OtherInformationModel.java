@@ -97,6 +97,7 @@ public class OtherInformationModel {
              * GiveCount : 0
              */
 
+            private String usermarry;
             private String userpic;
             private String username;
             private String wy_accid;
@@ -113,6 +114,14 @@ public class OtherInformationModel {
             private String userbelike;
             private String uid;
             private int GiveCount;
+
+            public String getUsermarry() {
+                return usermarry;
+            }
+
+            public void setUsermarry(String usermarry) {
+                this.usermarry = usermarry;
+            }
 
             public String getUserpic() {
                 return userpic;

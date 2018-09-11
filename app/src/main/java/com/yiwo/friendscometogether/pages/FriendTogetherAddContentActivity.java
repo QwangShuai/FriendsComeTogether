@@ -2,7 +2,6 @@ package com.yiwo.friendscometogether.pages;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +33,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -196,7 +196,7 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
             public void subscribe(final ObservableEmitter<Map<String, File>> e) throws Exception {
-                final Map<String, File> map = new HashMap<>();
+                final Map<String, File> map = new LinkedHashMap<>();
                 final List<String> list = new ArrayList<>();
                 for (int i = 0; i < mList.size(); i++) {
                     list.add(mList.get(i).getPic());

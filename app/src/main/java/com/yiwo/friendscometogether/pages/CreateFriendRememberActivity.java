@@ -107,7 +107,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
     @BindView(R.id.activity_create_friend_remember_rl_activity_city)
     RelativeLayout rlSelectCity;
     @BindView(R.id.activity_create_friend_remember_tv_activity_city)
-    TextView tvCity;
+    EditText tvCity;
     @BindView(R.id.activity_create_friend_remember_rl_price)
     RelativeLayout rlPrice;
     @BindView(R.id.activity_create_friend_remember_rl_complete)
@@ -387,26 +387,26 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
                 customDatePicker2.show(now);
                 break;
             case R.id.activity_create_friend_remember_rl_activity_city:
-                OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-                    @Override
-                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                        //返回的分别是三个级别的选中位置
-                        String tx = options1Items.get(options1).getPickerViewText() + "-" +
-                                options2Items.get(options1).get(options2) + "-" +
-                                options3Items.get(options1).get(options2).get(options3);
-                        tvCity.setText(tx);
-                    }
-                })
-                        .setTitleText("城市选择")
-                        .setDividerColor(Color.BLACK)
-                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-                        .setContentTextSize(20)
-                        .build();
-
-        /*pvOptions.setPicker(options1Items);//一级选择器
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-                pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
-                pvOptions.show();
+//                OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+//                    @Override
+//                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+//                        //返回的分别是三个级别的选中位置
+//                        String tx = options1Items.get(options1).getPickerViewText() + "-" +
+//                                options2Items.get(options1).get(options2) + "-" +
+//                                options3Items.get(options1).get(options2).get(options3);
+//                        tvCity.setText(tx);
+//                    }
+//                })
+//                        .setTitleText("城市选择")
+//                        .setDividerColor(Color.BLACK)
+//                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+//                        .setContentTextSize(20)
+//                        .build();
+//
+//        /*pvOptions.setPicker(options1Items);//一级选择器
+//        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
+//                pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+//                pvOptions.show();
                 break;
             case R.id.activity_create_friend_remember_rl_price:
 

@@ -236,7 +236,7 @@ public class DetailsOfFriendTogetherActivity extends BaseActivity {
         time_start_tv.setText("开始时间: " + model.getBegin_time());
         time_end_tv.setText("结束时间: " + model.getEnd_time());
         city_tv.setText("活动地点: " + model.getCity());
-        priceTv.setText("人均费用: " + model.getPrice());
+        priceTv.setText("参加费用: " + model.getPrice());
         tvIsMarry.setText("是否单身: " + model.getMarry());
         tvAgeInfo.setText("年龄要求: " + model.getAge() + "岁");
         tvSex.setText("性别要求: " + model.getPeoplesex());

@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -73,6 +74,7 @@ public class MessageFriendsActivity extends BaseActivity {
                                 LinearLayoutManager manager = new LinearLayoutManager(MessageFriendsActivity.this);
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
+                                recyclerView.addItemDecoration(new DividerItemDecoration(MessageFriendsActivity.this, DividerItemDecoration.VERTICAL));
                                 mList = model.getObj();
                                 adapter = new MessageFriendsAdapter(mList);
                                 recyclerView.setAdapter(adapter);

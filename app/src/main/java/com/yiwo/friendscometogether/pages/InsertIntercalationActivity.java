@@ -27,7 +27,6 @@ import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.IntercalationLocationModel;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
-import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 
@@ -36,7 +35,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -274,7 +273,7 @@ public class InsertIntercalationActivity extends BaseActivity {
             @Override
             public void subscribe(final ObservableEmitter<Map<String, File>> e) throws Exception {
                 dialog = WeiboDialogUtils.createLoadingDialog(InsertIntercalationActivity.this, "请等待...");
-                final Map<String, File> map = new HashMap<>();
+                final Map<String, File> map = new LinkedHashMap<>();
                 final List<String> list = new ArrayList<>();
                 for (int i = 0; i < mList.size(); i++) {
                     list.add(mList.get(i).getPic());

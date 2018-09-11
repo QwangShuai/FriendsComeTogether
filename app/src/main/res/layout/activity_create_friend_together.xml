@@ -357,7 +357,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_together_iv_price"
-                    android:text="人均费用"
+                    android:text="费用"
                     android:textColor="@color/black_333333"
                     android:textSize="28px" />
 
