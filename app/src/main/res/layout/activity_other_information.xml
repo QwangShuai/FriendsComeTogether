@@ -307,7 +307,7 @@
                     android:gravity="center"
                     android:textColor="@color/white_ffffff"
                     android:textSize="36px"
-                    android:text="作品"
+                    android:text="笔记"
                     android:background="#FF9D00"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"

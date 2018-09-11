@@ -91,6 +91,7 @@ public class MessageCenterActivity extends BaseActivity {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        Log.e("22222", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200) {
@@ -103,22 +104,22 @@ public class MessageCenterActivity extends BaseActivity {
                                 }
                                 tvSystemContent.setText(model.getObj().getSystem().getMessage());
                                 tvSystemTime.setText(model.getObj().getSystem().getTime());
-                                if(model.getObj().getSystem().getType().equals("1")){
+                                if (model.getObj().getSystem().getType().equals("1")) {
                                     ivSystem.setVisibility(View.VISIBLE);
                                 }
                                 tvInvitationContent.setText(model.getObj().getYq().getMessage());
                                 tvInvitationTime.setText(model.getObj().getYq().getTime());
-                                if(model.getObj().getYq().getType().equals("1")){
+                                if (model.getObj().getYq().getType().equals("1")) {
                                     ivInvitation.setVisibility(View.VISIBLE);
                                 }
                                 tvCommentContent.setText(model.getObj().getComment().getMessage());
                                 tvCommentTime.setText(model.getObj().getComment().getTime());
-                                if(model.getObj().getComment().getType().equals("1")){
+                                if (model.getObj().getComment().getType().equals("1")) {
                                     ivComment.setVisibility(View.VISIBLE);
                                 }
                                 tvFriendContent.setText(model.getObj().getFriends().getMessage());
                                 tvFriendTime.setText(model.getObj().getFriends().getTime());
-                                if(model.getObj().getFriends().getType().equals("1")){
+                                if (model.getObj().getFriends().getType().equals("1")) {
                                     ivFriend.setVisibility(View.VISIBLE);
                                 }
                             }
@@ -172,7 +173,7 @@ public class MessageCenterActivity extends BaseActivity {
                 break;
             case R.id.rl_clean:
                 ViseHttp.POST(NetConfig.deleteMessageUrl)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteMessageUrl))
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.deleteMessageUrl))
                         .addParam("user_id", spImp.getUID())
                         .addParam("type", "5")
                         .request(new ACallback<String>() {
@@ -181,7 +182,7 @@ public class MessageCenterActivity extends BaseActivity {
                                 Log.e("22222", data);
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
+                                    if (jsonObject.getInt("code") == 200) {
                                         toToast(MessageCenterActivity.this, "已清空");
                                         onStart();
                                         ivHot.setVisibility(View.GONE);
@@ -189,7 +190,7 @@ public class MessageCenterActivity extends BaseActivity {
                                         ivInvitation.setVisibility(View.GONE);
                                         ivComment.setVisibility(View.GONE);
                                         ivFriend.setVisibility(View.GONE);
-                                    }else {
+                                    } else {
                                         toToast(MessageCenterActivity.this, jsonObject.getString("message"));
                                     }
                                 } catch (JSONException e) {

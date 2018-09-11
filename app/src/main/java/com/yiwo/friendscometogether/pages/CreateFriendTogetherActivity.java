@@ -722,6 +722,7 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
                 if (TextUtils.isEmpty(path)) {
                     Toast.makeText(CreateFriendTogetherActivity.this, "请上传图片", Toast.LENGTH_SHORT).show();
                 } else {
+                    map.put("get_type", "2");
                     onComplete(0);
                 }
             }
@@ -732,6 +733,7 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
                 if (TextUtils.isEmpty(path)) {
                     Toast.makeText(CreateFriendTogetherActivity.this, "请上传图片", Toast.LENGTH_SHORT).show();
                 } else {
+                    map.put("get_type", "0");
                     onComplete(1);
                 }
             }
@@ -756,7 +758,7 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
     public void onComplete(final int state) {
 
         map.put("user_id", spImp.getUID());
-        if ((map.size() == 18 && findPwd()) || (map.size() == 17 && !findPwd())) {
+        if ((map.size() == 19 && findPwd()) || (map.size() == 18 && !findPwd())) {
             String token = TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
             dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendTogetherActivity.this, "请等待...");
             Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
