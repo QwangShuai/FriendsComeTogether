@@ -383,9 +383,6 @@ public class DetailsRememberModel {
 
                 private String ffptitle;
                 private String ffpurl;
-                private String userID;
-                private String username;
-                private String userpic;
 
                 public String getFfptitle() {
                     return ffptitle;
@@ -403,29 +400,6 @@ public class DetailsRememberModel {
                     this.ffpurl = ffpurl;
                 }
 
-                public String getUserID() {
-                    return userID;
-                }
-
-                public void setUserID(String userID) {
-                    this.userID = userID;
-                }
-
-                public String getUsername() {
-                    return username;
-                }
-
-                public void setUsername(String username) {
-                    this.username = username;
-                }
-
-                public String getUserpic() {
-                    return userpic;
-                }
-
-                public void setUserpic(String userpic) {
-                    this.userpic = userpic;
-                }
             }
         }
 
@@ -437,10 +411,55 @@ public class DetailsRememberModel {
              * pic : []
              */
 
+            private String follow;
+            private String userpic;
+            private String username;
+            private String userID;
+            private String fftime;
             private String ffID;
             private String fftitle;
             private String ffcontect;
             private List<RenewBean.PicBean> pic;
+
+            public String getFollow() {
+                return follow;
+            }
+
+            public void setFollow(String follow) {
+                this.follow = follow;
+            }
+
+            public String getUserpic() {
+                return userpic;
+            }
+
+            public void setUserpic(String userpic) {
+                this.userpic = userpic;
+            }
+
+            public String getUsername() {
+                return username;
+            }
+
+            public void setUsername(String username) {
+                this.username = username;
+            }
+
+            public String getUserID() {
+                return userID;
+            }
+
+            public void setUserID(String userID) {
+                this.userID = userID;
+            }
+
+            public String getFftime() {
+                return fftime;
+            }
+
+            public void setFftime(String fftime) {
+                this.fftime = fftime;
+            }
 
             public String getFfID() {
                 return ffID;

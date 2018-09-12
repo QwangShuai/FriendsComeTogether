@@ -464,6 +464,7 @@
                     android:descendantFocusability="blocksDescendants">
 
                     <android.support.v7.widget.RecyclerView
+                        android:background="#f2f2f2"
                         android:id="@+id/activity_details_of_friends_rv_intercalation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

@@ -27,7 +27,6 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsIntercalation1Adapter;
 import com.yiwo.friendscometogether.adapter.DetailsOfFriendsIntercalationAdapter;
-import com.yiwo.friendscometogether.adapter.DetailsOfFriendsUpDataAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.imagepreview.Consts;
 import com.yiwo.friendscometogether.imagepreview.ImagePreviewActivity;
