@@ -61,13 +61,17 @@ public class TeamIntercalationAdapter extends RecyclerView.Adapter<TeamIntercala
         holder.llShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onClick(1, position);
+                if(data.get(position).getRadio().equals("待审核")||data.get(position).getRadio().equals("已屏蔽")){
+                    listener.onClick(1, position);
+                }
             }
         });
         holder.llshield.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onClick(2, position);
+                if(data.get(position).getRadio().equals("允许展示!")){
+                    listener.onClick(2, position);
+                }
             }
         });
     }
