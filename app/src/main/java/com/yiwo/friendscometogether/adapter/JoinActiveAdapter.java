@@ -26,6 +26,7 @@ import com.yiwo.friendscometogether.model.JoinActivemodel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.DetailsOfFriendTogetherActivity;
 import com.yiwo.friendscometogether.pages.EditorFriendTogetherActivity;
+import com.yiwo.friendscometogether.pages.OrderCommentActivity;
 import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
@@ -73,6 +74,14 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
         holder.viewsyTv.setText("浏览：" + data.get(position).getPflook());
         holder.focusOnTv.setText("关注：" + data.get(position).getFocusOn());
 
+        if(data.get(position).getIs_over().equals("0")){
+            holder.tvll2.setText("咨询领队");
+            holder.tvll3.setText("取消活动");
+        }else if(data.get(position).getIs_over().equals("1")){
+            holder.tvll2.setText("评价");
+            holder.tvll3.setText("删除");
+        }
+
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +95,15 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
         holder.rlLeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                liaotian(data.get(position).getWy_accid());
+                if(data.get(position).getIs_over().equals("0")){
+                    liaotian(data.get(position).getWy_accid());
+                }else if(data.get(position).getIs_over().equals("1")){
+                    Intent intent = new Intent();
+                    intent.putExtra("type", "1");
+                    intent.putExtra("orderid", data.get(position).getUjID());
+                    intent.setClass(context, OrderCommentActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
 
@@ -122,44 +139,72 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
         holder.cancleRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditContentDialog dialog = new EditContentDialog(context, new EditContentDialog.OnReturnListener() {
-                    @Override
-                    public void onReturn(String content) {
-                        if (StringUtils.isEmpty(content)) {
-                            Toast.makeText(context, "取消原因不能为空", Toast.LENGTH_SHORT).show();
-                        } else {
-                            ViseHttp.POST(NetConfig.cancleActivityUrl)
-                                    .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.cancleActivityUrl))
-                                    .addParam("user_id", spImp.getUID())
-                                    .addParam("pfID", data.get(position).getPfID())
-                                    .addParam("info", content)
-                                    .request(new ACallback<String>() {
-                                        @Override
-                                        public void onSuccess(String obj) {
-                                            Log.e("222", obj+"uid"+spImp.getUID()+"pfid"+data.get(position).getPfID());
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(obj);
-                                                if (jsonObject.getInt("code") == 200) {
-                                                    FocusOnToFriendTogetherModel model = new Gson().fromJson(obj, FocusOnToFriendTogetherModel.class);
-                                                    data.remove(position);
-                                                    notifyItemRemoved(position);
-                                                    notifyDataSetChanged();
-                                                    Toast.makeText(context, "活动取消成功", Toast.LENGTH_SHORT).show();
+                if(data.get(position).getIs_over().equals("0")){
+                    EditContentDialog dialog = new EditContentDialog(context, new EditContentDialog.OnReturnListener() {
+                        @Override
+                        public void onReturn(String content) {
+                            if (StringUtils.isEmpty(content)) {
+                                Toast.makeText(context, "取消原因不能为空", Toast.LENGTH_SHORT).show();
+                            } else {
+                                ViseHttp.POST(NetConfig.cancleActivityUrl)
+                                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.cancleActivityUrl))
+                                        .addParam("user_id", spImp.getUID())
+                                        .addParam("pfID", data.get(position).getPfID())
+                                        .addParam("info", content)
+                                        .request(new ACallback<String>() {
+                                            @Override
+                                            public void onSuccess(String obj) {
+                                                Log.e("222", obj+"uid"+spImp.getUID()+"pfid"+data.get(position).getPfID());
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(obj);
+                                                    if (jsonObject.getInt("code") == 200) {
+                                                        FocusOnToFriendTogetherModel model = new Gson().fromJson(obj, FocusOnToFriendTogetherModel.class);
+                                                        data.remove(position);
+                                                        notifyItemRemoved(position);
+                                                        notifyDataSetChanged();
+                                                        Toast.makeText(context, "活动取消成功", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
                                                 }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
                                             }
-                                        }
 
-                                        @Override
-                                        public void onFail(int errCode, String errMsg) {
+                                            @Override
+                                            public void onFail(int errCode, String errMsg) {
 
-                                        }
-                                    });
+                                            }
+                                        });
+                            }
                         }
-                    }
-                });
-                dialog.show();
+                    });
+                    dialog.show();
+                }else if(data.get(position).getIs_over().equals("1")){
+                    ViseHttp.POST(NetConfig.deleteActiveUrl)
+                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.deleteActiveUrl))
+                            .addParam("type", "1")
+                            .addParam("ujID", data.get(position).getUjID())
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String obj) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(obj);
+                                        if(jsonObject.getInt("code") == 200){
+                                            data.remove(position);
+                                            notifyItemRemoved(position);
+                                            notifyDataSetChanged();
+                                            Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }
             }
         });
     }
@@ -194,6 +239,8 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
         private LinearLayout ll;
         private RelativeLayout rlLeader;
         private RelativeLayout rlEnterChatRoom;
+        private TextView tvll2;
+        private TextView tvll3;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -209,6 +256,8 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
             ll = itemView.findViewById(R.id.ll);
             rlLeader = itemView.findViewById(R.id.rl_consulting_leader);
             rlEnterChatRoom = itemView.findViewById(R.id.rl_enter_chat_room);
+            tvll2 = itemView.findViewById(R.id.tv_ll2);
+            tvll3 = itemView.findViewById(R.id.tv_ll3);
         }
     }
 

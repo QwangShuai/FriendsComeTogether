@@ -93,6 +93,7 @@ public class FragmentToCommentAdapter extends RecyclerView.Adapter<FragmentToCom
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(context, OrderCommentActivity.class);
+                intent.putExtra("type", "0");
                 intent.putExtra("orderid", data.get(position).getOID());
                 context.startActivity(intent);
             }

@@ -54,6 +54,7 @@ public class OrderCommentActivity extends BaseActivity {
     private SpImp spImp;
     private String uid = "";
     private String orderId = "";
+    private String type = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class OrderCommentActivity extends BaseActivity {
     private void initData() {
 
         Intent intent = getIntent();
+        type = intent.getStringExtra("type");
         orderId = intent.getStringExtra("orderid");
         uid = spImp.getUID();
         ViseHttp.POST(NetConfig.detailsOrderUrl)

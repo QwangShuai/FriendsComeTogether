@@ -11,7 +11,7 @@ public class JoinActivemodel {
     /**
      * code : 200
      * message : 操作成功!
-     * obj : [{"captain":"ylyy15244615473","ujID":"2","pfID":"2","pfpic":"http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg","pftitle":"泰山30日游","pfgotime":"2018-08-02","pfendtime":"2018-09-29","pfspend":"1.00","pflook":"14","focusOn":"0","join_num":"1","wy_accid":"yy15244615473"}]
+     * obj : [{"captain":"ylyy15145161164","ujID":"59","pfID":"53","pfpic":"http://47.92.136.19/uploads/xingcheng/20180907/2bdff1a7e44a6ae0306489e32f4fd22f.jpg","pftitle":"2018.9.7","pfgotime":"2018-11-01","pfendtime":"2021-01-01","pfspend":"0.00","pflook":"21","focusOn":"0","join_num":"1","wy_accid":"yy15145161164","is_over":"0"}]
      */
 
     private int code;
@@ -44,18 +44,19 @@ public class JoinActivemodel {
 
     public static class ObjBean {
         /**
-         * captain : ylyy15244615473
-         * ujID : 2
-         * pfID : 2
-         * pfpic : http://47.92.136.19/uploads/xingcheng/20180816/20180816/3b70de05b4b083956ef12555ec24d1cc.jpeg
-         * pftitle : 泰山30日游
-         * pfgotime : 2018-08-02
-         * pfendtime : 2018-09-29
-         * pfspend : 1.00
-         * pflook : 14
+         * captain : ylyy15145161164
+         * ujID : 59
+         * pfID : 53
+         * pfpic : http://47.92.136.19/uploads/xingcheng/20180907/2bdff1a7e44a6ae0306489e32f4fd22f.jpg
+         * pftitle : 2018.9.7
+         * pfgotime : 2018-11-01
+         * pfendtime : 2021-01-01
+         * pfspend : 0.00
+         * pflook : 21
          * focusOn : 0
          * join_num : 1
-         * wy_accid : yy15244615473
+         * wy_accid : yy15145161164
+         * is_over : 0
          */
 
         private String captain;
@@ -70,6 +71,7 @@ public class JoinActivemodel {
         private String focusOn;
         private String join_num;
         private String wy_accid;
+        private String is_over;
 
         public String getCaptain() {
             return captain;
@@ -165,6 +167,14 @@ public class JoinActivemodel {
 
         public void setWy_accid(String wy_accid) {
             this.wy_accid = wy_accid;
+        }
+
+        public String getIs_over() {
+            return is_over;
+        }
+
+        public void setIs_over(String is_over) {
+            this.is_over = is_over;
         }
     }
 }

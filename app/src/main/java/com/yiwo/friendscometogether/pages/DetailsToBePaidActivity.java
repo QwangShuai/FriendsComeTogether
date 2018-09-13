@@ -290,6 +290,7 @@ public class DetailsToBePaidActivity extends BaseActivity {
                 break;
             case R.id.details_to_pay_rv_tv_comment:
                 intent.setClass(DetailsToBePaidActivity.this, OrderCommentActivity.class);
+                intent.putExtra("type", "0");
                 intent.putExtra("orderid", orderId);
                 startActivity(intent);
                 break;

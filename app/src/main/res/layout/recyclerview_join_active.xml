@@ -190,6 +190,7 @@
                     android:layout_height="40px" />
 
                 <TextView
+                    android:id="@+id/tv_ll2"
                     android:layout_marginLeft="6px"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black_333333"
@@ -222,6 +223,7 @@
                     android:layout_height="40px" />
 
                 <TextView
+                    android:id="@+id/tv_ll3"
                     android:layout_marginLeft="6px"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black_333333"

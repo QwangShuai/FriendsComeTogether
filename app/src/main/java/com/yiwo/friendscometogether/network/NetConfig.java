@@ -232,4 +232,6 @@ public class NetConfig {
     public static String deleteMessageUrl = "action/ac_public/clear_message";
     //活动草稿发布接口
     public static String activeDraftReleaseUrl = "action/ac_activity/show_activity";
+    //删除参加/发起的活动
+    public static String deleteActiveUrl = "action/ac_activity/del_activity";
 }

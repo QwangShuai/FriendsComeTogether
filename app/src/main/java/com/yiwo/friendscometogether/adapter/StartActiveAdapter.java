@@ -131,7 +131,7 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
                                             public void onSuccess(String obj) {
                                                 try {
                                                     JSONObject jsonObject = new JSONObject(obj);
-                                                    if(jsonObject.getInt("code") == 200){
+                                                    if (jsonObject.getInt("code") == 200) {
                                                         FocusOnToFriendTogetherModel model = new Gson().fromJson(obj, FocusOnToFriendTogetherModel.class);
                                                         if (model.getCode() == 200) {
                                                             data.remove(position);
@@ -139,6 +139,8 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
                                                             notifyDataSetChanged();
                                                             Toast.makeText(context, "活动取消成功", Toast.LENGTH_SHORT).show();
                                                         }
+                                                    } else {
+                                                        Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                                     }
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
@@ -154,10 +156,10 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
                         }
                     });
                     dialog.show();
-                }else {
-                    ViseHttp.POST(NetConfig.cancleActivityUrl)
-                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.cancleActivityUrl))
-                            .addParam("user_id", spImp.getUID())
+                } else {
+                    ViseHttp.POST(NetConfig.deleteActiveUrl)
+                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.deleteActiveUrl))
+                            .addParam("type", "0")
                             .addParam("pfID", data.get(position).getPfID())
                             .request(new ACallback<String>() {
                                 @Override
@@ -165,14 +167,13 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
                                     Log.e("22222", obj);
                                     try {
                                         JSONObject jsonObject = new JSONObject(obj);
-                                        if(jsonObject.getInt("code") == 200){
-                                            FocusOnToFriendTogetherModel model = new Gson().fromJson(obj, FocusOnToFriendTogetherModel.class);
-                                            if (model.getCode() == 200) {
-                                                data.remove(position);
-                                                notifyItemRemoved(position);
-                                                notifyDataSetChanged();
-                                                Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
-                                            }
+                                        if (jsonObject.getInt("code") == 200) {
+                                            data.remove(position);
+                                            notifyItemRemoved(position);
+                                            notifyDataSetChanged();
+                                            Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
