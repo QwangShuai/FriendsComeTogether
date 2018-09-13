@@ -234,4 +234,10 @@ public class NetConfig {
     public static String activeDraftReleaseUrl = "action/ac_activity/show_activity";
     //删除参加/发起的活动
     public static String deleteActiveUrl = "action/ac_activity/del_activity";
+    //获取活动列表(发布友记)
+    public static String getFriendActiveListUrl = "action/ac_article/FriendsList";
+    //参加的活动获取活动评价信息接口
+    public static String joinGetCommentInfoUrl = "action/ac_activity/get_join_comment";
+    //解散群组
+    public static String disbandedGroupUrl = "action/ac_public/DisbandedGroup";
 }

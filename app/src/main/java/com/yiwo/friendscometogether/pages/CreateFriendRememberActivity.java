@@ -49,6 +49,7 @@ import com.yiwo.friendscometogether.custom.EditTitleDialog;
 import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
+import com.yiwo.friendscometogether.model.GetFriendActiveListModel;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.model.UserActiveListModel;
 import com.yiwo.friendscometogether.model.UserLabelModel;
@@ -179,7 +180,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
     private String[] activeName;
     private String yourChoiceActiveId = "";
     private String yourChoiceActiveName = "";
-    private List<UserActiveListModel.ObjBean> activeList;
+    private List<GetFriendActiveListModel.ObjBean> activeList;
 
     private String password;
 
@@ -259,8 +260,8 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
                     }
                 });
 
-        ViseHttp.POST(NetConfig.userActiveListUrl)
-                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.userActiveListUrl))
+        ViseHttp.POST(NetConfig.getFriendActiveListUrl)
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.getFriendActiveListUrl))
                 .addParam("uid", uid)
                 .request(new ACallback<String>() {
                     @Override
@@ -269,7 +270,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
-                                UserActiveListModel model = gson.fromJson(data, UserActiveListModel.class);
+                                GetFriendActiveListModel model = gson.fromJson(data, GetFriendActiveListModel.class);
                                 activeList = model.getObj();
                                 activeId = new String[model.getObj().size()];
                                 activeName = new String[model.getObj().size()];

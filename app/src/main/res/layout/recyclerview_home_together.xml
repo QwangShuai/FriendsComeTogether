@@ -13,7 +13,8 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_toLeftOf="@+id/activity_details_of_friends_btn_focus"
+            android:layout_marginRight="10px"
+            android:layout_toLeftOf="@+id/ll_focus"
             android:layout_centerVertical="true"
             android:id="@+id/home_together_title_tv"
             android:layout_width="match_parent"

@@ -78,8 +78,10 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
         }
         if (data.get(position).getIf_over().equals("1")) {
             holder.tvDelete.setText("删除");
+            holder.tvEnter.setText("关闭群聊");
         } else {
             holder.tvDelete.setText("取消活动");
+            holder.tvEnter.setText("进入群聊");
         }
         holder.editorRl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +109,34 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
         holder.rlChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                team(data.get(position).getRoomid());
+                if(data.get(position).getIf_over().equals("0")){
+                    team(data.get(position).getRoomid());
+                }else if(data.get(position).getIf_over().equals("1")){
+                    ViseHttp.POST(NetConfig.disbandedGroupUrl)
+                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.disbandedGroupUrl))
+                            .addParam("uid", spImp.getUID())
+                            .addParam("id", data.get(position).getPfID())
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.getInt("code") == 200){
+                                            Toast.makeText(context, "关闭成功", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }
             }
         });
 
@@ -216,6 +245,7 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
         private RelativeLayout rlChatRoom;
         private TextView tvDraft;
         private TextView tvDelete;
+        private TextView tvEnter;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -233,6 +263,7 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
             rlChatRoom = itemView.findViewById(R.id.rl_chat_room);
             tvDraft = itemView.findViewById(R.id.tv_draft);
             tvDelete = itemView.findViewById(R.id.tv_delete);
+            tvEnter = itemView.findViewById(R.id.tv_enter_team);
         }
     }
 

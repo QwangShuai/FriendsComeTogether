@@ -370,7 +370,10 @@
                     android:layout_marginRight="40px"
                     android:src="@mipmap/right" />
 
-                <TextView
+                <EditText
+                    android:hint="请输入活动地点"
+                    android:gravity="end"
+                    android:background="@null"
                     android:id="@+id/activity_create_friend_remember_tv_activity_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

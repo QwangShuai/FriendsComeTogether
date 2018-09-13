@@ -208,6 +208,7 @@
                     android:layout_height="40px" />
 
                 <TextView
+                    android:id="@+id/tv_enter_team"
                     android:layout_marginLeft="6px"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black_333333"
