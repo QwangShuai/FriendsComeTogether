@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -61,9 +62,11 @@ public class OtherPicActivity extends BaseActivity {
         Intent intent = getIntent();
         otherUid = intent.getStringExtra("otheruid");
 
-        GridLayoutManager manager = new GridLayoutManager(OtherPicActivity.this, 2);
+//        GridLayoutManager manager = new GridLayoutManager(OtherPicActivity.this, 2);
+        LinearLayoutManager manager = new LinearLayoutManager(OtherPicActivity.this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        recyclerView.addItemDecoration(new GridDividerItemDecoration(1, Color.parseColor("#f2f2f2")));
+//        recyclerView.addItemDecoration(new GridDividerItemDecoration(1, Color.parseColor("#f2f2f2")));
 
         ViseHttp.POST(NetConfig.myPictureListUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.myPictureListUrl))
