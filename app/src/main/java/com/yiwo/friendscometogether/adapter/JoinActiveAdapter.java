@@ -1,6 +1,8 @@
 package com.yiwo.friendscometogether.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -179,31 +181,48 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
                     });
                     dialog.show();
                 }else if(data.get(position).getIs_over().equals("1")){
-                    ViseHttp.POST(NetConfig.deleteActiveUrl)
-                            .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.deleteActiveUrl))
-                            .addParam("type", "1")
-                            .addParam("ujID", data.get(position).getUjID())
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String obj) {
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(obj);
-                                        if(jsonObject.getInt("code") == 200){
-                                            data.remove(position);
-                                            notifyItemRemoved(position);
-                                            notifyDataSetChanged();
-                                            Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder normalDialog = new AlertDialog.Builder(context);
+//        normalDialog.setIcon(R.mipmap.ic_launcher);
+                    normalDialog.setTitle("提示");
+                    normalDialog.setMessage("是否删除");
+                    normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ViseHttp.POST(NetConfig.deleteActiveUrl)
+                                    .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.deleteActiveUrl))
+                                    .addParam("type", "1")
+                                    .addParam("ujID", data.get(position).getUjID())
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String obj) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(obj);
+                                                if(jsonObject.getInt("code") == 200){
+                                                    data.remove(position);
+                                                    notifyItemRemoved(position);
+                                                    notifyDataSetChanged();
+                                                    Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
 
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
 
-                                }
-                            });
+                                        }
+                                    });
+                        }
+                    });
+                    normalDialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    // 显示
+                    normalDialog.show();
                 }
             }
         });

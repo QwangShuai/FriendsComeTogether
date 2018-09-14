@@ -116,6 +116,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     LinearLayout llMoney;
     @BindView(R.id.city)
     LinearLayout llCity;
+    @BindView(R.id.rl_info_content)
+    RelativeLayout rlInfoContent;
 
     private DetailsOfFriendsIntercalationAdapter adapter;
     private DetailsOfFriendsIntercalation1Adapter adapter1;
@@ -130,6 +132,11 @@ public class DetailsOfFriendsActivity extends BaseActivity {
     private String fmID = "";
     private String articleUid = "";
 
+    private boolean start = true;
+    private boolean end = true;
+    private boolean price = true;
+    private boolean place = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,7 +144,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
-        spImp = new SpImp(DetailsOfFriendsActivity. this);
+        spImp = new SpImp(DetailsOfFriendsActivity.this);
 
         initData();
 
@@ -157,7 +164,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
         String fmid = intent.getStringExtra("fmid");
 
         ViseHttp.POST(NetConfig.detailsOfFriendsUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.detailsOfFriendsUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.detailsOfFriendsUrl))
                 .addParam("id", fmid)
                 .addParam("uid", uid)
                 .request(new ACallback<String>() {
@@ -166,46 +173,55 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                         Log.e("222", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 model = gson.fromJson(data, DetailsRememberModel.class);
                                 fmID = model.getObj().getContent().getFmID();
                                 articleUid = model.getObj().getContent().getUid();
                                 Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getContent().getFmpic()).into(ivTitle);
                                 tvTitle.setText(model.getObj().getContent().getFmtitle());
-                                tvLookNum.setText("浏览: "+model.getObj().getContent().getFmlook());
-                                tvFocusNum.setText("收藏: "+model.getObj().getContent().getFmfavorite());
-                                if(TextUtils.isEmpty(model.getObj().getContent().getFmgotime())){
+                                tvLookNum.setText("浏览: " + model.getObj().getContent().getFmlook());
+                                tvFocusNum.setText("收藏: " + model.getObj().getContent().getFmfavorite());
+                                if (TextUtils.isEmpty(model.getObj().getContent().getFmgotime())) {
                                     llStart.setVisibility(View.GONE);
-                                }else {
-                                    tvStartTime.setText("开始时间: "+model.getObj().getContent().getFmgotime());
+                                    start = false;
+                                } else {
+                                    tvStartTime.setText("开始时间: " + model.getObj().getContent().getFmgotime());
                                 }
-                                if(TextUtils.isEmpty(model.getObj().getContent().getFmendtime())){
+                                if (TextUtils.isEmpty(model.getObj().getContent().getFmendtime())) {
                                     llEnd.setVisibility(View.GONE);
-                                }else {
-                                    tvEndTime.setText("结束时间: "+model.getObj().getContent().getFmendtime());
+                                    end = false;
+                                } else {
+                                    tvEndTime.setText("结束时间: " + model.getObj().getContent().getFmendtime());
                                 }
-                                if(TextUtils.isEmpty(model.getObj().getContent().getPercapitacost())||model.getObj().getContent().getPercapitacost().equals("0.00")){
+                                if (TextUtils.isEmpty(model.getObj().getContent().getPercapitacost()) || model.getObj().getContent().getPercapitacost().equals("0.00")) {
                                     llMoney.setVisibility(View.GONE);
-                                }else {
-                                    tvPrice.setText("参加费用: ¥"+model.getObj().getContent().getPercapitacost());
+                                    price = false;
+                                } else {
+                                    tvPrice.setText("参加费用: ¥" + model.getObj().getContent().getPercapitacost());
                                 }
-                                if(TextUtils.isEmpty(model.getObj().getContent().getFmaddress())){
+                                if (TextUtils.isEmpty(model.getObj().getContent().getFmaddress())) {
                                     llCity.setVisibility(View.GONE);
-                                }else {
-                                    tvCity.setText("活动地点: "+model.getObj().getContent().getFmaddress());
+                                    place = false;
+                                } else {
+                                    tvCity.setText("活动地点: " + model.getObj().getContent().getFmaddress());
                                 }
+
+                                if (!start && !end && !price && !place) {
+                                    rlInfoContent.setVisibility(View.GONE);
+                                }
+
                                 Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getContent().getUserpic()).into(ivAvatar);
                                 tvNickname.setText(model.getObj().getContent().getUsername());
-                                tvLevel.setText("LV"+model.getObj().getContent().getUsergrade());
+                                tvLevel.setText("LV" + model.getObj().getContent().getUsergrade());
 
-                                if(!TextUtils.isEmpty(model.getObj().getActivityInfo().getPfID())){
+                                if (!TextUtils.isEmpty(model.getObj().getActivityInfo().getPfID())) {
                                     tvRelatedActive.setText(model.getObj().getActivityInfo().getPfcontent());
                                     tvRelatedCTime.setText(model.getObj().getActivityInfo().getPftime());
                                     tvRelatedLookNum.setText(model.getObj().getActivityInfo().getPflook());
                                     tvRelatedCommentNum.setText(model.getObj().getActivityInfo().getPfcomment());
                                     Picasso.with(DetailsOfFriendsActivity.this).load(model.getObj().getActivityInfo().getPfpic()).into(ivActiveTitle);
-                                }else {
+                                } else {
                                     rlActiveContent.setVisibility(View.GONE);
                                 }
 
@@ -230,35 +246,35 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                 adapter1 = new DetailsOfFriendsIntercalation1Adapter(model.getObj().getInserList());
                                 recyclerView1.setAdapter(adapter1);
 
-                                if(model.getObj().getContent().getGive() == 0){
+                                if (model.getObj().getContent().getGive() == 0) {
                                     isPraise = false;
                                     Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_praise_b).into(ivPraise);
                                     tvPraise.setTextColor(Color.parseColor("#333333"));
-                                }else {
+                                } else {
                                     isPraise = true;
                                     Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.praise_y).into(ivPraise);
                                     tvPraise.setTextColor(Color.parseColor("#FF9D00"));
                                 }
 
-                                if(model.getObj().getContent().getCollection() == 0){
+                                if (model.getObj().getContent().getCollection() == 0) {
                                     isStar = false;
                                     Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_star_b).into(ivStar);
                                     tvStar.setTextColor(Color.parseColor("#333333"));
-                                }else {
+                                } else {
                                     isStar = true;
                                     Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.star_y).into(ivStar);
                                     tvStar.setTextColor(Color.parseColor("#FF9D00"));
                                 }
 
-                                if(model.getObj().getContent().getFollow() == 0){
+                                if (model.getObj().getContent().getFollow() == 0) {
                                     isFocus = false;
                                     btnTopFocus.setText("+关注");
-                                }else {
+                                } else {
                                     isFocus = true;
                                     btnTopFocus.setText("已关注");
                                 }
 
-                                if(model.getObj().getContent().getInserTtext().equals("0")){
+                                if (model.getObj().getContent().getInserTtext().equals("0")) {
                                     //不允许插文
                                     llIntercalation.setVisibility(View.GONE);
                                 }
@@ -293,23 +309,23 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.activity_details_of_friends_ll_comment:
-                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
                     intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
                     startActivity(intent);
-                }else {
+                } else {
                     intent.setClass(DetailsOfFriendsActivity.this, ArticleCommentActivity.class);
                     intent.putExtra("id", fmID);
                     startActivity(intent);
                 }
                 break;
             case R.id.activity_details_of_friends_ll_share:
-                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
                     intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
+                } else {
                     ViseHttp.POST(NetConfig.activeShareUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.activeShareUrl))
+                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeShareUrl))
                             .addParam("id", fmID)
                             .addParam("type", "1")
                             .request(new ACallback<String>() {
@@ -317,7 +333,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                 public void onSuccess(String data) {
                                     try {
                                         JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.getInt("code") == 200){
+                                        if (jsonObject.getInt("code") == 200) {
                                             Gson gson = new Gson();
                                             final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
                                             new ShareAction(DetailsOfFriendsActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
@@ -342,16 +358,16 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 }
                 break;
             case R.id.activity_details_of_friends_ll_praise:
-                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
                     intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    if(!isPraise){
+                } else {
+                    if (!isPraise) {
                         Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.praise_y).into(ivPraise);
                         tvPraise.setTextColor(Color.parseColor("#FF9D00"));
                         ViseHttp.POST(NetConfig.articlePraiseUrl)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articlePraiseUrl))
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articlePraiseUrl))
                                 .addParam("id", fmID)
                                 .addParam("uid", uid)
                                 .request(new ACallback<String>() {
@@ -359,7 +375,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                     public void onSuccess(String data) {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
-                                            if(jsonObject.getInt("code") == 200){
+                                            if (jsonObject.getInt("code") == 200) {
                                                 toToast(DetailsOfFriendsActivity.this, "点赞成功");
                                             }
                                         } catch (JSONException e) {
@@ -376,17 +392,17 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                 }
                 break;
             case R.id.activity_details_of_friends_ll_star:
-                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
                     intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    if(!isStar){
+                } else {
+                    if (!isStar) {
                         Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.star_y).into(ivStar);
                         tvStar.setTextColor(Color.parseColor("#FF9D00"));
                         isStar = !isStar;
                         ViseHttp.POST(NetConfig.articleCollectionUrl)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleCollectionUrl))
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleCollectionUrl))
                                 .addParam("id", fmID)
                                 .addParam("uid", uid)
                                 .addParam("type", "0")
@@ -395,7 +411,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                     public void onSuccess(String data) {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
-                                            if(jsonObject.getInt("code") == 200){
+                                            if (jsonObject.getInt("code") == 200) {
                                                 toToast(DetailsOfFriendsActivity.this, "收藏成功");
                                             }
                                         } catch (JSONException e) {
@@ -408,12 +424,12 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 
                                     }
                                 });
-                    }else {
+                    } else {
                         Picasso.with(DetailsOfFriendsActivity.this).load(R.mipmap.details_star_b).into(ivStar);
                         tvStar.setTextColor(Color.parseColor("#333333"));
                         isStar = !isStar;
                         ViseHttp.POST(NetConfig.articleCollectionUrl)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.articleCollectionUrl))
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleCollectionUrl))
                                 .addParam("id", fmID)
                                 .addParam("uid", uid)
                                 .addParam("type", "1")
@@ -422,7 +438,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                     public void onSuccess(String data) {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
-                                            if(jsonObject.getInt("code") == 200){
+                                            if (jsonObject.getInt("code") == 200) {
                                                 toToast(DetailsOfFriendsActivity.this, "取消收藏成功");
                                             }
                                         } catch (JSONException e) {
@@ -472,14 +488,14 @@ public class DetailsOfFriendsActivity extends BaseActivity {
 //                }
 //                break;
             case R.id.activity_details_of_friends_btn_focus:
-                if(TextUtils.isEmpty(uid)||uid.equals("0")){
+                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
                     intent.setClass(DetailsOfFriendsActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    if(!isFocus){
+                } else {
+                    if (!isFocus) {
                         ViseHttp.POST(NetConfig.userFocusUrl)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userFocusUrl))
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userFocusUrl))
                                 .addParam("uid", uid)
                                 .addParam("likeId", articleUid)
                                 .request(new ACallback<String>() {
@@ -487,7 +503,7 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                     public void onSuccess(String data) {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
-                                            if(jsonObject.getInt("code") == 200){
+                                            if (jsonObject.getInt("code") == 200) {
                                                 toToast(DetailsOfFriendsActivity.this, "关注成功");
                                                 btnTopFocus.setText("已关注");
                                                 isFocus = true;
