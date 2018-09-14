@@ -89,32 +89,41 @@
             android:layout_height="12px"
             android:background="@color/line" />
 
-        <RadioGroup
-            android:id="@+id/rg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <!--<RadioGroup-->
+            <!--android:id="@+id/rg"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="20px"-->
+            <!--android:orientation="vertical"-->
+            <!--android:visibility="gone">-->
+
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="30px"-->
+                <!--android:checked="true"-->
+                <!--android:text="我请客"-->
+                <!--android:textSize="28px" />-->
+
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="30px"-->
+                <!--android:text="自费"-->
+                <!--android:textSize="28px" />-->
+
+        <!--</RadioGroup>-->
+
+        <CheckBox
+            android:visibility="gone"
+            android:id="@+id/cb"
+            android:textSize="28px"
+            android:text="我请客"
             android:layout_marginLeft="20px"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <RadioButton
-                android:id="@+id/rb1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="30px"
-                android:checked="true"
-                android:text="我请客"
-                android:textSize="28px" />
-
-            <RadioButton
-                android:id="@+id/rb2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="30px"
-                android:text="自费"
-                android:textSize="28px" />
-
-        </RadioGroup>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/et"

@@ -57,6 +57,7 @@ public class InitiativesModel {
          * join_num : 1
          */
 
+        private String roomradio;
         private String if_over;
         private String roomid;
         private String pfexamine;
@@ -69,6 +70,14 @@ public class InitiativesModel {
         private String pflook;
         private String focusOn;
         private String join_num;
+
+        public String getRoomradio() {
+            return roomradio;
+        }
+
+        public void setRoomradio(String roomradio) {
+            this.roomradio = roomradio;
+        }
 
         public String getIf_over() {
             return if_over;

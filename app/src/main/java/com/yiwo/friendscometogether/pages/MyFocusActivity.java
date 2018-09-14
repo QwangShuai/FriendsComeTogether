@@ -14,6 +14,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -260,10 +262,24 @@ public class MyFocusActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(view);
 
         RelativeLayout rl = view.findViewById(R.id.activity_create_friend_remember_rl_active_title);
-        final RadioGroup radioGroup = view.findViewById(R.id.rg);
+//        final RadioGroup radioGroup = view.findViewById(R.id.rg);
         final TextView tvActiveTitle = view.findViewById(R.id.activity_create_friend_remember_tv_active_title);
         TextView tvOk = view.findViewById(R.id.tv_ok);
         final EditText et = view.findViewById(R.id.et);
+        final CheckBox checkBox = view.findViewById(R.id.cb);
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    type = 0;
+//                    toToast(MyFocusActivity.this, type+"");
+                }else {
+                    type = 1;
+//                    toToast(MyFocusActivity.this, type+"");
+                }
+            }
+        });
 
         ViseHttp.POST(NetConfig.activeInvitationListUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeInvitationListUrl))
@@ -297,21 +313,21 @@ public class MyFocusActivity extends BaseActivity {
                     }
                 });
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    case R.id.rb1:
-                        toToast(MyFocusActivity.this, "我请客");
-                        type = 0;
-                        break;
-                    case R.id.rb2:
-                        toToast(MyFocusActivity.this, "自费");
-                        type = 1;
-                        break;
-                }
-            }
-        });
+//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                switch (i) {
+//                    case R.id.rb1:
+//                        toToast(MyFocusActivity.this, "我请客");
+//                        type = 0;
+//                        break;
+////                    case R.id.rb2:
+////                        toToast(MyFocusActivity.this, "自费");
+////                        type = 1;
+////                        break;
+//                }
+//            }
+//        });
 
         popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setTouchable(true);
@@ -353,11 +369,11 @@ public class MyFocusActivity extends BaseActivity {
                                     yourChoiceActiveName = activeName[which];
                                     yourChoiceActiveId = activeId[which];
                                     if(block[which].equals("0")){
-                                        radioGroup.setVisibility(View.GONE);
+                                        checkBox.setVisibility(View.GONE);
                                         type = 3;
                                     }else {
-                                        radioGroup.setVisibility(View.VISIBLE);
-                                        type = 0;
+                                        checkBox.setVisibility(View.VISIBLE);
+                                        type = 1;
                                     }
                                 }
                             });

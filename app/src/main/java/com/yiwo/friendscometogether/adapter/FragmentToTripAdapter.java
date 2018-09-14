@@ -67,7 +67,7 @@ public class FragmentToTripAdapter extends RecyclerView.Adapter<FragmentToTripAd
             Picasso.with(context).load(data.get(position).getPf_pic()).into(holder.iv);
         }
         holder.tvContent.setText(data.get(position).getInfo());
-        holder.tvTime.setText("行程时间: " + data.get(position).getTime_info());
+        holder.tvTime.setText("活动时间: " + data.get(position).getTime_info());
         holder.tvPeopleNum.setText("参加人数: " + data.get(position).getJoin_num());
         holder.tvPriceDetails.setText(data.get(position).getPrice_type());
         holder.tvPrice.setText("合计费用: " + data.get(position).getOpaymoney());

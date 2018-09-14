@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -84,6 +85,11 @@ public class StartActiveAdapter extends RecyclerView.Adapter<StartActiveAdapter.
         } else {
             holder.tvDelete.setText("取消活动");
             holder.tvEnter.setText("进入群聊");
+        }
+        if(data.get(position).getRoomradio().equals("0")){
+            holder.tvEnter.setTextColor(Color.parseColor("#333333"));
+        }else if(data.get(position).getRoomradio().equals("1")){
+            holder.tvEnter.setTextColor(Color.parseColor("#a0a0a0"));
         }
         holder.editorRl.setOnClickListener(new View.OnClickListener() {
             @Override
