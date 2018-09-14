@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -86,6 +87,8 @@ public class ModifyIntercalationActivity extends BaseActivity {
 
     private Dialog dialog;
 
+    private int oldPicNum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,19 +109,19 @@ public class ModifyIntercalationActivity extends BaseActivity {
         id = intent.getStringExtra("id");
 
         ViseHttp.POST(NetConfig.modifyIntercalationUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.modifyIntercalationUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.modifyIntercalationUrl))
                 .addParam("id", id)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 ModifyIntercalationModel model = gson.fromJson(data, ModifyIntercalationModel.class);
                                 etTitle.setText(model.getObj().getInfo().getFftitle());
                                 etContent.setText(model.getObj().getInfo().getFfcontect());
-                                GridLayoutManager manager1 = new GridLayoutManager(ModifyIntercalationActivity.this, 3){
+                                GridLayoutManager manager1 = new GridLayoutManager(ModifyIntercalationActivity.this, 3) {
                                     @Override
                                     public boolean canScrollVertically() {
                                         return false;
@@ -126,34 +129,47 @@ public class ModifyIntercalationActivity extends BaseActivity {
                                 };
                                 recyclerView1.setLayoutManager(manager1);
                                 mList1 = model.getObj().getImagesArr();
+                                oldPicNum = mList1.size();
                                 picAdapter = new ModifyIntercalationPicAdapter(mList1);
                                 recyclerView1.setAdapter(picAdapter);
                                 picAdapter.setOnModifyListener(new ModifyIntercalationPicAdapter.OnModifyListener() {
                                     @Override
                                     public void onModify(int type, final int position) {
-                                        switch (type){
+                                        switch (type) {
                                             case 1:
-                                                ViseHttp.POST(NetConfig.savePicAndDescribeUrl)
-                                                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.savePicAndDescribeUrl))
-                                                        .addParam("type", "1")
-                                                        .addParam("id", mList1.get(position).getFfpID())
-                                                        .request(new ACallback<String>() {
+                                                toDialog(ModifyIntercalationActivity.this, "提示", "是否删除图片",
+                                                        new DialogInterface.OnClickListener() {
                                                             @Override
-                                                            public void onSuccess(String data) {
-                                                                try {
-                                                                    JSONObject jsonObject1 = new JSONObject(data);
-                                                                    if(jsonObject1.getInt("code") == 200){
-                                                                        mList1.remove(position);
-                                                                        picAdapter.notifyDataSetChanged();
-                                                                        toToast(ModifyIntercalationActivity.this, "删除成功");
-                                                                    }
-                                                                } catch (JSONException e) {
-                                                                    e.printStackTrace();
-                                                                }
-                                                            }
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                ViseHttp.POST(NetConfig.savePicAndDescribeUrl)
+                                                                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.savePicAndDescribeUrl))
+                                                                        .addParam("type", "1")
+                                                                        .addParam("id", mList1.get(position).getFfpID())
+                                                                        .request(new ACallback<String>() {
+                                                                            @Override
+                                                                            public void onSuccess(String data) {
+                                                                                try {
+                                                                                    JSONObject jsonObject1 = new JSONObject(data);
+                                                                                    if (jsonObject1.getInt("code") == 200) {
+                                                                                        mList1.remove(position);
+                                                                                        picAdapter.notifyDataSetChanged();
+                                                                                        oldPicNum = oldPicNum - 1;
+                                                                                        toToast(ModifyIntercalationActivity.this, "删除成功");
+                                                                                    }
+                                                                                } catch (JSONException e) {
+                                                                                    e.printStackTrace();
+                                                                                }
+                                                                            }
 
+                                                                            @Override
+                                                                            public void onFail(int errCode, String errMsg) {
+
+                                                                            }
+                                                                        });
+                                                            }
+                                                        }, new DialogInterface.OnClickListener() {
                                                             @Override
-                                                            public void onFail(int errCode, String errMsg) {
+                                                            public void onClick(DialogInterface dialog, int which) {
 
                                                             }
                                                         });
@@ -165,17 +181,17 @@ public class ModifyIntercalationActivity extends BaseActivity {
                                                     @Override
                                                     public void onReturn(final String title) {
                                                         ViseHttp.POST(NetConfig.savePicAndDescribeUrl)
-                                                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.savePicAndDescribeUrl))
+                                                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.savePicAndDescribeUrl))
                                                                 .addParam("type", "0")
                                                                 .addParam("id", mList1.get(position).getFfpID())
-                                                                .addParam("describe", title+"")
+                                                                .addParam("describe", title + "")
                                                                 .request(new ACallback<String>() {
                                                                     @Override
                                                                     public void onSuccess(String data) {
                                                                         try {
                                                                             JSONObject jsonObject1 = new JSONObject(data);
-                                                                            if(jsonObject1.getInt("code") == 200){
-                                                                                mList1.get(position).setFfptitle(title+"");
+                                                                            if (jsonObject1.getInt("code") == 200) {
+                                                                                mList1.get(position).setFfptitle(title + "");
                                                                                 picAdapter.notifyDataSetChanged();
                                                                                 toToast(ModifyIntercalationActivity.this, "修改成功");
                                                                             }
@@ -209,7 +225,7 @@ public class ModifyIntercalationActivity extends BaseActivity {
 
         uid = spImp.getUID();
         mList = new ArrayList<>();
-        GridLayoutManager manager = new GridLayoutManager(ModifyIntercalationActivity.this, 3){
+        GridLayoutManager manager = new GridLayoutManager(ModifyIntercalationActivity.this, 3) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -221,13 +237,17 @@ public class ModifyIntercalationActivity extends BaseActivity {
         adapter.setListener(new IntercalationAdapter.OnAddImgListener() {
             @Override
             public void onAddImg() {
-                //限数量的多选(比喻最多9张)
-                ImageSelector.builder()
-                        .useCamera(true) // 设置是否使用拍照
-                        .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9 - mList.size()) // 图片的最大选择数量，小于等于0时，不限数量。
+                if (9 - mList.size() - oldPicNum > 0) {
+                    //限数量的多选(比喻最多9张)
+                    ImageSelector.builder()
+                            .useCamera(true) // 设置是否使用拍照
+                            .setSingle(false)  //设置是否单选
+                            .setMaxSelectCount(9 - mList.size() - oldPicNum) // 图片的最大选择数量，小于等于0时，不限数量。
 //                        .setSelected(selected) // 把已选的图片传入默认选中。
-                        .start(ModifyIntercalationActivity.this, REQUEST_CODE); // 打开相册
+                            .start(ModifyIntercalationActivity.this, REQUEST_CODE); // 打开相册
+                }else {
+                    toToast(ModifyIntercalationActivity.this, "最多只能添加9张图片");
+                }
             }
         }, new IntercalationAdapter.OnDeleteImgListener() {
             @Override
@@ -291,9 +311,9 @@ public class ModifyIntercalationActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_create_intercalation_rl_complete:
-                if(mList.size() == 0){
+                if (mList.size() == 0) {
                     toToast(ModifyIntercalationActivity.this, "请至少上传一张图片");
-                }else {
+                } else {
                     complete();
                 }
                 break;
@@ -333,8 +353,8 @@ public class ModifyIntercalationActivity extends BaseActivity {
                             public void onSuccess(File file) {
                                 // TODO 压缩成功后调用，返回压缩后的图片文件
                                 files.add(file);
-                                Log.e("222", list.size() + "..."+files.size());
-                                if(files.size() == list.size()){
+                                Log.e("222", list.size() + "..." + files.size());
+                                if (files.size() == list.size()) {
                                     for (int i = 0; i < files.size(); i++) {
                                         map.put("images[" + i + "]", files.get(i));
                                     }

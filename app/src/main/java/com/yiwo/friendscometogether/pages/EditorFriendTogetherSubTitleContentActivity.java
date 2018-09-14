@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -87,6 +88,8 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
     private ModifyFriendTogetherIntercalationPicAdapter picAdapter;
     private List<GetActiveIntercalationInfoModel.ObjBean.ImgsBean> mList1;
 
+    private int oldPicNum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +129,7 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                                 };
                                 recyclerView1.setLayoutManager(manager1);
                                 mList1 = model.getObj().getImgs();
+                                oldPicNum = mList1.size();
                                 picAdapter = new ModifyFriendTogetherIntercalationPicAdapter(mList1);
                                 recyclerView1.setAdapter(picAdapter);
                                 picAdapter.setOnModifyListener(new ModifyFriendTogetherIntercalationPicAdapter.OnModifyListener() {
@@ -134,26 +138,38 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
                                         switch (type) {
                                             case 1:
                                                 //删除图片
-                                                ViseHttp.POST(NetConfig.delActivePicUrl)
-                                                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.delActivePicUrl))
-                                                        .addParam("image_id", mList1.get(position).getPfpID())
-                                                        .request(new ACallback<String>() {
+                                                toDialog(EditorFriendTogetherSubTitleContentActivity.this, "提示", "是否删除图片",
+                                                        new DialogInterface.OnClickListener() {
                                                             @Override
-                                                            public void onSuccess(String data) {
-                                                                try {
-                                                                    JSONObject jsonObject1 = new JSONObject(data);
-                                                                    if (jsonObject1.getInt("code") == 200) {
-                                                                        mList1.remove(position);
-                                                                        picAdapter.notifyDataSetChanged();
-                                                                        toToast(EditorFriendTogetherSubTitleContentActivity.this, "删除图片成功");
-                                                                    }
-                                                                } catch (JSONException e) {
-                                                                    e.printStackTrace();
-                                                                }
-                                                            }
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                ViseHttp.POST(NetConfig.delActivePicUrl)
+                                                                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.delActivePicUrl))
+                                                                        .addParam("image_id", mList1.get(position).getPfpID())
+                                                                        .request(new ACallback<String>() {
+                                                                            @Override
+                                                                            public void onSuccess(String data) {
+                                                                                try {
+                                                                                    JSONObject jsonObject1 = new JSONObject(data);
+                                                                                    if (jsonObject1.getInt("code") == 200) {
+                                                                                        mList1.remove(position);
+                                                                                        picAdapter.notifyDataSetChanged();
+                                                                                        oldPicNum = oldPicNum - 1;
+                                                                                        toToast(EditorFriendTogetherSubTitleContentActivity.this, "删除图片成功");
+                                                                                    }
+                                                                                } catch (JSONException e) {
+                                                                                    e.printStackTrace();
+                                                                                }
+                                                                            }
 
+                                                                            @Override
+                                                                            public void onFail(int errCode, String errMsg) {
+
+                                                                            }
+                                                                        });
+                                                            }
+                                                        }, new DialogInterface.OnClickListener() {
                                                             @Override
-                                                            public void onFail(int errCode, String errMsg) {
+                                                            public void onClick(DialogInterface dialog, int which) {
 
                                                             }
                                                         });
@@ -216,13 +232,17 @@ public class EditorFriendTogetherSubTitleContentActivity extends BaseActivity {
         adapter.setListener(new IntercalationAdapter.OnAddImgListener() {
             @Override
             public void onAddImg() {
-                //限数量的多选(比喻最多9张)
-                ImageSelector.builder()
-                        .useCamera(true) // 设置是否使用拍照
-                        .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9 - mList.size()) // 图片的最大选择数量，小于等于0时，不限数量。
+                if (9 - mList.size() - oldPicNum > 0) {
+                    //限数量的多选(比喻最多9张)
+                    ImageSelector.builder()
+                            .useCamera(true) // 设置是否使用拍照
+                            .setSingle(false)  //设置是否单选
+                            .setMaxSelectCount(9 - mList.size() - oldPicNum) // 图片的最大选择数量，小于等于0时，不限数量。
 //                        .setSelected(selected) // 把已选的图片传入默认选中。
-                        .start(EditorFriendTogetherSubTitleContentActivity.this, REQUEST_CODE); // 打开相册
+                            .start(EditorFriendTogetherSubTitleContentActivity.this, REQUEST_CODE); // 打开相册
+                }else {
+                    toToast(EditorFriendTogetherSubTitleContentActivity.this, "最多只能添加9张图片");
+                }
             }
         }, new IntercalationAdapter.OnDeleteImgListener() {
             @Override

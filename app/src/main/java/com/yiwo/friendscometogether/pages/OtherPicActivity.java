@@ -61,9 +61,9 @@ public class OtherPicActivity extends BaseActivity {
         Intent intent = getIntent();
         otherUid = intent.getStringExtra("otheruid");
 
-        GridLayoutManager manager = new GridLayoutManager(OtherPicActivity.this, 2);
+        GridLayoutManager manager = new GridLayoutManager(OtherPicActivity.this, 1);
         recyclerView.setLayoutManager(manager);
-        recyclerView.addItemDecoration(new GridDividerItemDecoration(10, Color.parseColor("#f2f2f2")));
+//        recyclerView.addItemDecoration(new GridDividerItemDecoration(1, Color.parseColor("#f2f2f2")));
 
         ViseHttp.POST(NetConfig.myPictureListUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.myPictureListUrl))
