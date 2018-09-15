@@ -759,7 +759,7 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
 
         map.put("user_id", spImp.getUID());
         if ((map.size() == 19 && findPwd()) || (map.size() == 18 && !findPwd())) {
-            String token = TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
+            final String token = TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
             dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendTogetherActivity.this, "请等待...");
             Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
                 @Override
@@ -811,43 +811,46 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
                         public void onFail(int errCode, String errMsg) {
 
                         }
-                    }).addHeader("Content-Type", "multipart/form-data").addParams(map)
-                            .addFile("file_img", value).request(new ACallback<String>() {
-                        @Override
-                        public void onSuccess(String data) {
-                            Log.i("123123", data);
-                            try {
-                                JSONObject jsonObject = new JSONObject(data);
-                                if (jsonObject.getInt("code") == 200) {
-                                    CreateFriendsTogetherModel model = new Gson().fromJson(data, CreateFriendsTogetherModel.class);
-                                    if (model.getCode() == 200) {
-                                        Log.i("hhh", "执行成功");
-                                        popupWindow.dismiss();
-                                        if (state == 0) {
-                                            finish();
-                                        } else {
-                                            Intent it = new Intent(CreateFriendTogetherActivity.this, FriendTogetherAddContentActivity.class);
-                                            it.putExtra("pfID", model.getObj().getActivity_id() + "");
+                    }).addHeader("Content-Type", "multipart/form-data")
+                            .addParam("app_key", token)
+                            .addParams(map)
+                            .addFile("file_img", value)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    Log.i("123123", data);
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if (jsonObject.getInt("code") == 200) {
+                                            CreateFriendsTogetherModel model = new Gson().fromJson(data, CreateFriendsTogetherModel.class);
+                                            if (model.getCode() == 200) {
+                                                Log.i("hhh", "执行成功");
+                                                popupWindow.dismiss();
+                                                if (state == 0) {
+                                                    finish();
+                                                } else {
+                                                    Intent it = new Intent(CreateFriendTogetherActivity.this, FriendTogetherAddContentActivity.class);
+                                                    it.putExtra("pfID", model.getObj().getActivity_id() + "");
+                                                    WeiboDialogUtils.closeDialog(dialog);
+                                                    startActivity(it);
+                                                    finish();
+                                                }
+                                            }
+                                        }else {
                                             WeiboDialogUtils.closeDialog(dialog);
-                                            startActivity(it);
-                                            finish();
+                                            Toast.makeText(CreateFriendTogetherActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                         }
-                                    } else {
-                                        Toast.makeText(CreateFriendTogetherActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
-                                        WeiboDialogUtils.closeDialog(dialog);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
 
-                        @Override
-                        public void onFail(int errCode, String errMsg) {
-                            Toast.makeText(CreateFriendTogetherActivity.this, errMsg, Toast.LENGTH_SHORT).show();
-                            WeiboDialogUtils.closeDialog(dialog);
-                        }
-                    });
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+                                    Toast.makeText(CreateFriendTogetherActivity.this, errMsg, Toast.LENGTH_SHORT).show();
+                                    WeiboDialogUtils.closeDialog(dialog);
+                                }
+                            });
                 }
 
                 @Override

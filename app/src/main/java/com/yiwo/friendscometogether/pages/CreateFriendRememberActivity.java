@@ -840,6 +840,9 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
                                                 Toast.makeText(CreateFriendRememberActivity.this, jsonObject.getString("message") + "", Toast.LENGTH_SHORT).show();
                                                 WeiboDialogUtils.closeDialog(dialog);
                                                 onBackPressed();
+                                            }else {
+                                                WeiboDialogUtils.closeDialog(dialog);
+                                                Toast.makeText(CreateFriendRememberActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -1043,6 +1046,9 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
                                                 WeiboDialogUtils.closeDialog(dialog);
                                                 startActivity(intent);
                                                 CreateFriendRememberActivity.this.finish();
+                                            }else {
+                                                WeiboDialogUtils.closeDialog(dialog);
+                                                Toast.makeText(CreateFriendRememberActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
