@@ -231,15 +231,15 @@ public class MyFocusActivity extends BaseActivity {
                                     @Override
                                     public void onInvitation(int position) {
                                         //邀请
-                                        if(mList.get(position).getActivity_id().equals("0")){
+//                                        if(mList.get(position).getActivity_id().equals("0")){
 //                                            Intent intent = new Intent();
 //                                            intent.putExtra("otheruid", mList.get(position).getLikeuserID());
 //                                            intent.setClass(MyFocusActivity.this, InvitationActivity.class);
 //                                            startActivity(intent);
                                             showInvitationPopupwindow(mList.get(position).getLikeuserID());
-                                        }else {
-                                            Toast.makeText(MyFocusActivity.this, "已参加活动，无法邀请", Toast.LENGTH_SHORT).show();
-                                        }
+//                                        }else {
+//                                            Toast.makeText(MyFocusActivity.this, "已参加活动，无法邀请", Toast.LENGTH_SHORT).show();
+//                                        }
                                     }
                                 });
                             }
@@ -390,6 +390,12 @@ public class MyFocusActivity extends BaseActivity {
                                     }
                                 }
                             });
+                    singleChoiceDialog1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
                     singleChoiceDialog1.show();
                 } else {
                     toToast(MyFocusActivity.this, "暂无活动");

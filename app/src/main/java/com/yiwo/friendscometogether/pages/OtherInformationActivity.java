@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -153,6 +154,7 @@ public class OtherInformationActivity extends BaseActivity {
                                     tvSendMessage.setText("加关注");
                                 }
 
+                                Log.e("123123", model.getObj().getInfo().getLeader());
                                 if (model.getObj().getInfo().getLeader().equals("1")) {
                                     ivSign.setVisibility(View.VISIBLE);
                                 }
@@ -198,7 +200,7 @@ public class OtherInformationActivity extends BaseActivity {
     }
 
     @OnClick({R.id.activity_other_information_rl_back, R.id.activity_other_information_tv_works, R.id.activity_other_information_tv_active, R.id.activity_other_information_ll_mypics,
-            R.id.activity_other_information_tv_send_message, R.id.activity_other_information_iv_add_friend})
+            R.id.activity_other_information_tv_send_message, R.id.activity_other_information_iv_add_friend, R.id.iv_sign_yellow})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -345,6 +347,20 @@ public class OtherInformationActivity extends BaseActivity {
                         });
                     }
                 }
+                break;
+            case R.id.iv_sign_yellow:
+                //皇冠提示信息
+                toDialog(OtherInformationActivity.this, "提示", "官网认证指定队长，活动由官网审核", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
                 break;
         }
     }
