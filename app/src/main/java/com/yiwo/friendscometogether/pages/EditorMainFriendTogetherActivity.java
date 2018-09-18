@@ -198,6 +198,7 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
             tvCity.setText(bean.getCity_name());
             tvTitleNum.setText(bean.getPftitle().length() + "/30");
             tvContentNum.setText(bean.getPfcontent().length() + "/2000");
+            map.put("country", bean.getCountry());
             map.put("pftitle", bean.getPftitle());
             map.put("pfcontent", bean.getPfcontent());
             map.put("pfgotime", bean.getPfgotime());
@@ -500,7 +501,7 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
             String city = data.getStringExtra("city");
             String cityid = data.getStringExtra("cityid");
             tvCity.setText(city);
-            map.put("city", cityid);
+            map.put("city_id", cityid);
             map.put("country", "1");
         }
     }
