@@ -538,14 +538,17 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
             CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
             tvCity.setText(model.getName());
             map.put("city", model.getId());
+            map.put("country", "0");
         } else if (requestCode == CITY_REQUEST && resultCode == 2) {
             tvCity.setText("");
             map.remove("city");
+            map.remove("country");
         } else if (requestCode == CITY_REQUEST && resultCode == 3) {
             String city = data.getStringExtra("city");
             String cityid = data.getStringExtra("cityid");
             tvCity.setText(city);
             map.put("city", cityid);
+            map.put("country", "1");
         }
     }
 
@@ -763,7 +766,7 @@ public class CreateFriendTogetherActivity extends TakePhotoActivity {
     public void onComplete(final int state) {
 
         map.put("user_id", spImp.getUID());
-        if ((map.size() == 19 && findPwd()) || (map.size() == 18 && !findPwd())) {
+        if ((map.size() == 20 && findPwd()) || (map.size() == 19 && !findPwd())) {
             final String token = TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.createActivityUrl);
             dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendTogetherActivity.this, "请等待...");
             Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
