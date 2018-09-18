@@ -494,6 +494,11 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
         } else if (requestCode == CITY_REQUEST && resultCode == 2) {
             tvCity.setText("");
             map.remove("city_id");
+        } else if (requestCode == CITY_REQUEST && resultCode == 3) {
+            String city = data.getStringExtra("city");
+            String cityid = data.getStringExtra("cityid");
+            tvCity.setText(city);
+            map.put("city", cityid);
         }
     }
 

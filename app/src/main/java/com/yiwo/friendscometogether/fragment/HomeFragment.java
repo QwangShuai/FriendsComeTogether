@@ -764,6 +764,36 @@ public class HomeFragment extends BaseFragment {
                             }
                         }
                     });
+        } else if (requestCode == 1 && resultCode == 3) {
+            String city = data.getStringExtra("city");
+            cityId = data.getStringExtra("cityid");
+            cityTv.setText(city);
+            String tokens = getToken(NetConfig.BaseUrl + NetConfig.homeTogetherListUrl);
+            ViseHttp.POST(NetConfig.homeTogetherListUrl)
+                    .addParam("app_key", tokens)
+                    .addParam("page", "1")
+                    .addParam("uid", uid)
+                    .addParam("city_id", cityId)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    HomeTogetherModel model = new Gson().fromJson(data, HomeTogetherModel.class);
+                                    page = 2;
+                                    initTogetherList(model.getObj());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
         }
     }
 }

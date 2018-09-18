@@ -333,6 +333,38 @@ public class FriendsTogetherFragment extends BaseFragment {
 
                         }
                     });
+        } else if (requestCode == 1 && resultCode == 3) {
+            String city = data.getStringExtra("city");
+            cityId = data.getStringExtra("cityid");
+            tvCity.setText(city);
+            String token = getToken(NetConfig.BaseUrl + NetConfig.friendsTogetherUrl);
+            ViseHttp.POST(NetConfig.friendsTogetherUrl)
+                    .addParam("app_key", token)
+                    .addParam("page", "1")
+                    .addParam("userID", spImp.getUID())
+                    .addParam("city_id", cityId)
+                    .addParam("sign", sign)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    Log.e("222", data);
+                                    FriendsTogethermodel model = new Gson().fromJson(data, FriendsTogethermodel.class);
+                                    page = 2;
+                                    initList(model.getObj());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
         }
     }
 

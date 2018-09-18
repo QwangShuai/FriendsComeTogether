@@ -127,6 +127,16 @@ public class CityActivity extends BaseActivity {
                                     public void onActionUp() {
                                     }
                                 });
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        Intent it = new Intent();
+                                        it.putExtra("cityid", mList.get(position).getId());
+                                        it.putExtra("city", mList.get(position).getName());
+                                        setResult(3, it);
+                                        finish();
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
