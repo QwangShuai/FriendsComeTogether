@@ -30,7 +30,7 @@
             android:layout_alignParentRight="true"
             android:textColor="#333333"
             android:textSize="28px"
-            android:text="行程结束"
+            android:text="活动结束"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -163,7 +163,7 @@
             android:gravity="center"
             android:textSize="24px"
             android:textColor="@color/black_333333"
-            android:text="删除行程"
+            android:text="删除活动"
             android:layout_width="120px"
             android:layout_height="44px" />
 

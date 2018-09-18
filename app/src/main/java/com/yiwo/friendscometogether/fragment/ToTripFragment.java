@@ -178,7 +178,7 @@ public class ToTripFragment extends OrderBaseFragment {
                                         AlertDialog.Builder normalDialog = new AlertDialog.Builder(getContext());
                                         normalDialog.setIcon(R.mipmap.ic_launcher);
                                         normalDialog.setTitle("提示");
-                                        normalDialog.setMessage("是否取消行程");
+                                        normalDialog.setMessage("是否取消活动");
                                         normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -191,7 +191,7 @@ public class ToTripFragment extends OrderBaseFragment {
                                                                 try {
                                                                     JSONObject jsonObject1 = new JSONObject(data);
                                                                     if (jsonObject1.getInt("code") == 200) {
-                                                                        Toast.makeText(getContext(), "取消行程成功", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(getContext(), "取消活动成功", Toast.LENGTH_SHORT).show();
                                                                         mList.remove(position);
                                                                         adapter.notifyDataSetChanged();
                                                                     }

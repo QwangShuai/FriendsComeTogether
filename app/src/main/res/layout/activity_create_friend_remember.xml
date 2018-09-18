@@ -274,6 +274,113 @@
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
+                    android:id="@+id/activity_create_friend_remember_rl_activity_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="88px">
+
+                    <ImageView
+                        android:id="@+id/activity_create_friend_remember_iv_activity_city"
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="40px"
+                        android:src="@mipmap/activity_place" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12px"
+                        android:layout_toRightOf="@+id/activity_create_friend_remember_iv_activity_city"
+                        android:text="活动地点"
+                        android:textColor="@color/black_333333"
+                        android:textSize="28px" />
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/activity_create_friend_remember_iv_activity_city_right"-->
+                        <!--android:layout_width="14px"-->
+                        <!--android:layout_height="24px"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginRight="40px"-->
+                        <!--android:src="@mipmap/right" />-->
+
+                    <EditText
+                        android:layout_alignParentRight="true"
+                        android:gravity="end"
+                        android:background="@null"
+                        android:hint="请输入活动地点"
+                        android:id="@+id/activity_create_friend_remember_tv_activity_city"
+                        android:layout_width="360px"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="64px"
+                        android:textColor="@color/black_333333"
+                        android:textSize="28px" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="12px"
+                    android:background="@color/line" />
+
+                <RelativeLayout
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:id="@+id/activity_create_friend_remember_rl_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="88px">
+
+                    <ImageView
+                        android:id="@+id/activity_create_friend_remember_iv_price"
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="40px"
+                        android:src="@mipmap/price" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12px"
+                        android:layout_toRightOf="@+id/activity_create_friend_remember_iv_price"
+                        android:text="费用"
+                        android:textColor="@color/black_333333"
+                        android:textSize="28px" />
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/activity_create_friend_remember_iv_price_right"-->
+                        <!--android:layout_width="14px"-->
+                        <!--android:layout_height="24px"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginRight="40px"-->
+                        <!--android:src="@mipmap/right" />-->
+
+                    <EditText
+                        android:layout_alignParentRight="true"
+                        android:inputType="number"
+                        android:id="@+id/activity_create_friend_remember_et_price"
+                        android:hint="0"
+                        android:gravity="end"
+                        android:background="@null"
+                        android:layout_width="300px"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="64px"
+                        android:textColor="@color/black_333333"
+                        android:textSize="28px" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="12px"
+                    android:background="@color/line" />
+
+                <RelativeLayout
                     android:id="@+id/activity_create_friend_remember_rl_time_start"
                     android:layout_width="match_parent"
                     android:layout_height="88px">
@@ -361,113 +468,6 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10px"
                         android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_time_end_right"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="12px"
-                    android:background="@color/line" />
-
-                <RelativeLayout
-                    android:id="@+id/activity_create_friend_remember_rl_activity_city"
-                    android:layout_width="match_parent"
-                    android:layout_height="88px">
-
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_activity_city"
-                        android:layout_width="40px"
-                        android:layout_height="40px"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="40px"
-                        android:src="@mipmap/activity_place" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="12px"
-                        android:layout_toRightOf="@+id/activity_create_friend_remember_iv_activity_city"
-                        android:text="活动地点"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px" />
-
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_activity_city_right"
-                        android:layout_width="14px"
-                        android:layout_height="24px"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="40px"
-                        android:src="@mipmap/right" />
-
-                    <EditText
-                        android:gravity="end"
-                        android:background="@null"
-                        android:hint="请输入活动地点"
-                        android:id="@+id/activity_create_friend_remember_tv_activity_city"
-                        android:layout_width="360px"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10px"
-                        android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_activity_city_right"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="12px"
-                    android:background="@color/line" />
-
-                <RelativeLayout
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:id="@+id/activity_create_friend_remember_rl_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="88px">
-
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_price"
-                        android:layout_width="40px"
-                        android:layout_height="40px"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="40px"
-                        android:src="@mipmap/price" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="12px"
-                        android:layout_toRightOf="@+id/activity_create_friend_remember_iv_price"
-                        android:text="费用"
-                        android:textColor="@color/black_333333"
-                        android:textSize="28px" />
-
-                    <ImageView
-                        android:id="@+id/activity_create_friend_remember_iv_price_right"
-                        android:layout_width="14px"
-                        android:layout_height="24px"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="40px"
-                        android:src="@mipmap/right" />
-
-                    <EditText
-                        android:inputType="number"
-                        android:id="@+id/activity_create_friend_remember_et_price"
-                        android:hint="000.00"
-                        android:gravity="end"
-                        android:background="@null"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10px"
-                        android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_price_right"
                         android:textColor="@color/black_333333"
                         android:textSize="28px" />
 

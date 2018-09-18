@@ -269,9 +269,11 @@ public class MyInformationActivity extends TakePhotoActivity {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         //返回的分别是三个级别的选中位置
+//                        String tx = options1Items.get(options1).getPickerViewText() + "-" +
+//                                options2Items.get(options1).get(options2) + "-" +
+//                                options3Items.get(options1).get(options2).get(options3);
                         String tx = options1Items.get(options1).getPickerViewText() + "-" +
-                                options2Items.get(options1).get(options2) + "-" +
-                                options3Items.get(options1).get(options2).get(options3);
+                                options2Items.get(options1).get(options2);
                         tvLocation.setText(tx);
                     }
                 })
@@ -281,9 +283,9 @@ public class MyInformationActivity extends TakePhotoActivity {
                         .setContentTextSize(20)
                         .build();
 
-        /*pvOptions.setPicker(options1Items);//一级选择器
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-                pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+//                pvOptions.setPicker(options1Items);//一级选择器
+                pvOptions.setPicker(options1Items, options2Items);//二级选择器
+//                pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
                 pvOptions.show();
                 break;
             case R.id.activity_my_information_rl_birthday:

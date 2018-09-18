@@ -73,7 +73,6 @@
                     android:id="@+id/activity_my_information_iv_avatar"
                     android:layout_marginTop="20px"
                     android:layout_marginLeft="20px"
-                    android:src="@mipmap/my_head"
                     android:layout_width="200px"
                     android:layout_height="200px" />
 
@@ -98,7 +97,7 @@
                         android:textColor="@color/black_333333"
                         android:textStyle="bold"
                         android:textSize="36px"
-                        android:text="昵称：帅气的小迷糊"
+                        android:text="昵称："
                         android:layout_marginRight="10px"
                         android:layout_toLeftOf="@+id/activity_my_information_iv_sex"
                         android:id="@+id/activity_my_information_tv_nickname"
@@ -179,6 +178,55 @@
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+
+            <RelativeLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/activity_my_information_iv_sign"
+                    android:layout_marginLeft="35px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/person_sign"
+                    android:layout_width="50px"
+                    android:layout_height="50px" />
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10px"
+                    android:layout_toRightOf="@+id/activity_my_information_iv_sign"
+                    android:textSize="28px"
+                    android:textColor="@color/black_333333"
+                    android:text="签名"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:textColorHint="@color/black_333333"
+                    android:layout_marginLeft="100px"
+                    android:layout_toRightOf="@+id/activity_my_information_iv_sign"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:gravity="end"
+                    android:hint="请输入个性签名"
+                    android:background="@null"
+                    android:id="@+id/activity_my_information_et_sign"
+                    android:layout_marginRight="38px"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
             
             <View
                 android:background="@color/line"
@@ -225,97 +273,7 @@
                 android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
-            
-            <RelativeLayout
-                android:id="@+id/activity_my_information_rl_location"
-                android:layout_width="match_parent"
-                android:layout_height="88px">
 
-                <ImageView
-                    android:id="@+id/activity_my_information_iv_location"
-                    android:layout_marginLeft="35px"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/activity_place"
-                    android:layout_width="50px"
-                    android:layout_height="50px" />
-
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10px"
-                    android:layout_toRightOf="@+id/activity_my_information_iv_location"
-                    android:textSize="28px"
-                    android:textColor="@color/black_333333"
-                    android:text="所在地"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/activity_my_information_tv_location"
-                    android:layout_marginRight="38px"
-                    android:textColor="@color/black_333333"
-                    android:textSize="28px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="黑龙江"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-
-            <View
-                android:background="@color/line"
-                android:layout_width="match_parent"
-                android:layout_height="12px"/>
-            
-            <RelativeLayout
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:layout_width="match_parent"
-                android:layout_height="88px">
-
-                <ImageView
-                    android:id="@+id/activity_my_information_iv_sign"
-                    android:layout_marginLeft="35px"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/person_sign"
-                    android:layout_width="50px"
-                    android:layout_height="50px" />
-
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10px"
-                    android:layout_toRightOf="@+id/activity_my_information_iv_sign"
-                    android:textSize="28px"
-                    android:textColor="@color/black_333333"
-                    android:text="签名"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:textColorHint="@color/black_333333"
-                    android:layout_marginLeft="100px"
-                    android:layout_toRightOf="@+id/activity_my_information_iv_sign"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:gravity="end"
-                    android:hint="请输入个性签名"
-                    android:background="@null"
-                    android:id="@+id/activity_my_information_et_sign"
-                    android:layout_marginRight="38px"
-                    android:textColor="@color/black_333333"
-                    android:textSize="28px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-
-            <View
-                android:background="@color/line"
-                android:layout_width="match_parent"
-                android:layout_height="12px"/>
-            
             <RelativeLayout
                 android:id="@+id/activity_my_information_rl_birthday"
                 android:layout_width="match_parent"
@@ -356,48 +314,7 @@
                 android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="12px"/>
-            
-            <RelativeLayout
-                android:id="@+id/activity_my_information_rl_register_time"
-                android:layout_width="match_parent"
-                android:layout_height="88px">
 
-                <ImageView
-                    android:id="@+id/activity_my_information_iv_register_time"
-                    android:layout_marginLeft="35px"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/person_register_time"
-                    android:layout_width="50px"
-                    android:layout_height="50px" />
-
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10px"
-                    android:layout_toRightOf="@+id/activity_my_information_iv_register_time"
-                    android:textSize="28px"
-                    android:textColor="@color/black_333333"
-                    android:text="注册时间"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/activity_my_information_tv_register_time"
-                    android:layout_marginRight="38px"
-                    android:textColor="@color/gray_979797"
-                    android:textSize="28px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="2018-4-5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-
-            <View
-                android:background="@color/line"
-                android:layout_width="match_parent"
-                android:layout_height="12px"/>
-            
             <RelativeLayout
                 android:id="@+id/activity_my_information_rl_real_name"
                 android:layout_width="match_parent"
@@ -429,6 +346,46 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="身份证上传"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+            
+            <RelativeLayout
+                android:id="@+id/activity_my_information_rl_location"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/activity_my_information_iv_location"
+                    android:layout_marginLeft="35px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/activity_place"
+                    android:layout_width="50px"
+                    android:layout_height="50px" />
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10px"
+                    android:layout_toRightOf="@+id/activity_my_information_iv_location"
+                    android:textSize="28px"
+                    android:textColor="@color/black_333333"
+                    android:text="所在地"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/activity_my_information_tv_location"
+                    android:layout_marginRight="38px"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -510,6 +467,47 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="LV1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="12px"/>
+
+            <RelativeLayout
+                android:id="@+id/activity_my_information_rl_register_time"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:id="@+id/activity_my_information_iv_register_time"
+                    android:layout_marginLeft="35px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/person_register_time"
+                    android:layout_width="50px"
+                    android:layout_height="50px" />
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10px"
+                    android:layout_toRightOf="@+id/activity_my_information_iv_register_time"
+                    android:textSize="28px"
+                    android:textColor="@color/black_333333"
+                    android:text="注册时间"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/activity_my_information_tv_register_time"
+                    android:layout_marginRight="38px"
+                    android:textColor="@color/gray_979797"
+                    android:textSize="28px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="2018-4-5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
