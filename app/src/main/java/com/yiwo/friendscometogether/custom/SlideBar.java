@@ -47,7 +47,7 @@ public class SlideBar extends View {
             // 设置字体格式
 //            paint.setTypeface(Typeface.DEFAULT_BOLD);
             paint.setAntiAlias(true);
-            paint.setTextSize(20f);
+            paint.setTextSize(30f);
             // 如果这一项被选中，则换一种颜色画
             if (i == choose) {
                 paint.setColor(Color.parseColor("#F88701"));

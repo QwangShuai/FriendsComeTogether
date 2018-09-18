@@ -1,22 +1,27 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.MainActivity;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.CityAdapter;
+import com.yiwo.friendscometogether.adapter.OtherCityAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.SlideBar;
 import com.yiwo.friendscometogether.model.CityModel;
+import com.yiwo.friendscometogether.model.OtherCityModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.utils.UserUtils;
@@ -30,9 +35,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
+import me.zhouzhuo.zzletterssidebar.ZzLetterSideBar;
+import me.zhouzhuo.zzletterssidebar.interf.OnLetterTouchListener;
 
 public class CityActivity extends BaseActivity {
+
     @BindView(R.id.rl_city_return)
     RelativeLayout returnRl;
     @BindView(R.id.lv_city)
@@ -41,22 +50,95 @@ public class CityActivity extends BaseActivity {
     SlideBar citySb;
     @BindView(R.id.rl_reset)
     RelativeLayout rlReset;
+    @BindView(R.id.rl_city)
+    RelativeLayout rlCity;
+    @BindView(R.id.rl_other)
+    RelativeLayout rlOtherCity;
+    @BindView(R.id.tv_city)
+    TextView tvCity;
+    @BindView(R.id.tv_other_city)
+    TextView tvOtherCity;
 
     List<CityModel> list;
     String[] letter;
-    private Unbinder unbinder;
     private CityAdapter adapter;
+
+    private ListView listView;
+    private ZzLetterSideBar sideBar;
+    private TextView dialog;
+    private OtherCityAdapter otherCityAdapter;
+    private List<OtherCityModel.ObjBean> mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city);
-        unbinder = ButterKnife.bind(this);
-        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
+        ButterKnife.bind(CityActivity.this);
         initData();
         setListener();
         loadHot();
         loadCity();
+        initOtherCity();
+    }
+
+    @OnClick({R.id.tv_city, R.id.tv_other_city})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.tv_city:
+                tvCity.setTextColor(Color.parseColor("#ff9d00"));
+                tvOtherCity.setTextColor(Color.parseColor("#333333"));
+                rlCity.setVisibility(View.VISIBLE);
+                rlOtherCity.setVisibility(View.GONE);
+                break;
+            case R.id.tv_other_city:
+                tvCity.setTextColor(Color.parseColor("#333333"));
+                tvOtherCity.setTextColor(Color.parseColor("#ff9d00"));
+                rlCity.setVisibility(View.GONE);
+                rlOtherCity.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    private void initOtherCity() {
+
+        sideBar = (ZzLetterSideBar) findViewById(R.id.sidebar);
+        dialog = (TextView) findViewById(R.id.tv_dialog);
+        listView = (ListView) findViewById(R.id.list_view);
+
+        ViseHttp.POST(NetConfig.otherCityUrl)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                OtherCityModel model = gson.fromJson(data, OtherCityModel.class);
+                                mList = model.getObj();
+                                otherCityAdapter = new OtherCityAdapter(CityActivity.this, mList);
+                                listView.setAdapter(otherCityAdapter);
+                                //设置右侧触摸监听
+                                sideBar.setLetterTouchListener(listView, otherCityAdapter, dialog, new OnLetterTouchListener() {
+                                    @Override
+                                    public void onLetterTouch(String letter, int position) {
+                                    }
+
+                                    @Override
+                                    public void onActionUp() {
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
     }
 
     public void initData() {

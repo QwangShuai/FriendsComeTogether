@@ -240,4 +240,6 @@ public class NetConfig {
     public static String joinGetCommentInfoUrl = "action/ac_activity/get_join_comment";
     //解散群组
     public static String disbandedGroupUrl = "action/ac_public/DisbandedGroup";
+    //获取全球国家名称
+    public static String otherCityUrl = "action/ac_public/get_country";
 }
