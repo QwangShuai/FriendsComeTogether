@@ -507,6 +507,8 @@ public class DetailsOfFriendsActivity extends BaseActivity {
                                                 toToast(DetailsOfFriendsActivity.this, "关注成功");
                                                 btnTopFocus.setText("已关注");
                                                 isFocus = true;
+                                            }else {
+                                                toToast(DetailsOfFriendsActivity.this, jsonObject.getString("message"));
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();

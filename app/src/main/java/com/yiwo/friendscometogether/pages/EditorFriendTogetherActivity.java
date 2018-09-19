@@ -173,8 +173,8 @@ public class EditorFriendTogetherActivity extends BaseActivity {
                                 tvStart.setText("开始时间: " + model.getObj().getPfgotime());
                                 tvEnd.setText("结束时间: " + model.getObj().getPfendtime());
                                 tvPrice.setText("人均费用: " + model.getObj().getPfspend());
-//                                tvBrowseNum.setText("浏览: " + model.getObj().get);
-//                                tvFocusNum.setText("关注: " + model.getObj().getFriendsList().getFmfavorite());
+                                tvBrowseNum.setText("浏览: " + model.getObj().getLook_num());
+                                tvFocusNum.setText("关注: " + model.getObj().getPffavorite());
                                 LinearLayoutManager manager = new LinearLayoutManager(EditorFriendTogetherActivity.this);
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);

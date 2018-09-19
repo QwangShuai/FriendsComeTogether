@@ -67,6 +67,8 @@ public class GetEditorFriendTogetherModel{
          * title_list : [{"id":"1","pfptitle":"第一天：爬山","pfpcontent":"太阳出来爬山破， 爬爬爬。太阳出来爬山破， 爬爬爬。太阳出来爬山破， 爬爬爬。太阳出来爬山破， 爬爬爬。太阳出来爬山破， 爬爬爬。","img_list":[{"pfpID":"280","pfpcontent":"云海日出","pfpurl":"http://localhost/www/uploads/xingcheng/20180723/1532314354994.jpg"},{"pfpID":"281","pfpcontent":"日出山谷","pfpurl":"http://localhost/www/uploads/xingcheng/20180723/1532314354204.jpg"},{"pfpID":"282","pfpcontent":"清晨山顶","pfpurl":"http://localhost/www/uploads/xingcheng/20180723/1532314354439.jpg"}]}]
          */
 
+        private String pffavorite;
+        private String look_num;
         private String country;
         private String user_join;
         private String pfpic;
@@ -89,6 +91,22 @@ public class GetEditorFriendTogetherModel{
         private String pfwarning;
         private String pfpwd;
         private List<TitleListBean> title_list;
+
+        public String getPffavorite() {
+            return pffavorite;
+        }
+
+        public void setPffavorite(String pffavorite) {
+            this.pffavorite = pffavorite;
+        }
+
+        public String getLook_num() {
+            return look_num;
+        }
+
+        public void setLook_num(String look_num) {
+            this.look_num = look_num;
+        }
 
         public String getCountry() {
             return country;
