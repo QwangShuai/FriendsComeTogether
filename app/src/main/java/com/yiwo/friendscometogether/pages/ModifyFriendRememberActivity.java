@@ -622,6 +622,12 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                                     }
                                 }
                             });
+                    singleChoiceDialog1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
                     singleChoiceDialog1.show();
                 }else {
                     Toast.makeText(ModifyFriendRememberActivity.this, "暂无活动", Toast.LENGTH_SHORT).show();

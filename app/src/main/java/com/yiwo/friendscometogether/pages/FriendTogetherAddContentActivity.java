@@ -189,6 +189,8 @@ public class FriendTogetherAddContentActivity extends BaseActivity {
             case R.id.activity_add_content_rl_complete:
                 if (mList.size() == 0) {
                     toToast(FriendTogetherAddContentActivity.this, "请至少上传一张图片");
+                }else if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())){
+                    toToast(FriendTogetherAddContentActivity.this, "请添加标题或内容");
                 } else {
                     showCompletePopupwindow();
                 }

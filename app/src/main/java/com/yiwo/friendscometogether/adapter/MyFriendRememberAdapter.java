@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,9 +57,21 @@ public class MyFriendRememberAdapter extends RecyclerView.Adapter<MyFriendRememb
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvTitle.setText(data.get(position).getFmtitle());
         Picasso.with(context).load(data.get(position).getFmpic()).into(holder.ivTitle);
-        holder.tvStart.setText("开始时间: " + data.get(position).getFmgotime());
-        holder.tvEnd.setText("结束时间: " + data.get(position).getFmendtime());
-        holder.tvPrice.setText("人均费用: " + data.get(position).getPercapitacost());
+        if(TextUtils.isEmpty(data.get(position).getFmgotime())){
+            holder.tvStart.setText("开始时间: 未设置");
+        }else {
+            holder.tvStart.setText("开始时间: " + data.get(position).getFmgotime());
+        }
+        if(TextUtils.isEmpty(data.get(position).getFmendtime())){
+            holder.tvEnd.setText("结束时间: 未设置");
+        }else {
+            holder.tvEnd.setText("结束时间: " + data.get(position).getFmendtime());
+        }
+        if(data.get(position).getPercapitacost().equals("0.00")){
+            holder.tvPrice.setText("人均费用: 未设置");
+        }else {
+            holder.tvPrice.setText("人均费用: " + data.get(position).getPercapitacost());
+        }
         holder.tvBrowse.setText("浏览: " + data.get(position).getFmlook());
         holder.tvFocus.setText("关注: " + data.get(position).getFmfavorite());
         holder.rlEditor.setOnClickListener(new View.OnClickListener() {

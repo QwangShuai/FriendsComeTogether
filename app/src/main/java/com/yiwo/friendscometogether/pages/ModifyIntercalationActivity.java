@@ -107,6 +107,7 @@ public class ModifyIntercalationActivity extends BaseActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+        uid = spImp.getUID();
 
         ViseHttp.POST(NetConfig.modifyIntercalationUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.modifyIntercalationUrl))
@@ -132,6 +133,47 @@ public class ModifyIntercalationActivity extends BaseActivity {
                                 oldPicNum = mList1.size();
                                 picAdapter = new ModifyIntercalationPicAdapter(mList1);
                                 recyclerView1.setAdapter(picAdapter);
+
+                                mList = new ArrayList<>();
+                                GridLayoutManager manager = new GridLayoutManager(ModifyIntercalationActivity.this, 3) {
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                };
+                                recyclerView.setLayoutManager(manager);
+                                adapter = new IntercalationAdapter(mList);
+                                recyclerView.setAdapter(adapter);
+                                adapter.setPicNum(oldPicNum);
+                                adapter.setListener(new IntercalationAdapter.OnAddImgListener() {
+                                    @Override
+                                    public void onAddImg() {
+                                        if (9 - mList.size() - oldPicNum > 0) {
+                                            //限数量的多选(比喻最多9张)
+                                            ImageSelector.builder()
+                                                    .useCamera(true) // 设置是否使用拍照
+                                                    .setSingle(false)  //设置是否单选
+                                                    .setMaxSelectCount(9 - mList.size() - oldPicNum) // 图片的最大选择数量，小于等于0时，不限数量。
+//                        .setSelected(selected) // 把已选的图片传入默认选中。
+                                                    .start(ModifyIntercalationActivity.this, REQUEST_CODE); // 打开相册
+                                        }else {
+                                            toToast(ModifyIntercalationActivity.this, "最多只能添加9张图片");
+                                        }
+                                    }
+                                }, new IntercalationAdapter.OnDeleteImgListener() {
+                                    @Override
+                                    public void onDeleteImg(int i) {
+                                        mList.remove(i);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }, new IntercalationAdapter.OnAddDescribeListener() {
+                                    @Override
+                                    public void onAddDescribe(int i, String s) {
+                                        mList.get(i).setDescribe(s);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                });
+
                                 picAdapter.setOnModifyListener(new ModifyIntercalationPicAdapter.OnModifyListener() {
                                     @Override
                                     public void onModify(int type, final int position) {
@@ -154,6 +196,8 @@ public class ModifyIntercalationActivity extends BaseActivity {
                                                                                         mList1.remove(position);
                                                                                         picAdapter.notifyDataSetChanged();
                                                                                         oldPicNum = oldPicNum - 1;
+                                                                                        adapter.setPicNum(oldPicNum);
+                                                                                        adapter.notifyDataSetChanged();
                                                                                         toToast(ModifyIntercalationActivity.this, "删除成功");
                                                                                     }
                                                                                 } catch (JSONException e) {
@@ -223,46 +267,6 @@ public class ModifyIntercalationActivity extends BaseActivity {
                     }
                 });
 
-        uid = spImp.getUID();
-        mList = new ArrayList<>();
-        GridLayoutManager manager = new GridLayoutManager(ModifyIntercalationActivity.this, 3) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        recyclerView.setLayoutManager(manager);
-        adapter = new IntercalationAdapter(mList);
-        recyclerView.setAdapter(adapter);
-        adapter.setListener(new IntercalationAdapter.OnAddImgListener() {
-            @Override
-            public void onAddImg() {
-                if (9 - mList.size() - oldPicNum > 0) {
-                    //限数量的多选(比喻最多9张)
-                    ImageSelector.builder()
-                            .useCamera(true) // 设置是否使用拍照
-                            .setSingle(false)  //设置是否单选
-                            .setMaxSelectCount(9 - mList.size() - oldPicNum) // 图片的最大选择数量，小于等于0时，不限数量。
-//                        .setSelected(selected) // 把已选的图片传入默认选中。
-                            .start(ModifyIntercalationActivity.this, REQUEST_CODE); // 打开相册
-                }else {
-                    toToast(ModifyIntercalationActivity.this, "最多只能添加9张图片");
-                }
-            }
-        }, new IntercalationAdapter.OnDeleteImgListener() {
-            @Override
-            public void onDeleteImg(int i) {
-                mList.remove(i);
-                adapter.notifyDataSetChanged();
-            }
-        }, new IntercalationAdapter.OnAddDescribeListener() {
-            @Override
-            public void onAddDescribe(int i, String s) {
-                mList.get(i).setDescribe(s);
-                adapter.notifyDataSetChanged();
-            }
-        });
-
         etContent.addTextChangedListener(textContentWatcher);
 
     }
@@ -313,6 +317,8 @@ public class ModifyIntercalationActivity extends BaseActivity {
             case R.id.activity_create_intercalation_rl_complete:
                 if (mList.size() == 0) {
                     toToast(ModifyIntercalationActivity.this, "请至少上传一张图片");
+                }else if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())){
+                    toToast(ModifyIntercalationActivity.this, "请添加标题或内容");
                 } else {
                     complete();
                 }

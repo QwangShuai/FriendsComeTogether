@@ -30,6 +30,8 @@ public class IntercalationAdapter extends RecyclerView.Adapter<IntercalationAdap
     private static final int TYPE_PIC = 2;
     private static final int MAX_SIZE = 9;
 
+    private int picNum;
+
     private OnAddImgListener addListener;
     private OnDeleteImgListener deleteImgListener;
     private OnAddDescribeListener describeListener;
@@ -42,6 +44,10 @@ public class IntercalationAdapter extends RecyclerView.Adapter<IntercalationAdap
 
     public IntercalationAdapter(List<UserIntercalationPicModel> data) {
         this.data = data;
+    }
+
+    public void setPicNum(int picNum) {
+        this.picNum = picNum;
     }
 
     @Override
@@ -64,7 +70,7 @@ public class IntercalationAdapter extends RecyclerView.Adapter<IntercalationAdap
             holder.rlAdd.setVisibility(View.VISIBLE);
         }
         if (getItemViewType(position) == TYPE_ADD) {
-            holder.tvPicNum.setText(position + "/9");
+            holder.tvPicNum.setText(picNum + position + "/9");
             holder.rlImg.setVisibility(View.GONE);
             holder.ivDelete.setVisibility(View.GONE);
         } else {
