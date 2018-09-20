@@ -195,7 +195,7 @@
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black_333333"
                     android:textSize="28px"
-                    android:text="咨询领队"
+                    android:text="咨询队长"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

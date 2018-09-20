@@ -324,6 +324,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_marginTop="20px"
                 android:id="@+id/activity_details_of_friends_rl_activity"
                 android:layout_width="match_parent"
                 android:layout_height="254px"
@@ -450,7 +451,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10px"
+                    android:layout_marginTop="30px"
                     android:descendantFocusability="blocksDescendants">
 
                     <android.support.v7.widget.RecyclerView

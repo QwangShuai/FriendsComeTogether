@@ -262,6 +262,29 @@
 
                     </RelativeLayout>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginTop="24px">
+
+                        <ImageView
+                            android:id="@+id/cityIv"
+                            android:layout_width="40px"
+                            android:layout_height="40px"
+                            android:src="@mipmap/activity_place" />
+
+                        <TextView
+                            android:id="@+id/city_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5px"
+                            android:layout_toRightOf="@id/cityIv"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black_333333"
+                            android:textSize="28px" />
+                    </RelativeLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -322,30 +345,6 @@
 
                             </RelativeLayout>
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="40px"
-                                android:layout_marginTop="24px">
-
-                                <ImageView
-                                    android:id="@+id/sex"
-                                    android:layout_width="40px"
-                                    android:layout_height="40px"
-                                    android:src="@mipmap/sex_info" />
-
-                                <TextView
-                                    android:id="@+id/tv_sex"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="5px"
-                                    android:layout_toRightOf="@id/sex"
-                                    android:gravity="center_vertical"
-                                    android:text=""
-                                    android:textColor="@color/black_333333"
-                                    android:textSize="28px" />
-
-                            </RelativeLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -354,28 +353,6 @@
                             android:layout_marginLeft="20px"
                             android:layout_weight="1"
                             android:orientation="vertical">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="24px">
-
-                                <ImageView
-                                    android:id="@+id/cityIv"
-                                    android:layout_width="40px"
-                                    android:layout_height="40px"
-                                    android:src="@mipmap/activity_place" />
-
-                                <TextView
-                                    android:id="@+id/city_tv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5px"
-                                    android:layout_toRightOf="@id/cityIv"
-                                    android:gravity="center_vertical"
-                                    android:textColor="@color/black_333333"
-                                    android:textSize="28px" />
-                            </RelativeLayout>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -394,6 +371,30 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginLeft="5px"
                                     android:layout_toRightOf="@id/priceIv"
+                                    android:gravity="center_vertical"
+                                    android:text=""
+                                    android:textColor="@color/black_333333"
+                                    android:textSize="28px" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40px"
+                                android:layout_marginTop="24px">
+
+                                <ImageView
+                                    android:id="@+id/sex"
+                                    android:layout_width="40px"
+                                    android:layout_height="40px"
+                                    android:src="@mipmap/sex_info" />
+
+                                <TextView
+                                    android:id="@+id/tv_sex"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="5px"
+                                    android:layout_toRightOf="@id/sex"
                                     android:gravity="center_vertical"
                                     android:text=""
                                     android:textColor="@color/black_333333"

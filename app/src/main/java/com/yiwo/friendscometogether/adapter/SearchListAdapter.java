@@ -58,7 +58,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
                     it.putExtra("fmid",data.get(position).getId());
                 }
                 context.startActivity(it);
-                ac.finish();
+//                ac.finish();
             }
         });
     }

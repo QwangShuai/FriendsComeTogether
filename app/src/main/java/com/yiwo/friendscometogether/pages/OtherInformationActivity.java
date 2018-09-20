@@ -26,6 +26,7 @@ import com.yiwo.friendscometogether.adapter.OtherInformationActiveAdapter;
 import com.yiwo.friendscometogether.adapter.OtherInformationWorksAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.FriendDescribeDialog;
+import com.yiwo.friendscometogether.custom.HgInfoDialog;
 import com.yiwo.friendscometogether.model.OtherInformationModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -350,17 +351,19 @@ public class OtherInformationActivity extends BaseActivity {
                 break;
             case R.id.iv_sign_yellow:
                 //皇冠提示信息
-                toDialog(OtherInformationActivity.this, "提示", "官网认证指定队长，活动由官网审核", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                }, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
+//                toDialog(OtherInformationActivity.this, "提示", "官网认证指定队长，活动由官网审核", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                }, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+                HgInfoDialog infoDialog = new HgInfoDialog(OtherInformationActivity.this);
+                infoDialog.show();
                 break;
         }
     }

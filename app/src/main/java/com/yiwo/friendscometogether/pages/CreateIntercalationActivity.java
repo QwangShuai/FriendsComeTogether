@@ -212,8 +212,8 @@ public class CreateIntercalationActivity extends BaseActivity {
             case R.id.activity_create_intercalation_rl_complete:
                 if (mList.size() == 0) {
                     toToast(CreateIntercalationActivity.this, "请至少上传一张图片");
-                }else if(TextUtils.isEmpty(etTitle.getText().toString())||TextUtils.isEmpty(etContent.getText().toString())){
-                    toToast(CreateIntercalationActivity.this, "请添加标题或内容");
+                }else if(TextUtils.isEmpty(etTitle.getText().toString())){
+                    toToast(CreateIntercalationActivity.this, "请添加标题");
                 }else {
                     if(type.equals("0")){
                         showCompletePopupwindow();

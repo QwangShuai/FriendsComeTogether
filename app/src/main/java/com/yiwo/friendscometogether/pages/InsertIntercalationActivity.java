@@ -224,6 +224,8 @@ public class InsertIntercalationActivity extends BaseActivity {
                 } else {
                     if (mList.size() == 0) {
                         toToast(InsertIntercalationActivity.this, "请至少上传一张图片");
+                    }else if(TextUtils.isEmpty(etTitle.getText().toString())){
+                        toToast(InsertIntercalationActivity.this, "请添加标题");
                     } else {
                         complete();
                     }

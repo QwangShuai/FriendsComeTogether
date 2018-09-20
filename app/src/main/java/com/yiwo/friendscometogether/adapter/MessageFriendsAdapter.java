@@ -65,9 +65,18 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
                 listener.onFriend(2, position);
             }
         });
-        holder.picIv.setOnClickListener(new View.OnClickListener() {
+//        holder.picIv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent();
+//                intent.putExtra("uid", data.get(position).getUserID());
+//                intent.setClass(context, OtherInformationActivity.class);
+//                context.startActivity(intent);
+//            }
+//        });
+        holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("uid", data.get(position).getUserID());
                 intent.setClass(context, OtherInformationActivity.class);
@@ -87,6 +96,7 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
         private TextView tvNo;
         private TextView tvOk;
         private TextView tvContent;
+        private RelativeLayout rl;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -95,6 +105,7 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
             tvNo = itemView.findViewById(R.id.tv_no);
             tvOk = itemView.findViewById(R.id.tv_ok);
             tvContent = itemView.findViewById(R.id.message_view_content_tv);
+            rl = itemView.findViewById(R.id.rl);
         }
     }
 

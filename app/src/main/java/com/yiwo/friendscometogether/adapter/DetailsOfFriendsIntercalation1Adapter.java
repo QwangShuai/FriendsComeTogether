@@ -19,7 +19,9 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.DetailsRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.pages.DetailsOfFriendsActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
+import com.yiwo.friendscometogether.pages.OtherInformationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 
@@ -75,6 +77,18 @@ public class DetailsOfFriendsIntercalation1Adapter extends RecyclerView.Adapter<
         DetailsOfFriendsUpDataAdapter adapter;
         adapter = new DetailsOfFriendsUpDataAdapter(data.get(position).getPic());
         holder.recyclerView.setAdapter(adapter);
+
+        //头像链接
+        holder.ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, OtherInformationActivity.class);
+                intent.putExtra("uid", data.get(position).getUserID());
+                context.startActivity(intent);
+            }
+        });
+
         holder.tvIsFocus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
