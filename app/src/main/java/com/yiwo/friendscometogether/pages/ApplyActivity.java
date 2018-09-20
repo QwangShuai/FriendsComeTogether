@@ -342,8 +342,9 @@ public class ApplyActivity extends BaseActivity {
             toToast(ApplyActivity.this, "请输入正确的手机号");
         } else {
             String peopleNum = "1";
-            if (StringUtils.isEmpty(tvNum.getText().toString())) {
+            if (!TextUtils.isEmpty(tvNum.getText().toString())) {
                 peopleNum = tvNum.getText().toString();
+                Log.e("222222", peopleNum);
             }
             ViseHttp.POST(NetConfig.applyActivityUrl)
                     .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.applyActivityUrl))
