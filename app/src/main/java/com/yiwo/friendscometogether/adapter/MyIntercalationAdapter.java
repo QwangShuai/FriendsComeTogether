@@ -26,7 +26,7 @@ public class MyIntercalationAdapter extends RecyclerView.Adapter<MyIntercalation
     private List<UserIntercalationListModel.ObjBean> data;
     private OnDeleteListener listener;
 
-    public void setOnDeleteListener(OnDeleteListener listener){
+    public void setOnDeleteListener(OnDeleteListener listener) {
         this.listener = listener;
     }
 
@@ -52,6 +52,7 @@ public class MyIntercalationAdapter extends RecyclerView.Adapter<MyIntercalation
         holder.tvLocation.setText("插文位置: " + data.get(position).getPosition());
         holder.tvActivity.setText("参与的活动: " + data.get(position).getActivity_name());
         holder.tvTime.setText("上次编辑时间: " + data.get(position).getFfptime());
+        holder.tvRememberTitle.setText("文章标题: " + data.get(position).getNewstitle());
         holder.llDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +76,7 @@ public class MyIntercalationAdapter extends RecyclerView.Adapter<MyIntercalation
         private TextView tvActivity;
         private TextView tvTime;
         private LinearLayout llDelete;
+        private TextView tvRememberTitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -86,10 +88,11 @@ public class MyIntercalationAdapter extends RecyclerView.Adapter<MyIntercalation
             tvActivity = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_activity);
             tvTime = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_time);
             llDelete = itemView.findViewById(R.id.activity_my_intercalation_rv_ll_delete);
+            tvRememberTitle = itemView.findViewById(R.id.activity_my_intercalation_rv_tv_remember_title);
         }
     }
 
-    public interface OnDeleteListener{
+    public interface OnDeleteListener {
         void onDelete(int position);
     }
 

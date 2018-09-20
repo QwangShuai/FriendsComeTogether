@@ -54,6 +54,7 @@ public class UserIntercalationListModel {
          * activity_name : 暂无活动
          */
 
+        private String newstitle;
         private String ffpID;
         private String ffptitle;
         private String ffpurl;
@@ -62,6 +63,14 @@ public class UserIntercalationListModel {
         private String state;
         private String reason;
         private String activity_name;
+
+        public String getNewstitle() {
+            return newstitle;
+        }
+
+        public void setNewstitle(String newstitle) {
+            this.newstitle = newstitle;
+        }
 
         public String getFfpID() {
             return ffpID;

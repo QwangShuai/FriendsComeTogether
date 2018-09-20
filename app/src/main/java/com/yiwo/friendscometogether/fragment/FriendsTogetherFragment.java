@@ -371,6 +371,7 @@ public class FriendsTogetherFragment extends BaseFragment {
     public void getLable() {
         ViseHttp.POST(NetConfig.userLabel)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userLabel))
+                .addParam("type", "0")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

@@ -231,6 +231,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
 
         ViseHttp.POST(NetConfig.userLabel)
                 .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userLabel))
+                .addParam("type", "1")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
