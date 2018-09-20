@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -105,9 +106,21 @@ public class EditorFriendRememberActivity extends BaseActivity {
                                 EditorFriendRememberModel model = gson.fromJson(data, EditorFriendRememberModel.class);
                                 tvTitle.setText(model.getObj().getFriendsList().getFmtitle());
                                 Picasso.with(EditorFriendRememberActivity.this).load(model.getObj().getFriendsList().getFmpic()).into(ivTitle);
-                                tvStart.setText("开始时间: " + model.getObj().getFriendsList().getFmgotime());
-                                tvEnd.setText("结束时间: " + model.getObj().getFriendsList().getFmendtime());
-                                tvPrice.setText("人均费用: " + model.getObj().getFriendsList().getPercapitacost());
+                                if(TextUtils.isEmpty(model.getObj().getFriendsList().getFmgotime())){
+                                    tvStart.setText("开始时间: 未设置");
+                                }else {
+                                    tvStart.setText("开始时间: " + model.getObj().getFriendsList().getFmgotime());
+                                }
+                                if(TextUtils.isEmpty(model.getObj().getFriendsList().getFmendtime())){
+                                    tvEnd.setText("结束时间: 未设置");
+                                }else {
+                                    tvEnd.setText("结束时间: " + model.getObj().getFriendsList().getFmendtime());
+                                }
+                                if(model.getObj().getFriendsList().getPercapitacost().equals("0.00")){
+                                    tvPrice.setText("人均费用: 未设置");
+                                }else {
+                                    tvPrice.setText("人均费用: " + model.getObj().getFriendsList().getPercapitacost());
+                                }
                                 tvBrowseNum.setText("浏览: " + model.getObj().getFriendsList().getFmlook());
                                 tvFocusNum.setText("关注: " + model.getObj().getFriendsList().getFmfavorite());
                                 LinearLayoutManager manager = new LinearLayoutManager(EditorFriendRememberActivity.this);
