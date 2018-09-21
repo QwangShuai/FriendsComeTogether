@@ -188,105 +188,133 @@
                 android:layout_height="152px"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/fragment_my_ll_to_pay"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/selector_fragment_my_bg"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0px"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="50px"
-                        android:layout_height="50px"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/unpay" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5px"
-                        android:text="待支付"
-                        android:textColor="#333333"
-                        android:textSize="30px" />
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="50px"
+                            android:layout_height="50px"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/unpay" />
 
-                <LinearLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5px"
+                            android:text="待支付"
+                            android:textColor="#333333"
+                            android:textSize="30px" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/fragment_my_ll_to_trip"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/selector_fragment_my_bg"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0px"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="50px"
-                        android:layout_height="50px"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/travl" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5px"
-                        android:text="进行中"
-                        android:textColor="#333333"
-                        android:textSize="30px" />
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="50px"
+                            android:layout_height="50px"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/travl" />
 
-                <LinearLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5px"
+                            android:text="进行中"
+                            android:textColor="#333333"
+                            android:textSize="30px" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="@drawable/selector_fragment_my_bg"
                     android:id="@+id/fragment_my_ll_to_comment"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0px"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="50px"
-                        android:layout_height="50px"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/evaluation" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5px"
-                        android:text="待评价"
-                        android:textColor="#333333"
-                        android:textSize="30px" />
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="50px"
+                            android:layout_height="50px"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/evaluation" />
 
-                <LinearLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5px"
+                            android:text="待评价"
+                            android:textColor="#333333"
+                            android:textSize="30px" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="@drawable/selector_fragment_my_bg"
                     android:id="@+id/fragment_my_ll_return_price"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0px"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="50px"
-                        android:layout_height="50px"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/refund" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5px"
-                        android:text="退款"
-                        android:textColor="#333333"
-                        android:textSize="30px" />
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="50px"
+                            android:layout_height="50px"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/refund" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5px"
+                            android:text="退款"
+                            android:textColor="#333333"
+                            android:textSize="30px" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -320,105 +348,133 @@
                 android:layout_height="154px"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <RelativeLayout
+                    android:background="@drawable/selector_fragment_my_bg"
                     android:id="@+id/fragment_my_ll_create_friend_remember"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0px"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="64px"
-                        android:layout_height="64px"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/publish" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2px"
-                        android:text="新建"
-                        android:textColor="#333333"
-                        android:textSize="30px" />
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="64px"
+                            android:layout_height="64px"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/publish" />
 
-                <LinearLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="2px"
+                            android:text="新建"
+                            android:textColor="#333333"
+                            android:textSize="30px" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="@drawable/selector_fragment_my_bg"
                     android:id="@+id/fragment_my_ll_my_friend_remember"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0px"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="64px"
-                        android:layout_height="64px"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/youji" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2px"
-                        android:text="友记"
-                        android:textColor="#333333"
-                        android:textSize="30px" />
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="64px"
+                            android:layout_height="64px"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/youji" />
 
-                <LinearLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="2px"
+                            android:text="友记"
+                            android:textColor="#333333"
+                            android:textSize="30px" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="@drawable/selector_fragment_my_bg"
                     android:id="@+id/fragment_my_ll_my_intercalation"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0px"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="64px"
-                        android:layout_height="64px"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/my_intercalation" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2px"
-                        android:text="插文"
-                        android:textColor="#333333"
-                        android:textSize="30px" />
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="64px"
+                            android:layout_height="64px"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/my_intercalation" />
 
-                <LinearLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="2px"
+                            android:text="插文"
+                            android:textColor="#333333"
+                            android:textSize="30px" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="@drawable/selector_fragment_my_bg"
                     android:id="@+id/fragment_my_ll_draft"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0px"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="64px"
-                        android:layout_height="64px"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/draft" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2px"
-                        android:text="草稿"
-                        android:textColor="#333333"
-                        android:textSize="30px" />
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="64px"
+                            android:layout_height="64px"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/draft" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="2px"
+                            android:text="草稿"
+                            android:textColor="#333333"
+                            android:textSize="30px" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -428,6 +484,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_focus"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
@@ -466,6 +523,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_focus_activitys"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
@@ -504,6 +562,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_collection"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
@@ -542,6 +601,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_picture"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
@@ -580,6 +640,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_my_friend"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
@@ -618,6 +679,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_comment"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
@@ -656,6 +718,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_create_activity"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
@@ -694,6 +757,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_initiating_activities"
                 android:layout_width="match_parent"
                 android:layout_height="100px">
@@ -733,6 +797,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_join_activitys"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
@@ -771,6 +836,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_history"
                 android:layout_width="match_parent"
                 android:layout_height="88px">
@@ -809,6 +875,7 @@
                 android:background="@color/line" />
 
             <RelativeLayout
+                android:background="@drawable/selector_fragment_my_bg"
                 android:id="@+id/fragment_my_rl_set"
                 android:layout_width="match_parent"
                 android:layout_height="88px">

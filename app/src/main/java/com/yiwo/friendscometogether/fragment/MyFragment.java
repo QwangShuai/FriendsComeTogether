@@ -60,14 +60,14 @@ public class MyFragment extends BaseFragment {
 
     @BindView(R.id.fragment_my_ll_look_more)
     LinearLayout llLookMore;
-    @BindView(R.id.fragment_my_ll_to_pay)
-    LinearLayout llToPay;
-    @BindView(R.id.fragment_my_ll_to_trip)
-    LinearLayout llToTrip;
-    @BindView(R.id.fragment_my_ll_to_comment)
-    LinearLayout llComment;
-    @BindView(R.id.fragment_my_ll_return_price)
-    LinearLayout llReturnPrice;
+//    @BindView(R.id.fragment_my_ll_to_pay)
+//    LinearLayout llToPay;
+//    @BindView(R.id.fragment_my_ll_to_trip)
+//    LinearLayout llToTrip;
+//    @BindView(R.id.fragment_my_ll_to_comment)
+//    LinearLayout llComment;
+//    @BindView(R.id.fragment_my_ll_return_price)
+//    LinearLayout llReturnPrice;
     @BindView(R.id.fragment_my_rl_focus)
     RelativeLayout rlFocus;
     @BindView(R.id.fragment_my_rl_collection)
@@ -76,16 +76,16 @@ public class MyFragment extends BaseFragment {
     RelativeLayout rlComment;
     @BindView(R.id.fragment_my_rl_history)
     RelativeLayout rlHistory;
-    @BindView(R.id.fragment_my_ll_draft)
-    LinearLayout llDraft;
-    @BindView(R.id.fragment_my_ll_create_friend_remember)
-    LinearLayout llFriendRemember;
+//    @BindView(R.id.fragment_my_ll_draft)
+//    LinearLayout llDraft;
+//    @BindView(R.id.fragment_my_ll_create_friend_remember)
+//    LinearLayout llFriendRemember;
     @BindView(R.id.fragment_my_person_set)
     RelativeLayout rlPersonSet;
-    @BindView(R.id.fragment_my_ll_my_friend_remember)
-    LinearLayout llMyFriendRemember;
-    @BindView(R.id.fragment_my_ll_my_intercalation)
-    LinearLayout llMyIntercalation;
+//    @BindView(R.id.fragment_my_ll_my_friend_remember)
+//    LinearLayout llMyFriendRemember;
+//    @BindView(R.id.fragment_my_ll_my_intercalation)
+//    LinearLayout llMyIntercalation;
     @BindView(R.id.fragment_my_rl_initiating_activities)
     RelativeLayout rlInitiating;
     @BindView(R.id.fragment_my_rl_join_activitys)
