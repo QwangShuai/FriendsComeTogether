@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -46,17 +47,21 @@ public class ParticipantsItemAdapter extends RecyclerView.Adapter<ParticipantsIt
                 Picasso.with(context).load(data.get(position).getUserpic()).into(holder.headIv);
             }
             holder.nicknameTv.setText(data.get(position).getUsername());
-            if(data.get(position).getNum().equals("1")){
-                holder.numTv.setVisibility(View.INVISIBLE);
-            } else {
-                holder.numTv.setText(data.get(position).getNum());
-            }
+//            if(data.get(position).getNum().equals("1")){
+//                holder.numTv.setVisibility(View.INVISIBLE);
+//            } else {
+//                holder.numTv.setText(data.get(position).getNum());
+//            }
             holder.personRl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent it = new Intent(context, OtherInformationActivity.class);
-                    it.putExtra("uid",data.get(position).getUserID());
-                    context.startActivity(it);
+                    if(data.get(position).getUserID().equals("0")){
+                        Toast.makeText(context, "无法查看匿名信息", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Intent it = new Intent(context, OtherInformationActivity.class);
+                        it.putExtra("uid",data.get(position).getUserID());
+                        context.startActivity(it);
+                    }
                 }
             });
         }

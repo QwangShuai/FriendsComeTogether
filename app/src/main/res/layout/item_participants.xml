@@ -26,6 +26,7 @@
         android:textColor="@color/black_333333"
         android:textSize="28px" />
     <TextView
+        android:visibility="gone"
         android:id="@+id/item_num"
         android:layout_alignParentRight="true"
         android:textColor="@color/white_ffffff"
