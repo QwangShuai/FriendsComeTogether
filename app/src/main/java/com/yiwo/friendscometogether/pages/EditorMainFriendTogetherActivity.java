@@ -65,6 +65,8 @@ import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.widget.CustomDatePicker;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -671,13 +673,17 @@ public class EditorMainFriendTogetherActivity extends TakePhotoActivity {
                             @Override
                             public void onSuccess(String data) {
                                 Log.i("123123", data);
-                                FocusOnToFriendTogetherModel model = new Gson().fromJson(data, FocusOnToFriendTogetherModel.class);
-                                if (model.getCode() == 200) {
-                                    Log.i("hhh", "执行成功");
-                                    finish();
-
-                                } else {
-                                    Toast.makeText(EditorMainFriendTogetherActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        FocusOnToFriendTogetherModel model = new Gson().fromJson(data, FocusOnToFriendTogetherModel.class);
+                                        Log.i("hhh", "执行成功");
+                                        finish();
+                                    } else {
+                                        Toast.makeText(EditorMainFriendTogetherActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
                             }
 
