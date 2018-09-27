@@ -50,7 +50,8 @@ public class MainActivity extends FragmentActivity {
 
     //安卓6.0动态获取权限
     String[] permissions = new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECORD_AUDIO};
+            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECORD_AUDIO
+    , Manifest.permission.CAMERA};
 
     List<String> mPermissionList = new ArrayList<>();
     boolean mShowRequestPermission = true;//用户是否禁止权限
