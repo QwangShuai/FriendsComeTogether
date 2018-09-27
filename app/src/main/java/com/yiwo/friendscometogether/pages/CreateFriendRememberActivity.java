@@ -30,7 +30,6 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.google.gson.Gson;
 import com.jph.takephoto.app.TakePhoto;
@@ -43,15 +42,10 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.base.BaseActivity;
-import com.yiwo.friendscometogether.custom.EditContentDialog;
-import com.yiwo.friendscometogether.custom.EditTitleDialog;
-import com.yiwo.friendscometogether.custom.PeoplePriceDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.GetFriendActiveListModel;
 import com.yiwo.friendscometogether.model.JsonBean;
-import com.yiwo.friendscometogether.model.UserActiveListModel;
 import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.model.UserReleaseModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -70,10 +64,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -575,11 +567,33 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
         super.takeSuccess(result);
         String url = result.getImage().getCompressPath();
         Log.e("222", result.getImage().getCompressPath());
+
+//        String oldName = url;
+//        String newName = url.substring(0, url.lastIndexOf("."))+".png";
+//        Log.e("222", newName);
+//        renameFile(oldName, newName);
+
         Picasso.with(CreateFriendRememberActivity.this).load("file://"+url).into(ivTitle);
         images = url;
         ivTitle.setVisibility(View.VISIBLE);
         tvFirstIv.setVisibility(View.VISIBLE);
         ivDelete.setVisibility(View.VISIBLE);
+    }
+
+    public void renameFile(String file, String toFile) {
+        File toBeRenamed = new File(file);
+        //检查要重命名的文件是否存在，是否是文件   
+        if (!toBeRenamed.exists() || toBeRenamed.isDirectory()) {
+            System.out.println("File does not exist: " + file);
+            return;
+        }
+        File newFile = new File(toFile);
+        //修改文件名   
+        if (toBeRenamed.renameTo(newFile)) {
+            System.out.println("File has been renamed.");
+        } else {
+            System.out.println("Error renmaing file");
+        }
     }
 
     @Override
