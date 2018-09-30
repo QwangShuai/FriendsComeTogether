@@ -1,13 +1,24 @@
 package com.yiwo.friendscometogether.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -36,6 +47,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +72,10 @@ public class ToPayFragment extends OrderBaseFragment {
     private IWXAPI api;
 
     private int page = 1;
+
+    private PopupWindow popupWindow;
+
+    private static final int SDK_PAY_FLAG = 1;
 
     @Override
     public View initView() {
@@ -177,30 +193,7 @@ public class ToPayFragment extends OrderBaseFragment {
                                 adapter.setOnPayListener(new FragmentToPayAdapter.OnPayListener() {
                                     @Override
                                     public void onPay(int position) {
-                                        ViseHttp.POST(NetConfig.orderToPayUrl)
-                                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.orderToPayUrl))
-                                                .addParam("order_id", mList.get(position).getOID())
-                                                .request(new ACallback<String>() {
-                                                    @Override
-                                                    public void onSuccess(String data) {
-                                                        try {
-                                                            JSONObject pay = new JSONObject(data);
-                                                            if(pay.getInt("code") == 200){
-                                                                Gson gson1 = new Gson();
-                                                                OrderToPayModel model1 = gson1.fromJson(data, OrderToPayModel.class);
-                                                                wxPay(model1.getObj());
-                                                                getActivity().finish();
-                                                            }
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onFail(int errCode, String errMsg) {
-
-                                                    }
-                                                });
+                                        showCompletePopupwindow(mList.get(position).getOID());
                                     }
                                 });
                                 adapter.setOnCancelListener(new FragmentToPayAdapter.OnCancelListener() {
@@ -320,6 +313,150 @@ public class ToPayFragment extends OrderBaseFragment {
         req.sign = model.getSign();
         req.extData = "app data";
         api.sendReq(req);
+    }
+
+    public void aliPay(String info) {
+        final String orderInfo = info;   // 订单信息
+
+        Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(getActivity());
+                Map<String, String> result = alipay.payV2(orderInfo,true);
+                Log.e("123123", result.toString());
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG:
+                    Map<String, String> result = (Map<String, String>) msg.obj;
+                    if(result.get("resultStatus").equals("9000")){
+                        Toast.makeText(getContext(), "支付成功", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                    }
+                    break;
+            }
+        }
+
+    };
+
+    private void showCompletePopupwindow(final String OId) {
+
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.popupwindow_paytype, null);
+        ScreenAdapterTools.getInstance().loadView(view);
+
+        TextView tvWx = view.findViewById(R.id.popupwindow_complete_tv_release);
+//        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
+        TextView tvAli = view.findViewById(R.id.popupwindow_complete_tv_next);
+        TextView tvCancel = view.findViewById(R.id.popupwindow_complete_tv_cancel);
+
+        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        // 设置点击窗口外边窗口消失
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        // 设置popWindow的显示和消失动画
+        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
+        WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
+        params.alpha = 0.5f;
+        getActivity().getWindow().setAttributes(params);
+        popupWindow.update();
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            // 在dismiss中恢复透明度
+            public void onDismiss() {
+                WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
+                params.alpha = 1f;
+                getActivity().getWindow().setAttributes(params);
+            }
+        });
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+
+        tvWx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+                ViseHttp.POST(NetConfig.orderToPayUrl)
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.orderToPayUrl))
+                        .addParam("order_id", OId)
+                        .addParam("type", "0")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("222", data);
+                                try {
+                                    JSONObject pay = new JSONObject(data);
+                                    if (pay.getInt("code") == 200) {
+                                        Gson gson1 = new Gson();
+                                        OrderToPayModel model1 = gson1.fromJson(data, OrderToPayModel.class);
+                                        wxPay(model1.getObj());
+                                        getActivity().finish();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+        });
+
+        tvAli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+                ViseHttp.POST(NetConfig.orderToPayUrl)
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.orderToPayUrl))
+                        .addParam("order_id", OId)
+                        .addParam("type", "1")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("222", data);
+                                try {
+                                    JSONObject pay = new JSONObject(data);
+                                    if (pay.getInt("code") == 300) {
+                                        aliPay(pay.optString("obj"));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+        });
+
     }
 
 }

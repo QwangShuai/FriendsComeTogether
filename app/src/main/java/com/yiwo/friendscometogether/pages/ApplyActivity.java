@@ -443,6 +443,10 @@ public class ApplyActivity extends BaseActivity {
             switch (msg.what) {
                 case SDK_PAY_FLAG:
                     Map<String, String> result = (Map<String, String>) msg.obj;
+                    if(result.get("resultStatus").equals("9000")){
+                        Toast.makeText(ApplyActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
                     break;
             }
         }
