@@ -243,4 +243,6 @@ public class NetConfig {
     public static String disbandedGroupUrl = "action/ac_public/DisbandedGroup";
     //获取全球国家名称
     public static String otherCityUrl = "action/ac_public/get_country";
+    //删除评论
+    public static String deleteCommentUrl = "action/ac_article/CommentaryDeleting";
 }

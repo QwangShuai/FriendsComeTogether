@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -158,6 +159,44 @@ public class MyCommentActivity extends BaseActivity {
                                 recyclerView.setAdapter(adapter);
                                 page = page + 1;
                                 Log.e("222", page + "");
+                                adapter.setOnDeleteListener(new MyCommentAdapter.OnDelete() {
+                                    @Override
+                                    public void onDelete(final int position) {
+                                        toDialog(MyCommentActivity.this, "提示", "是否删除评论", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                ViseHttp.POST(NetConfig.deleteCommentUrl)
+                                                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteCommentUrl))
+                                                        .addParam("id", mList.get(position).getFcID())
+                                                        .request(new ACallback<String>() {
+                                                            @Override
+                                                            public void onSuccess(String data) {
+                                                                try {
+                                                                    JSONObject jsonObject1 = new JSONObject(data);
+                                                                    if(jsonObject1.getInt("code") == 200){
+                                                                        toToast(MyCommentActivity.this, "删除成功");
+                                                                        mList.remove(position);
+                                                                        adapter.notifyDataSetChanged();
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFail(int errCode, String errMsg) {
+
+                                                            }
+                                                        });
+                                            }
+                                        }, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

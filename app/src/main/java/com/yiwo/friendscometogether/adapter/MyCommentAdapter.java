@@ -25,6 +25,11 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
 
     private Context context;
     private List<ArticleCommentListModel.ObjBean> data;
+    private OnDelete onDelete;
+
+    public void setOnDeleteListener(OnDelete onDelete){
+        this.onDelete = onDelete;
+    }
 
     public MyCommentAdapter(List<ArticleCommentListModel.ObjBean> data) {
         this.data = data;
@@ -60,6 +65,12 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
         }else {
             holder.recyclerView.setVisibility(View.GONE);
         }
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDelete.onDelete(position);
+            }
+        });
     }
 
     @Override
@@ -75,6 +86,7 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
         private TextView tvContent;
         private TextView tvTime;
         private RecyclerView recyclerView;
+        private TextView tvDelete;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -84,7 +96,12 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
             tvContent = itemView.findViewById(R.id.activity_article_comment_rv_tv_content);
             tvTime = itemView.findViewById(R.id.activity_article_comment_rv_tv_time);
             recyclerView = itemView.findViewById(R.id.activity_article_comment_rv_rv);
+            tvDelete = itemView.findViewById(R.id.activity_article_comment_rv_tv_delete);
         }
+    }
+
+    public interface OnDelete{
+        void onDelete(int position);
     }
 
 }

@@ -86,6 +86,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/activity_article_comment_rv_tv_delete"
+                android:layout_marginTop="10px"
+                android:layout_below="@+id/activity_article_comment_rv_tv_content"
+                android:layout_marginRight="40px"
+                android:layout_alignParentRight="true"
+                android:textSize="26px"
+                android:textColor="@color/black_333333"
+                android:text="删除"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </RelativeLayout>
 
     </LinearLayout>

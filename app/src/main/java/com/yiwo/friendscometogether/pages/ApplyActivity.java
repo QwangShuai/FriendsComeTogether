@@ -1,9 +1,12 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -33,6 +38,10 @@ import com.yiwo.friendscometogether.utils.StringUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Map;
+
+import javax.xml.transform.Result;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,6 +115,8 @@ public class ApplyActivity extends BaseActivity {
      */
     private String isNoname = "";
     private String isNonameChoice = "";
+
+    private static final int SDK_PAY_FLAG = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,25 +275,25 @@ public class ApplyActivity extends BaseActivity {
             View v = LayoutInflater.from(this).inflate(R.layout.include_payment, null);
             ScreenAdapterTools.getInstance().loadView(v);
             RelativeLayout wachat_pay = (RelativeLayout) v.findViewById(R.id.wechat_pay);
-//            RelativeLayout alipay_alipay = (RelativeLayout) v.findViewById(R.id.alipay_pay);
+            RelativeLayout alipay_alipay = (RelativeLayout) v.findViewById(R.id.alipay_pay);
             final ImageView wechatIv = (ImageView) v.findViewById(R.id.wechatIv);
-//            final ImageView alipayIv = (ImageView) v.findViewById(R.id.alipayIv);
+            final ImageView alipayIv = (ImageView) v.findViewById(R.id.alipayIv);
             wachat_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     payState = 0;
                     wechatIv.setImageResource(R.mipmap.apply_true);
-//                    alipayIv.setImageResource(R.mipmap.apply_false);
+                    alipayIv.setImageResource(R.mipmap.apply_false);
                 }
             });
-//            alipay_alipay.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    payState = 1;
-//                    wechatIv.setImageResource(R.mipmap.apply_false);
-//                    alipayIv.setImageResource(R.mipmap.apply_true);
-//                }
-//            });
+            alipay_alipay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    payState = 1;
+                    wechatIv.setImageResource(R.mipmap.apply_false);
+                    alipayIv.setImageResource(R.mipmap.apply_true);
+                }
+            });
             apply_vessel_ll.addView(v);
             apply_btn.setVisibility(View.INVISIBLE);
             llPay.setVisibility(View.VISIBLE);
@@ -370,6 +381,10 @@ public class ApplyActivity extends BaseActivity {
                                     Paymodel paymodel = new Gson().fromJson(data, Paymodel.class);
                                     toToast(ApplyActivity.this, "微信支付");
                                     wxPay(paymodel.getObj());
+                                }else if(jsonObject.getInt("code") == 300){
+                                    toToast(ApplyActivity.this, "支付宝支付");
+                                    Log.e("123123", jsonObject.optString("obj"));
+                                    aliPay(jsonObject.optString("obj"));
                                 } else if (jsonObject.getInt("code") == 201) {
                                     toToast(ApplyActivity.this, "报名成功");
                                     finish();
@@ -399,4 +414,39 @@ public class ApplyActivity extends BaseActivity {
         api.sendReq(req);
         finish();
     }
+
+    public void aliPay(String info) {
+        final String orderInfo = info;   // 订单信息
+
+        Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(ApplyActivity.this);
+                Map<String, String> result = alipay.payV2(orderInfo,true);
+
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG:
+                    Map<String, String> result = (Map<String, String>) msg.obj;
+                    break;
+            }
+        }
+
+    };
+
 }

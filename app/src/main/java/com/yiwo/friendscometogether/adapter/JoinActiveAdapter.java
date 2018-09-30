@@ -77,7 +77,7 @@ public class JoinActiveAdapter extends RecyclerView.Adapter<JoinActiveAdapter.Vi
         holder.focusOnTv.setText("关注：" + data.get(position).getFocusOn());
 
         if(data.get(position).getIs_over().equals("0")){
-            holder.tvll2.setText("咨询队长");
+            holder.tvll2.setText("咨询");
             holder.tvll3.setText("取消活动");
         }else if(data.get(position).getIs_over().equals("1")){
             holder.tvll2.setText("评价");
