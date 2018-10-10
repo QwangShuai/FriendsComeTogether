@@ -343,7 +343,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
             public void handle(String time) { // 回调接口，获得选中的时间
                 tvTimeStart.setText(time);
             }
-        }, now, "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        }, "2017-01-01 00:00", "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         customDatePicker1.showSpecificTime(true); // 不显示时和分
         customDatePicker1.setIsLoop(false); // 不允许循环滚动
 
@@ -352,7 +352,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
             public void handle(String time) { // 回调接口，获得选中的时间
                 tvTimeEnd.setText(time);
             }
-        }, now, "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        }, "2017-01-01 00:00", "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         customDatePicker2.showSpecificTime(true); // 显示时和分
         customDatePicker2.setIsLoop(false); // 允许循环滚动
     }
