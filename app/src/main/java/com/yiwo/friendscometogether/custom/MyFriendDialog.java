@@ -48,6 +48,7 @@ public class MyFriendDialog extends Dialog {
         if(type == 2){
             tvDelete.setText("彻底删除");
             tvBlack.setText("移出黑名单");
+            tvInformation.setVisibility(View.GONE);
         }
         tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override

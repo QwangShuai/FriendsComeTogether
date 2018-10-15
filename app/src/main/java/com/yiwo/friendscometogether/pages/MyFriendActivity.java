@@ -169,7 +169,7 @@ public class MyFriendActivity extends AppCompatActivity {
                                                         break;
                                                     case 2:
                                                         Intent intent = new Intent();
-                                                        intent.putExtra("uid", mDatas.get(i).getId());
+                                                        intent.putExtra("uid", mDatas.get(i).getUid());
                                                         intent.setClass(MyFriendActivity.this, OtherInformationActivity.class);
                                                         startActivity(intent);
                                                         break;
