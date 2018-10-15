@@ -55,6 +55,7 @@ public class UserModel {
          * sign : 0
          */
 
+        private String vip;
         private String headeimg;
         private String username;
         private String sex;
@@ -66,6 +67,14 @@ public class UserModel {
         private String usermarry;
         private String usergrade;
         private String sign;
+
+        public String getVip() {
+            return vip;
+        }
+
+        public void setVip(String vip) {
+            this.vip = vip;
+        }
 
         public String getHeadeimg() {
             return headeimg;

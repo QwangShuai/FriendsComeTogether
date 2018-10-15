@@ -188,6 +188,11 @@ public class MyFragment extends BaseFragment {
                                     } else {
                                         Glide.with(getContext()).load(R.mipmap.sign_yellow).into(ivIsSign);
                                     }
+                                    //是否为vip
+                                    if(userModel.getObj().getVip().equals("1")){
+                                        rlCreateActivity.setVisibility(View.VISIBLE);
+                                        rlInitiating.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
