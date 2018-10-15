@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -131,6 +132,12 @@ public class BlackUserActivity extends BaseActivity {
 
                                                                     }
                                                                 });
+                                                        break;
+                                                    case 2:
+                                                        Intent intent = new Intent();
+                                                        intent.putExtra("uid", mList.get(i).getId());
+                                                        intent.setClass(BlackUserActivity.this, OtherInformationActivity.class);
+                                                        startActivity(intent);
                                                         break;
                                                 }
                                             }

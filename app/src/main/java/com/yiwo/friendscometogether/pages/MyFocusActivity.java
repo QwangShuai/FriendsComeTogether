@@ -360,7 +360,7 @@ public class MyFocusActivity extends BaseActivity {
                 if (activeList.size() > 0) {
                     AlertDialog.Builder singleChoiceDialog1 =
                             new AlertDialog.Builder(MyFocusActivity.this);
-                    singleChoiceDialog1.setTitle("请选择活动标题");
+                    singleChoiceDialog1.setTitle("请选择活动");
                     // 第二个参数是默认选项，此处设置为0
                     singleChoiceDialog1.setSingleChoiceItems(activeName, 0,
                             new DialogInterface.OnClickListener() {

@@ -167,6 +167,12 @@ public class MyFriendActivity extends AppCompatActivity {
                                                                     }
                                                                 });
                                                         break;
+                                                    case 2:
+                                                        Intent intent = new Intent();
+                                                        intent.putExtra("uid", mDatas.get(i).getId());
+                                                        intent.setClass(MyFriendActivity.this, OtherInformationActivity.class);
+                                                        startActivity(intent);
+                                                        break;
                                                 }
                                             }
                                         });

@@ -27,4 +27,18 @@
         android:layout_width="260dp"
         android:layout_height="50dp" />
 
+    <View
+        android:background="@color/line"
+        android:layout_width="260dp"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/tv_information"
+        android:textSize="16sp"
+        android:textColor="@color/black_333333"
+        android:gravity="center"
+        android:text="查看ta的主页"
+        android:layout_width="260dp"
+        android:layout_height="50dp" />
+
 </LinearLayout>
