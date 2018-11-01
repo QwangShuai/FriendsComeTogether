@@ -767,7 +767,7 @@ public class CreateFriendRememberActivity extends TakePhotoActivity {
         // 设置点击窗口外边窗口消失
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
-        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
         // 设置popWindow的显示和消失动画
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
         WindowManager.LayoutParams params = getWindow().getAttributes();
